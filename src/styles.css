@@ -59,7 +59,8 @@
   .nav-links{display:flex;gap:6px;margin-left:6px}
   .menu{position:relative}
   .menu>button,.menu>a{background:none;border:0;color:#d9d3c8;font-weight:600;font-size:.95rem;display:inline-flex;align-items:center;gap:5px;cursor:pointer;padding:10px 10px;text-decoration:none;border-radius:6px}
-  .menu>button:hover,.menu.open>button,.menu>button[aria-current="true"]{color:#fff;background:#24201b}
+  .menu>button:hover,.menu.open>button,.menu>button[aria-current="true"],.menu>a[aria-current="true"]{color:#fff;background:#24201b}
+  .nav-about{color:var(--gold-2)!important;font-weight:700}
   .menu>button svg{width:12px;height:12px;transition:transform .15s}
   .menu.open>button svg{transform:rotate(180deg)}
   .dd{position:absolute;top:calc(100% + 6px);left:0;min-width:250px;background:var(--paper);border-radius:12px;box-shadow:0 18px 50px rgba(0,0,0,.28);padding:8px;display:none;z-index:5}

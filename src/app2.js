@@ -848,7 +848,7 @@ function buildChrome() {
   </div></header>`;
   $("#chromeBottom").innerHTML = `
   <footer><div class="wrap"><div class="fgrid">
-    <div><img src="${img("timeless-logo")}" alt="Timeless Trailers"><p>Authorized Timpte Equipment Trailer dealer · ${esc(b.address)} · ${b.phone} · ${b.hours}</p><a class="tbadge" href="${b.timpte}" target="_blank" rel="noopener"><img src="${img("timpte-et-logo")}" alt="Timpte Equipment Trailers" loading="lazy"><span>Authorized dealer</span></a></div>
+    <div><img src="${img("timeless-logo")}" alt="Timeless Trailers"><p>The only exclusive Timpte Equipment Trailer dealer in the United States · ${esc(b.address)} · ${b.phone} · ${b.hours}</p><a class="tbadge" href="${b.timpte}" target="_blank" rel="noopener"><img src="${img("timpte-et-logo")}" alt="Timpte Equipment Trailers" loading="lazy"><span>Exclusive dealer</span></a></div>
     <div><h4>Shop</h4><a href="#/inventory">On the lot</a><a href="#/inventory?s=lineup">Lineup</a><a href="#/finder">Trailer Finder</a><a href="#/compare">Compare</a></div>
     <div><h4>Own</h4><a href="#/parts">Parts</a><a href="#/service">Service</a><a href="#/service?s=resources">Owner resources</a><a href="#/financing">Financing</a></div>
     <div><h4>Company</h4><a href="#/about">About</a><a href="#/about?s=visit">Visit</a><a href="#/about?s=contact">Contact</a><a href="#/account">My Account</a><a href="#/admin">Dealer console</a></div>
