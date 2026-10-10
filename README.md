@@ -4,7 +4,10 @@ A clickable mock-up for Matt Lyons's Timpte dealership in Waxhaw, NC, built by A
 
 ## Where we left off (October 10, 2026)
 
-- **v3 lite is built** and lives in the `site` folder. Matt reviews it next.
+- **v3 is built** (real Timpte models plus the flair pass: full-screen video hero, exclusive-dealer band, photo tiles and backdrops, lightbox galleries). Matt reviews it next.
+- **Confirm with Matt:** the exact wording of "The only exclusive Timpte Equipment Trailer dealer in the United States" (hero, band under the hero, About) before it goes beyond the mock-up.
+- **Hero video:** `site/video/hero-full.mp4` is a 59-second silent montage; `tools/hero_montage.ps1` rebuilds it if the clips should change.
+- **Search engines:** the mock-up is one page with `#/` addresses and is marked noindex. The finished site needs one real address per model and category plus a sitemap; the structured data in `src/shell.html` (built by `build.py`) carries over.
 - **To look at it:** double-click `preview.bat`. Your browser opens it at http://localhost:8766. Or open the hosted link once Cloudflare is connected (see below).
 - **Still sample:** prices, stock numbers, who's on the lot, the demo people, machine weights and truck tow ratings. Everything about the trailers themselves comes from Timpte's 2026 spec sheets.
 - **Not built yet** (listed on the site's "What the finished site adds" page): the other 9 Timpte models, video chapters and a Videos page, owner how-to videos, part-number lookup, Andy answering spec questions, Matt's real inventory, quotes and holds going to a real inbox.
