@@ -156,11 +156,11 @@ const DATA = {
   series: { tilt: "Powerhouse", deckover: "Powerhouse", gooseneck: "Powerhouse", dump: "Powerhouse", ezload: "Motorsports" },
 
   categories: [
-    { type: "tilt", title: "Split Tilt", blurb: "Tilt decks for skid steers and mini excavators. No ramps to lift.", img: "g-1420st-1", series: "Powerhouse" },
-    { type: "deckover", title: "Deck Over", blurb: "A full 98-inch deck above the wheels for wide machines and vehicles.", img: "g-1620do-1", series: "Powerhouse" },
-    { type: "gooseneck", title: "Gooseneck", blurb: "Steadier on long runs with bigger machines.", img: "g-1620gn-1", series: "Powerhouse" },
-    { type: "dump", title: "Dump", blurb: "Aluminum dump boxes with no structural welds. Nothing to rust out.", img: "card-1614d", series: "Powerhouse" },
-    { type: "ezload", title: "EZ Load", blurb: "Powered decks that drop low for cars, UTVs, mowers and golf carts.", img: "g-1020-1", series: "Motorsports" }
+    { type: "tilt", title: "Split Tilt", blurb: "Tilt decks for skid steers and mini excavators. No ramps to lift.", img: "g-1420st-1", tile: "tile-tilt", series: "Powerhouse" },
+    { type: "deckover", title: "Deck Over", blurb: "A full 98-inch deck above the wheels for wide machines and vehicles.", img: "g-1620do-1", tile: "tile-deckover", series: "Powerhouse" },
+    { type: "gooseneck", title: "Gooseneck", blurb: "Steadier on long runs with bigger machines.", img: "g-1620gn-1", tile: "tile-gooseneck", series: "Powerhouse" },
+    { type: "dump", title: "Dump", blurb: "Aluminum dump boxes with no structural welds. Nothing to rust out.", img: "card-1614d", tile: "tile-dump", series: "Powerhouse" },
+    { type: "ezload", title: "EZ Load", blurb: "Powered decks that drop low for cars, UTVs, mowers and golf carts.", img: "g-1020-1", tile: "tile-ezload", series: "Motorsports" }
   ],
 
   /* Videos (compressed copies of Timpte's dealer videos, in site/video/) */

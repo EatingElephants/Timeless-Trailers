@@ -21,6 +21,35 @@ VIEWS.vision = {
   }
 };
 
+
+/* ---------- flair: reveal on scroll, counters, lightbox ---------- */
+function enhance() {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const rv = $$(".rv");
+  if (reduce || !("IntersectionObserver" in window)) rv.forEach(e => e.classList.add("in"));
+  else { const io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { x.target.classList.add("in"); io.unobserve(x.target); } }), { threshold: .15 }); rv.forEach(e => io.observe(e)); }
+  $$("[data-count]").forEach(el => {
+    const end = +el.dataset.count; if (reduce || !end) return;
+    const t0 = performance.now(), dur = 900;
+    const step = now => { const p = Math.min(1, (now - t0) / dur); el.textContent = Math.round(end * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  });
+}
+let lbIndex = 0;
+function openLightbox(i) {
+  const links = $$("[data-gallery] a"); if (!links.length) return;
+  lbIndex = (i + links.length) % links.length;
+  let dlg = $("#lightbox");
+  if (!dlg) {
+    dlg = document.createElement("dialog"); dlg.id = "lightbox"; dlg.className = "lightbox";
+    dlg.innerHTML = `<div class="lb-wrap"><img alt=""></div><button class="lb-prev" data-act="lb-prev" aria-label="Previous photo">‹</button><button class="lb-next" data-act="lb-next" aria-label="Next photo">›</button><button class="lb-x" data-act="lb-close" aria-label="Close">×</button><div class="lb-cap"></div>`;
+    dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+    document.body.appendChild(dlg);
+  }
+  const a = links[lbIndex]; $("img", dlg).src = a.getAttribute("href"); $(".lb-cap", dlg).textContent = `${lbIndex + 1} of ${links.length} · ${$("img", a).alt}`;
+  if (!dlg.open) dlg.showModal();
+}
+
 /* ---------- admin ---------- */
 const adm = { tab: "inventory", log: [], pending: {}, booted: false, syncing: false };
 const STAGES = ["New", "Contacted", "Quoted", "Won", "Lost"];
@@ -679,7 +708,7 @@ function render(keepScroll) {
   $("#app").innerHTML = v.html(route);
   document.title = v.title;
   if (v.mount) v.mount(route);
-  updateChrome(); refreshHearts(); closeMenus(); closeDrawer();
+  updateChrome(); refreshHearts(); closeMenus(); closeDrawer(); enhance();
   if (keepScroll) window.scrollTo(0, y);
   else if (route.q.s) setTimeout(() => { const el = document.getElementById(route.q.s) || (route.q.s === "watch" ? document.querySelector(".vid") : null); if (el) el.scrollIntoView({ behavior: prev === route.name ? "smooth" : "auto" }); }, 30);
   else window.scrollTo(0, 0);
@@ -690,11 +719,15 @@ document.addEventListener("click", e => {
   const menuBtn = e.target.closest(".menu > button");
   if (menuBtn) { const m = menuBtn.parentNode; const open = !m.classList.contains("open"); closeMenus(m); m.classList.toggle("open", open); menuBtn.setAttribute("aria-expanded", open); return; }
   if (!e.target.closest(".menu")) closeMenus();
+  const lb = e.target.closest("[data-lb]"); if (lb) { e.preventDefault(); openLightbox(+lb.dataset.lb); return; }
   const el = e.target.closest("[data-act]"); if (!el) return;
   const a = el.dataset.act, id = el.dataset.id;
   if (el.tagName === "SELECT" || (el.tagName === "INPUT" && el.type !== "checkbox")) return;
   switch (a) {
     case "save": e.preventDefault(); toggleSave(id); break;
+    case "lb-prev": openLightbox(lbIndex - 1); break;
+    case "lb-next": openLightbox(lbIndex + 1); break;
+    case "lb-close": $("#lightbox").close(); break;
     case "cmp-toggle": toggleCompare(id); break;
     case "cmp-btn": toggleCompare(id); break;
     case "cmp-remove": toggleCompare(id); render(true); break;
@@ -795,6 +828,7 @@ document.addEventListener("input", e => {
 });
 document.addEventListener("submit", e => { const f = e.target; const k = f.dataset.form; if (!k || !FORMS[k]) return; e.preventDefault(); FORMS[k](f); });
 document.addEventListener("keydown", e => {
+  const lbd = $("#lightbox"); if (lbd && lbd.open) { if (e.key === "ArrowLeft") openLightbox(lbIndex - 1); if (e.key === "ArrowRight") openLightbox(lbIndex + 1); return; }
   if (e.key !== "Escape") return;
   if ($("#modal")) closeModal(); else if ($("#drawer")) closeDrawer(); else if ($(".menu.open")) closeMenus(); else if (!$("#tzPanel").hidden) closeChat();
 });

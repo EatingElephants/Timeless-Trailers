@@ -337,19 +337,21 @@ VIEWS.home = {
     const featured = Object.values(groups).sort((a, b) => b.length - a.length || b[0].price - a[0].price).slice(0, 3);
     const tryChips = ["Bobcat T66 and a 2022 F-250", "Car hauler for a '67 Mustang", "Two UTVs, Silverado 1500", "What's on the lot?"];
     return `
-<section class="hero" style="padding:0"><div class="wrap hero-grid"><div>
-  <div class="eyebrow">Authorized Timpte Equipment Trailer dealer · Waxhaw, NC</div>
+<section class="hero hero-full"><video class="hero-bg" autoplay muted loop playsinline poster="video/hero-full.webp" aria-hidden="true"><source src="video/hero-full.mp4" type="video/mp4"></video><div class="hero-shade"></div><div class="wrap hero-inner">
+  <div class="eyebrow">The only exclusive Timpte Equipment Trailer dealer in the U.S. · Waxhaw, NC</div>
   <h1 style="margin-top:16px">Built once. <span>Lasts forever.</span></h1>
   <p class="lede">All-aluminum Timpte trailers for contractors, haulers and weekend toys, sold by a local dealer who picks up the phone. See what's on the lot today, or tell us what you haul and we'll match the trailer.</p>
   <form class="hero-ask" data-form="hero-ask"><i class="av">${A[0]}</i><label for="heroAsk" class="sr">Tell ${A} what you haul</label><input id="heroAsk" name="q" placeholder="Tell ${A} what you haul…" autocomplete="off"><button class="btn btn-gold" type="submit" aria-label="Send to ${A}">${ICON.send}<span>Ask</span></button></form>
   <div class="hero-try"><span>Try:</span>${tryChips.map(c => `<button type="button" data-act="say" data-say="${esc(c)}">${esc(c)}</button>`).join("")}</div>
   <div class="hero-ctas"><a class="btn btn-dark" href="#/inventory">See what's on the lot</a><a class="btn btn-line" href="#/finder">Find my trailer</a></div>
   <div class="trustrow"><span>${tick}3-year manufacturer warranty</span><span>${tick}Financing available</span><span>${tick}No rust. All aluminum.</span></div>
-</div><div class="hero-art"><video class="hero-video" autoplay muted loop playsinline poster="video/hero-loop.webp" aria-label="A side-by-side driving onto a Timpte EZ Load trailer"><source src="video/hero-loop.mp4" type="video/mp4"></video><a class="stock-badge" href="#/inventory"><b>${lot.length}</b><span>Trailers ready today</span></a></div></div></section>
+  <a class="stock-badge" href="#/inventory"><b>${lot.length}</b><span>Trailers ready today</span></a></div><div class="hero-scroll" aria-hidden="true"><span>Scroll</span><i></i></div></section>
+
+${exclHTML()}
 
 <div class="stats"><div class="wrap stats-grid">
-  <div class="stat"><b>${DATA.business.modelsCarried}</b><span>Timpte models available to order</span></div>
-  <a class="stat" href="#/inventory"><b>${lot.length}</b><span>Units on the lot today</span></a>
+  <div class="stat"><b data-count="${DATA.business.modelsCarried}">${DATA.business.modelsCarried}</b><span>Timpte models available to order</span></div>
+  <a class="stat" href="#/inventory"><b data-count="${lot.length}">${lot.length}</b><span>Units on the lot today</span></a>
   <button class="stat" data-act="tessa-open"><b>24/7<i class="live-dot"></i></b><span>${A}, our AI trailer advisor</span><em>Ask now →</em></button>
   <a class="stat" href="#/service"><b>Local</b><span>Parts, service and warranty in Waxhaw</span></a>
 </div></div>
@@ -360,15 +362,15 @@ VIEWS.home = {
 </div></section>
 
 <section id="shop"><div class="wrap">
-  <div class="sec-head"><div><div class="eyebrow">Shop by category</div><h2 style="margin-top:10px">Start with what you haul.</h2></div><a class="btn btn-line sm" href="#/finder">Not sure? Use the Finder</a></div>
+  <div class="sec-head rv"><div><div class="eyebrow">Shop by category</div><h2 style="margin-top:10px">Start with what you haul.</h2></div><a class="btn btn-line sm" href="#/finder">Not sure? Use the Finder</a></div>
   <div class="cat-grid">${DATA.categories.map(c => { const n = S.inventory.filter(t => t.type === c.type && t.status === "lot").length;
-    return `<a class="cat" href="#/inventory?type=${c.type}"><div class="ph"><img src="${img(c.img)}" alt="" loading="lazy"></div><div class="cb"><b>${c.title}</b><p>${c.blurb}</p><span class="cnt">${n} on the lot →</span></div></a>`; }).join("")}</div>
+    return `<a class="cat rv" href="#/inventory?type=${c.type}"><div class="ph"><img src="${img(c.tile || c.img)}" alt="" loading="lazy"></div><span class="series">Timpte ${c.series}</span><div class="cb"><b>${c.title}</b><p>${c.blurb}</p><span class="cnt">${n} on the lot →</span></div></a>`; }).join("")}</div>
 </div></section>
 
 <section class="lot" id="lot" style="padding-top:0"><div class="wrap">
-  <div class="sec-head"><div><div class="eyebrow">On the lot now</div><h2 style="margin-top:10px">Ready to hitch up today.</h2><p class="lede">These units are in our Waxhaw yard right now. Reserve one online and we'll hold it while you get your truck here.</p></div><a class="btn btn-line sm" href="#/inventory">All ${lot.length} on the lot</a></div>
+  <div class="sec-head rv"><div><div class="eyebrow">On the lot now</div><h2 style="margin-top:10px">Ready to hitch up today.</h2><p class="lede">These units are in our Waxhaw yard right now. Reserve one online and we'll hold it while you get your truck here.</p></div><a class="btn btn-line sm" href="#/inventory">All ${lot.length} on the lot</a></div>
   <div class="lot-grid">${featured.map(g => { const t = g[0]; const last = g.length === 1;
-    return `<article class="unit"><div class="unit-photo"><img src="${img(t.img)}" alt="${esc(t.model)}" loading="lazy"><span class="status ${last ? "last" : "in"}">${last ? "Last one" : "On the lot now"}</span><div class="qty"><b>${g.length}</b><span>${last ? "Left" : "Available"}</span></div></div>
+    return `<article class="unit rv"><div class="unit-photo"><img src="${img(t.img)}" alt="${esc(t.model)}" loading="lazy"><span class="status ${last ? "last" : "in"}">${last ? "Last one" : "On the lot now"}</span><div class="qty"><b>${g.length}</b><span>${last ? "Left" : "Available"}</span></div></div>
       <div class="unit-body"><span class="line">${typeLabel(t.type)} series</span><h3>${esc(t.model)}</h3><p>${esc(t.blurb)}</p><ul class="feat">${t.feat.map(f => `<li>${esc(f)}</li>`).join("")}</ul>
       <span class="cta-note">${last ? "Last one on the lot. Hold it with a deposit." : "Ready to haul today. From " + money(Math.min.apply(null, g.map(x => x.price))) + "."}</span>
       <div class="btns"><button class="btn btn-gold" data-act="hold" data-id="${t.id}">Reserve this trailer</button><button class="btn btn-line" data-act="ask" data-id="${t.id}" aria-label="Ask ${A} about the ${esc(t.model)}">Ask</button></div></div></article>`; }).join("")}</div>
@@ -401,8 +403,8 @@ ${WHY}
   <div class="tq-grid">${DATA.testimonials.map(t => `<figure class="tq"><span class="stars" aria-label="5 stars">★★★★★</span><blockquote>“${esc(t.q)}”</blockquote><figcaption><b>${esc(t.who)}</b>${esc(t.what)}</figcaption></figure>`).join("")}</div>
 </div></section>
 
-<section id="quote" style="padding-top:0"><div class="wrap quote-grid"><div id="visit">
-  <div class="eyebrow">Visit · Quote or reserve</div><h2 style="margin-top:10px">Tell us what you haul.</h2>
+<section id="quote" class="bgsec quote-bg"><div class="wrap quote-grid"><div id="visit">
+  <div class="eyebrow" style="color:var(--gold-2)">Visit · Quote or reserve</div><h2 style="margin-top:10px">Tell us what you haul.</h2>
   <p class="lede">A few details get you a real answer the same business day: the right model, what's on the lot, and pricing.</p>${visitList()}
 </div>${quoteFormHTML(route.q.m)}</div></section>
 
@@ -412,8 +414,19 @@ ${WHY}
   mount() { mountMatcher(); startDemoChat(); }
 };
 
+function exclHTML(cls = "") {
+  return `<section class="excl ${cls}" id="exclusive"><div class="wrap excl-grid">
+  <div class="excl-logo rv"><img src="${img("timpte-et-logo")}" alt="Timpte Equipment Trailers" loading="lazy"><span>Exclusive dealer</span></div>
+  <div class="rv rv-d1"><div class="eyebrow">One of a kind</div>
+    <h2 style="margin-top:10px">The only <em>exclusive</em> Timpte Equipment Trailer dealer in the United States.</h2>
+    <p class="lede">Timeless Trailers sells Timpte and nothing else. No other dealer in the country has made that commitment. It means every trailer on our lot is aluminum, built without structural welds, and backed by a dealer who knows the whole line inside and out.</p>
+    <span class="pin">${ICON.pinFill}Waxhaw, North Carolina · serving the Carolinas</span>
+    <p class="confirm-note">Mock-up note for Matt: confirm the exact wording of the exclusivity claim before launch.</p>
+  </div></div></section>`;
+}
+
 function meetHTML() {
-  return `<section class="meet" id="meet"><div class="wrap meet-grid"><div>
+  return `<section class="meet bgsec" id="meet"><div class="wrap meet-grid"><div>
   <div class="eyebrow" style="color:var(--gold-2)">AI trailer advisor</div>
   <h2 style="margin-top:10px">Meet <span>${A}.</span></h2>
   <p class="lede">${A} knows every unit on our lot and the weight of the machines you're likely to haul. Give it the load and the truck and it does the math the way we would at the counter: payload, deck, loading angle, tow rating. Day or night.</p>
@@ -507,7 +520,7 @@ VIEWS.inventory = {
       <p class="rcount" id="invCount" aria-live="polite"></p>
       <div class="tgrid" id="invGrid"></div>
     </div></section>
-    <section id="lineup" style="background:var(--paper);border-top:1px solid var(--line)"><div class="wrap">
+    <section id="lineup" class="bgsec lineup-bg"><div class="wrap">
       <div class="sec-head"><div><div class="eyebrow">The Timpte lineup</div><h2 style="margin-top:10px">Available to order.</h2><p class="lede">Not on the lot? We order the configuration you need straight from Timpte. <a href="specs/timpte-equipment-trailer-catalog-2026.pdf" target="_blank" rel="noopener">Download the full 2026 catalog (PDF)</a>.</p></div>
       <div class="chips" role="group" aria-label="Filter lineup">${[["all", "All"], ["tilt", "Split Tilt"], ["deckover", "Deck Over"], ["gooseneck", "Gooseneck"], ["dump", "Dump"], ["ezload", "EZ Load"]].map(([f, l], i) => `<button class="chip" data-act="line-f" data-f="${f}" aria-pressed="${i === 0}">${l}</button>`).join("")}</div></div>
       <div class="line-grid">${DATA.lineup.map(l => `<button class="model" data-cat="${l.cat}" data-act="quote-model" data-model="${esc(l.model)}"><div class="ph"><img src="${img(l.img)}" alt="${esc(l.model)}" loading="lazy"></div><div class="mb"><em>${l.label}</em><b>${esc(l.name)}</b><span>${esc(l.use)}</span></div></button>`).join("")}
@@ -549,7 +562,7 @@ VIEWS.trailer = {
     return `<section style="padding-top:28px"><div class="wrap">
       <div class="crumbs"><a href="#/home">Home</a> / <a href="#/inventory">Inventory</a> / <a href="#/inventory?type=${t.type}">${typeLabel(t.type)}</a> / ${t.id}</div>
       <div class="detail-grid"><div>
-        <div class="dphoto"><img src="${img(t.gallery && t.gallery[0] || t.img)}" alt="${esc(tname(t))}"><span class="stag ${st.cls}">${st.label} · Stock ${t.id}</span></div>${t.gallery && t.gallery.length > 1 ? `<ul class="gallery">${t.gallery.map((g, i) => `<li><a href="${img(g)}" target="_blank" rel="noopener"><img src="${img(g)}" alt="${esc(tname(t))}, photo ${i + 1}" loading="lazy"></a></li>`).join("")}</ul>` : ""}${t.video ? `<div class="block"><h3>Watch it</h3>${videoHTML(t.video)}</div>` : ""}
+        ${t.video ? videoHTML(t.video, "dbig") : `<div class="dphoto"><img src="${img(t.gallery && t.gallery[0] || t.img)}" alt="${esc(tname(t))}"><span class="stag ${st.cls}">${st.label} · Stock ${t.id}</span></div>`}${t.gallery && t.gallery.length ? `<ul class="gallery" data-gallery>${t.gallery.map((g, i) => `<li><a href="${img(g)}" data-lb="${i}"><img src="${img(g)}" alt="${esc(tname(t))}, photo ${i + 1}" loading="lazy"></a></li>`).join("")}</ul>` : ""}
         <div class="block"><h3>About this unit</h3><p style="margin:0;color:var(--text-2)">${esc(t.blurb)}</p></div>
         <div class="block"><h3>Features</h3><ul class="flist">${t.features.map(x => `<li>${tick}${esc(x)}</li>`).join("")}</ul></div>
         <div class="block"><h3>Full specs</h3><table class="spec-table"><tbody>${rows.map(([k, v]) => `<tr><th scope="row">${k}</th><td>${esc(v)}</td></tr>`).join("")}</tbody></table>
@@ -775,7 +788,7 @@ VIEWS.about = {
   title: "About · Timeless Trailers",
   html(r) {
     return `<div class="page-head"><div class="wrap"><div class="crumbs"><a href="#/home">Home</a> / About</div><div class="eyebrow">Company</div><h1 style="margin-top:10px">A trailer dealer that picks up the phone.</h1>
-      <p class="lede">Timeless Trailers is an authorized Timpte dealer in Waxhaw, serving contractors, landscapers, farmers and weekend haulers across the Charlotte area. We sell one brand because we believe in how it's built: all aluminum, no rust, more payload for the same tow.</p></div></div>
+      <p class="lede">Timeless Trailers is the only exclusive Timpte Equipment Trailer dealer in the United States, based in Waxhaw, serving contractors, landscapers, farmers and weekend haulers across the Charlotte area. We sell one brand because we believe in how it's built: all aluminum, no rust, more payload for the same tow.</p></div></div>
     <section style="padding-top:34px"><div class="wrap grid2">
       <div class="panel"><h3>How we sell</h3><ul class="flist" style="grid-template-columns:1fr">
         <li>${tick}We start with the load and the truck, not the biggest trailer on the lot.</li>
@@ -785,6 +798,7 @@ VIEWS.about = {
       <div class="panel"><h3>Who you'll talk to</h3><div class="rows">${DATA.team.map(t => `<div style="display:flex;gap:12px;align-items:flex-start"><i class="av">${initials(t.name)}</i><div><b>${esc(t.name)}</b> · <span class="muted">${esc(t.role)}</span><p style="margin:4px 0 0;color:var(--text-2);font-size:.95rem">${esc(t.note)}</p></div></div>`).join("")}
         <div style="display:flex;gap:12px;align-items:flex-start"><i class="av dark">${A[0]}</i><div><b>${A}</b> · <span class="muted">AI trailer advisor</span><p style="margin:4px 0 0;color:var(--text-2);font-size:.95rem">Answers fit, tow and payment questions any hour, then hands off to a person. <button class="link" data-act="tessa-open">Ask now</button></p></div></div></div></div>
     </div></section>
+    ${exclHTML()}
     ${WHY}
     <section id="visit"><div class="wrap quote-grid"><div id="contact"><div class="eyebrow">Visit · Contact</div><h2 style="margin-top:10px">Come see the lot.</h2>
       <p class="lede">Walk the trailers, sit in the tilt, check the welds. Call ahead and we'll have the unit you're after pulled up front.</p>${visitList()}</div>${quoteFormHTML(r.q.m)}</div></section>`;

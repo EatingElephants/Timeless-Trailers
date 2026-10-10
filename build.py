@@ -39,11 +39,42 @@ def read(p):
     return p.read_text("utf-8")
 
 
+def jsonld():
+    """Structured data for search engines: the dealership, and one Product per Timpte model (specs pulled from src/data.js)."""
+    import json, re
+    data = read(SRC / "data.js")
+    products = []
+    for m in re.finditer(r'model: "([^"]+)", type: "(\w+)".*?payload: (\d+), gvwr: (\d+), empty: (\d+), deck: "((?:[^"\\]|\\.)*)"', data, re.S):
+        name, typ, payload, gvwr, empty, deck = m.groups()
+        products.append({
+            "@type": "Product", "name": name, "brand": {"@type": "Brand", "name": "Timpte"},
+            "category": "Aluminum " + {"tilt": "split tilt equipment trailer", "deckover": "deck over trailer", "gooseneck": "gooseneck trailer", "dump": "dump trailer", "ezload": "EZ Load car and UTV hauler"}[typ],
+            "additionalProperty": [
+                {"@type": "PropertyValue", "name": "Payload capacity", "value": payload, "unitText": "lb"},
+                {"@type": "PropertyValue", "name": "GVWR", "value": gvwr, "unitText": "lb"},
+                {"@type": "PropertyValue", "name": "Empty weight", "value": empty, "unitText": "lb"},
+                {"@type": "PropertyValue", "name": "Deck", "value": deck.replace('\\"', '"')},
+            ],
+        })
+    graph = [{
+        "@type": "AutoDealer", "name": "Timeless Trailers", "slogan": "Built once. Lasts forever.",
+        "description": "The only exclusive Timpte Equipment Trailer dealer in the United States. Aluminum split tilt, deck over, gooseneck, dump and EZ Load trailers in Waxhaw, NC.",
+        "telephone": "+1-704-589-3100",
+        "address": {"@type": "PostalAddress", "streetAddress": "4417-A Helms Road", "addressLocality": "Waxhaw", "addressRegion": "NC", "postalCode": "28173", "addressCountry": "US"},
+        "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "09:00", "closes": "17:00"}],
+        "brand": {"@type": "Brand", "name": "Timpte Equipment Trailers"},
+        "areaServed": ["Waxhaw NC", "Charlotte NC", "Union County NC", "North Carolina", "South Carolina"],
+        "makesOffer": [{"@type": "Offer", "itemOffered": p} for p in products],
+    }]
+    return json.dumps({"@context": "https://schema.org", "@graph": graph}, indent=1)
+
+
 def main():
     SITE.mkdir(exist_ok=True)
     html = read(SRC / "shell.html")
     for key, name in [("CSS", "styles.css"), ("DATA", "data.js"), ("APP1", "app1.js"), ("APP2", "app2.js")]:
         html = html.replace("%%" + key + "%%", read(SRC / name))
+    html = html.replace("%%JSONLD%%", jsonld())
     (SITE / "index.html").write_text(html, "utf-8", newline="\n")
     print("  wrote site/index.html", len(html) // 1024, "KB")
 
