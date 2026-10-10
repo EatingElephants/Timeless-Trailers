@@ -1,0 +1,10 @@
+// Cloudflare settings. Tells Cloudflare the website lives in the site/ folder.
+// Nothing else to configure: "npx wrangler deploy" publishes that folder as-is.
+{
+  "name": "timeless-trailers",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./site",
+    "not_found_handling": "single-page-application"
+  }
+}

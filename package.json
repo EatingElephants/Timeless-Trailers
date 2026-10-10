@@ -1,0 +1,12 @@
+{
+  "name": "timeless-trailers",
+  "private": true,
+  "description": "Timeless Trailers website concept. The site is plain files in site/; this file only exists so Cloudflare's deploy command works.",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "preview": "wrangler dev"
+  },
+  "devDependencies": {
+    "wrangler": "^4"
+  }
+}

@@ -2,3 +2,5 @@ __pycache__/
 *.log
 Thumbs.db
 .DS_Store
+node_modules/
+.wrangler/
