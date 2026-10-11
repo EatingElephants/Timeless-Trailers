@@ -1011,8 +1011,14 @@
   .tz-fab small{display:block;color:#a9a298;font-weight:600;font-size:.76rem;line-height:1}
   .tz-fab span{line-height:1.2;text-align:left}
   @media (max-width:600px){.tz-fab{padding:5px;right:14px}.tz-fab span{display:none}}
-  .tz-panel{position:fixed;right:20px;bottom:calc(var(--mbar-h) + 20px);z-index:60;width:400px;height:min(640px,calc(100vh - var(--mbar-h) - 40px));background:#f7f6f3;border-radius:18px;box-shadow:0 30px 80px rgba(0,0,0,.35);display:flex;flex-direction:column;overflow:hidden;border:1px solid #cfcac0}
-  .tz-panel[hidden]{display:none}
+  .tz-panel{position:fixed;top:0;right:0;bottom:0;z-index:60;width:min(440px,100%);background:#f7f6f3;box-shadow:-20px 0 60px rgba(0,0,0,.35);display:flex;flex-direction:column;overflow:hidden;transform:translateX(105%);visibility:hidden;transition:transform .32s ease,visibility .32s}
+  .tz-panel.open{transform:none;visibility:visible}
+  body.chat-open .tz-fab{display:none}
+  .tz-note{margin:0;padding:10px 16px;background:#fff8e8;border-bottom:1px solid #eadfc2;font-size:.84rem;line-height:1.45;color:var(--text-2)}
+  .tz-q{margin:12px 16px 0;padding:10px 14px;border-radius:12px;background:var(--ink);color:#fff;font-size:.92rem;align-self:flex-end;max-width:88%}
+  .tz-q small{display:block;margin-top:4px;color:#cfc9bf;font-size:.75rem}
+  .tz-frame{flex:1;min-height:0;margin-top:8px;background:#fff}
+  .tz-frame iframe{display:block;width:100%;height:100%;border:0}
   .tz-head{background:var(--ink);color:#fff;padding:12px 12px 12px 14px;display:flex;align-items:center;gap:10px;border-bottom:3px solid var(--gold)}
   .tz-head b{display:block;font-weight:700}
   .tz-head small{display:block;color:#a9a298;font-size:.78rem}
@@ -1039,7 +1045,8 @@
   .tz-form{display:flex;gap:6px;padding:10px;border-top:1px solid var(--line);background:#fff}
   .tz-form input{padding:11px 12px;font-size:1rem}
   .tz-form .btn{padding:10px 14px}
-  .tz-foot{font-size:.72rem;color:var(--text-3);text-align:center;padding:0 10px 8px;background:#fff}
+  .tz-foot{font-size:.78rem;color:var(--text-3);padding:8px 16px calc(10px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);background:#fff}
+  .tz-foot a{color:var(--gold)}
   .mcard{display:grid;grid-template-columns:110px 1fr;gap:10px;align-items:center;background:#faf9f7;border:1px solid var(--line);border-radius:10px;padding:8px;margin-top:8px;text-decoration:none;color:var(--text)}
   .mcard img{width:100%;aspect-ratio:420/224;object-fit:contain;background:#fff;border-radius:6px}
   .mcard b{display:block;font:800 1.05rem/1.05 var(--display);text-transform:uppercase}
@@ -1047,9 +1054,9 @@
   .mcard strong{font-size:.92rem}
   .mcard span.go{color:var(--gold);font-weight:700;font-size:.82rem}
   @media (max-width:900px){
-    .tz-panel{left:0;right:0;top:0;bottom:var(--mbar-h);width:auto;height:auto;border-radius:0;border:0}
+    .tz-panel{width:100%;bottom:var(--mbar-h)}
     body.chat-open{overflow:hidden}
-    body.chat-open .tz-fab{display:none}
+
     .tz-chips{flex-wrap:nowrap;overflow-x:auto;padding-bottom:10px;scrollbar-width:none}
     .tz-chip{flex:none}
   }
@@ -1083,7 +1090,7 @@
   .mbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:none;gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(23,20,15,.96);border-top:2px solid var(--gold)}
   .mbar .btn{flex:1;padding:14px}
   @media (max-width:900px){.mbar{display:flex}}
-  @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition:none!important;scroll-behavior:auto!important}}
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition:none!important;scroll-behavior:auto!important}.tz-panel{transition:none}}
 
   /* v3: video, galleries, Timpte branding */
   .hero-video{width:100%;max-width:560px;border-radius:14px;display:block;box-shadow:0 18px 50px rgba(0,0,0,.18);background:#ddd}
@@ -2676,31 +2683,41 @@ function syncSpecs() {
 }
 
 /* ==========================================================================
-   TESSA (customer chat). Scripted intent matching against DATA + state.
+   ANDY (customer chat). Andy lives on Stammer; the site opens him in a panel on
+   the right. The panel can't type into Stammer's window for the visitor, so a
+   question typed on the site is copied to the clipboard and shown above the chat.
    ========================================================================== */
-const chat = { booted: false, busy: false, ctx: {} };
-function openChat(withMsg) {
-  $("#tzPanel").hidden = false; document.body.classList.add("chat-open"); $("#tzFab").setAttribute("aria-expanded", "true");
-  if (!chat.booted) { chat.booted = true; if (withMsg) addMsg("sys", `${A} checks fit, tow ratings and the lot. A person confirms every hold and price.`); else botReply(greeting()); }
-  setTimeout(() => $("#tzIn").focus(), 50);
+const STAMMER_EMBED = "https://app.stammer.ai/en/chatbot/embed/6c5361b8-327c-4024-a1e8-6eff602a3384";
+const chat = { booted: false, busy: false, ctx: {}, opener: null };
+function loadChatFrame() {
+  const box = $("#tzFrame"); if (!box || box.firstChild) return;
+  const f = document.createElement("iframe");
+  f.title = `Chat with ${A}`; f.setAttribute("allow", "microphone; clipboard-read; clipboard-write"); f.src = STAMMER_EMBED;
+  box.appendChild(f);
 }
-function closeChat() { $("#tzPanel").hidden = true; document.body.classList.remove("chat-open"); $("#tzFab").setAttribute("aria-expanded", "false"); $("#tzFab").focus(); }
-function resetChat() { $("#tzLog").innerHTML = ""; chat.ctx = {}; chat.booted = true; botReply(greeting()); }
-function addMsg(who, html) {
-  const log = $("#tzLog"); const el = document.createElement("div"); el.className = "msg " + who; el.innerHTML = html; log.appendChild(el); log.scrollTop = log.scrollHeight; return el;
+function showQ(q) {
+  const box = $("#tzQ"); if (!box) return;
+  if (!q) { box.hidden = true; box.innerHTML = ""; return; }
+  box.hidden = false; box.innerHTML = `<b>${esc(q)}</b><small>Type this in the chat below to send it.</small>`;
+  try { navigator.clipboard.writeText(q).then(() => { const s = box.querySelector("small"); if (s) s.textContent = "Copied. Paste it in the chat below (Ctrl+V) to send."; }, () => {}); } catch (e) { /* fine */ }
 }
-function setChips(list) {
-  $("#tzChips").innerHTML = (list || []).map(c => typeof c === "string" ? `<button class="tz-chip" data-act="say" data-say="${esc(c)}">${esc(c)}</button>`
-    : c.href ? `<a class="tz-chip" href="${c.href}">${esc(c.label)}</a>` : `<button class="tz-chip" data-act="say" data-say="${esc(c.say)}">${esc(c.label)}</button>`).join("");
+function openChat(question, opener) {
+  chat.opener = opener || document.activeElement;
+  loadChatFrame();
+  const p = $("#tzPanel"); p.classList.add("open"); p.setAttribute("aria-hidden", "false");
+  document.body.classList.add("chat-open"); $("#tzFab").setAttribute("aria-expanded", "true");
+  showQ(typeof question === "string" ? question : "");
+  setTimeout(() => { const c = $("#tzClose"); if (c) c.focus(); }, 320);
 }
-function userSays(text) {
-  text = String(text || "").trim(); if (!text) return;
-  if ($("#tzPanel").hidden || !chat.booted) openChat(true);
-  if (chat.busy) { chat.queue = text; return; }
-  addMsg("me", esc(text)); setChips([]);
-  let r; try { r = respond(text); } catch (e) { console.error(e); r = fallback(); }
-  botReply(r);
+function closeChat() {
+  const p = $("#tzPanel"); p.classList.remove("open"); p.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("chat-open"); $("#tzFab").setAttribute("aria-expanded", "false");
+  if (chat.opener && chat.opener.focus) chat.opener.focus();
 }
+function resetChat() { closeChat(); }
+function addMsg() {}
+function setChips() {}
+function userSays(text) { openChat(String(text || "").trim()); }
 function botReply(r) {
   const msgs = r.msgs || []; let i = 0; chat.busy = true; $("#tzSend").disabled = true;
   const next = () => {
@@ -3137,9 +3154,9 @@ document.addEventListener("click", e => {
     case "cmp-starter": S.compare = ["TT-0155", "TT-0160"]; save(); render(true); break;
     case "hold": e.preventDefault(); holdModal(id); break;
     case "quote": quoteModal(id); break;
-    case "ask": userSays(`Tell me about ${id}`); break;
+    case "ask": { const t = unit(id); openChat(t ? `Tell me about the ${tname(t)}, stock ${t.id}` : "", el); break; }
     case "quote-model": closeModal(); location.hash = "#/home?s=quote&m=" + encodeURIComponent(el.dataset.model || ""); break;
-    case "tessa-open": e.preventDefault(); closeDrawer(); openChat(); break;
+    case "tessa-open": e.preventDefault(); closeDrawer(); openChat("", el); break;
     case "tessa-close": closeChat(); break;
     case "tessa-reset": resetChat(); break;
     case "say": {
@@ -3150,7 +3167,7 @@ document.addEventListener("click", e => {
     }
     case "signin-open": e.preventDefault(); closeMenus(); closeDrawer(); signinModal(); break;
     case "as": signIn(el.dataset.user); break;
-    case "signout": e.preventDefault(); { const n = me() ? me().name : ""; S.user = null; save(); chat.booted = false; $("#tzLog").innerHTML = ""; chat.ctx = {}; render(true); toast(`Signed out${n ? " of " + esc(n) : ""}.`); } break;
+    case "signout": e.preventDefault(); { const n = me() ? me().name : ""; S.user = null; save(); chat.booted = false; chat.ctx = {}; render(true); toast(`Signed out${n ? " of " + esc(n) : ""}.`); } break;
     case "burger": openDrawer(); break;
     case "drawer-close": closeDrawer(); break;
     case "modal-close": closeModal(); break;
@@ -3259,14 +3276,14 @@ function buildChrome() {
   <div class="cmp-tray" id="cmpTray" hidden></div>
   <div class="toasts" id="toasts" aria-live="polite"></div>
   <button class="tz-fab" id="tzFab" data-act="tessa-open" aria-expanded="false" aria-controls="tzPanel"><i class="av">${A[0]}</i><span><small>AI trailer advisor</small>Ask ${A}</span></button>
-  <section class="tz-panel" id="tzPanel" hidden aria-label="Chat with ${A}" style="padding:0">
-    <div class="tz-head"><i class="av">${A[0]}</i><div><b>${A}</b><small>Timeless trailer advisor · answers instantly</small></div><span class="sp"></span>
-      <button data-act="tessa-reset" aria-label="Start over" title="Start over">${ICON.reset}</button><button data-act="tessa-close" aria-label="Close chat">${ICON.x}</button></div>
-    <div class="tz-log" id="tzLog" aria-live="polite"></div>
-    <div class="tz-chips" id="tzChips"></div>
-    <form class="tz-form" data-form="chat"><label for="tzIn" class="sr">Message ${A}</label><input id="tzIn" name="q" placeholder="Message ${A}…" autocomplete="off"><button class="btn btn-gold" id="tzSend" type="submit" aria-label="Send">${ICON.send}</button></form>
-    <div class="tz-foot">AI answers are a demo. A person confirms every hold, price and order.</div>
-  </section>`;
+  <aside class="tz-panel" id="tzPanel" role="dialog" aria-label="Chat with ${A}" aria-hidden="true">
+    <div class="tz-head"><i class="av">${A[0]}</i><div><b>${A}</b><small>Timeless trailer advisor · online</small></div><span class="sp"></span>
+      <button id="tzClose" data-act="tessa-close" aria-label="Close chat">${ICON.x}</button></div>
+    <p class="tz-note">Ask about any Timpte model, what fits your machine, or what your truck can tow. A person at Timeless confirms every price and hold.</p>
+    <div class="tz-q" id="tzQ" hidden aria-live="polite"></div>
+    <div class="tz-frame" id="tzFrame"></div>
+    <div class="tz-foot">Chat not showing? <a href="${STAMMER_EMBED}" target="_blank" rel="noopener">Open the chat in a new tab</a>.</div>
+  </aside>`;
 }
 document.addEventListener("DOMContentLoaded", () => { buildChrome(); setMbar(); render(); });
 

@@ -580,8 +580,14 @@
   .tz-fab small{display:block;color:#a9a298;font-weight:600;font-size:.76rem;line-height:1}
   .tz-fab span{line-height:1.2;text-align:left}
   @media (max-width:600px){.tz-fab{padding:5px;right:14px}.tz-fab span{display:none}}
-  .tz-panel{position:fixed;right:20px;bottom:calc(var(--mbar-h) + 20px);z-index:60;width:400px;height:min(640px,calc(100vh - var(--mbar-h) - 40px));background:#f7f6f3;border-radius:18px;box-shadow:0 30px 80px rgba(0,0,0,.35);display:flex;flex-direction:column;overflow:hidden;border:1px solid #cfcac0}
-  .tz-panel[hidden]{display:none}
+  .tz-panel{position:fixed;top:0;right:0;bottom:0;z-index:60;width:min(440px,100%);background:#f7f6f3;box-shadow:-20px 0 60px rgba(0,0,0,.35);display:flex;flex-direction:column;overflow:hidden;transform:translateX(105%);visibility:hidden;transition:transform .32s ease,visibility .32s}
+  .tz-panel.open{transform:none;visibility:visible}
+  body.chat-open .tz-fab{display:none}
+  .tz-note{margin:0;padding:10px 16px;background:#fff8e8;border-bottom:1px solid #eadfc2;font-size:.84rem;line-height:1.45;color:var(--text-2)}
+  .tz-q{margin:12px 16px 0;padding:10px 14px;border-radius:12px;background:var(--ink);color:#fff;font-size:.92rem;align-self:flex-end;max-width:88%}
+  .tz-q small{display:block;margin-top:4px;color:#cfc9bf;font-size:.75rem}
+  .tz-frame{flex:1;min-height:0;margin-top:8px;background:#fff}
+  .tz-frame iframe{display:block;width:100%;height:100%;border:0}
   .tz-head{background:var(--ink);color:#fff;padding:12px 12px 12px 14px;display:flex;align-items:center;gap:10px;border-bottom:3px solid var(--gold)}
   .tz-head b{display:block;font-weight:700}
   .tz-head small{display:block;color:#a9a298;font-size:.78rem}
@@ -608,7 +614,8 @@
   .tz-form{display:flex;gap:6px;padding:10px;border-top:1px solid var(--line);background:#fff}
   .tz-form input{padding:11px 12px;font-size:1rem}
   .tz-form .btn{padding:10px 14px}
-  .tz-foot{font-size:.72rem;color:var(--text-3);text-align:center;padding:0 10px 8px;background:#fff}
+  .tz-foot{font-size:.78rem;color:var(--text-3);padding:8px 16px calc(10px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);background:#fff}
+  .tz-foot a{color:var(--gold)}
   .mcard{display:grid;grid-template-columns:110px 1fr;gap:10px;align-items:center;background:#faf9f7;border:1px solid var(--line);border-radius:10px;padding:8px;margin-top:8px;text-decoration:none;color:var(--text)}
   .mcard img{width:100%;aspect-ratio:420/224;object-fit:contain;background:#fff;border-radius:6px}
   .mcard b{display:block;font:800 1.05rem/1.05 var(--display);text-transform:uppercase}
@@ -616,9 +623,9 @@
   .mcard strong{font-size:.92rem}
   .mcard span.go{color:var(--gold);font-weight:700;font-size:.82rem}
   @media (max-width:900px){
-    .tz-panel{left:0;right:0;top:0;bottom:var(--mbar-h);width:auto;height:auto;border-radius:0;border:0}
+    .tz-panel{width:100%;bottom:var(--mbar-h)}
     body.chat-open{overflow:hidden}
-    body.chat-open .tz-fab{display:none}
+
     .tz-chips{flex-wrap:nowrap;overflow-x:auto;padding-bottom:10px;scrollbar-width:none}
     .tz-chip{flex:none}
   }
@@ -652,7 +659,7 @@
   .mbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:none;gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(23,20,15,.96);border-top:2px solid var(--gold)}
   .mbar .btn{flex:1;padding:14px}
   @media (max-width:900px){.mbar{display:flex}}
-  @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition:none!important;scroll-behavior:auto!important}}
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition:none!important;scroll-behavior:auto!important}.tz-panel{transition:none}}
 
   /* v3: video, galleries, Timpte branding */
   .hero-video{width:100%;max-width:560px;border-radius:14px;display:block;box-shadow:0 18px 50px rgba(0,0,0,.18);background:#ddd}

@@ -6,6 +6,7 @@ A clickable mock-up for Matt Lyons's Timpte dealership in Waxhaw, NC, built by A
 
 - **v3 is built** (real Timpte models plus the flair pass: full-screen video hero, exclusive-dealer band, photo tiles and backdrops, lightbox galleries). Matt reviews it next.
 - **Confirm with Matt:** the exact wording of "The only exclusive Timpte Equipment Trailer dealer in the United States" (hero, band under the hero, About) before it goes beyond the mock-up.
+- **Andy runs on Stammer.** The site opens him in a slide-in panel on the right (`STAMMER_EMBED` in `src/app2.js` holds the chat address). A question typed on the site is copied to the clipboard and shown above the chat for the visitor to paste; Stammer's window can't be pre-typed from outside. The built-in scripted Andy is gone from the customer side; the dealer-console Andy (price drops, add units) is still the site's own demo.
 - **Hero video:** `site/video/hero-full.mp4` is a 59-second silent montage; `tools/hero_montage.ps1` rebuilds it if the clips should change.
 - **Search engines:** the mock-up is one page with `#/` addresses and is marked noindex. The finished site needs one real address per model and category plus a sitemap; the structured data in `src/shell.html` (built by `build.py`) carries over.
 - **To look at it:** double-click `preview.bat`. Your browser opens it at http://localhost:8766. Or open the hosted link once Cloudflare is connected (see below).

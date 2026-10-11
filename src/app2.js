@@ -274,31 +274,41 @@ function syncSpecs() {
 }
 
 /* ==========================================================================
-   TESSA (customer chat). Scripted intent matching against DATA + state.
+   ANDY (customer chat). Andy lives on Stammer; the site opens him in a panel on
+   the right. The panel can't type into Stammer's window for the visitor, so a
+   question typed on the site is copied to the clipboard and shown above the chat.
    ========================================================================== */
-const chat = { booted: false, busy: false, ctx: {} };
-function openChat(withMsg) {
-  $("#tzPanel").hidden = false; document.body.classList.add("chat-open"); $("#tzFab").setAttribute("aria-expanded", "true");
-  if (!chat.booted) { chat.booted = true; if (withMsg) addMsg("sys", `${A} checks fit, tow ratings and the lot. A person confirms every hold and price.`); else botReply(greeting()); }
-  setTimeout(() => $("#tzIn").focus(), 50);
+const STAMMER_EMBED = "https://app.stammer.ai/en/chatbot/embed/6c5361b8-327c-4024-a1e8-6eff602a3384";
+const chat = { booted: false, busy: false, ctx: {}, opener: null };
+function loadChatFrame() {
+  const box = $("#tzFrame"); if (!box || box.firstChild) return;
+  const f = document.createElement("iframe");
+  f.title = `Chat with ${A}`; f.setAttribute("allow", "microphone; clipboard-read; clipboard-write"); f.src = STAMMER_EMBED;
+  box.appendChild(f);
 }
-function closeChat() { $("#tzPanel").hidden = true; document.body.classList.remove("chat-open"); $("#tzFab").setAttribute("aria-expanded", "false"); $("#tzFab").focus(); }
-function resetChat() { $("#tzLog").innerHTML = ""; chat.ctx = {}; chat.booted = true; botReply(greeting()); }
-function addMsg(who, html) {
-  const log = $("#tzLog"); const el = document.createElement("div"); el.className = "msg " + who; el.innerHTML = html; log.appendChild(el); log.scrollTop = log.scrollHeight; return el;
+function showQ(q) {
+  const box = $("#tzQ"); if (!box) return;
+  if (!q) { box.hidden = true; box.innerHTML = ""; return; }
+  box.hidden = false; box.innerHTML = `<b>${esc(q)}</b><small>Type this in the chat below to send it.</small>`;
+  try { navigator.clipboard.writeText(q).then(() => { const s = box.querySelector("small"); if (s) s.textContent = "Copied. Paste it in the chat below (Ctrl+V) to send."; }, () => {}); } catch (e) { /* fine */ }
 }
-function setChips(list) {
-  $("#tzChips").innerHTML = (list || []).map(c => typeof c === "string" ? `<button class="tz-chip" data-act="say" data-say="${esc(c)}">${esc(c)}</button>`
-    : c.href ? `<a class="tz-chip" href="${c.href}">${esc(c.label)}</a>` : `<button class="tz-chip" data-act="say" data-say="${esc(c.say)}">${esc(c.label)}</button>`).join("");
+function openChat(question, opener) {
+  chat.opener = opener || document.activeElement;
+  loadChatFrame();
+  const p = $("#tzPanel"); p.classList.add("open"); p.setAttribute("aria-hidden", "false");
+  document.body.classList.add("chat-open"); $("#tzFab").setAttribute("aria-expanded", "true");
+  showQ(typeof question === "string" ? question : "");
+  setTimeout(() => { const c = $("#tzClose"); if (c) c.focus(); }, 320);
 }
-function userSays(text) {
-  text = String(text || "").trim(); if (!text) return;
-  if ($("#tzPanel").hidden || !chat.booted) openChat(true);
-  if (chat.busy) { chat.queue = text; return; }
-  addMsg("me", esc(text)); setChips([]);
-  let r; try { r = respond(text); } catch (e) { console.error(e); r = fallback(); }
-  botReply(r);
+function closeChat() {
+  const p = $("#tzPanel"); p.classList.remove("open"); p.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("chat-open"); $("#tzFab").setAttribute("aria-expanded", "false");
+  if (chat.opener && chat.opener.focus) chat.opener.focus();
 }
+function resetChat() { closeChat(); }
+function addMsg() {}
+function setChips() {}
+function userSays(text) { openChat(String(text || "").trim()); }
 function botReply(r) {
   const msgs = r.msgs || []; let i = 0; chat.busy = true; $("#tzSend").disabled = true;
   const next = () => {
@@ -735,9 +745,9 @@ document.addEventListener("click", e => {
     case "cmp-starter": S.compare = ["TT-0155", "TT-0160"]; save(); render(true); break;
     case "hold": e.preventDefault(); holdModal(id); break;
     case "quote": quoteModal(id); break;
-    case "ask": userSays(`Tell me about ${id}`); break;
+    case "ask": { const t = unit(id); openChat(t ? `Tell me about the ${tname(t)}, stock ${t.id}` : "", el); break; }
     case "quote-model": closeModal(); location.hash = "#/home?s=quote&m=" + encodeURIComponent(el.dataset.model || ""); break;
-    case "tessa-open": e.preventDefault(); closeDrawer(); openChat(); break;
+    case "tessa-open": e.preventDefault(); closeDrawer(); openChat("", el); break;
     case "tessa-close": closeChat(); break;
     case "tessa-reset": resetChat(); break;
     case "say": {
@@ -748,7 +758,7 @@ document.addEventListener("click", e => {
     }
     case "signin-open": e.preventDefault(); closeMenus(); closeDrawer(); signinModal(); break;
     case "as": signIn(el.dataset.user); break;
-    case "signout": e.preventDefault(); { const n = me() ? me().name : ""; S.user = null; save(); chat.booted = false; $("#tzLog").innerHTML = ""; chat.ctx = {}; render(true); toast(`Signed out${n ? " of " + esc(n) : ""}.`); } break;
+    case "signout": e.preventDefault(); { const n = me() ? me().name : ""; S.user = null; save(); chat.booted = false; chat.ctx = {}; render(true); toast(`Signed out${n ? " of " + esc(n) : ""}.`); } break;
     case "burger": openDrawer(); break;
     case "drawer-close": closeDrawer(); break;
     case "modal-close": closeModal(); break;
@@ -857,13 +867,13 @@ function buildChrome() {
   <div class="cmp-tray" id="cmpTray" hidden></div>
   <div class="toasts" id="toasts" aria-live="polite"></div>
   <button class="tz-fab" id="tzFab" data-act="tessa-open" aria-expanded="false" aria-controls="tzPanel"><i class="av">${A[0]}</i><span><small>AI trailer advisor</small>Ask ${A}</span></button>
-  <section class="tz-panel" id="tzPanel" hidden aria-label="Chat with ${A}" style="padding:0">
-    <div class="tz-head"><i class="av">${A[0]}</i><div><b>${A}</b><small>Timeless trailer advisor · answers instantly</small></div><span class="sp"></span>
-      <button data-act="tessa-reset" aria-label="Start over" title="Start over">${ICON.reset}</button><button data-act="tessa-close" aria-label="Close chat">${ICON.x}</button></div>
-    <div class="tz-log" id="tzLog" aria-live="polite"></div>
-    <div class="tz-chips" id="tzChips"></div>
-    <form class="tz-form" data-form="chat"><label for="tzIn" class="sr">Message ${A}</label><input id="tzIn" name="q" placeholder="Message ${A}…" autocomplete="off"><button class="btn btn-gold" id="tzSend" type="submit" aria-label="Send">${ICON.send}</button></form>
-    <div class="tz-foot">AI answers are a demo. A person confirms every hold, price and order.</div>
-  </section>`;
+  <aside class="tz-panel" id="tzPanel" role="dialog" aria-label="Chat with ${A}" aria-hidden="true">
+    <div class="tz-head"><i class="av">${A[0]}</i><div><b>${A}</b><small>Timeless trailer advisor · online</small></div><span class="sp"></span>
+      <button id="tzClose" data-act="tessa-close" aria-label="Close chat">${ICON.x}</button></div>
+    <p class="tz-note">Ask about any Timpte model, what fits your machine, or what your truck can tow. A person at Timeless confirms every price and hold.</p>
+    <div class="tz-q" id="tzQ" hidden aria-live="polite"></div>
+    <div class="tz-frame" id="tzFrame"></div>
+    <div class="tz-foot">Chat not showing? <a href="${STAMMER_EMBED}" target="_blank" rel="noopener">Open the chat in a new tab</a>.</div>
+  </aside>`;
 }
 document.addEventListener("DOMContentLoaded", () => { buildChrome(); setMbar(); render(); });
