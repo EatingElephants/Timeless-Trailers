@@ -768,3 +768,5 @@
     .rv-d1{transition-delay:.1s}.rv-d2{transition-delay:.2s}.rv-d3{transition-delay:.3s}
   }
   .stats .stat b{font-variant-numeric:tabular-nums}
+
+  .callp{font-size:1.35rem;letter-spacing:.02em}

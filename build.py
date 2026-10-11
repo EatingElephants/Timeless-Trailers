@@ -58,7 +58,7 @@ def jsonld():
         })
     graph = [{
         "@type": "AutoDealer", "name": "Timeless Trailers", "slogan": "Built once. Lasts forever.",
-        "description": "The only exclusive Timpte Equipment Trailer dealer in the United States. Aluminum split tilt, deck over, gooseneck, dump and EZ Load trailers in Waxhaw, NC.",
+        "description": "The only dealer in the U.S. that sells Timpte equipment trailers exclusively. Aluminum split tilt, deck over, gooseneck, dump and EZ Load trailers in Waxhaw, NC.",
         "telephone": "+1-704-589-3100",
         "address": {"@type": "PostalAddress", "streetAddress": "4417-A Helms Road", "addressLocality": "Waxhaw", "addressRegion": "NC", "postalCode": "28173", "addressCountry": "US"},
         "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "09:00", "closes": "17:00"}],

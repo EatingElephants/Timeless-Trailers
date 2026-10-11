@@ -217,47 +217,15 @@ const DATA = {
     light:   { img: "card-514", tag: "Start here", name: "Timpte 514 EZ Load", type: "ezload", why: "Single axle, 1,280 lb empty, and a deck that drops low so mowers and golf carts drive straight on.", ask: "Tell us what you haul and your tow vehicle." }
   },
 
-  /* Load categories used by the Finder and the AI advisor */
+  /* Load categories the Finder and the "What are you hauling?" picker use (labels only; Andy handles weights and fit) */
   loadCats: [
-    { k: "compact",  label: "Skid steer or track loader", sub: "Compact equipment", w: 8000, len: 12 },
-    { k: "miniex",   label: "Mini excavator", sub: "Tracked, with blade and boom", w: 8500, len: 16 },
-    { k: "heavy",    label: "Bigger machines", sub: "10,000 lb and up", w: 13000, len: 20 },
-    { k: "car",      label: "A car or truck", sub: "Daily, classic or race car", w: 3600, len: 16 },
-    { k: "utv",      label: "UTVs, Jeeps, toys", sub: "Weekend and farm use", w: 2000, len: 11 },
-    { k: "material", label: "Dirt, mulch, debris", sub: "Landscaping and cleanup", w: 7000, len: 0 },
-    { k: "mower",    label: "Mowers and light loads", sub: "Lawn care and utility", w: 1400, len: 8 }
-  ],
-
-  /* Sample machine weights for fit checks (verify against the spec plate) */
-  machines: [
-    { name: "Bobcat T66", desc: "compact track loader", w: 8000, len: 12, cat: "compact", alias: ["bobcat t66", "t66"] },
-    { name: "Kubota SVL75", desc: "compact track loader", w: 8600, len: 12, cat: "compact", alias: ["kubota svl75", "svl75", "svl 75", "svl-75"] },
-    { name: "CAT 259D3", desc: "compact track loader", w: 9000, len: 12, cat: "compact", alias: ["cat 259", "259d3", "259d", "259"] },
-    { name: "John Deere 333G", desc: "compact track loader", w: 12000, len: 13, cat: "compact", alias: ["deere 333", "333g", "john deere"] },
-    { name: "Bobcat E35", desc: "mini excavator", w: 7900, len: 15, cat: "miniex", alias: ["bobcat e35", "e35"] },
-    { name: "Kubota KX040", desc: "mini excavator", w: 9300, len: 16, cat: "miniex", alias: ["kubota kx040", "kx040", "kx 040", "kx40"] },
-    { name: "CAT 305 CR", desc: "mini excavator", w: 11600, len: 17, cat: "heavy", alias: ["cat 305", "305 cr", "305"] },
-    { name: "Polaris Ranger XP 1000", desc: "UTV", w: 1900, len: 10, cat: "utv", alias: ["polaris", "ranger"] },
-    { name: "Can-Am Defender", desc: "UTV", w: 2000, len: 11, cat: "utv", alias: ["can-am", "can am", "defender"] },
-    { name: "Jeep Wrangler", desc: "4-door", w: 4600, len: 16, cat: "car", alias: ["jeep", "wrangler"] },
-    { name: "1967 Ford Mustang", desc: "classic car", w: 3200, len: 15, cat: "car", alias: ["mustang", "classic car", "camaro", "muscle car", "project car", "classic"] },
-    { name: "61 in zero-turn mower", desc: "commercial mower", w: 1400, len: 7, cat: "mower", alias: ["zero-turn", "zero turn", "ztr", "mower"] },
-    { name: "load of topsoil (4 yd)", desc: "material", w: 9600, len: 0, cat: "material", alias: ["topsoil", "dirt", "gravel", "mulch", "debris", "stone", "soil"] }
-  ],
-
-  /* Sample tow ratings in lb (conventional / gooseneck). Real numbers vary by configuration. */
-  trucks: [
-    { name: "Toyota Tacoma", tow: 6500, alias: ["tacoma"] },
-    { name: "Chevy Colorado", tow: 7700, alias: ["colorado"] },
-    { name: "Jeep Gladiator", tow: 7700, alias: ["gladiator"] },
-    { name: "Ford F-150", tow: 11300, alias: ["f-150", "f150", "f 150"] },
-    { name: "Ram 1500", tow: 11000, alias: ["ram 1500"] },
-    { name: "Chevy Silverado 1500", tow: 12500, alias: ["silverado 1500", "silverado"] },
-    { name: "Toyota Tundra", tow: 12000, alias: ["tundra"] },
-    { name: "Ford F-250", tow: 15000, gn: 20000, alias: ["f-250", "f250", "f 250", "super duty"] },
-    { name: "Ram 2500", tow: 17500, gn: 19500, alias: ["ram 2500"] },
-    { name: "Chevy Silverado 2500HD", tow: 18500, gn: 21500, alias: ["silverado 2500", "2500hd", "2500 hd"] },
-    { name: "Ford F-350", tow: 20000, gn: 24000, alias: ["f-350", "f350", "f 350"] }
+    { k: "compact",  label: "Skid steer or track loader", sub: "Compact equipment" },
+    { k: "miniex",   label: "Mini excavator", sub: "Tracked, with blade and boom" },
+    { k: "heavy",    label: "Bigger machines", sub: "Larger equipment and long hauls" },
+    { k: "car",      label: "A car or truck", sub: "Daily, classic or race car" },
+    { k: "utv",      label: "UTVs, Jeeps, toys", sub: "Weekend and farm use" },
+    { k: "material", label: "Dirt, mulch, debris", sub: "Landscaping and cleanup" },
+    { k: "mower",    label: "Mowers and light loads", sub: "Lawn care and utility" }
   ],
 
   addons: [

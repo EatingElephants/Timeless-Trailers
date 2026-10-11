@@ -37,6 +37,10 @@ const tick = ICON.check;
 
 /* ---------------- state ---------------- */
 const STORE_KEY = "timeless-v2-demo";
+/* Demo mode: sample prices, the demo tour, the demo sign-ins and the sample reviews only show when it is on.
+   Open #/demo once to turn it on in this browser; "Reset demo" in the footer turns it off. Normal visitors never see it. */
+let DEMO = false; try { DEMO = localStorage.getItem("tt-demo") === "1"; } catch (e) {}
+const ANDY_LINE = "Andy matches the trailer to your load and truck, then Matt sends your quote the same business day.";
 function freshState() {
   const s = DATA.seed;
   return {
@@ -53,7 +57,7 @@ function save() { try { localStorage.setItem(STORE_KEY, JSON.stringify(S)); } ca
 function nextId(p) { const n = S.seq[p]++; save(); return p === "TT" ? "TT-0" + n : p + "-" + n; }
 function resetDemo() {
   if (!confirm("Reset the demo? This clears saved trailers, holds, quotes, tickets and admin edits.")) return;
-  try { localStorage.removeItem(STORE_KEY); } catch (e) {}
+  try { localStorage.removeItem(STORE_KEY); localStorage.removeItem("tt-demo"); } catch (e) {}
   location.hash = "#/home"; location.reload();
 }
 
@@ -63,7 +67,7 @@ const me = () => (S.user ? persona(S.user) : null);
 const uid = () => S.user || "guest";
 const isStaff = () => { const u = me(); return !!u && (u.role === "owner" || u.role === "staff"); };
 const myOwned = () => S.owned.filter(o => o.userId === S.user);
-const truckOf = u => u && u.truck ? DATA.trucks.find(t => t.name === u.truck) : null;
+const truckOf = () => null; /* tow ratings live in archive/local-matcher.js now; Andy on Stammer handles the truck */
 
 /* ---------------- inventory helpers ---------------- */
 const unit = id => S.inventory.find(t => t.id === id);
@@ -81,49 +85,6 @@ function monthly(price, o = {}) {
   return r ? P * r / (1 - Math.pow(1 + r, -n)) : P / n;
 }
 const third = t => (t.angle ? { v: t.angleText ? "<4°" : t.angle + "°", l: "Load angle" } : { v: t.gvwr / 1000 + "K", l: "GVWR" });
-
-/* fit + tow math shared by the Finder and the AI advisor */
-function rankFor(o) {
-  const w = o.weight || 0;
-  return S.inventory.filter(t => t.status !== "sold" && (!o.cat || t.suits.includes(o.cat)) && (!o.len || t.deckFt >= o.len))
-    .map(t => {
-      const margin = (t.payload - w) / Math.max(w, 1);
-      const fit = margin >= 0.1 ? "ok" : margin >= 0 ? "tight" : "no";
-      const tw = o.truck || o.rating ? towOf(t, w, o.truck, o.rating) : null;
-      const budget = o.budget ? (t.price <= o.budget ? "ok" : "over") : null;
-      let score = (fit === "ok" ? 50 : 15) + ({ lot: 15, order: 6, hold: 0 }[t.status] || 0);
-      if (tw) score += { ok: 30, close: 4, over: -70, gn: -45 }[tw.state] - (tw.pct || 0) * 12;
-      if (budget) score += budget === "ok" ? 10 : -18;
-      if (margin > 0.9) score -= Math.min(20, (margin - 0.9) * 20);
-      if (o.freq === "daily" && margin < 0.2) score -= 8;
-      /* the natural fit for the load style wins ties: tilt for compact machines, EZ Load for cars and toys */
-      if ((o.cat === "compact" || o.cat === "miniex") && t.type === "tilt") score += 8;
-      if ((o.cat === "car" || o.cat === "utv" || o.cat === "mower") && t.type === "ezload") score += 8;
-      if (o.cat === "heavy" && (t.type === "gooseneck" || t.type === "deckover")) score += 8;
-      score -= t.price / 4000;
-      return { t, margin, fit, tow: tw, budget, score };
-    })
-    .filter(r => r.fit !== "no")
-    .sort((a, b) => b.score - a.score);
-}
-function towOf(t, cargo, truck, rating) {
-  const loaded = t.empty + (cargo || t.payload);
-  const isGn = t.hitch === "Gooseneck";
-  const r = truck ? (isGn ? truck.gn || 0 : truck.tow) : rating;
-  if (!r) return { state: "gn", loaded, rating: 0, pct: 0 };
-  const pct = loaded / r;
-  return { state: pct > 1 ? "over" : pct > 0.85 ? "close" : "ok", loaded, rating: r, pct };
-}
-function fitBadge(r) {
-  const pct = Math.round(r.margin * 100);
-  return r.fit === "ok" ? `<span class="badge ok">${tick} Fit · ${pct}% margin</span>` : `<span class="badge warn">Tight fit · ${pct}% margin</span>`;
-}
-function towBadge(tw) {
-  if (!tw) return "";
-  if (tw.state === "gn") return `<span class="badge bad">Needs gooseneck hitch</span>`;
-  const p = Math.round(tw.pct * 100);
-  return tw.state === "ok" ? `<span class="badge ok">${tick} Tow · ${p}% of rating</span>` : tw.state === "close" ? `<span class="badge warn">Tow close · ${p}%</span>` : `<span class="badge bad">Over tow rating · ${p}%</span>`;
-}
 
 /* ---------------- saved + compare ---------------- */
 function savedList() { if (!S.saved[uid()]) S.saved[uid()] = []; return S.saved[uid()]; }
@@ -241,7 +202,7 @@ function navHTML() {
 }
 function acctSlotHTML() {
   const u = me();
-  if (!u) return `<button class="btn btn-line-light" data-act="signin-open">Sign in</button>`;
+  if (!u) return DEMO ? `<button class="btn btn-line-light" data-act="signin-open">Sign in</button>` : "";
   return `<div class="menu" data-menu="acct"><button class="uchip" aria-expanded="false"><i class="av ${u.role !== "customer" ? "dark" : ""}">${initials(u.name)}</i><span><small>Signed in as</small>${esc(u.short)}</span></button>
     <div class="dd right">${u.role === "customer" ? `<a href="#/account">My Account<small>Saved, holds, quotes, orders</small></a>` : `<a href="#/admin">Dealer console<small>${esc(u.title)}</small></a><a href="#/account">My Account</a>`}
     <a href="#" data-act="signin-open">Switch demo user<small>Customer or dealership</small></a><a href="#" data-act="signout">Sign out</a></div></div>`;
@@ -260,7 +221,7 @@ function openDrawer() {
     <h4>Inventory</h4><a href="#/inventory">On the lot</a><a href="#/inventory?s=lineup">Lineup by category</a><a href="#/finder">Trailer Finder</a><a href="#/compare">Compare models</a>
     <h4>Own</h4><a href="#/parts">Parts</a><a href="#/service">Service</a><a href="#/service?s=resources">Owner resources</a><a href="#/financing">Financing</a>
     <h4>Company</h4><a href="#/about">About</a><a href="#/about?s=visit">Visit</a><a href="#/about?s=contact">Contact</a>
-    <h4>Account</h4>${u ? `<a href="#/account">My Account · ${esc(u.short)}</a>${isStaff() ? `<a href="#/admin">Dealer console</a>` : ""}<a href="#" data-act="signout">Sign out</a>` : `<a href="#" data-act="signin-open">Sign in to the demo</a>`}
+    ${u || DEMO ? `<h4>Account</h4>${u ? `<a href="#/account">My Account · ${esc(u.short)}</a>${isStaff() ? `<a href="#/admin">Dealer console</a>` : ""}<a href="#" data-act="signout">Sign out</a>` : `<a href="#" data-act="signin-open">Sign in to the demo</a>`}` : ""}
     <div style="margin-top:22px;display:grid;gap:8px"><button class="btn btn-gold" data-act="tessa-open">Ask ${A}</button><a class="btn btn-line" href="tel:${DATA.business.tel}">Call ${DATA.business.phone}</a></div></nav>`;
   const box = document.createElement("div"); box.id = "drawer"; box.innerHTML = html; document.body.appendChild(box);
   $("#dSearch").focus();
@@ -276,12 +237,12 @@ function tcard(t) {
     <button class="heart" data-act="save" data-id="${t.id}" aria-pressed="${isSaved(t.id)}" aria-label="Save ${t.id}">${ICON.heart}</button>
     <div class="tc-body"><em>${typeLabel(t.type)}</em><h3><a href="#/trailer/${t.id}">${esc(tname(t))}</a></h3>
       <ul class="specs3"><li><b>${num(t.payload)} lb</b><span>Payload</span></li><li><b>${t.deckFt} ft</b><span>Deck</span></li><li><b>${esc(th.v)}</b><span>${th.l}</span></li></ul>
-      <div class="tc-foot"><div class="price">${money(t.price)}<small>or about ${money(monthly(t.price))}/mo</small></div><a class="btn btn-line sm" href="#/trailer/${t.id}">Details</a></div>
+      <div class="tc-foot"><div class="price">${DEMO ? money(t.price) + `<small>or about ${money(monthly(t.price))}/mo</small>` : `<span class="callp">Call for price</span><small>Quote the same business day</small>`}</div><a class="btn btn-line sm" href="#/trailer/${t.id}">Details</a></div>
       <label class="cmp"><input type="checkbox" data-act="cmp-toggle" data-id="${t.id}" ${S.compare.includes(t.id) ? "checked" : ""}> Compare</label>
     </div></article>`;
 }
 function miniCard(t) {
-  return `<a class="mcard" href="#/trailer/${t.id}"><img src="${img(t.img)}" alt=""><div><b>${esc(tname(t))}</b><small>Stock ${t.id} · ${statusInfo(t).label}</small><strong>${money(t.price)}</strong> <small style="display:inline">· about ${money(monthly(t.price))}/mo</small><br><span class="go">See details →</span></div></a>`;
+  return `<a class="mcard" href="#/trailer/${t.id}"><img src="${img(t.img)}" alt=""><div><b>${esc(tname(t))}</b><small>Stock ${t.id} · ${statusInfo(t).label}</small><strong>${DEMO ? money(t.price) : "Call for price"}</strong>${DEMO ? ` <small style="display:inline">· about ${money(monthly(t.price))}/mo</small>` : ""}<br><span class="go">See details →</span></div></a>`;
 }
 function personaCard(p) {
   const on = S.user === p.id;
@@ -322,7 +283,7 @@ const WHY = `<div class="why"><div class="wrap why-grid">
   <div class="why-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 3 7v10l9 5 9-5V7z"/><path d="m3 7 9 5 9-5M12 12v10"/></svg><b>All-aluminum</b><p>No rust, less weight, more payload. Built to outlast the truck that pulls it.</p></div>
   <div class="why-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><b>3-year warranty</b><p>Manufacturer-backed coverage, with a local dealer to handle it.</p></div>
   <div class="why-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg><b>Financing</b><p>Payment options through the manufacturer's programs. Ask when you quote.</p></div>
-  <div class="why-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><b>Exclusive dealer</b><p>The only exclusive Timpte Equipment Trailer dealer in the U.S., in Waxhaw. Real people, same-day answers.</p></div></div></div>`;
+  <div class="why-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><b>Timpte-exclusive</b><p>The only dealer in the U.S. that sells Timpte equipment trailers exclusively. Real people, same-day answers.</p></div></div></div>`;
 
 /* ---------------- views ---------------- */
 let route = { name: "home", arg: null, q: {} };
@@ -330,7 +291,7 @@ const inv = { type: "all", sort: "featured", q: "" };
 const VIEWS = {};
 
 VIEWS.home = {
-  title: "Timeless Trailers · The only exclusive Timpte Equipment Trailer dealer in the U.S. · Waxhaw, NC",
+  title: "Timeless Trailers · The only dealer in the U.S. that sells Timpte equipment trailers exclusively · Waxhaw, NC",
   html() {
     const lot = onLot();
     const groups = {};
@@ -339,9 +300,9 @@ VIEWS.home = {
     const tryChips = ["Bobcat T66 and a 2022 F-250", "Car hauler for a '67 Mustang", "Two UTVs, Silverado 1500", "What's on the lot?"];
     return `
 <section class="hero hero-full"><video class="hero-bg" autoplay muted loop playsinline poster="video/hero-full.webp" aria-hidden="true"><source src="video/hero-full.mp4" type="video/mp4"></video><div class="hero-shade"></div><div class="wrap hero-inner">
-  <div class="eyebrow">The only exclusive Timpte Equipment Trailer dealer in the U.S. · Waxhaw, NC</div>
+  <div class="eyebrow">America's only Timpte-exclusive dealer · Waxhaw, NC</div>
   <h1 style="margin-top:16px">Built once. <span>Lasts forever.</span></h1>
-  <p class="lede">All-aluminum Timpte trailers for contractors, haulers and weekend toys, sold by the only exclusive Timpte dealer in the country, and one who picks up the phone. See what's on the lot today, or tell us what you haul and we'll match the trailer.</p>
+  <p class="lede">All-aluminum Timpte trailers for contractors, haulers and weekend toys, sold by the only dealer in the U.S. that sells Timpte equipment trailers exclusively, and one who picks up the phone. See what's on the lot today, or tell us what you haul and we'll match the trailer.</p>
   <form class="hero-ask" data-form="hero-ask"><i class="av">${A[0]}</i><label for="heroAsk" class="sr">Tell ${A} what you haul</label><input id="heroAsk" name="q" placeholder="Tell ${A} what you haul…" autocomplete="off"><button class="btn btn-gold" type="submit" aria-label="Send to ${A}">${ICON.send}<span>Ask</span></button></form>
   <div class="hero-try"><span>Try:</span>${tryChips.map(c => `<button type="button" data-act="say" data-say="${esc(c)}">${esc(c)}</button>`).join("")}</div>
   <div class="hero-ctas"><a class="btn btn-dark" href="#/inventory">See what's on the lot</a><a class="btn btn-line" href="#/finder">Find my trailer</a></div>
@@ -354,13 +315,13 @@ ${exclHTML()}
   <div class="stat"><b data-count="${DATA.business.modelsCarried}">${DATA.business.modelsCarried}</b><span>Timpte models available to order</span></div>
   <a class="stat" href="#/inventory"><b data-count="${lot.length}">${lot.length}</b><span>Units on the lot today</span></a>
   <button class="stat" data-act="tessa-open"><b>24/7<i class="live-dot"></i></b><span>${A}, our AI trailer advisor</span><em>Ask now →</em></button>
-  <a class="stat" href="#/about"><b>Only</b><span>Exclusive Timpte dealer in the U.S.</span></a>
+  <a class="stat" href="#/about"><b>Only</b><span>America's only Timpte-exclusive dealer</span></a>
 </div></div>
 
-<section class="tour" id="tour"><div class="wrap">
+${DEMO ? `<section class="tour" id="tour"><div class="wrap">
   <div class="sec-head"><div><div class="eyebrow">Demo tour · Two sides of the counter</div><h2 style="margin-top:10px">Try it as a customer or as Matt.</h2><p class="lede">Sign in with one click. Everything you do is saved in this browser so you can show it, then reset from the footer.</p></div></div>
   ${tourHTML()}
-</div></section>
+</div></section>` : ""}
 
 <section id="shop"><div class="wrap">
   <div class="sec-head rv"><div><div class="eyebrow">Shop by category</div><h2 style="margin-top:10px">Start with what you haul.</h2></div><a class="btn btn-line sm" href="#/finder">Not sure? Use the Finder</a></div>
@@ -373,7 +334,7 @@ ${exclHTML()}
   <div class="lot-grid">${featured.map(g => { const t = g[0]; const last = g.length === 1;
     return `<article class="unit rv"><div class="unit-photo"><img src="${img(t.img)}" alt="${esc(t.model)}" loading="lazy"><span class="status ${last ? "last" : "in"}">${last ? "Last one" : "On the lot now"}</span><div class="qty"><b>${g.length}</b><span>${last ? "Left" : "Available"}</span></div></div>
       <div class="unit-body"><span class="line">${typeLabel(t.type)} series</span><h3>${esc(t.model)}</h3><p>${esc(t.blurb)}</p><ul class="feat">${t.feat.map(f => `<li>${esc(f)}</li>`).join("")}</ul>
-      <span class="cta-note">${last ? "Last one on the lot. Hold it with a deposit." : "Ready to haul today. From " + money(Math.min.apply(null, g.map(x => x.price))) + "."}</span>
+      <span class="cta-note">${last ? "Last one on the lot. Hold it with a deposit." : (DEMO ? "Ready to haul today. From " + money(Math.min.apply(null, g.map(x => x.price))) + "." : "Ready to haul today. Call or text for a price.")}</span>
       <div class="btns"><button class="btn btn-gold" data-act="hold" data-id="${t.id}">Reserve this trailer</button><button class="btn btn-line" data-act="ask" data-id="${t.id}" aria-label="Ask ${A} about the ${esc(t.model)}">Ask</button></div></div></article>`; }).join("")}</div>
 </div></section>
 
@@ -394,19 +355,19 @@ ${meetHTML()}
   </div></div>
   <div class="match-card" aria-live="polite"><div class="photo"><img id="mImg" src="${img("splittilt")}" alt=""></div><div class="body">
     <span class="eyebrow" id="mTag">Start here</span><h3 id="mName">Timpte 1420 Split Tilt</h3><p id="mWhy"></p>
-    <div class="ask"><span id="mAsk"></span><div class="btns"><a class="btn btn-line sm" id="mLot" href="#/inventory">On the lot</a><button class="btn btn-gold sm" id="mBtn" data-act="quote-model" data-model="Timpte 1420 Split Tilt">Quote this trailer</button></div></div></div></div>
+    <div class="ask"><span id="mAsk"></span><div class="btns"><a class="btn btn-line sm" id="mLot" href="#/inventory">On the lot</a><button class="btn btn-gold sm" id="mBtn" data-act="say" data-say="Tell me about the Timpte 1420 Split Tilt">Ask ${A} about it</button></div></div></div></div>
 </div></section>
 
 ${WHY}
 
-<section id="reviews"><div class="wrap">
+${DEMO ? `<section id="reviews"><div class="wrap">
   <div class="sec-head"><div><div class="eyebrow">What customers say</div><h2 style="margin-top:10px">Straight answers. Right trailer.</h2></div><span class="muted" style="font-size:.85rem">Sample reviews for the concept</span></div>
   <div class="tq-grid">${DATA.testimonials.map(t => `<figure class="tq"><span class="stars" aria-label="5 stars">★★★★★</span><blockquote>“${esc(t.q)}”</blockquote><figcaption><b>${esc(t.who)}</b>${esc(t.what)}</figcaption></figure>`).join("")}</div>
-</div></section>
+</div></section>` : ""}
 
 <section id="quote" class="bgsec quote-bg"><div class="wrap quote-grid"><div id="visit">
   <div class="eyebrow" style="color:var(--gold-2)">Visit · Quote or reserve</div><h2 style="margin-top:10px">Tell us what you haul.</h2>
-  <p class="lede">A few details get you a real answer the same business day: the right model, what's on the lot, and pricing.</p>${visitList()}
+  <p class="lede">A few details get you a real answer the same business day: the right model, what's on the lot, and your quote from Matt.</p>${visitList()}
 </div>${quoteFormHTML(route.q.m)}</div></section>
 
 <div class="ctaband"><div class="wrap"><div><h2>Need it this week?</h2><p>${lot.length} trailers are ready to hitch up in Waxhaw. Call, or ask ${A} now.</p></div>
@@ -417,12 +378,11 @@ ${WHY}
 
 function exclHTML(cls = "") {
   return `<section class="excl ${cls}" id="exclusive"><div class="wrap excl-grid">
-  <div class="excl-logo rv"><img src="${img("timpte-et-logo")}" alt="Timpte Equipment Trailers" loading="lazy"><span>Exclusive dealer</span></div>
+  <div class="excl-logo rv"><img src="${img("timpte-et-logo")}" alt="Timpte Equipment Trailers" loading="lazy"><span>Timpte-exclusive</span></div>
   <div class="rv rv-d1"><div class="eyebrow">One of a kind</div>
-    <h2 style="margin-top:10px">The only <em>exclusive</em> Timpte Equipment Trailer dealer in the United States.</h2>
+    <h2 style="margin-top:10px">The only dealer in the U.S. that sells Timpte equipment trailers <em>exclusively</em>.</h2>
     <p class="lede">Timeless Trailers sells Timpte and nothing else. No other dealer in the country has made that commitment. It means every trailer on our lot is aluminum, built without structural welds, and backed by a dealer who knows the whole line inside and out.</p>
     <span class="pin">${ICON.pinFill}Waxhaw, North Carolina · serving the Carolinas</span>
-    <p class="confirm-note">Mock-up note for Matt: confirm the exact wording of the exclusivity claim before launch.</p>
   </div></div></section>`;
 }
 
@@ -430,16 +390,16 @@ function meetHTML() {
   return `<section class="meet bgsec" id="meet"><div class="wrap meet-grid"><div>
   <div class="eyebrow" style="color:var(--gold-2)">AI trailer advisor</div>
   <h2 style="margin-top:10px">Meet <span>${A}.</span></h2>
-  <p class="lede">${A} knows every unit on our lot and the weight of the machines you're likely to haul. Give it the load and the truck and it does the math the way we would at the counter: payload, deck, loading angle, tow rating. Day or night.</p>
+  <p class="lede">${A} knows every Timpte model, every spec sheet and what's on our lot. ${ANDY_LINE} Day or night.</p>
   <ul class="caps">
-    <li>${tick}<span><b>Fit check.</b> Name the machine to match payload, deck length and loading style, with the margin.</span></li>
-    <li>${tick}<span><b>Tow check.</b> Name your truck to get a flag if the loaded rig runs too close to the rating.</span></li>
-    <li>${tick}<span><b>Holds and quotes.</b> Hold a unit on the lot or get an itemized out-the-door quote in the chat.</span></li>
-    <li>${tick}<span><b>Payments.</b> Monthly estimates on any trailer, using our financing calculator.</span></li>
-    <li>${tick}<span><b>Owners.</b> Order parts and open a service ticket without calling.</span></li>
+    <li>${tick}<span><b>Your load.</b> Tell ${A} the machine, car or material and it points you at the right Timpte family.</span></li>
+    <li>${tick}<span><b>Your truck.</b> Name what pulls it and ${A} tells you what to look for before you buy.</span></li>
+    <li>${tick}<span><b>Specs.</b> Payload, deck size, loading angle, axles and tires, straight from the spec sheets.</span></li>
+    <li>${tick}<span><b>The lot.</b> What's here now and what's arriving.</span></li>
+    <li>${tick}<span><b>Owners.</b> Parts, service and warranty questions.</span></li>
   </ul>
   <div class="ctas"><button class="btn btn-gold" data-act="tessa-open">Start a conversation</button><a class="btn btn-line-light" href="#/finder">Use the Trailer Finder</a></div>
-  <p class="note" style="color:#8f897f">A person at Timeless confirms every hold, price and order.</p>
+  <p class="note" style="color:#8f897f">Matt confirms every price, hold and order personally.</p>
 </div>
 <div class="democ" aria-hidden="true"><div class="dh"><i class="av">${A[0]}</i><div><b>${A}</b><small>Timeless trailer advisor · online</small></div></div>
   <div class="dlog" id="demoLog"></div><div class="dinput"><span class="typed" id="demoTyped"></span><span class="cur"></span></div></div>
@@ -454,7 +414,7 @@ function mountMatcher() {
     const n = S.inventory.filter(t => t.status === "lot" && t.model === m.name).length;
     $("#mTag").textContent = n ? "On the lot now · " + n + " available" : m.tag;
     $("#mName").textContent = m.name; $("#mWhy").textContent = m.why; $("#mAsk").textContent = m.ask;
-    $("#mBtn").dataset.model = m.name; $("#mLot").href = "#/inventory?type=" + m.type;
+    $("#mBtn").dataset.say = "Tell me about the " + m.name + ". " + m.ask; $("#mLot").href = "#/inventory?type=" + m.type;
     picks.forEach(p => p.setAttribute("aria-pressed", p.dataset.k === k ? "true" : "false"));
   }
   picks.forEach(p => p.addEventListener("click", () => show(p.dataset.k)));
@@ -466,16 +426,9 @@ let demoTimer = null;
 function startDemoChat() {
   const log = $("#demoLog"), typed = $("#demoTyped"); if (!log) return;
   clearTimeout(demoTimer);
-  const mach = DATA.machines.find(m => m.name === "Kubota SVL75"), truck = DATA.trucks.find(t => t.name === "Ford F-250");
-  const pick = rankFor({ cat: mach.cat, weight: mach.w, len: mach.len }).find(r => /Split Tilt/.test(r.t.model)) || rankFor({ cat: mach.cat, weight: mach.w })[0];
-  const q = "Will a Kubota SVL75 fit on your split-tilt? I pull with a 2022 F-250.";
-  let answer = "";
-  if (pick) {
-    const t = pick.t, tw = towOf(t, mach.w, truck), n = lotCount(t.model);
-    answer = `<p>Yes. An SVL75 runs about <b>${num(mach.w)} lb</b> (sample weight). The ${esc(t.model)} carries <b>${num(t.payload)} lb</b>, so you have ${Math.round(pick.margin * 100)}% margin, and the ${t.deckFt} ft deck clears its ${mach.len} ft length.</p>
-      <p>Loaded you're near ${num(tw.loaded)} lb, ${Math.round(tw.pct * 100)}% of the F-250's ${num(tw.rating)} lb rating. ${tw.state === "ok" ? "Comfortable." : "That's close."}</p>
-      <div class="badges">${fitBadge(pick)}${towBadge(tw)}</div><p><b>${n ? "We have " + n + " on the lot" : "Next one arrives soon"}</b> · Stock ${t.id}</p>`;
-  }
+  /* a scripted exchange for the animation only; no weights, ratings or verdicts, Andy on Stammer does the real answering */
+  const q = "I've got a Bobcat T66 and a 2022 F-250. What should I be looking at?";
+  const answer = `<p>A split tilt is the usual home for a compact track loader. It tilts to the ground, so you drive straight on with no ramps to lift.</p><p>Tell me the operating weight with the bucket on and I'll confirm the fit and what to check on your F-250. Then Matt sends your quote the same business day.</p>`;
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const bubble = (cls, html) => { const d = document.createElement("div"); d.className = "msg " + cls; d.innerHTML = html; log.appendChild(d); return d; };
   function run() {
@@ -574,10 +527,11 @@ VIEWS.trailer = {
           <button class="heart inline" data-act="save" data-id="${t.id}" aria-pressed="${isSaved(t.id)}" aria-label="Save ${t.id}">${ICON.heart}</button></div>
         <div style="display:flex;gap:8px;flex-wrap:wrap"><span class="pill ${st.pill}">${st.label}</span><span class="pill">Stock ${t.id}</span></div>
         <ul class="specs3"><li><b>${num(t.payload)} lb</b><span>Payload</span></li><li><b>${t.deckFt} ft</b><span>Deck</span></li><li><b>${esc(third(t).v)}</b><span>${third(t).l}</span></li></ul>
-        <div class="dprice"><div><small class="muted">Price</small><div class="price">${money(t.price)}</div></div><div class="pay">Est. payment<b>${money(pay)}/mo</b>${f.term} mo · ${f.apr}% APR · ${f.downPct}% down<br><a href="#/financing?id=${t.id}">Adjust the numbers</a></div></div>
+        ${DEMO ? `<div class="dprice"><div><small class="muted">Price</small><div class="price">${money(t.price)}</div></div><div class="pay">Est. payment<b>${money(pay)}/mo</b>${f.term} mo · ${f.apr}% APR · ${f.downPct}% down<br><a href="#/financing?id=${t.id}">Adjust the numbers</a></div></div>`
+          : `<div class="dprice"><div><small class="muted">Price</small><div class="price callp">Call for price</div></div><div class="pay" style="max-width:22em">${ANDY_LINE}</div></div>`}
         <div class="dbtns">
           <button class="btn btn-gold" data-act="hold" data-id="${t.id}" ${canHold ? "" : "disabled"}>${t.status === "hold" ? "On hold" : t.status === "sold" ? "Sold" : "Hold this unit"}</button>
-          <button class="btn btn-dark" data-act="quote" data-id="${t.id}">Get a quote</button>
+          ${DEMO ? `<button class="btn btn-dark" data-act="quote" data-id="${t.id}">Get a quote</button>` : `<button class="btn btn-dark" data-act="quote-model" data-model="${esc(t.model)}">Get a quote</button>`}
           <button class="btn btn-line" data-act="ask" data-id="${t.id}">Ask ${A} about this trailer</button>
           <button class="btn btn-line" data-act="cmp-btn" data-id="${t.id}">${S.compare.includes(t.id) ? "In compare ✓" : "Add to compare"}</button>
         </div>
@@ -588,69 +542,36 @@ VIEWS.trailer = {
   }
 };
 
-/* ---------- finder ---------- */
-const finder = { step: 1, cat: null, machine: null, weight: null, len: 0, truck: null, rating: null, freq: null, budget: null };
+/* ---------- finder: pick what you haul, see the Timpte family for it; Andy handles the exact fit ---------- */
+const finder = { cat: null };
+const FAMILIES = { compact: ["tilt"], miniex: ["tilt", "deckover"], heavy: ["gooseneck", "deckover"], car: ["ezload"], utv: ["ezload"], material: ["dump"], mower: ["ezload"] };
 VIEWS.finder = {
   title: "Trailer Finder · Timeless Trailers",
   html() {
-    return `<div class="page-head"><div class="wrap"><div class="crumbs"><a href="#/home">Home</a> / Trailer Finder</div><div class="eyebrow">Four questions</div><h1 style="margin-top:10px">Trailer Finder.</h1>
-      <p class="lede">What you haul, what it weighs, what pulls it, and how you'll use it. We'll rank what's on the lot with a fit check and a tow check.</p></div></div>
+    return `<div class="page-head"><div class="wrap"><div class="crumbs"><a href="#/home">Home</a> / Trailer Finder</div><div class="eyebrow">Start with the load</div><h1 style="margin-top:10px">Trailer Finder.</h1>
+      <p class="lede">Pick what you haul and we'll point you at the Timpte family built for it. For your exact machine and truck, ask ${A}: ${ANDY_LINE}</p></div></div>
       <section style="padding-top:34px"><div class="wrap finder" id="finderBox"></div></section>`;
   },
   mount() { renderFinder(); }
 };
 function renderFinder() {
   const box = $("#finderBox"); if (!box) return;
-  const f = finder, st = f.step;
-  const bar = `<div class="fsteps" aria-label="Step ${Math.min(st, 4)} of 4">${[1, 2, 3, 4].map(i => `<span class="${i <= st ? "on" : ""}"></span>`).join("")}</div>`;
-  let body = "";
-  if (st === 1) {
-    body = `<div class="fcard"><div class="eyebrow">Step 1 of 4</div><h3>What are you hauling?</h3><p>Pick the closest match, or choose your exact machine below.</p>
-      <div class="opts">${DATA.loadCats.map(c => `<button class="opt" data-act="f-cat" data-k="${c.k}" aria-pressed="${f.cat === c.k}">${c.label}<small>${c.sub}</small></button>`).join("")}</div>
-      <div style="margin-top:20px;max-width:420px"><label for="fMach">Or pick your machine (sample weights)</label><select id="fMach" data-act="f-mach"><option value="">Choose a machine…</option>${DATA.machines.map((m, i) => `<option value="${i}" ${f.machine === m.name ? "selected" : ""}>${m.name} · ${m.desc} · ~${num(m.w)} lb</option>`).join("")}</select></div>
-      <div class="fnav"><span></span><button class="btn btn-gold" data-act="f-next" ${f.cat ? "" : "disabled"}>Next</button></div></div>`;
-  } else if (st === 2) {
-    const w = f.weight || 3000;
-    body = `<div class="fcard"><div class="eyebrow">Step 2 of 4</div><h3>About how much does it weigh?</h3><p>${f.machine ? `We started with the sample weight for a ${esc(f.machine)}. ` : ""}Include attachments, fuel and anything else riding on the deck.</p>
-      <div class="wread" id="wRead">${num(w)} <small>lb</small></div><label for="fW" class="sr">Weight in pounds</label><input type="range" id="fW" data-act="f-w" min="500" max="18000" step="100" value="${w}">
-      <div class="range-row"><span>500 lb</span><span>18,000 lb</span></div>
-      <div class="fnav"><button class="btn btn-line" data-act="f-back">Back</button><button class="btn btn-gold" data-act="f-next">Next</button></div></div>`;
-  } else if (st === 3) {
-    body = `<div class="fcard"><div class="eyebrow">Step 3 of 4</div><h3>What's pulling it?</h3><p>Sample tow ratings. Always check the sticker in your door jamb and your hitch rating.</p>
-      <div class="opts">${DATA.trucks.map(t => `<button class="opt" data-act="f-truck" data-n="${esc(t.name)}" aria-pressed="${f.truck === t.name}">${t.name}<small>~${num(t.tow)} lb${t.gn ? " · " + num(t.gn) + " gooseneck" : ""}</small></button>`).join("")}
-        <button class="opt" data-act="f-truck" data-n="" aria-pressed="${f.truck === "" }">Something else<small>Enter the rating below</small></button></div>
-      <div style="margin-top:16px;max-width:300px" ${f.truck === "" ? "" : "hidden"} id="fRateBox"><label for="fRate">Tow rating (lb)</label><input id="fRate" data-act="f-rate" type="number" min="1000" step="100" value="${f.rating || ""}" placeholder="e.g. 10000"></div>
-      <div class="fnav"><button class="btn btn-line" data-act="f-back">Back</button><button class="btn btn-gold" data-act="f-next" ${f.truck != null ? "" : "disabled"}>Next</button></div></div>`;
-  } else if (st === 4) {
-    const freqs = [["daily", "Every day, for work", "Worked hard, loaded often"], ["weekly", "Most weeks", "Regular use"], ["sometimes", "A few times a year", "Weekends and projects"]];
-    const buds = [[8000, "Under $8,000"], [15000, "Up to $15,000"], [25000, "Up to $25,000"], [0, "Whatever fits right"]];
-    body = `<div class="fcard"><div class="eyebrow">Step 4 of 4</div><h3>How often, and what budget?</h3><p>Daily work trailers get extra payload margin. Budget is a filter, not a hard stop.</p>
-      <label>How often will you haul?</label><div class="opts">${freqs.map(([k, l, s]) => `<button class="opt" data-act="f-freq" data-k="${k}" aria-pressed="${f.freq === k}">${l}<small>${s}</small></button>`).join("")}</div>
-      <label style="margin-top:18px">Budget</label><div class="opts">${buds.map(([v, l]) => `<button class="opt" data-act="f-bud" data-v="${v}" aria-pressed="${f.budget === v}">${l}</button>`).join("")}</div>
-      <div class="fnav"><button class="btn btn-line" data-act="f-back">Back</button><button class="btn btn-gold" data-act="f-next" ${f.freq && f.budget != null ? "" : "disabled"}>Show my matches</button></div></div>`;
-  } else {
-    const truck = f.truck ? DATA.trucks.find(t => t.name === f.truck) : null;
-    const seen = {};
-    const ranked = rankFor({ cat: f.cat, weight: f.weight, len: f.len, truck, rating: truck ? null : f.rating, budget: f.budget || null, freq: f.freq }).filter(r => !seen[r.t.model] && (seen[r.t.model] = 1));
-    const cat = DATA.loadCats.find(c => c.k === f.cat);
-    const summary = `<div class="badges" style="margin-bottom:6px"><span class="badge">${esc(f.machine || cat.label)}</span><span class="badge">${num(f.weight)} lb</span><span class="badge">${esc(f.truck || (f.rating ? num(f.rating) + " lb rating" : "Truck not set"))}</span>${f.budget ? `<span class="badge">≤ ${money(f.budget)}</span>` : ""}</div>`;
-    body = `<div class="fcard"><div class="eyebrow">Your matches</div><h3>${ranked.length ? "Ranked for your load." : "Nothing in stock fits that load."}</h3>${summary}
-      ${ranked.length ? `<div class="results">${ranked.slice(0, 4).map((r, i) => resultRow(r, i, f)).join("")}</div>` : `<p>We can order the right Timpte for it. Leave your number and we'll spec it today.</p><button class="btn btn-gold" data-act="quote-model" data-model="Not sure yet, help me choose">Talk to the team</button>`}
-      <div class="fnav"><button class="btn btn-line" data-act="f-restart">Start over</button><button class="btn btn-dark" data-act="say" data-say="${esc((f.machine || num(f.weight) + " lb") + (f.truck ? " with a " + f.truck : ""))}">Talk it through with ${A}</button></div></div>`;
+  const f = finder;
+  const cat = DATA.loadCats.find(c => c.k === f.cat);
+  let out = `<div class="fcard"><div class="eyebrow">What are you hauling?</div><h3>Pick the closest match.</h3>
+    <div class="opts">${DATA.loadCats.map(c => `<button class="opt" data-act="f-cat" data-k="${c.k}" aria-pressed="${f.cat === c.k}">${c.label}<small>${c.sub}</small></button>`).join("")}</div></div>`;
+  if (cat) {
+    const fams = (FAMILIES[cat.k] || []).map(k => DATA.categories.find(c => c.type === k)).filter(Boolean);
+    const ask = `I haul ${cat.label.toLowerCase()}. Which Timpte fits, and what should I know about my truck?`;
+    out += `<div class="fcard" style="margin-top:18px"><div class="eyebrow">${esc(cat.label)}</div><h3>${fams.length > 1 ? "Two families to look at." : "The family built for it."}</h3>
+      <div class="results">${fams.map((c, i) => {
+        const models = Object.keys(MODELS).filter(k => MODELS[k].type === c.type).map(k => { const m = MODELS[k]; const u = S.inventory.find(x => x.model === m.model && x.status !== "sold"); return `<a href="${u ? "#/trailer/" + u.id : "#/inventory?s=lineup"}">${esc(m.model.replace("Timpte ", ""))}</a>`; });
+        return `<div class="res ${i === 0 ? "top" : ""}"><a href="#/inventory?type=${c.type}"><img src="${img(c.tile || c.img)}" alt="${esc(c.title)}" loading="lazy"></a><div>
+          <div class="rk">Timpte ${c.series}</div><h4>${esc(c.title)}</h4><p>${esc(c.blurb)}</p><p class="muted" style="margin:0;font-size:.92rem">Models: ${models.join(" · ")}</p></div>
+          <div class="ra"><a class="btn btn-gold sm" href="#/inventory?type=${c.type}">See ${esc(c.title)} trailers</a></div></div>`; }).join("")}</div>
+      <div class="fnav"><button class="btn btn-line" data-act="f-restart">Start over</button><button class="btn btn-dark" data-act="say" data-say="${esc(ask)}">Ask ${A} to check your fit</button></div></div>`;
   }
-  box.innerHTML = bar + body;
-}
-function resultRow(r, i, f) {
-  const t = r.t, n = lotCount(t.model);
-  const why = [];
-  why.push(`${num(t.payload)} lb payload against ${num(f.weight)} lb.`);
-  if (f.len) why.push(`${t.deckFt} ft deck for a ~${f.len} ft footprint.`);
-  if (r.tow && r.tow.state !== "gn") why.push(`Loaded about ${num(r.tow.loaded)} lb, ${Math.round(r.tow.pct * 100)}% of ${num(r.tow.rating)} lb.`);
-  if (r.tow && r.tow.state === "gn") why.push("Gooseneck hitch: your truck needs a bed hitch rated for it.");
-  return `<div class="res ${i === 0 ? "top" : ""}"><a href="#/trailer/${t.id}"><img src="${img(t.img)}" alt="${esc(tname(t))}" loading="lazy"></a><div>
-    <div class="rk">${i === 0 ? "Best match" : "Option " + (i + 1)}</div><h4>${esc(tname(t))}</h4><p>${why.join(" ")}</p>
-    <div class="badges">${fitBadge(r)}${towBadge(r.tow)}${r.budget ? `<span class="badge ${r.budget === "ok" ? "ok" : "warn"}">${r.budget === "ok" ? "In budget" : "Over budget"}</span>` : ""}<span class="badge info">${n ? n + " on the lot" : statusInfo(t).label}</span></div></div>
-    <div class="ra"><div class="price">${money(t.price)}<small>about ${money(monthly(t.price))}/mo</small></div><a class="btn btn-gold sm" href="#/trailer/${t.id}">Details</a><button class="btn btn-line xs" data-act="hold" data-id="${t.id}" ${t.status === "lot" || t.status === "order" ? "" : "disabled"}>Hold it</button></div></div>`;
+  box.innerHTML = out;
 }
 
 /* ---------- compare ---------- */
@@ -661,11 +582,11 @@ VIEWS.compare = {
     const avail = S.inventory.filter(t => t.status !== "sold" && !S.compare.includes(t.id));
     const head = `<div class="page-head"><div class="wrap"><div class="crumbs"><a href="#/home">Home</a> / Compare</div><div class="eyebrow">Side by side</div><h1 style="margin-top:10px">Compare models.</h1>
       <p class="lede">Up to three trailers. The best number in each row is highlighted.</p>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;align-items:center">${list.length < 3 ? `<label for="cmpAdd" class="sr">Add a trailer</label><select id="cmpAdd" data-act="cmp-add" style="max-width:360px"><option value="">+ Add a trailer to compare…</option>${avail.map(t => `<option value="${t.id}">${esc(tname(t))} · ${t.id} · ${money(t.price)}</option>`).join("")}</select>` : ""}
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;align-items:center">${list.length < 3 ? `<label for="cmpAdd" class="sr">Add a trailer</label><select id="cmpAdd" data-act="cmp-add" style="max-width:360px"><option value="">+ Add a trailer to compare…</option>${avail.map(t => `<option value="${t.id}">${esc(tname(t))} · ${t.id}${DEMO ? " · " + money(t.price) : ""}</option>`).join("")}</select>` : ""}
       ${list.length ? `<button class="btn btn-line sm" data-act="cmp-clear">Clear all</button>` : ""}</div></div></div>`;
     if (!list.length) return head + `<section style="padding-top:34px"><div class="wrap"><div class="empty"><b>Nothing to compare yet.</b>Tick “Compare” on any trailer card, or add one above.<div style="margin-top:14px"><button class="btn btn-gold sm" data-act="cmp-starter">Compare the two car haulers</button></div></div></div></section>`;
     const rows = [
-      ["Price", t => money(t.price), t => t.price, "min"], ["Est. payment", t => money(monthly(t.price)) + "/mo", t => t.price, "min"], ["Status", t => statusInfo(t).label],
+      ...(DEMO ? [["Price", t => money(t.price), t => t.price, "min"], ["Est. payment", t => money(monthly(t.price)) + "/mo", t => t.price, "min"]] : []), ["Status", t => statusInfo(t).label],
       ["Payload", t => num(t.payload) + " lb", t => t.payload, "max"], ["GVWR", t => num(t.gvwr) + " lb", t => t.gvwr, "max"], ["Empty weight", t => num(t.empty) + " lb", t => t.empty, "min"],
       ["Deck", t => t.deck, t => t.deckFt, "max"], ["Width", t => t.width], ["Loading", t => t.loading], ["Load angle", t => (t.angle ? t.angle + "°" : "n/a"), t => t.angle || 99, "min"],
       ["Axles", t => t.axles], ["Hitch", t => t.hitch], ["Brakes", t => t.brakes], ["Tires", t => t.tires]];
@@ -758,7 +679,7 @@ VIEWS.financing = {
       <p class="lede">Payment options through the manufacturer's programs and local lenders. Run the numbers here, then pre-qualify in two minutes. Rates shown are samples for the concept.</p></div></div>
     <section style="padding-top:34px"><div class="wrap grid2">
       <div class="panel"><h3>Payment calculator</h3><div class="fields">
-        <div class="full"><label for="fTr">Trailer</label><select id="fTr" data-act="fin-tr"><option value="">Enter a price</option>${S.inventory.filter(t => t.status !== "sold").map(t => `<option value="${t.id}" ${fin.id === t.id ? "selected" : ""}>${esc(tname(t))} · ${t.id} · ${money(t.price)}</option>`).join("")}</select></div>
+        ${DEMO ? `<div class="full"><label for="fTr">Trailer</label><select id="fTr" data-act="fin-tr"><option value="">Enter a price</option>${S.inventory.filter(t => t.status !== "sold").map(t => `<option value="${t.id}" ${fin.id === t.id ? "selected" : ""}>${esc(tname(t))} · ${t.id} · ${money(t.price)}</option>`).join("")}</select></div>` : `<div class="full"><p class="note" style="margin:0">Enter the price from your quote, or the figure you have in mind, to see a sample payment.</p></div>`}
         <div><label for="fPrice">Price ($)</label><input id="fPrice" data-fin="price" type="number" min="0" step="50" value="${fin.price}"></div>
         <div><label for="fDown">Down payment ($)</label><input id="fDown" data-fin="down" type="number" min="0" step="50" value="${fin.down}"></div>
         <div class="full"><label for="fApr">APR: <span id="fAprV">${fin.apr.toFixed(2)}%</span></label><input id="fApr" data-fin="apr" type="range" min="3.99" max="17.99" step="0.25" value="${fin.apr}"></div>
@@ -789,7 +710,7 @@ VIEWS.about = {
   title: "About · Timeless Trailers",
   html(r) {
     return `<div class="page-head"><div class="wrap"><div class="crumbs"><a href="#/home">Home</a> / About</div><div class="eyebrow">Company</div><h1 style="margin-top:10px">A trailer dealer that picks up the phone.</h1>
-      <p class="lede">Timeless Trailers is the only exclusive Timpte Equipment Trailer dealer in the United States, based in Waxhaw, serving contractors, landscapers, farmers and weekend haulers across the Charlotte area. We sell one brand because we believe in how it's built: all aluminum, no rust, more payload for the same tow.</p></div></div>
+      <p class="lede">Timeless Trailers is the only dealer in the U.S. that sells Timpte equipment trailers exclusively. We're based in Waxhaw, serving contractors, landscapers, farmers and weekend haulers across the Charlotte area. We sell one brand because we believe in how it's built: all aluminum, no rust, more payload for the same tow.</p></div></div>
     <section style="padding-top:34px"><div class="wrap grid2">
       <div class="panel"><h3>How we sell</h3><ul class="flist" style="grid-template-columns:1fr">
         <li>${tick}We start with the load and the truck, not the biggest trailer on the lot.</li>
@@ -797,7 +718,7 @@ VIEWS.about = {
         <li>${tick}Real prices on the website. Holds without a deposit while we confirm details.</li>
         <li>${tick}Parts, service and warranty handled here, not shipped off.</li></ul></div>
       <div class="panel"><h3>Who you'll talk to</h3><div class="rows">${DATA.team.map(t => `<div style="display:flex;gap:12px;align-items:flex-start"><i class="av">${initials(t.name)}</i><div><b>${esc(t.name)}</b> · <span class="muted">${esc(t.role)}</span><p style="margin:4px 0 0;color:var(--text-2);font-size:.95rem">${esc(t.note)}</p></div></div>`).join("")}
-        <div style="display:flex;gap:12px;align-items:flex-start"><i class="av dark">${A[0]}</i><div><b>${A}</b> · <span class="muted">AI trailer advisor</span><p style="margin:4px 0 0;color:var(--text-2);font-size:.95rem">Answers fit, tow and payment questions any hour, then hands off to a person. <button class="link" data-act="tessa-open">Ask now</button></p></div></div></div></div>
+        <div style="display:flex;gap:12px;align-items:flex-start"><i class="av dark">${A[0]}</i><div><b>${A}</b> · <span class="muted">AI trailer advisor</span><p style="margin:4px 0 0;color:var(--text-2);font-size:.95rem">${ANDY_LINE} Any hour. <button class="link" data-act="tessa-open">Ask now</button></p></div></div></div></div>
     </div></section>
     ${exclHTML()}
     ${WHY}
