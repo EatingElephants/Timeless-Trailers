@@ -2778,7 +2778,7 @@ document.addEventListener("click", e => {
 });
 function signIn(id, keep) {
   S.user = id; save(); closeModal(); closeDrawer();
-  chat.booted = false; chat.ctx = {}; $("#tzLog").innerHTML = ""; setChips([]);
+  chat.booted = false; chat.ctx = {};
   const p = persona(id); toast(`Signed in as ${esc(p.name)} · ${esc(p.title)}`);
   if (keep) { openChat(); return render(true); }
   const target = p.role === "customer" ? "#/account" : "#/admin";
