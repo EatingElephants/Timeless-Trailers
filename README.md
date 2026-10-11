@@ -14,6 +14,7 @@ A clickable mock-up for Matt Lyons's Timpte dealership in Waxhaw, NC, built by A
 - **To look at it:** double-click `preview.bat`. Your browser opens it at http://localhost:8766. Or open the hosted link once Cloudflare is connected (see below).
 - **Still sample:** prices, stock numbers, who's on the lot, the demo people, machine weights and truck tow ratings. Everything about the trailers themselves comes from Timpte's 2026 spec sheets.
 - **Not built yet** (listed on the site's "What the finished site adds" page): the other 9 Timpte models, video chapters and a Videos page, owner how-to videos, part-number lookup, Andy answering spec questions, Matt's real inventory, quotes and holds going to a real inbox.
+- **Zoho is phase two, and it owns the relationship side.** Decided Oct 11: leads, contacts, quotes, follow-up, the pipeline board and service tickets go to Zoho CRM (shared with Axis Ice). The website keeps inventory, prices, status, photos, specs and Andy. When Zoho is in, every lead-producing form and Andy post into Zoho (webhook), and the demo Leads, Quotes, Holds, Parts and Service tabs in the dealer console come out. Don't build CRM features into the site.
 - **After Matt's feedback:** edit `src/data.js` (models, stock, copy), rebuild, commit, push. One push updates the hosted link.
 
 ## The one rule
