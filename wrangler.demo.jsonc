@@ -1,0 +1,14 @@
+// Cloudflare settings for the DEMO site (the one with the dealer back end).
+// It is a second Worker, "timeless-trailers-demo", built from this same repo.
+// Cloudflare's build command for it copies the media next to the demo page first:
+//     cp -r site/img site/video site/specs site-demo/
+// and its deploy command is:
+//     npx wrangler deploy --config wrangler.demo.jsonc
+{
+  "name": "timeless-trailers-demo",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./site-demo",
+    "not_found_handling": "single-page-application"
+  }
+}

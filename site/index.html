@@ -1203,7 +1203,7 @@
   .callp{font-size:1.35rem;letter-spacing:.02em}
 
 </style></head><body>
-<div class="concept"><b>Design concept v3</b> · Clickable mock-up by Albright Agency. Trailer specs, photos and video are Timpte's. Prices, stock and people are sample data. <a href="#/vision">What the finished site adds →</a></div>
+<div class="concept"><b>Design concept v3</b> · Clickable mock-up by Albright Agency. Trailer specs, photos and video are Timpte's. Stock numbers and what's on the lot are sample data.</div>
 <div id="chromeTop"></div>
 <main id="app"><noscript><p style="padding:40px;text-align:center">This concept needs JavaScript. Call 704-589-3100.</p></noscript></main>
 <div id="chromeBottom"></div>
@@ -1482,64 +1482,13 @@ const DATA = {
     ["Dump trailers, every 6 months", "Hydraulic fluid level, hoses and cylinder pins"]
   ],
 
-  personas: [
-    { id: "dana", role: "customer", name: "Dana Whitfield", short: "Dana W.", title: "Shopping for a car hauler", phone: "704-555-0148", email: "dana.w@example.com", town: "Monroe, NC", truck: "Chevy Silverado 1500",
-      story: "Restoring a '67 Mustang. Needs a car hauler a half-ton can pull.",
-      tryList: [`Ask ${ASSISTANT_NAME} if the Mustang fits the 720 EZ Load`, "Compare two car haulers", "Hold a unit, then see it in My Account"] },
-    { id: "marcus", role: "customer", name: "Marcus Bell", short: "Marcus B.", title: "Owns a 2024 1420 Split Tilt", company: "Bell Grading & Landscaping", phone: "980-555-0112", email: "marcus@example.com", town: "Indian Trail, NC", truck: "Ford F-250",
-      story: "Runs a track loader and a mini-ex. Bought a 1420 Split Tilt here in 2024.",
-      tryList: ["Order parts that fit the Split Tilt", `Ask ${ASSISTANT_NAME} to open a service ticket`, "Check the warranty date in My Account"] },
-    { id: "matt", role: "owner", name: "Matt Lyons", short: "Matt L.", title: "Owner", phone: "704-589-3100",
-      story: `Sees every lead, quote and ticket. Edits inventory by asking ${ASSISTANT_NAME}.`,
-      tryList: [`Tell ${ASSISTANT_NAME}: drop the 1614 dump to $15,900`, "Drag a lead from New to Contacted", "Pull the latest specs from Timpte"] },
-    { id: "kayla", role: "staff", name: "Kayla Brooks", short: "Kayla B.", title: "Sales & parts", phone: "704-589-3100",
-      story: "Works the lead board and the parts counter.",
-      tryList: ["Move a parts order to Ready for pickup", "Mark a unit sold", "Schedule an open service ticket"] }
-  ],
-
+  /* Who's on the About page. Kayla is a sample name until Matt gives us his real team. */
   team: [
     { name: "Matt Lyons", role: "Owner", note: "Answers the phone, walks the lot with you and stands behind every unit he sells." },
     { name: "Kayla Brooks", role: "Sales & parts (sample)", note: "Quotes, parts orders and keeping the lead board moving." }
   ],
 
-  testimonials: [
-    { q: "Told them I run a track loader and pull with a 2500. They had the right tilt on the lot and I hauled it home the same afternoon.", who: "Jason R.", what: "Grading contractor, Monroe" },
-    { q: "My old steel dump rusted through in five years. This aluminum one weighs less and I carry more mulch per trip.", who: "Karen M.", what: "Landscaper, Waxhaw" },
-    { q: "They talked me out of the bigger car hauler because my half-ton couldn't handle it. Appreciated the straight answer.", who: "Dave P.", what: "Weekend racer, Weddington" }
-  ],
-
-  /* Starting demo records. Reset demo returns to exactly this. */
-  seed: {
-    saved: { dana: ["TT-0160", "TT-0155"], marcus: ["TT-0147"] },
-    owned: [
-      { id: "OWN-1", userId: "marcus", year: 2024, model: "Timpte 1420 Split Tilt", type: "tilt", img: "card-1420st", vin: "4TMST2024SAMPLE381", purchased: "2024-05-14", warrantyEnds: "2027-05-14" }
-    ],
-    holds: [
-      { id: "H-7000", userId: null, trailerId: "TT-0158", name: "Ray Simmons", phone: "704-555-0177", created: d(-1), expires: d(1), status: "Active" }
-    ],
-    quotes: [
-      { id: "Q-2041", userId: "dana", name: "Dana Whitfield", phone: "704-555-0148", trailerId: "TT-0160", addons: ["spare", "straps"], created: d(-2), status: "Sent" },
-      { id: "Q-2038", userId: null, name: "Tony Ruiz", phone: "704-555-0190", trailerId: "TT-0129", addons: ["spare", "chains"], created: d(-5), status: "Sent" },
-      { id: "Q-2035", userId: null, name: "Lena Park", phone: "803-555-0123", trailerId: "TT-0142", addons: ["spare"], created: d(-9), status: "Accepted" }
-    ],
-    partsOrders: [
-      { id: "PO-3107", userId: "marcus", name: "Marcus Bell", phone: "980-555-0112", items: [["P-101", 1], ["P-109", 1]], created: d(-3), status: "Ready for pickup" },
-      { id: "PO-3109", userId: null, name: "Greg Holt", phone: "704-555-0133", items: [["P-106", 2]], created: d(-1), status: "Ordered" }
-    ],
-    tickets: [
-      { id: "SR-1041", userId: "marcus", name: "Marcus Bell", phone: "980-555-0112", unit: "2024 Timpte 1420 Split Tilt", service: "Annual safety inspection", notes: "Due before spring season.", date: d(6), created: d(-4), status: "Scheduled" },
-      { id: "SR-1039", userId: null, name: "Jim Carter", phone: "704-555-0161", unit: "2022 Timpte 1614 Dump", service: "Lighting and wiring", notes: "Left turn signal out.", date: d(0), created: d(-6), status: "In progress" }
-    ],
-    leads: [
-      { id: "L-501", name: "Tony Ruiz", phone: "704-555-0190", interest: "1620 Gooseneck for a CAT 305", source: `${ASSISTANT_NAME} chat`, stage: "Quoted", created: d(-5) },
-      { id: "L-502", name: "Lena Park", phone: "803-555-0123", interest: "1614 Dump", source: "Quote form", stage: "Won", created: d(-9) },
-      { id: "L-503", name: "Ray Simmons", phone: "704-555-0177", interest: "514 EZ Load (on hold)", source: "Hold", stage: "Contacted", created: d(-1) },
-      { id: "L-504", name: "Dana Whitfield", phone: "704-555-0148", interest: "720 EZ Load", source: `${ASSISTANT_NAME} chat`, stage: "Quoted", created: d(-2) },
-      { id: "L-505", name: "Sam Ortega", phone: "704-555-0102", interest: "Split Tilt for a mini-ex", source: "Quote form", stage: "New", created: d(0) },
-      { id: "L-506", name: "Priya Nair", phone: "980-555-0156", interest: "UTV hauler, two side-by-sides", source: "Phone", stage: "New", created: d(-1) },
-      { id: "L-507", name: "Bill Hester", phone: "704-555-0119", interest: "Car hauler", source: "Walk-in", stage: "Lost", created: d(-12) }
-    ]
-  }
+  
 };
 
 
@@ -1581,12 +1530,13 @@ const tick = ICON.check;
 
 /* ---------------- state ---------------- */
 const STORE_KEY = "timeless-v2-demo";
-/* Demo mode: sample prices, the demo tour, the demo sign-ins and the sample reviews only show when it is on.
-   Open #/demo once to turn it on in this browser; "Reset demo" in the footer turns it off. Normal visitors never see it. */
-let DEMO = false; try { DEMO = localStorage.getItem("tt-demo") === "1"; } catch (e) {}
+/* Two sites from one source. build.py fills in DEMO: false for the public site (site/), true for the demo site (site-demo/).
+   Everything between a "@demo" and an "@end-demo" comment is cut out of the public site entirely, so the back end
+   (sign-in, My Account, dealer console, sample people, sample prices) never ships to customers. */
+const DEMO = false;
 const ANDY_LINE = "Andy matches the trailer to your load and truck, then Matt sends your quote the same business day.";
 function freshState() {
-  const s = DATA.seed;
+  const s = DATA.seed || { saved: {}, owned: [], holds: [], quotes: [], partsOrders: [], tickets: [], leads: [] };
   return {
     v: 1, user: null, inventory: clone(DATA.inventory), saved: clone(s.saved), owned: clone(s.owned),
     holds: clone(s.holds), quotes: clone(s.quotes), partsOrders: clone(s.partsOrders), tickets: clone(s.tickets),
@@ -1601,12 +1551,12 @@ function save() { try { localStorage.setItem(STORE_KEY, JSON.stringify(S)); } ca
 function nextId(p) { const n = S.seq[p]++; save(); return p === "TT" ? "TT-0" + n : p + "-" + n; }
 function resetDemo() {
   if (!confirm("Reset the demo? This clears saved trailers, holds, quotes, tickets and admin edits.")) return;
-  try { localStorage.removeItem(STORE_KEY); localStorage.removeItem("tt-demo"); } catch (e) {}
+  try { localStorage.removeItem(STORE_KEY); } catch (e) {}
   location.hash = "#/home"; location.reload();
 }
 
 /* ---------------- people ---------------- */
-const persona = id => DATA.personas.find(p => p.id === id);
+const persona = id => (DATA.personas || []).find(p => p.id === id);
 const me = () => (S.user ? persona(S.user) : null);
 const uid = () => S.user || "guest";
 const isStaff = () => { const u = me(); return !!u && (u.role === "owner" || u.role === "staff"); };
@@ -1637,7 +1587,7 @@ function toggleSave(id) {
   const l = savedList(); const i = l.indexOf(id);
   if (i > -1) l.splice(i, 1); else l.push(id);
   save(); refreshHearts();
-  toast(i > -1 ? "Removed from saved trailers." : `Saved. It's in <a href="#/account">My Account</a>.`);
+  toast(i > -1 ? "Removed from saved trailers." : (DEMO ? `Saved. It's in <a href="#/account">My Account</a>.` : "Saved in this browser."));
 }
 function refreshHearts() { $$('[data-act="save"]').forEach(b => { const on = isSaved(b.dataset.id); b.setAttribute("aria-pressed", on); b.setAttribute("aria-label", (on ? "Remove " : "Save ") + b.dataset.id); }); }
 function toggleCompare(id, force) {
@@ -1695,29 +1645,7 @@ function releaseHold(id) {
   if (t && t.status === "hold") t.status = h.prev && h.prev !== "hold" ? h.prev : "lot";
   save();
 }
-function quoteCalc(t, addonIds) {
-  const items = [{ label: tname(t) + " · Stock " + t.id, amt: t.price }];
-  addonIds.forEach(id => { const a = DATA.addons.find(x => x.id === id); if (a) items.push({ label: a.label, amt: a.price }); });
-  const sub = items.reduce((s, i) => s + i.amt, 0); const f = DATA.fees;
-  const tax = Math.round((sub + f.doc) * f.taxRate);
-  return { items, sub, doc: f.doc, tax, tag: f.titleTag, total: sub + f.doc + tax + f.titleTag };
-}
-function quoteTable(q) {
-  const t = unit(q.trailerId); if (!t) return "";
-  const c = quoteCalc(t, q.addons);
-  return `<table class="qitems">${c.items.map(i => `<tr><td>${esc(i.label)}</td><td>${money(i.amt)}</td></tr>`).join("")}
-    <tr class="sub"><td>Doc fee (sample)</td><td>${money(c.doc)}</td></tr>
-    <tr class="sub"><td>${esc(DATA.fees.taxLabel)}</td><td>${money(c.tax)}</td></tr>
-    <tr class="sub"><td>Title and tag (sample)</td><td>${money(c.tag)}</td></tr>
-    <tr class="tot"><td>Out the door</td><td>${money(c.total)}</td></tr></table>`;
-}
-function createQuote(t, addons, name, phone) {
-  const q = { id: nextId("Q"), userId: S.user && !isStaff() ? S.user : (S.user ? null : "guest"), name, phone, trailerId: t.id, addons, created: new Date().toISOString(), status: "Sent" };
-  S.quotes.unshift(q);
-  const lead = S.leads.find(l => l.name === name && l.stage !== "Won" && l.stage !== "Lost");
-  if (lead) { lead.stage = "Quoted"; lead.interest = tname(t); } else addLead({ name, phone, interest: tname(t), source: "Quote", stage: "Quoted" });
-  save(); return q;
-}
+
 function partsTotal(items) { return items.reduce((s, [id, q]) => { const p = DATA.parts.find(x => x.id === id); return s + (p ? p.price * q : 0); }, 0); }
 function createPartsOrder(items, name, phone) {
   const o = { id: nextId("PO"), userId: S.user && !isStaff() ? S.user : "guest", name, phone, items, created: new Date().toISOString(), status: "Ordered" };
@@ -1744,13 +1672,8 @@ function navHTML() {
   <div class="menu" data-menu="co"><button aria-expanded="false" data-nav="about-visit">Visit ${ICON.caret}</button>
     <div class="dd"><a href="#/about?s=visit">Visit<small>${esc(DATA.business.address)}</small></a><a href="#/about?s=contact">Contact<small>Call, text or send a note</small></a></div></div>`;
 }
-function acctSlotHTML() {
-  const u = me();
-  if (!u) return DEMO ? `<button class="btn btn-line-light" data-act="signin-open">Sign in</button>` : "";
-  return `<div class="menu" data-menu="acct"><button class="uchip" aria-expanded="false"><i class="av ${u.role !== "customer" ? "dark" : ""}">${initials(u.name)}</i><span><small>Signed in as</small>${esc(u.short)}</span></button>
-    <div class="dd right">${u.role === "customer" ? `<a href="#/account">My Account<small>Saved, holds, quotes, orders</small></a>` : `<a href="#/admin">Dealer console<small>${esc(u.title)}</small></a><a href="#/account">My Account</a>`}
-    <a href="#" data-act="signin-open">Switch demo user<small>Customer or dealership</small></a><a href="#" data-act="signout">Sign out</a></div></div>`;
-}
+function acctSlotHTML() { return DEMO ? acctSlotDemoHTML() : ""; }
+
 function updateChrome() {
   $("#navLinks").innerHTML = navHTML();
   $("#acctSlot").innerHTML = acctSlotHTML();
@@ -1758,14 +1681,13 @@ function updateChrome() {
   refreshCompare();
 }
 function openDrawer() {
-  const u = me();
   const html = `<div class="drawer-bg" data-act="drawer-close"></div><nav class="drawer" aria-label="Menu">
     <div class="dhead"><img src="${img("timeless-logo")}" alt="Timeless Trailers" style="height:40px;width:auto"><button class="xbtn" data-act="drawer-close" aria-label="Close menu">${ICON.x}</button></div>
     <div class="dsearch"><label for="dSearch" class="sr">Search inventory</label><input id="dSearch" placeholder="Search trailers: dump, tilt, 1020…" data-search></div>
     <h4>Inventory</h4><a href="#/inventory">On the lot</a><a href="#/inventory?s=lineup">Lineup by category</a><a href="#/finder">Trailer Finder</a><a href="#/compare">Compare models</a>
     <h4>Own</h4><a href="#/parts">Parts</a><a href="#/service">Service</a><a href="#/service?s=resources">Owner resources</a><a href="#/financing">Financing</a>
     <h4>Company</h4><a href="#/about">About</a><a href="#/about?s=visit">Visit</a><a href="#/about?s=contact">Contact</a>
-    ${u || DEMO ? `<h4>Account</h4>${u ? `<a href="#/account">My Account · ${esc(u.short)}</a>${isStaff() ? `<a href="#/admin">Dealer console</a>` : ""}<a href="#" data-act="signout">Sign out</a>` : `<a href="#" data-act="signin-open">Sign in to the demo</a>`}` : ""}
+    ${DEMO ? drawerAcctHTML() : ""}
     <div style="margin-top:22px;display:grid;gap:8px"><button class="btn btn-gold" data-act="tessa-open">Ask ${A}</button><a class="btn btn-line" href="tel:${DATA.business.tel}">Call ${DATA.business.phone}</a></div></nav>`;
   const box = document.createElement("div"); box.id = "drawer"; box.innerHTML = html; document.body.appendChild(box);
   $("#dSearch").focus();
@@ -1788,18 +1710,7 @@ function tcard(t) {
 function miniCard(t) {
   return `<a class="mcard" href="#/trailer/${t.id}"><img src="${img(t.img)}" alt=""><div><b>${esc(tname(t))}</b><small>Stock ${t.id} · ${statusInfo(t).label}</small><strong>${DEMO ? money(t.price) : "Call for price"}</strong>${DEMO ? ` <small style="display:inline">· about ${money(monthly(t.price))}/mo</small>` : ""}<br><span class="go">See details →</span></div></a>`;
 }
-function personaCard(p) {
-  const on = S.user === p.id;
-  return `<div class="pcard ${on ? "on" : ""}"><div class="ph"><i class="av ${p.role !== "customer" ? "dark" : ""}">${initials(p.name)}</i><div><b>${esc(p.name)}</b><small>${esc(p.title)}${p.company ? " · " + esc(p.company) : ""}</small></div></div>
-    <p>${esc(p.story)}</p><ul>${p.tryList.map(x => `<li>${esc(x)}</li>`).join("")}</ul>
-    <button class="btn ${p.role === "customer" ? "btn-gold" : "btn-dark"} sm" data-act="as" data-user="${p.id}">${on ? "Signed in ✓" : "Sign in as " + esc(p.name.split(" ")[0])}</button></div>`;
-}
-function tourHTML() {
-  const c = DATA.personas.filter(p => p.role === "customer"), s = DATA.personas.filter(p => p.role !== "customer");
-  return `<div class="tour-grid">
-    <div class="tour-col"><div class="eyebrow">Shop as a customer</div><h3>Buy a trailer, own a trailer.</h3><p>One click, no password. Save trailers, put a unit on hold, build a quote, and order parts as an owner.</p><div class="tour-cards">${c.map(personaCard).join("")}</div></div>
-    <div class="tour-col dark"><div class="eyebrow" style="color:var(--gold-2)">Run the dealership</div><h3>Behind the counter.</h3><p>Every lead, quote, hold and ticket from the site lands here. Change prices by asking ${A}, and confirm every change.</p><div class="tour-cards">${s.map(personaCard).join("")}</div></div></div>`;
-}
+
 function quoteFormHTML(pre) {
   const opts = ["Not sure yet, help me choose"].concat(DATA.lineup.map(l => l.model));
   if (pre && !opts.includes(pre)) opts.push(pre);
@@ -1862,10 +1773,7 @@ ${exclHTML()}
   <a class="stat" href="#/about"><b>Only</b><span>America's only Timpte-exclusive dealer</span></a>
 </div></div>
 
-${DEMO ? `<section class="tour" id="tour"><div class="wrap">
-  <div class="sec-head"><div><div class="eyebrow">Demo tour · Two sides of the counter</div><h2 style="margin-top:10px">Try it as a customer or as Matt.</h2><p class="lede">Sign in with one click. Everything you do is saved in this browser so you can show it, then reset from the footer.</p></div></div>
-  ${tourHTML()}
-</div></section>` : ""}
+${DEMO ? tourSection() : ""}
 
 <section id="shop"><div class="wrap">
   <div class="sec-head rv"><div><div class="eyebrow">Shop by category</div><h2 style="margin-top:10px">Start with what you haul.</h2></div><a class="btn btn-line sm" href="#/finder">Not sure? Use the Finder</a></div>
@@ -1904,10 +1812,7 @@ ${meetHTML()}
 
 ${WHY}
 
-${DEMO ? `<section id="reviews"><div class="wrap">
-  <div class="sec-head"><div><div class="eyebrow">What customers say</div><h2 style="margin-top:10px">Straight answers. Right trailer.</h2></div><span class="muted" style="font-size:.85rem">Sample reviews for the concept</span></div>
-  <div class="tq-grid">${DATA.testimonials.map(t => `<figure class="tq"><span class="stars" aria-label="5 stars">★★★★★</span><blockquote>“${esc(t.q)}”</blockquote><figcaption><b>${esc(t.who)}</b>${esc(t.what)}</figcaption></figure>`).join("")}</div>
-</div></section>` : ""}
+${DEMO ? reviewsSection() : ""}
 
 <section id="quote" class="bgsec quote-bg"><div class="wrap quote-grid"><div id="visit">
   <div class="eyebrow" style="color:var(--gold-2)">Visit · Quote or reserve</div><h2 style="margin-top:10px">Tell us what you haul.</h2>
@@ -2007,14 +1912,14 @@ VIEWS.inventory = {
     Object.keys(DATA.types).forEach(k => counts[k] = S.inventory.filter(t => t.type === k && t.status !== "sold").length);
     return `<div class="page-head"><div class="wrap"><div class="crumbs"><a href="#/home">Home</a> / Inventory</div>
       <div class="eyebrow">On the lot and arriving</div><h1 style="margin-top:10px">Inventory.</h1>
-      <p class="lede">${onLot().length} units ready to hitch up in Waxhaw today, plus what's on the truck from Timpte. Prices are sample prices for the concept.</p></div></div>
+      <p class="lede">${onLot().length} units ready to hitch up in Waxhaw today, plus what's on the truck from Timpte.${DEMO ? " Prices are sample prices for the concept." : ""}</p></div></div>
     <section style="padding-top:34px"><div class="wrap">
       <div class="toolbar"><div class="chips" role="group" aria-label="Filter by type">
         <button class="chip" data-act="inv-type" data-type="all" aria-pressed="${inv.type === "all"}">All <small>${counts.all}</small></button>
         ${Object.keys(DATA.types).map(k => `<button class="chip" data-act="inv-type" data-type="${k}" aria-pressed="${inv.type === k}">${DATA.types[k]} <small>${counts[k]}</small></button>`).join("")}</div>
         <div class="tb-right"><label for="invQ" class="sr">Search inventory</label><input id="invQ" data-search placeholder="Search model or type" value="${esc(inv.q)}">
         <label for="invSort" class="sr">Sort</label><select id="invSort" data-act="inv-sort">
-          ${[["featured", "Featured"], ["price-asc", "Price: low to high"], ["price-desc", "Price: high to low"], ["newest", "Newest arrivals"], ["payload", "Most payload"]].map(([v, l]) => `<option value="${v}" ${inv.sort === v ? "selected" : ""}>${l}</option>`).join("")}</select></div></div>
+          ${[["featured", "Featured"], ...(DEMO ? [["price-asc", "Price: low to high"], ["price-desc", "Price: high to low"]] : []), ["newest", "Newest arrivals"], ["payload", "Most payload"]].map(([v, l]) => `<option value="${v}" ${inv.sort === v ? "selected" : ""}>${l}</option>`).join("")}</select></div></div>
       <p class="rcount" id="invCount" aria-live="polite"></p>
       <div class="tgrid" id="invGrid"></div>
     </div></section>
@@ -2154,7 +2059,7 @@ VIEWS.parts = {
     const cats = ["All"].concat([...new Set(DATA.parts.map(p => p.cat))]);
     return `<div class="page-head"><div class="wrap"><div class="crumbs"><a href="#/home">Home</a> / Parts</div><div class="eyebrow">Own · Parts counter</div><h1 style="margin-top:10px">Parts.</h1>
       <p class="lede">Lights, tires, bearings, couplers and tie-downs for Timpte trailers. Order here and pick up in Waxhaw, usually in one to two business days.</p>
-      ${own ? `<div class="badges" style="margin-top:16px"><span class="badge info">Your ${own.year} ${esc(own.model)}</span><label class="badge" style="cursor:pointer;margin:0"><input type="checkbox" data-act="parts-fit" ${partsUI.fit ? "checked" : ""}> Only parts that fit it</label></div>` : `<p class="note">Own a Timpte? <button class="link" data-act="as" data-user="marcus">Sign in as Marcus</button> to see parts filtered to his trailer.</p>`}
+      ${own ? `<div class="badges" style="margin-top:16px"><span class="badge info">Your ${own.year} ${esc(own.model)}</span><label class="badge" style="cursor:pointer;margin:0"><input type="checkbox" data-act="parts-fit" ${partsUI.fit ? "checked" : ""}> Only parts that fit it</label></div>` : (DEMO ? partsSigninNote() : `<p class="note">Not sure which part fits? Ask ${A}, or call the counter at ${DATA.business.phone}.</p>`)}
     </div></div>
     <section style="padding-top:30px"><div class="wrap parts-grid"><div>
       <div class="toolbar"><div class="chips">${cats.map(c => `<button class="chip" data-act="parts-cat" data-c="${c}" aria-pressed="${partsUI.cat === c}">${c}</button>`).join("")}</div>
@@ -2168,18 +2073,18 @@ function renderParts() {
   const own = myOwned()[0]; const q = partsUI.q.toLowerCase();
   const list = DATA.parts.filter(p => (partsUI.cat === "All" || p.cat === partsUI.cat) && (!q || (p.name + " " + p.kw.join(" ") + " " + p.id).toLowerCase().includes(q)) && (!own || !partsUI.fit || p.fits.includes(own.type)));
   $("#pList").innerHTML = list.length ? list.map(p => `<div class="part"><em>${p.cat}</em><b>${esc(p.name)}</b><small>Part ${p.id} · fits ${p.fits.map(typeLabel).join(", ")}</small>
-    <div class="pp"><strong>${money(p.price)}</strong><button class="btn btn-gold xs" data-act="cart-add" data-id="${p.id}">Add</button></div></div>`).join("") : `<div class="empty" style="grid-column:1/-1"><b>No parts match.</b>Call the counter at ${DATA.business.phone}. We order what we don't stock.</div>`;
+    <div class="pp"><strong>${DEMO ? money(p.price) : `<span class="callp">Call for price</span>`}</strong><button class="btn btn-gold xs" data-act="cart-add" data-id="${p.id}">Add</button></div></div>`).join("") : `<div class="empty" style="grid-column:1/-1"><b>No parts match.</b>Call the counter at ${DATA.business.phone}. We order what we don't stock.</div>`;
 }
 function renderCart() {
   const box = $("#cartBox"); if (!box) return;
   const u = me(); const total = partsTotal(S.cart);
   box.innerHTML = `<h3>Your order</h3>${S.cart.length ? S.cart.map(([id, q]) => { const p = DATA.parts.find(x => x.id === id);
-    return `<div class="citem"><span>${esc(p.name)}</span><b>${money(p.price * q)}</b><span class="qtyc"><button data-act="cart-qty" data-id="${id}" data-d="-1" aria-label="Fewer">−</button><span>${q}</span><button data-act="cart-qty" data-id="${id}" data-d="1" aria-label="More">+</button></span></div>`; }).join("") +
-    `<div class="ctotal"><span>Subtotal</span><span>${money(total)}</span></div>
+    return `<div class="citem"><span>${esc(p.name)}</span><b>${DEMO ? money(p.price * q) : ""}</b><span class="qtyc"><button data-act="cart-qty" data-id="${id}" data-d="-1" aria-label="Fewer">−</button><span>${q}</span><button data-act="cart-qty" data-id="${id}" data-d="1" aria-label="More">+</button></span></div>`; }).join("") +
+    `${DEMO ? `<div class="ctotal"><span>Subtotal</span><span>${money(total)}</span></div>` : ""}
     <form data-form="parts-checkout" novalidate style="display:grid;gap:10px">
       <div><label for="pcName">Name</label><input id="pcName" name="name" value="${u && u.role === "customer" ? esc(u.name) : ""}" required></div>
       <div><label for="pcPhone">Phone</label><input id="pcPhone" name="phone" type="tel" value="${u && u.role === "customer" ? esc(u.phone) : ""}" required></div>
-      <button class="btn btn-gold" type="submit">Place order for pickup</button><p class="note" style="margin:0">Pay at pickup. Tax added at the counter.</p></form>`
+      <button class="btn btn-gold" type="submit">Place order for pickup</button><p class="note" style="margin:0">${DEMO ? "Pay at pickup. Tax added at the counter." : "We confirm the price and pickup day by phone. Pay at pickup."}</p></form>`
     : `<p class="muted" style="margin:0">Nothing yet. Add parts from the list${myOwned().length ? `, or ask ${A}: “order a tail light kit.”` : "."}</p>`}`;
 }
 
@@ -2189,9 +2094,9 @@ VIEWS.service = {
   html() {
     const u = me(); const own = myOwned();
     return `<div class="page-head"><div class="wrap"><div class="crumbs"><a href="#/home">Home</a> / Service</div><div class="eyebrow">Own · Service bay</div><h1 style="margin-top:10px">Service.</h1>
-      <p class="lede">Inspections, bearings, brakes, wiring and warranty work, done here in Waxhaw by the people who sold you the trailer. Sample prices below.</p></div></div>
+      <p class="lede">Inspections, bearings, brakes, wiring and warranty work, done here in Waxhaw by the people who sold you the trailer.${DEMO ? " Sample prices below." : ""}</p></div></div>
     <section style="padding-top:34px"><div class="wrap">
-      <div class="grid3">${DATA.services.map(s => `<div class="svc"><b>${s.name}</b><span>${s.price}</span><p>${s.desc}</p></div>`).join("")}</div>
+      <div class="grid3">${DATA.services.map(s => `<div class="svc"><b>${s.name}</b><span>${DEMO || s.id === "warranty" ? s.price : "Call for pricing"}</span><p>${s.desc}</p></div>`).join("")}</div>
       <div class="grid2" style="margin-top:34px">
         <form class="q" data-form="service" novalidate id="book"><h3 style="margin-bottom:16px">Book service</h3><div class="fields">
           <div class="full"><label for="sUnit">Trailer</label><select id="sUnit" name="unit">${own.map(o => `<option>${o.year} ${esc(o.model)}</option>`).join("")}<option>Another Timpte trailer</option><option>A trailer from another brand</option></select></div>
@@ -2259,7 +2164,7 @@ VIEWS.about = {
       <div class="panel"><h3>How we sell</h3><ul class="flist" style="grid-template-columns:1fr">
         <li>${tick}We start with the load and the truck, not the biggest trailer on the lot.</li>
         <li>${tick}If your truck can't tow it safely, we'll tell you, even if it costs us the sale.</li>
-        <li>${tick}Real prices on the website. Holds without a deposit while we confirm details.</li>
+        <li>${tick}${DEMO ? "Real prices on the website." : "A straight price the same business day."} Holds without a deposit while we confirm details.</li>
         <li>${tick}Parts, service and warranty handled here, not shipped off.</li></ul></div>
       <div class="panel"><h3>Who you'll talk to</h3><div class="rows">${DATA.team.map(t => `<div style="display:flex;gap:12px;align-items:flex-start"><i class="av">${initials(t.name)}</i><div><b>${esc(t.name)}</b> · <span class="muted">${esc(t.role)}</span><p style="margin:4px 0 0;color:var(--text-2);font-size:.95rem">${esc(t.note)}</p></div></div>`).join("")}
         <div style="display:flex;gap:12px;align-items:flex-start"><i class="av dark">${A[0]}</i><div><b>${A}</b> · <span class="muted">AI trailer advisor</span><p style="margin:4px 0 0;color:var(--text-2);font-size:.95rem">${ANDY_LINE} Any hour. <button class="link" data-act="tessa-open">Ask now</button></p></div></div></div></div>
@@ -2271,55 +2176,10 @@ VIEWS.about = {
   }
 };
 
-/* ---------- account ---------- */
-VIEWS.account = {
-  title: "My Account · Timeless Trailers",
-  html() {
-    const u = me(); const id = uid();
-    const holds = S.holds.filter(h => h.userId === id), quotes = S.quotes.filter(q => q.userId === id), orders = S.partsOrders.filter(o => o.userId === id),
-      tickets = S.tickets.filter(t => t.userId === id), saved = savedList().map(unit).filter(Boolean), owned = myOwned();
-    const head = u ? `<div class="acct-head"><i class="av ${u.role !== "customer" ? "dark" : ""}">${initials(u.name)}</i><div><div class="eyebrow">My Account</div><h1 style="margin-top:6px">${esc(u.name)}</h1><p class="muted" style="margin:6px 0 0">${esc(u.title)}${u.company ? " · " + esc(u.company) : ""}${u.town ? " · " + esc(u.town) : ""}${u.truck ? " · Tows with a " + esc(u.truck) : ""}</p></div></div>`
-      : `<div class="eyebrow">My Account</div><h1 style="margin-top:10px">Your activity.</h1><p class="lede">You're browsing as a guest. Anything you save, hold or quote shows up here in this browser. Sign in as a demo customer to see a full account.</p>`;
-    const sec = (key, title, n, body, empty) => `<div class="asec" id="a-${key}"><h3>${title} <small>${n}</small></h3>${n ? `<div class="rows">${body}</div>` : `<div class="empty" style="padding:22px">${empty}</div>`}</div>`;
-    const tRow = (t, right, extra = "") => `<div class="ritem"><a href="#/trailer/${t.id}"><img src="${img(t.img)}" alt=""></a><div><b>${esc(tname(t))}</b><small>Stock ${t.id} · ${money(t.price)} · ${statusInfo(t).label}</small></div><div class="ra">${right}</div>${extra}</div>`;
-    return `<div class="page-head"><div class="wrap">${head}
-      <nav class="acct-nav" aria-label="Account sections">${[["saved", "Saved", saved.length], ["holds", "Holds", holds.length], ["quotes", "Quotes", quotes.length], ["owned", "My trailers", owned.length], ["orders", "Parts orders", orders.length], ["tickets", "Service", tickets.length]].map(([k, l, n]) => `<a class="chip" href="#/account?s=a-${k}" style="text-decoration:none">${l} <small>${n}</small></a>`).join("")}</nav></div></div>
-    <section style="padding-top:10px"><div class="wrap">
-      ${!u ? `<div class="asec">${tourHTML()}</div>` : ""}
-      ${sec("saved", "Saved trailers", saved.length, saved.map(t => tRow(t, `<button class="heart inline" data-act="save" data-id="${t.id}" aria-pressed="true" aria-label="Remove ${t.id}">${ICON.heart}</button><button class="btn btn-line xs" data-act="cmp-btn" data-id="${t.id}">${S.compare.includes(t.id) ? "In compare ✓" : "Add to compare"}</button>`)).join(""), `Tap the heart on any trailer to save it here. <a href="#/inventory">Browse inventory</a>`)}
-      ${sec("holds", "Holds", holds.length, holds.map(h => { const t = unit(h.trailerId); return t ? tRow(t, `${statusPill(h.status)}<small class="muted">${h.status === "Active" ? "Held until " + fmtWhen(h.expires) : "Placed " + fmtDate(h.created)}</small>${h.status === "Active" ? `<button class="btn btn-line xs" data-act="release" data-id="${h.id}">Release hold</button>` : ""}`) : ""; }).join(""), `No holds. Hit “Hold this unit” on any trailer on the lot, or ask ${A}.`)}
-      ${sec("quotes", "Quotes", quotes.length, quotes.map(q => { const t = unit(q.trailerId); if (!t) return ""; const c = quoteCalc(t, q.addons);
-        return tRow(t, `${statusPill(q.status)}<b>${money(c.total)}</b><small class="muted">${q.id} · ${fmtDate(q.created)}</small>`, `<details><summary>Itemized quote</summary>${quoteTable(q)}<p class="note">Sample tax and fees for the mock-up. Valid 14 days.</p></details>`); }).join(""), `No quotes yet. Open any trailer and hit “Get a quote”.`)}
-      ${sec("owned", "My trailers", owned.length, owned.map(o => `<div class="ritem"><img src="${img(o.img)}" alt=""><div><b>${o.year} ${esc(o.model)}</b><small>VIN ${esc(o.vin)} · Bought ${fmtDateY(o.purchased)}</small><small>Warranty through ${fmtDateY(o.warrantyEnds)}</small></div>
-        <div class="ra"><span class="pill green">Under warranty</span><a class="btn btn-gold xs" href="#/parts">Order parts</a><a class="btn btn-line xs" href="#/service?s=book">Book service</a></div></div>`).join(""), `Trailers you buy from Timeless show up here with warranty dates and service history.`)}
-      ${sec("orders", "Parts orders", orders.length, orders.map(o => `<div class="ritem"><div style="font:900 1.4rem/1 var(--display)">${o.id.replace("PO-", "#")}</div><div><b>${o.items.map(([id, q]) => { const p = DATA.parts.find(x => x.id === id); return (q > 1 ? q + " × " : "") + (p ? p.name : id); }).join(", ")}</b><small>${o.id} · ${fmtDate(o.created)} · ${money(partsTotal(o.items))}</small></div><div class="ra">${statusPill(o.status)}</div></div>`).join(""), `No parts orders. <a href="#/parts">Visit the parts counter</a>`)}
-      ${sec("tickets", "Service tickets", tickets.length, tickets.map(t => `<div class="ritem"><div style="font:900 1.4rem/1 var(--display)">${t.id.replace("SR-", "#")}</div><div><b>${esc(t.service)}</b><small>${esc(t.unit)} · ${t.date ? "For " + fmtDate(t.date) : "Opened " + fmtDate(t.created)}</small>${t.notes ? `<small>${esc(t.notes)}</small>` : ""}</div><div class="ra">${statusPill(t.status)}</div></div>`).join(""), `No service tickets. <a href="#/service">Book service</a>`)}
-    </div></section>`;
-  }
-};
+/* ---------- account (demo site only) ---------- */
 
 
 
-VIEWS.vision = {
-  title: "What the finished site adds · Timeless Trailers",
-  html() {
-    const items = [
-      ["Every Timpte model", "All 19 models with full photo galleries, not the 10 shown here."],
-      ["The whole video library", "Walk-arounds split into chapters, plus how-to videos: operating the tilt, dump hydraulics, coupling, lights."],
-      ["Part-number lookup", "Timpte's serviceable-parts catalog searchable by model, so an owner can order the right part from the phone."],
-      [`${A} answers spec questions`, `"What's the loading angle on the 1624?" ${A} reads it straight from the spec sheet.`],
-      ["Matt's real inventory", "The lot list, stock numbers and prices come from Matt, not sample data. Mark a unit sold and the site updates."],
-      ["Quotes and holds in Matt's inbox", "Every quote, hold and parts order lands in email or text, with a lead board to work from."],
-      ["Financing applications", "A real pre-qualify form through the lender Timeless uses."],
-      ["Google and the answer tools", "Each model gets its own page with structured data, so searches for a Timpte split tilt near Charlotte find Timeless."]
-    ];
-    return `<div class="page-head"><div class="wrap"><div class="crumbs"><a href="#/home">Home</a> / The finished site</div><div class="eyebrow">Concept v3 · for review</div><h1 style="margin-top:10px">What the finished site adds.</h1>
-      <p class="lede">This version has real Timpte models, specs, photos and video. Here's what the full build adds on top, so you can picture the whole thing before we build it.</p></div></div>
-    <section style="padding-top:34px"><div class="wrap"><div class="grid2">${items.map(([h, p]) => `<div class="panel"><h3>${h}</h3><p style="margin:0;color:var(--text-2)">${p}</p></div>`).join("")}</div>
-      <div class="panel" style="margin-top:22px"><h3>What's sample in this version</h3><p style="margin:0;color:var(--text-2)">Stock numbers and what's on the lot. Sample prices, the demo customers and staff, and the sample reviews only appear in demo mode (open #/demo). Everything about the trailers themselves (model names, payloads, weights, decks, angles, axles, tires) comes from Timpte's 2026 spec sheets, and Andy answers from them.</p></div>
-    </div></section>`;
-  }
-};
 
 
 /* ---------- flair: reveal on scroll, counters, lightbox ---------- */
@@ -2350,228 +2210,8 @@ function openLightbox(i) {
   if (!dlg.open) dlg.showModal();
 }
 
-/* ---------- admin ---------- */
-const adm = { tab: "inventory", log: [], pending: {}, booted: false, syncing: false };
-const STAGES = ["New", "Contacted", "Quoted", "Won", "Lost"];
-VIEWS.admin = {
-  title: "Dealer console · Timeless Trailers",
-  html() {
-    if (!isStaff()) {
-      return `<section><div class="wrap locked"><div class="eyebrow">Dealer console</div><h1 style="margin-top:10px">Staff only.</h1><p class="lede" style="margin-inline:auto">Sign in as Matt or a staff member to see leads, quotes, holds and inventory. No password in the demo.</p>
-        <div class="tour-cards" style="margin-top:24px;text-align:left">${DATA.personas.filter(p => p.role !== "customer").map(personaCard).join("")}</div></div></section>`;
-    }
-    const u = me();
-    return `<section style="padding-top:34px"><div class="wrap">
-      <div class="admin-top"><div><div class="eyebrow">Dealer console</div><h1 style="margin-top:8px">Good ${new Date().getHours() < 12 ? "morning" : "afternoon"}, ${esc(u.name.split(" ")[0])}.</h1>
-        <p class="muted" style="margin:6px 0 0">Signed in as ${esc(u.name)} · ${esc(u.title)}. Everything customers do on the site lands here.</p></div>
-        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span class="muted" id="syncNote" style="font-size:.88rem">${S.specsSynced ? `${tick.replace("<svg", '<svg style="width:14px;height:14px;vertical-align:-2px;color:var(--green)"')} Specs up to date · ${fmtWhen(S.specsSynced)}` : "Specs last pulled 12 days ago"}</span>
-        <button class="btn btn-dark sm" data-act="sync" id="syncBtn">Pull latest specs from Timpte</button></div></div>
-      <div class="kpis" id="kpis"></div>
-      <div class="admin-grid"><div id="adminMain"></div><aside class="atessa" id="adminTessa" aria-label="${A} for the dealership"></aside></div>
-    </div></section>`;
-  },
-  mount() { if (!isStaff()) return; renderKpis(); renderAdminMain(); renderAdminTessa(); }
-};
-function renderKpis() {
-  const k = $("#kpis"); if (!k) return;
-  const lot = onLot().length, hold = S.inventory.filter(t => t.status === "hold").length, order = S.inventory.filter(t => t.status === "order").length;
-  const open = S.leads.filter(l => ["New", "Contacted", "Quoted"].includes(l.stage)), nw = S.leads.filter(l => l.stage === "New").length;
-  const qo = S.quotes.filter(q => q.status === "Sent"), qv = qo.reduce((s, q) => { const t = unit(q.trailerId); return s + (t ? quoteCalc(t, q.addons).total : 0); }, 0);
-  const tk = S.tickets.filter(t => t.status !== "Done");
-  k.innerHTML = `<div class="kpi"><b>${lot}</b><span>Units on the lot</span><small>${hold} on hold · ${order} arriving</small></div>
-    <div class="kpi"><b>${open.length}</b><span>Open leads</span><small>${nw} new, not yet contacted</small></div>
-    <div class="kpi"><b>${qo.length}</b><span>Quotes out</span><small>${money(qv)} waiting on a yes</small></div>
-    <div class="kpi"><b>${tk.length}</b><span>Open service tickets</span><small>${S.partsOrders.filter(o => o.status === "Ordered").length} parts orders to pull</small></div>`;
-}
-function renderAdminMain(flashId) {
-  const m = $("#adminMain"); if (!m) return;
-  const tabs = [["inventory", "Inventory", S.inventory.filter(t => t.status !== "sold").length], ["leads", "Leads", S.leads.filter(l => ["New", "Contacted", "Quoted"].includes(l.stage)).length],
-    ["holds", "Holds", S.holds.filter(h => h.status === "Active").length], ["quotes", "Quotes", S.quotes.length], ["parts", "Parts orders", S.partsOrders.filter(o => o.status !== "Picked up").length],
-    ["service", "Service", S.tickets.filter(t => t.status !== "Done").length], ["log", "Activity", S.log.length]];
-  let body = "";
-  const who = r => `<b>${esc(r.name)}</b><small>${esc(r.phone || "")}${r.userId && r.userId !== "guest" ? " · site account" : ""}</small>`;
-  const sel = (kind, id, cur, opts) => `<select data-adm="${kind}" data-id="${id}" aria-label="Status for ${id}">${opts.map(o => `<option ${o === cur ? "selected" : ""}>${o}</option>`).join("")}</select>`;
-  if (adm.tab === "inventory") {
-    body = `<div class="atools"><span class="muted" style="font-size:.9rem">Edit price or status inline. Changes show on the public site right away.</span><button class="btn btn-gold sm" data-act="adm-add">+ Add trailer</button></div>
-      <div class="tscroll"><table class="atable"><thead><tr><th>Stock</th><th>Unit</th><th>Status</th><th>Price</th><th>Added</th><th></th></tr></thead><tbody>
-      ${S.inventory.slice().sort((a, b) => (a.status === "sold") - (b.status === "sold") || a.id.localeCompare(b.id)).map(t => `<tr data-row="${t.id}" class="${t.status === "sold" ? "sold" : ""} ${flashId && flashId.includes(t.id) ? "flash" : ""}">
-        <td><b>${t.id}</b></td><td><b>${esc(tname(t))}</b><small>${typeLabel(t.type)} · ${num(t.payload)} lb payload · ${t.deckFt} ft</small></td>
-        <td><select data-edit="status" data-id="${t.id}" aria-label="Status for ${t.id}">${[["lot", "On the lot"], ["order", "On order"], ["hold", "On hold"], ["sold", "Sold"]].map(([v, l]) => `<option value="${v}" ${t.status === v ? "selected" : ""}>${l}</option>`).join("")}</select></td>
-        <td><input type="number" step="50" min="0" data-edit="price" data-id="${t.id}" value="${t.price}" aria-label="Price for ${t.id}"></td>
-        <td>${fmtDate(t.added)}</td>
-        <td style="white-space:nowrap">${t.status !== "sold" ? `<button class="btn btn-line xs" data-act="adm-sold" data-id="${t.id}">Mark sold</button>` : ""} <a class="btn btn-line xs" href="#/trailer/${t.id}">View</a></td></tr>`).join("")}</tbody></table></div>`;
-  } else if (adm.tab === "leads") {
-    body = `<div class="atools"><span class="muted" style="font-size:.9rem">Drag a card between columns, or use its dropdown.</span></div><div class="kanban-wrap"><div class="kanban">${STAGES.map(s => { const ls = S.leads.filter(l => l.stage === s);
-      return `<div class="kcol" data-stage="${s}"><h4>${s}<span>${ls.length}</span></h4>${ls.map(l => `<div class="lead" draggable="true" data-lead="${l.id}"><b>${esc(l.name)}</b><span>${esc(l.interest)}</span><small>${esc(l.source)} · ${fmtDate(l.created)} · ${esc(l.phone)}</small>
-        <select data-adm="lead" data-id="${l.id}" aria-label="Stage for ${esc(l.name)}">${STAGES.map(o => `<option ${o === l.stage ? "selected" : ""}>${o}</option>`).join("")}</select></div>`).join("")}</div>`; }).join("")}</div></div>`;
-  } else if (adm.tab === "holds") {
-    body = `<div class="tscroll"><table class="atable"><thead><tr><th>Hold</th><th>Customer</th><th>Unit</th><th>Expires</th><th>Status</th></tr></thead><tbody>${S.holds.map(h => { const t = unit(h.trailerId);
-      return `<tr><td><b>${h.id}</b></td><td>${who(h)}</td><td>${t ? esc(tname(t)) + `<small>${t.id}</small>` : h.trailerId}</td><td>${fmtWhen(h.expires)}</td><td>${sel("hold", h.id, h.status, ["Active", "Released", "Converted"])}</td></tr>`; }).join("")}</tbody></table></div>`;
-  } else if (adm.tab === "quotes") {
-    body = `<div class="tscroll"><table class="atable"><thead><tr><th>Quote</th><th>Customer</th><th>Unit</th><th>Total</th><th>Sent</th><th>Status</th></tr></thead><tbody>${S.quotes.map(q => { const t = unit(q.trailerId);
-      return `<tr><td><b>${q.id}</b></td><td>${who(q)}</td><td>${t ? esc(tname(t)) + `<small>${t.id}${q.addons.length ? " · " + q.addons.length + " add-ons" : ""}</small>` : ""}</td><td><b>${t ? money(quoteCalc(t, q.addons).total) : ""}</b></td><td>${fmtDate(q.created)}</td><td>${sel("quote", q.id, q.status, ["Sent", "Accepted", "Expired"])}</td></tr>`; }).join("")}</tbody></table></div>`;
-  } else if (adm.tab === "parts") {
-    body = `<div class="tscroll"><table class="atable"><thead><tr><th>Order</th><th>Customer</th><th>Items</th><th>Total</th><th>Placed</th><th>Status</th></tr></thead><tbody>${S.partsOrders.map(o => `<tr><td><b>${o.id}</b></td><td>${who(o)}</td>
-      <td>${o.items.map(([id, q]) => { const p = DATA.parts.find(x => x.id === id); return `${q} × ${esc(p ? p.name : id)}`; }).join("<br>")}</td><td>${money(partsTotal(o.items))}</td><td>${fmtDate(o.created)}</td><td>${sel("parts", o.id, o.status, ["Ordered", "Ready for pickup", "Picked up"])}</td></tr>`).join("")}</tbody></table></div>`;
-  } else if (adm.tab === "service") {
-    body = `<div class="tscroll"><table class="atable"><thead><tr><th>Ticket</th><th>Customer</th><th>Unit / service</th><th>Day</th><th>Status</th></tr></thead><tbody>${S.tickets.map(t => `<tr><td><b>${t.id}</b></td><td>${who(t)}</td>
-      <td><b>${esc(t.service)}</b><small>${esc(t.unit)}${t.notes ? " · " + esc(t.notes) : ""}</small></td><td>${t.date ? fmtDate(t.date) : "TBD"}</td><td>${sel("ticket", t.id, t.status, ["Open", "Scheduled", "In progress", "Done"])}</td></tr>`).join("")}</tbody></table></div>`;
-  } else {
-    body = S.log.length ? `<div class="tscroll"><table class="atable"><thead><tr><th>When</th><th>Who</th><th>Change</th></tr></thead><tbody>${S.log.map(l => `<tr><td>${fmtWhen(l.at)}</td><td>${esc(l.who)}</td><td>${l.text}</td></tr>`).join("")}</tbody></table></div>`
-      : `<div class="empty"><b>No changes yet.</b>Edits from the table and from ${A} are logged here with who confirmed them.</div>`;
-  }
-  m.innerHTML = `<div class="tabs" role="tablist">${tabs.map(([k, l, n]) => `<button role="tab" data-act="adm-tab" data-k="${k}" aria-selected="${adm.tab === k}">${l}<small>${n}</small></button>`).join("")}</div>${body}`;
-  if (adm.tab === "leads") mountKanban();
-}
-function mountKanban() {
-  let dragId = null;
-  $$(".lead").forEach(c => {
-    c.addEventListener("dragstart", e => { dragId = c.dataset.lead; c.classList.add("dragging"); e.dataTransfer.effectAllowed = "move"; try { e.dataTransfer.setData("text/plain", dragId); } catch (x) {} });
-    c.addEventListener("dragend", () => c.classList.remove("dragging"));
-  });
-  $$(".kcol").forEach(col => {
-    col.addEventListener("dragover", e => { e.preventDefault(); col.classList.add("over"); });
-    col.addEventListener("dragleave", () => col.classList.remove("over"));
-    col.addEventListener("drop", e => { e.preventDefault(); col.classList.remove("over"); if (dragId) setLeadStage(dragId, col.dataset.stage); });
-  });
-}
-function logChange(text) { S.log.unshift({ at: new Date().toISOString(), who: me() ? me().name : "Staff", text }); save(); }
-function setLeadStage(id, stage) {
-  const l = S.leads.find(x => x.id === id); if (!l || l.stage === stage) return;
-  logChange(`Lead ${esc(l.name)}: ${l.stage} → <b>${stage}</b>`); l.stage = stage; save();
-  renderAdminMain(); renderKpis(); toast(`${esc(l.name)} moved to ${stage}.`);
-}
-function setPrice(ids, price, via) {
-  ids.forEach(id => { const t = unit(id); if (t) { logChange(`${t.id} ${esc(t.model)} price ${money(t.price)} → <b>${money(price)}</b>${via ? " (via " + A + ")" : ""}`); t.price = price; } });
-  save();
-}
-function setStatus(id, status, via) {
-  const t = unit(id); if (!t || t.status === status) return;
-  logChange(`${t.id} ${esc(t.model)} status ${statusInfo(t).label} → <b>${statusInfo(Object.assign({}, t, { status })).label}</b>${via ? " (via " + A + ")" : ""}`);
-  t.status = status;
-  if (status === "sold") S.holds.forEach(h => { if (h.trailerId === id && h.status === "Active") h.status = "Converted"; });
-  save();
-}
-function newUnit(o) {
-  const d = DATA.typeDefaults[o.type] || DATA.typeDefaults.util;
-  const t = Object.assign({ id: nextId("TT"), year: o.year || new Date().getFullYear(), model: o.model, type: o.type, price: o.price, status: o.status || "lot", added: new Date().toISOString(),
-    deck: (o.deckFt || d.deckFt) + " ft", brakes: "Electric, both axles", tires: "Per Timpte build sheet",
-    blurb: "New arrival. Full description coming once it's on the lot.", feat: ["All-aluminum", d.axles, d.loading], features: ["All-aluminum frame and deck", d.loading, "LED lighting"] }, clone(d), o.deckFt ? { deckFt: o.deckFt } : {}, o.payload ? { payload: o.payload } : {});
-  t.deck = t.deckFt + " ft";
-  S.inventory.push(t); logChange(`Added ${t.id} ${esc(tname(t))} at <b>${money(t.price)}</b>${o.via ? " (via " + A + ")" : ""}`); save(); return t;
-}
-function openAddUnit() {
-  openModal(`<h3>Add a trailer</h3><p class="sub">Specs fill in from the model type. Edit details later.</p>
-    <form data-form="add-unit" novalidate><div class="fields">
-      <div class="full"><label for="auModel">Model</label><input id="auModel" name="model" placeholder="e.g. Timpte 720 Car Hauler" required></div>
-      <div><label for="auYear">Year</label><input id="auYear" name="year" type="number" value="${new Date().getFullYear()}"></div>
-      <div><label for="auType">Type</label><select id="auType" name="type">${Object.keys(DATA.types).map(k => `<option value="${k}">${DATA.types[k]}</option>`).join("")}</select></div>
-      <div><label for="auPrice">Price ($)</label><input id="auPrice" name="price" type="number" step="50" required></div>
-      <div><label for="auStatus">Status</label><select id="auStatus" name="status"><option value="lot">On the lot</option><option value="order">On order</option></select></div>
-    </div><div class="form-foot"><span></span><button class="btn btn-gold" type="submit">Add to inventory</button></div></form>`);
-}
+/* ---------- admin (demo site only; the public site never gets this code) ---------- */
 
-/* admin AI advisor */
-function renderAdminTessa() {
-  const box = $("#adminTessa"); if (!box) return;
-  box.innerHTML = `<div class="ah"><i class="av">${A[0]}</i><div><b>${A} for the dealership</b><small>Ask in plain English. You confirm every change.</small></div></div>
-    <div class="alog" id="aLog" aria-live="polite"></div>
-    <div class="achips">${["Drop the 1614 dump to $15,900", "Add a new 720 car hauler at $8,400", "Mark TT-0158 sold", "How's the lot looking?"].map(c => `<button data-act="adm-say" data-say="${esc(c)}">${esc(c)}</button>`).join("")}</div>
-    <form data-form="admin-chat"><label for="aIn" class="sr">Message ${A}</label><input id="aIn" name="q" placeholder="e.g. Drop the 1614 dump to $15,900" autocomplete="off"><button class="btn btn-gold sm" type="submit" aria-label="Send">${ICON.send}</button></form>`;
-  if (!adm.booted) { adm.booted = true; adm.log.push({ who: "bot", html: `<p>Good ${new Date().getHours() < 12 ? "morning" : "afternoon"}. ${onLot().length} on the lot, ${S.leads.filter(l => l.stage === "New").length} new leads, ${S.quotes.filter(q => q.status === "Sent").length} quotes out.</p><p>Tell me a change, like a price drop or a new unit, and I'll show you exactly what I'll do before I touch anything.</p>` }); }
-  const log = $("#aLog");
-  log.innerHTML = adm.log.map(m => `<div class="msg ${m.who === "me" ? "me" : "bot wide"}">${m.html}</div>`).join("");
-  log.scrollTop = log.scrollHeight;
-}
-function adminSay(text) {
-  adm.log.push({ who: "me", html: esc(text) });
-  const r = adminRespond(text);
-  renderAdminTessa();
-  const log = $("#aLog"); const dots = document.createElement("div"); dots.className = "msg bot"; dots.style.padding = "0"; dots.innerHTML = '<span class="typing"><i></i><i></i><i></i></span>';
-  log.appendChild(dots); log.scrollTop = log.scrollHeight;
-  setTimeout(() => { adm.log.push({ who: "bot", html: r }); renderAdminTessa(); }, 700);
-}
-function parseMoney(s, k) { let v = parseFloat(String(s).replace(/[$,\s]/g, "")); if (k || (v < 100 && /k/i.test(s))) v *= 1000; return Math.round(v); }
-function matchUnits(phrase) {
-  const p = phrase.toLowerCase();
-  const stock = p.match(/tt-?\s?0?(\d{3,4})/);
-  if (stock) { const t = S.inventory.find(x => x.id.replace("TT-0", "") === stock[1].replace(/^0/, "") || x.id === "TT-" + stock[1].padStart(4, "0")); return t ? [t] : []; }
-  const stop = ["the", "a", "an", "our", "unit", "units", "trailer", "trailers", "one", "new", "price", "of", "on", "that", "this", "timpte", "s", "to"];
-  const words = p.replace(/[^a-z0-9' -]/g, " ").split(/\s+/).filter(w => w && !stop.includes(w)).map(w => w.replace(/s$/, ""));
-  if (!words.length) return [];
-  return S.inventory.filter(t => t.status !== "sold").filter(t => { const hay = `${t.model} ${typeLabel(t.type)} ${t.type} ${t.loading}`.toLowerCase().replace(/-/g, " "); return words.every(w => hay.includes(w.replace(/-/g, " "))); });
-}
-function confirmCard(kind, data, lines) {
-  const id = "C" + Date.now(); adm.pending[id] = { kind, data };
-  return `<div class="confirm" id="${id}"><div class="ch">Proposed change</div><ul>${lines.map(l => `<li>${l}</li>`).join("")}</ul><div class="yes">You confirm every change.</div>
-    <div class="cb"><button class="btn btn-gold xs" data-act="adm-confirm" data-k="${id}">Confirm</button><button class="btn btn-line xs" data-act="adm-cancel" data-k="${id}">Cancel</button></div></div>`;
-}
-function adminRespond(text) {
-  const t = text.toLowerCase().trim();
-  let m = t.match(/(?:drop|lower|cut|reduce|raise|bump|change|set|make|put|mark down|price)\s+(?:the\s+)?(?:price\s+(?:of|on)\s+)?(.+?)\s+(?:to|at|for)\s+\$?\s*([\d,.]+)\s*(k\b)?/);
-  if (m) {
-    const units = matchUnits(m[1]), price = parseMoney(m[2], m[3]);
-    if (!price || price < 500) return `<p>I didn't catch a price there. Try “Drop the 1614 dump to $15,900”.</p>`;
-    if (!units.length) return `<p>I couldn't find a unit matching “${esc(m[1])}”. Try a stock number like TT-0142, or a model like “1614 dump”.</p>`;
-    return `<p>${units.length > 1 ? `That matches ${units.length} units. I'll change all of them:` : "Here's the change:"}</p>` + confirmCard("price", { ids: units.map(u => u.id), price },
-      units.map(u => `${u.id} ${esc(tname(u))}: ${money(u.price)} → <b>${money(price)}</b> <span class="muted">(${price < u.price ? "−" : "+"}${money(Math.abs(u.price - price))})</span>`));
-  }
-  m = t.match(/add\s+(?:a\s+|an\s+)?(?:new\s+)?(?:(20\d\d)\s+)?(.+?)\s+(?:at|for|priced at)\s+\$?\s*([\d,.]+)\s*(k\b)?/);
-  if (m) {
-    const name = m[2].replace(/\btimpte\b/, "").trim();
-    const type = /dump/.test(name) ? "dump" : /gooseneck|gn/.test(name) ? "gooseneck" : /deck/.test(name) ? "deckover" : /tilt/.test(name) ? "tilt" : "ezload";
-    const model = "Timpte " + name.replace(/\b\w/g, c => c.toUpperCase()).replace(/\bUtv\b/, "UTV");
-    const price = parseMoney(m[3], m[4]), year = m[1] ? +m[1] : new Date().getFullYear();
-    const d = DATA.typeDefaults[type];
-    return `<p>I'll add it with ${typeLabel(type).toLowerCase()} defaults. You can edit specs in the table after.</p>` + confirmCard("add", { model, type, price, year },
-      [`New unit: <b>${year} ${esc(model)}</b>`, `Type: ${typeLabel(type)} · Stock ${"TT-0" + S.seq.TT}`, `Price: <b>${money(price)}</b> · Status: On the lot`, `Specs: ${num(d.payload)} lb payload, ${d.deckFt} ft deck, ${d.axles}`]);
-  }
-  m = t.match(/(?:mark|set|flag)\s+(?:the\s+)?(.+?)\s+(?:as\s+)?(sold|on hold|hold|on the lot|available|on order)\b/) || t.match(/^(?:we\s+)?sold\s+(?:the\s+)?(.+)$/);
-  if (m) {
-    const units = matchUnits(m[1]); const word = m[2] || "sold";
-    const status = /sold/.test(word) ? "sold" : /hold/.test(word) ? "hold" : /order/.test(word) ? "order" : "lot";
-    if (!units.length) return `<p>I couldn't find “${esc(m[1])}”. Use a stock number like TT-0158.</p>`;
-    if (units.length > 1 && status === "sold") return `<p>That matches ${units.length} units (${units.map(u => u.id).join(", ")}). Which stock number sold?</p>`;
-    return confirmCard("status", { ids: units.map(u => u.id), status }, units.map(u => `${u.id} ${esc(tname(u))}: ${statusInfo(u).label} → <b>${statusInfo(Object.assign({}, u, { status })).label}</b>`));
-  }
-  if (/how|lot|status|summary|look|numbers|today/.test(t)) {
-    const lot = onLot(); const val = lot.reduce((s, x) => s + x.price, 0); const old = lot.filter(x => (Date.now() - new Date(x.added)) / DAY > 60);
-    return `<p><b>${lot.length} on the lot</b> worth ${money(val)} at sticker. ${S.inventory.filter(x => x.status === "hold").length} on hold, ${S.inventory.filter(x => x.status === "order").length} arriving.</p>
-      <p>${S.leads.filter(l => l.stage === "New").length} new leads need a call. ${S.quotes.filter(q => q.status === "Sent").length} quotes are out.</p>
-      ${old.length ? `<p>Aging: ${old.map(x => `${x.id} ${esc(x.model)} (${Math.round((Date.now() - new Date(x.added)) / DAY)} days)`).join(", ")}. A price drop might move it.</p>` : ""}`;
-  }
-  if (/lead|call|follow/.test(t)) {
-    const n = S.leads.filter(l => l.stage === "New");
-    return n.length ? `<p>New leads to call:</p><ul>${n.map(l => `<li><b>${esc(l.name)}</b>, ${esc(l.interest)} · ${esc(l.phone)}</li>`).join("")}</ul>` : "<p>No new leads. Everyone's been contacted.</p>";
-  }
-  return `<p>I can change prices, add units, and update status. For example:</p><ul><li>Drop the 1614 dump to $15,900</li><li>Add a new 720 car hauler at $8,400</li><li>Mark TT-0158 sold</li><li>How's the lot looking?</li></ul>`;
-}
-function adminConfirm(id, yes) {
-  const p = adm.pending[id]; if (!p) return;
-  delete adm.pending[id];
-  const entry = adm.log.find(m => m.html.includes(`id="${id}"`));
-  let msg = "", flash = [];
-  if (yes) {
-    if (p.kind === "price") { setPrice(p.data.ids, p.data.price, true); flash = p.data.ids; msg = `Done. ${p.data.ids.join(", ")} now ${money(p.data.price)} on the site.`; }
-    if (p.kind === "add") { const t = newUnit(Object.assign({ via: true }, p.data)); flash = [t.id]; msg = `Added ${t.id}. It's live in inventory.`; }
-    if (p.kind === "status") { p.data.ids.forEach(i => setStatus(i, p.data.status, true)); flash = p.data.ids; msg = `Updated ${p.data.ids.join(", ")}.`; }
-  } else msg = "Cancelled. Nothing changed.";
-  if (entry) entry.html = entry.html.replace(`class="confirm"`, `class="confirm ${yes ? "done" : "cancel"}"`).replace(/<div class="cb">[\s\S]*?<\/div><\/div>$/, `<div class="yes"><b>${yes ? "✓ Confirmed by " + esc(me().name) : "Cancelled"}</b></div></div>`);
-  adm.log.push({ who: "bot", html: `<p>${msg}</p>` });
-  if (yes) { adm.tab = "inventory"; renderAdminMain(flash); renderKpis(); toast(msg); }
-  renderAdminTessa();
-}
-function syncSpecs() {
-  if (adm.syncing) return; adm.syncing = true;
-  const b = $("#syncBtn"); b.disabled = true; b.innerHTML = `<span class="spin"></span> Checking Timpte…`;
-  $("#syncNote").textContent = "Comparing " + S.inventory.length + " units against Timpte build sheets…";
-  setTimeout(() => {
-    adm.syncing = false; S.specsSynced = new Date().toISOString(); save(); logChange("Pulled latest specs from Timpte · no changes needed");
-    b.disabled = false; b.textContent = "Pull latest specs from Timpte";
-    $("#syncNote").innerHTML = `<span style="color:var(--green);font-weight:700">✓ Specs up to date</span> · ${fmtWhen(S.specsSynced)}`;
-    toast("Specs up to date. All units match Timpte's latest build sheets.");
-  }, 2200);
-}
 
 /* ==========================================================================
    ANDY (customer chat). Andy lives on Stammer; the site opens him in a panel on
@@ -2620,22 +2260,7 @@ function holdModal(id) {
       <div><label for="hPhone">Phone</label><input id="hPhone" name="phone" type="tel" required value="${cu ? esc(cu.phone) : ""}"></div></div>
       <div class="form-foot"><p>The team calls you today to confirm.</p><button class="btn btn-gold" type="submit">Hold this unit</button></div></form>`);
 }
-function quoteModal(id) {
-  const t = unit(id); if (!t) return;
-  const u = me(); const cu = u && u.role === "customer" ? u : null;
-  const addons = DATA.addons.filter(a => a.types.includes(t.type));
-  openModal(`<h3>Quote ${t.id}</h3><p class="sub">${esc(tname(t))}. Pick add-ons and see the out-the-door number.</p>
-    <form data-form="quoteb" data-id="${t.id}" novalidate>
-      ${addons.map(a => `<label class="addon"><input type="checkbox" name="addon" value="${a.id}" ${a.rec ? "checked" : ""}><span>${esc(a.label)}</span><b>${money(a.price)}</b></label>`).join("")}
-      <div id="qbTable" style="margin-top:12px"></div>
-      <div class="fields" style="margin-top:16px"><div><label for="qbName">Name</label><input id="qbName" name="name" required value="${cu ? esc(cu.name) : ""}"></div><div><label for="qbPhone">Phone</label><input id="qbPhone" name="phone" type="tel" required value="${cu ? esc(cu.phone) : ""}"></div></div>
-      <div class="form-foot"><p>Sample tax and fees. Valid 14 days.</p><button class="btn btn-gold" type="submit">Save quote</button></div></form>`, {
-    mount(bg) { const f = bg.querySelector("form"); const upd = () => { const ids = $$("input[name=addon]:checked", f).map(i => i.value); $("#qbTable").innerHTML = quoteTable({ trailerId: t.id, addons: ids }); }; f.addEventListener("change", upd); upd(); }
-  });
-}
-function signinModal() {
-  openModal(`<h3>Sign in to the demo</h3><p class="sub">One click, no password. Two sides of the counter.</p>${tourHTML()}`, { wide: true });
-}
+
 
 /* ---- validation ---- */
 function need(f, names) {
@@ -2649,7 +2274,6 @@ const doneHTML = (h, p) => `<div class="done">${'<svg viewBox="0 0 24 24" fill="
 const FORMS = {
   "hero-ask"(f) { const v = f.elements.q.value.trim(); if (!v) { f.elements.q.focus(); return; } f.reset(); userSays(v); },
   chat(f) { const v = f.elements.q.value; f.reset(); if (/^leave my number$/i.test(v.trim())) return userSays("Have someone call me"); userSays(v); },
-  "admin-chat"(f) { const v = f.elements.q.value.trim(); if (!v) return; adminSay(v); },
   quote(f) {
     if (!need(f, ["name", "phone"])) return;
     const e = f.elements; const first = e.name.value.trim().split(" ")[0];
@@ -2660,20 +2284,12 @@ const FORMS = {
   hold(f) {
     if (!need(f, ["name", "phone"])) return;
     const t = unit(f.dataset.id); const h = createHold(t, f.elements.name.value.trim(), f.elements.phone.value.trim());
-    closeModal(); rerender(); toast(`${t.id} is on hold until ${fmtWhen(h.expires)}. <a href="#/account?s=a-holds">See it in My Account</a>`, 5000);
-  },
-  quoteb(f) {
-    if (!need(f, ["name", "phone"])) return;
-    const t = unit(f.dataset.id); const ids = $$("input[name=addon]:checked", f).map(i => i.value);
-    const q = createQuote(t, ids, f.elements.name.value.trim(), f.elements.phone.value.trim());
-    f.parentNode.innerHTML = `<button class="xbtn" data-act="modal-close" aria-label="Close" style="position:absolute;top:14px;right:14px">${ICON.x}</button>` + doneHTML(`Quote ${q.id} saved.`, `Out the door: <b>${money(quoteCalc(t, ids).total)}</b>. The team will call to walk through it.`) +
-      `<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap"><a class="btn btn-gold sm" href="#/account?s=a-quotes">View in My Account</a><button class="btn btn-line sm" data-act="hold" data-id="${t.id}">Hold this unit</button></div>`;
-    rerender();
+    closeModal(); rerender(); toast(`${t.id} is on hold until ${fmtWhen(h.expires)}.${DEMO ? ` <a href="#/account?s=a-holds">See it in My Account</a>` : " We'll call you today to confirm."}`, 5000);
   },
   "parts-checkout"(f) {
     if (!need(f, ["name", "phone"])) return;
     const o = createPartsOrder(S.cart.slice(), f.elements.name.value.trim(), f.elements.phone.value.trim()); S.cart = []; save();
-    renderCart(); toast(`Order ${o.id} placed. We'll text when it's ready for pickup. <a href="#/account?s=a-orders">My Account</a>`, 5000);
+    renderCart(); toast(`Order ${o.id} placed. We'll text when it's ready for pickup.${DEMO ? ` <a href="#/account?s=a-orders">My Account</a>` : ""}`, 5000);
   },
   service(f) {
     if (!need(f, ["name", "phone"])) return;
@@ -2682,11 +2298,7 @@ const FORMS = {
   },
   prequal(f) { if (!need(f, ["name", "phone"])) return; addLead({ name: f.elements.name.value.trim(), phone: f.elements.phone.value.trim(), interest: "Financing pre-qualify · " + money(fin.price), source: "Financing" }); f.innerHTML = doneHTML("You're in line.", "The team will call today with real rates for " + money(fin.price) + "."); },
   warranty(f) { const v = f.elements.vin.value.trim(); if (v.length < 6) { f.elements.vin.classList.add("bad"); toast("Enter the VIN or serial from the frame tag."); return; } f.innerHTML = `<p style="margin:0"><b style="color:var(--green)">✓ Registered.</b> Warranty on ${esc(v)} is on file with Timpte (sample).</p>`; },
-  "add-unit"(f) {
-    const e = f.elements; if (!e.model.value.trim() || !(+e.price.value > 0)) { [e.model, e.price].forEach(i => i.classList.toggle("bad", !i.value.trim())); return; }
-    const t = newUnit({ model: e.model.value.trim(), type: e.type.value, price: +e.price.value, year: +e.year.value, status: e.status.value });
-    closeModal(); adm.tab = "inventory"; renderAdminMain([t.id]); renderKpis(); toast(`Added ${t.id}. It's live in inventory.`);
-  }
+  
 };
 
 /* ==========================================================================
@@ -2699,8 +2311,7 @@ function parseHash() {
   if (!h.startsWith("#/")) h = "#/home";
   const [path, qs] = h.slice(2).split("?");
   const parts = path.split("/").filter(Boolean);
-  if (parts[0] === "demo") { try { localStorage.setItem("tt-demo", "1"); } catch (e) {} location.replace(location.pathname + "#/home"); location.reload(); }
-  if (!DEMO && (parts[0] === "account" || parts[0] === "admin")) parts[0] = "home";
+  if (!DEMO && (parts[0] === "account" || parts[0] === "admin" || parts[0] === "vision")) parts[0] = "home";
   const q = {}; new URLSearchParams(qs || "").forEach((v, k) => { q[k] = v; });
   return { name: VIEWS[parts[0]] ? parts[0] : "home", arg: parts[1] ? decodeURIComponent(parts[1]) : null, q };
 }
@@ -2738,7 +2349,6 @@ document.addEventListener("click", e => {
     case "cmp-clear": S.compare = []; save(); render(true); break;
     case "cmp-starter": S.compare = ["TT-0155", "TT-0160"]; save(); render(true); break;
     case "hold": e.preventDefault(); holdModal(id); break;
-    case "quote": quoteModal(id); break;
     case "ask": { const t = unit(id); openChat(t ? `Tell me about the ${tname(t)}, stock ${t.id}` : "", el); break; }
     case "quote-model": closeModal(); location.hash = "#/home?s=quote&m=" + encodeURIComponent(el.dataset.model || ""); break;
     case "tessa-open": e.preventDefault(); closeDrawer(); openChat("", el); break;
@@ -2748,13 +2358,9 @@ document.addEventListener("click", e => {
       const s = el.dataset.say;
       userSays(s); break;
     }
-    case "signin-open": e.preventDefault(); closeMenus(); closeDrawer(); signinModal(); break;
-    case "as": signIn(el.dataset.user); break;
-    case "signout": e.preventDefault(); { const n = me() ? me().name : ""; S.user = null; save(); chat.booted = false; chat.ctx = {}; render(true); toast(`Signed out${n ? " of " + esc(n) : ""}.`); } break;
     case "burger": openDrawer(); break;
     case "drawer-close": closeDrawer(); break;
     case "modal-close": closeModal(); break;
-    case "reset": resetDemo(); break;
     case "inv-type": inv.type = el.dataset.type; renderInvGrid(); break;
     case "inv-clear": inv.type = "all"; inv.q = ""; $$("[data-search]").forEach(i => i.value = ""); renderInvGrid(); break;
     case "line-f": { const f = el.dataset.f; $$("[data-act=line-f]").forEach(x => x.setAttribute("aria-pressed", x === el)); $$(".model").forEach(m => { m.hidden = !(f === "all" || (" " + m.dataset.cat + " ").includes(" " + f + " ")); }); break; }
@@ -2765,45 +2371,16 @@ document.addEventListener("click", e => {
     case "parts-cat": partsUI.cat = el.dataset.c; $$("[data-act=parts-cat]").forEach(x => x.setAttribute("aria-pressed", x === el)); renderParts(); break;
     case "parts-fit": partsUI.fit = el.checked; renderParts(); break;
     case "fin-term": fin.term = +el.dataset.n; $$("[data-act=fin-term]").forEach(x => x.setAttribute("aria-pressed", x === el)); renderCalc(); break;
-    case "release": releaseHold(id); render(true); toast("Hold released. The unit is back on the lot."); break;
     case "doc": toast(`Sample: “${esc(el.dataset.n)}” would open as a PDF here.`); break;
-    case "adm-tab": adm.tab = el.dataset.k; renderAdminMain(); break;
-    case "adm-add": openAddUnit(); break;
-    case "adm-sold": setStatus(id, "sold"); renderAdminMain([id]); renderKpis(); toast(`${id} marked sold.`); break;
-    case "adm-say": adminSay(el.dataset.say); break;
-    case "adm-confirm": adminConfirm(el.dataset.k, true); break;
-    case "adm-cancel": adminConfirm(el.dataset.k, false); break;
-    case "sync": syncSpecs(); break;
+    
   }
 });
-function signIn(id, keep) {
-  S.user = id; save(); closeModal(); closeDrawer();
-  chat.booted = false; chat.ctx = {};
-  const p = persona(id); toast(`Signed in as ${esc(p.name)} · ${esc(p.title)}`);
-  if (keep) { openChat(); return render(true); }
-  const target = p.role === "customer" ? "#/account" : "#/admin";
-  if (location.hash === target) render(); else location.hash = target;
-}
 document.addEventListener("change", e => {
   const el = e.target;
   if (el.dataset.act === "cmp-add" && el.value) { toggleCompare(el.value); render(true); return; }
   if (el.dataset.act === "inv-sort") { inv.sort = el.value; renderInvGrid(); return; }
   if (el.dataset.act === "fin-tr") { const t = unit(el.value); fin.id = el.value; if (t) { fin.price = t.price; fin.down = Math.round(t.price * DATA.finance.downPct / 100); $("#fPrice").value = fin.price; $("#fDown").value = fin.down; } renderCalc(); return; }
-  if (el.dataset.edit) {
-    const t = unit(el.dataset.id);
-    if (el.dataset.edit === "price") { const v = Math.round(+el.value); if (v > 0 && v !== t.price) { setPrice([t.id], v); toast(`${t.id} now ${money(v)}.`); } }
-    else { setStatus(t.id, el.value); toast(`${t.id}: ${statusInfo(t).label}.`); }
-    renderAdminMain([t.id]); renderKpis(); return;
-  }
-  if (el.dataset.adm) {
-    const v = el.value, id = el.dataset.id;
-    if (el.dataset.adm === "lead") return setLeadStage(id, v);
-    const coll = { quote: S.quotes, parts: S.partsOrders, ticket: S.tickets, hold: S.holds }[el.dataset.adm];
-    const r = coll.find(x => x.id === id); if (!r) return;
-    if (el.dataset.adm === "hold" && v === "Released") releaseHold(id); else r.status = v;
-    if (el.dataset.adm === "hold" && v === "Converted") { const t = unit(r.trailerId); if (t) t.status = "sold"; }
-    logChange(`${id} → <b>${esc(v)}</b>`); save(); renderAdminMain(); renderKpis(); toast(`${id} set to ${esc(v)}.`);
-  }
+  
 });
 document.addEventListener("input", e => {
   const el = e.target;
@@ -2845,8 +2422,8 @@ function buildChrome() {
     <div><img src="${img("timeless-logo")}" alt="Timeless Trailers"><p>The only dealer in the U.S. that sells Timpte equipment trailers exclusively · ${esc(b.address)} · ${b.phone} · ${b.hours}</p><a class="tbadge" href="${b.timpte}" target="_blank" rel="noopener"><img src="${img("timpte-et-logo")}" alt="Timpte Equipment Trailers" loading="lazy"><span>Timpte-exclusive dealer</span></a></div>
     <div><h4>Shop</h4><a href="#/inventory">On the lot</a><a href="#/inventory?s=lineup">Lineup</a><a href="#/finder">Trailer Finder</a><a href="#/compare">Compare</a></div>
     <div><h4>Own</h4><a href="#/parts">Parts</a><a href="#/service">Service</a><a href="#/service?s=resources">Owner resources</a><a href="#/financing">Financing</a></div>
-    <div><h4>Company</h4><a href="#/about">About</a><a href="#/about?s=visit">Visit</a><a href="#/about?s=contact">Contact</a><a href="#/account">My Account</a><a href="#/admin">Dealer console</a></div>
-  </div><div class="fbot"><span>Site concept by Albright Agency · Sample data, no real orders</span><button data-act="reset">Reset demo</button></div></div></footer>
+    <div><h4>Company</h4><a href="#/about">About</a><a href="#/about?s=visit">Visit</a><a href="#/about?s=contact">Contact</a>${DEMO ? footerDemoHTML() : ""}</div>
+  </div><div class="fbot"><span>Site concept by Albright Agency · Sample stock, no real orders</span>${DEMO ? footerResetHTML() : ""}</div></div></footer>
   <div class="mbar"><a class="btn btn-line-light" href="#/inventory">On the lot</a><a class="btn btn-gold" href="#/home?s=quote">Get a quote</a></div>
   <div class="cmp-tray" id="cmpTray" hidden></div>
   <div class="toasts" id="toasts" aria-live="polite"></div>

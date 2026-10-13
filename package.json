@@ -1,9 +1,10 @@
 {
   "name": "timeless-trailers",
   "private": true,
-  "description": "Timeless Trailers website concept. The site is plain files in site/; this file only exists so Cloudflare's deploy command works.",
+  "description": "Timeless Trailers website concept. Two plain-file sites: site/ (public) and site-demo/ (with the dealer back end). This file only exists so Cloudflare's deploy commands work.",
   "scripts": {
     "deploy": "wrangler deploy",
+    "deploy:demo": "wrangler deploy --config wrangler.demo.jsonc",
     "preview": "wrangler dev"
   },
   "devDependencies": {

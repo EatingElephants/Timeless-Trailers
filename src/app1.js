@@ -37,12 +37,13 @@ const tick = ICON.check;
 
 /* ---------------- state ---------------- */
 const STORE_KEY = "timeless-v2-demo";
-/* Demo mode: sample prices, the demo tour, the demo sign-ins and the sample reviews only show when it is on.
-   Open #/demo once to turn it on in this browser; "Reset demo" in the footer turns it off. Normal visitors never see it. */
-let DEMO = false; try { DEMO = localStorage.getItem("tt-demo") === "1"; } catch (e) {}
+/* Two sites from one source. build.py fills in DEMO: false for the public site (site/), true for the demo site (site-demo/).
+   Everything between a "@demo" and an "@end-demo" comment is cut out of the public site entirely, so the back end
+   (sign-in, My Account, dealer console, sample people, sample prices) never ships to customers. */
+const DEMO = %%DEMO%%;
 const ANDY_LINE = "Andy matches the trailer to your load and truck, then Matt sends your quote the same business day.";
 function freshState() {
-  const s = DATA.seed;
+  const s = DATA.seed || { saved: {}, owned: [], holds: [], quotes: [], partsOrders: [], tickets: [], leads: [] };
   return {
     v: 1, user: null, inventory: clone(DATA.inventory), saved: clone(s.saved), owned: clone(s.owned),
     holds: clone(s.holds), quotes: clone(s.quotes), partsOrders: clone(s.partsOrders), tickets: clone(s.tickets),
@@ -57,12 +58,12 @@ function save() { try { localStorage.setItem(STORE_KEY, JSON.stringify(S)); } ca
 function nextId(p) { const n = S.seq[p]++; save(); return p === "TT" ? "TT-0" + n : p + "-" + n; }
 function resetDemo() {
   if (!confirm("Reset the demo? This clears saved trailers, holds, quotes, tickets and admin edits.")) return;
-  try { localStorage.removeItem(STORE_KEY); localStorage.removeItem("tt-demo"); } catch (e) {}
+  try { localStorage.removeItem(STORE_KEY); } catch (e) {}
   location.hash = "#/home"; location.reload();
 }
 
 /* ---------------- people ---------------- */
-const persona = id => DATA.personas.find(p => p.id === id);
+const persona = id => (DATA.personas || []).find(p => p.id === id);
 const me = () => (S.user ? persona(S.user) : null);
 const uid = () => S.user || "guest";
 const isStaff = () => { const u = me(); return !!u && (u.role === "owner" || u.role === "staff"); };
@@ -93,7 +94,7 @@ function toggleSave(id) {
   const l = savedList(); const i = l.indexOf(id);
   if (i > -1) l.splice(i, 1); else l.push(id);
   save(); refreshHearts();
-  toast(i > -1 ? "Removed from saved trailers." : `Saved. It's in <a href="#/account">My Account</a>.`);
+  toast(i > -1 ? "Removed from saved trailers." : (DEMO ? `Saved. It's in <a href="#/account">My Account</a>.` : "Saved in this browser."));
 }
 function refreshHearts() { $$('[data-act="save"]').forEach(b => { const on = isSaved(b.dataset.id); b.setAttribute("aria-pressed", on); b.setAttribute("aria-label", (on ? "Remove " : "Save ") + b.dataset.id); }); }
 function toggleCompare(id, force) {
@@ -151,6 +152,7 @@ function releaseHold(id) {
   if (t && t.status === "hold") t.status = h.prev && h.prev !== "hold" ? h.prev : "lot";
   save();
 }
+/* @demo */
 function quoteCalc(t, addonIds) {
   const items = [{ label: tname(t) + " · Stock " + t.id, amt: t.price }];
   addonIds.forEach(id => { const a = DATA.addons.find(x => x.id === id); if (a) items.push({ label: a.label, amt: a.price }); });
@@ -174,6 +176,7 @@ function createQuote(t, addons, name, phone) {
   if (lead) { lead.stage = "Quoted"; lead.interest = tname(t); } else addLead({ name, phone, interest: tname(t), source: "Quote", stage: "Quoted" });
   save(); return q;
 }
+/* @end-demo */
 function partsTotal(items) { return items.reduce((s, [id, q]) => { const p = DATA.parts.find(x => x.id === id); return s + (p ? p.price * q : 0); }, 0); }
 function createPartsOrder(items, name, phone) {
   const o = { id: nextId("PO"), userId: S.user && !isStaff() ? S.user : "guest", name, phone, items, created: new Date().toISOString(), status: "Ordered" };
@@ -200,13 +203,20 @@ function navHTML() {
   <div class="menu" data-menu="co"><button aria-expanded="false" data-nav="about-visit">Visit ${ICON.caret}</button>
     <div class="dd"><a href="#/about?s=visit">Visit<small>${esc(DATA.business.address)}</small></a><a href="#/about?s=contact">Contact<small>Call, text or send a note</small></a></div></div>`;
 }
-function acctSlotHTML() {
+function acctSlotHTML() { return DEMO ? acctSlotDemoHTML() : ""; }
+/* @demo */
+function acctSlotDemoHTML() {
   const u = me();
-  if (!u) return DEMO ? `<button class="btn btn-line-light" data-act="signin-open">Sign in</button>` : "";
+  if (!u) return `<button class="btn btn-line-light" data-act="signin-open">Sign in</button>`;
   return `<div class="menu" data-menu="acct"><button class="uchip" aria-expanded="false"><i class="av ${u.role !== "customer" ? "dark" : ""}">${initials(u.name)}</i><span><small>Signed in as</small>${esc(u.short)}</span></button>
     <div class="dd right">${u.role === "customer" ? `<a href="#/account">My Account<small>Saved, holds, quotes, orders</small></a>` : `<a href="#/admin">Dealer console<small>${esc(u.title)}</small></a><a href="#/account">My Account</a>`}
     <a href="#" data-act="signin-open">Switch demo user<small>Customer or dealership</small></a><a href="#" data-act="signout">Sign out</a></div></div>`;
 }
+function drawerAcctHTML() {
+  const u = me();
+  return `<h4>Account</h4>${u ? `<a href="#/account">My Account · ${esc(u.short)}</a>${isStaff() ? `<a href="#/admin">Dealer console</a>` : ""}<a href="#" data-act="signout">Sign out</a>` : `<a href="#" data-act="signin-open">Sign in to the demo</a>`}`;
+}
+/* @end-demo */
 function updateChrome() {
   $("#navLinks").innerHTML = navHTML();
   $("#acctSlot").innerHTML = acctSlotHTML();
@@ -214,14 +224,13 @@ function updateChrome() {
   refreshCompare();
 }
 function openDrawer() {
-  const u = me();
   const html = `<div class="drawer-bg" data-act="drawer-close"></div><nav class="drawer" aria-label="Menu">
     <div class="dhead"><img src="${img("timeless-logo")}" alt="Timeless Trailers" style="height:40px;width:auto"><button class="xbtn" data-act="drawer-close" aria-label="Close menu">${ICON.x}</button></div>
     <div class="dsearch"><label for="dSearch" class="sr">Search inventory</label><input id="dSearch" placeholder="Search trailers: dump, tilt, 1020…" data-search></div>
     <h4>Inventory</h4><a href="#/inventory">On the lot</a><a href="#/inventory?s=lineup">Lineup by category</a><a href="#/finder">Trailer Finder</a><a href="#/compare">Compare models</a>
     <h4>Own</h4><a href="#/parts">Parts</a><a href="#/service">Service</a><a href="#/service?s=resources">Owner resources</a><a href="#/financing">Financing</a>
     <h4>Company</h4><a href="#/about">About</a><a href="#/about?s=visit">Visit</a><a href="#/about?s=contact">Contact</a>
-    ${u || DEMO ? `<h4>Account</h4>${u ? `<a href="#/account">My Account · ${esc(u.short)}</a>${isStaff() ? `<a href="#/admin">Dealer console</a>` : ""}<a href="#" data-act="signout">Sign out</a>` : `<a href="#" data-act="signin-open">Sign in to the demo</a>`}` : ""}
+    ${DEMO ? drawerAcctHTML() : ""}
     <div style="margin-top:22px;display:grid;gap:8px"><button class="btn btn-gold" data-act="tessa-open">Ask ${A}</button><a class="btn btn-line" href="tel:${DATA.business.tel}">Call ${DATA.business.phone}</a></div></nav>`;
   const box = document.createElement("div"); box.id = "drawer"; box.innerHTML = html; document.body.appendChild(box);
   $("#dSearch").focus();
@@ -244,6 +253,7 @@ function tcard(t) {
 function miniCard(t) {
   return `<a class="mcard" href="#/trailer/${t.id}"><img src="${img(t.img)}" alt=""><div><b>${esc(tname(t))}</b><small>Stock ${t.id} · ${statusInfo(t).label}</small><strong>${DEMO ? money(t.price) : "Call for price"}</strong>${DEMO ? ` <small style="display:inline">· about ${money(monthly(t.price))}/mo</small>` : ""}<br><span class="go">See details →</span></div></a>`;
 }
+/* @demo */
 function personaCard(p) {
   const on = S.user === p.id;
   return `<div class="pcard ${on ? "on" : ""}"><div class="ph"><i class="av ${p.role !== "customer" ? "dark" : ""}">${initials(p.name)}</i><div><b>${esc(p.name)}</b><small>${esc(p.title)}${p.company ? " · " + esc(p.company) : ""}</small></div></div>
@@ -256,6 +266,19 @@ function tourHTML() {
     <div class="tour-col"><div class="eyebrow">Shop as a customer</div><h3>Buy a trailer, own a trailer.</h3><p>One click, no password. Save trailers, put a unit on hold, build a quote, and order parts as an owner.</p><div class="tour-cards">${c.map(personaCard).join("")}</div></div>
     <div class="tour-col dark"><div class="eyebrow" style="color:var(--gold-2)">Run the dealership</div><h3>Behind the counter.</h3><p>Every lead, quote, hold and ticket from the site lands here. Change prices by asking ${A}, and confirm every change.</p><div class="tour-cards">${s.map(personaCard).join("")}</div></div></div>`;
 }
+function tourSection() {
+  return `<section class="tour" id="tour"><div class="wrap">
+  <div class="sec-head"><div><div class="eyebrow">Demo tour · Two sides of the counter</div><h2 style="margin-top:10px">Try it as a customer or as Matt.</h2><p class="lede">Sign in with one click. Everything you do is saved in this browser so you can show it, then reset from the footer.</p></div></div>
+  ${tourHTML()}
+</div></section>`;
+}
+function reviewsSection() {
+  return `<section id="reviews"><div class="wrap">
+  <div class="sec-head"><div><div class="eyebrow">What customers say</div><h2 style="margin-top:10px">Straight answers. Right trailer.</h2></div><span class="muted" style="font-size:.85rem">Sample reviews for the concept</span></div>
+  <div class="tq-grid">${DATA.testimonials.map(t => `<figure class="tq"><span class="stars" aria-label="5 stars">★★★★★</span><blockquote>“${esc(t.q)}”</blockquote><figcaption><b>${esc(t.who)}</b>${esc(t.what)}</figcaption></figure>`).join("")}</div>
+</div></section>`;
+}
+/* @end-demo */
 function quoteFormHTML(pre) {
   const opts = ["Not sure yet, help me choose"].concat(DATA.lineup.map(l => l.model));
   if (pre && !opts.includes(pre)) opts.push(pre);
@@ -318,10 +341,7 @@ ${exclHTML()}
   <a class="stat" href="#/about"><b>Only</b><span>America's only Timpte-exclusive dealer</span></a>
 </div></div>
 
-${DEMO ? `<section class="tour" id="tour"><div class="wrap">
-  <div class="sec-head"><div><div class="eyebrow">Demo tour · Two sides of the counter</div><h2 style="margin-top:10px">Try it as a customer or as Matt.</h2><p class="lede">Sign in with one click. Everything you do is saved in this browser so you can show it, then reset from the footer.</p></div></div>
-  ${tourHTML()}
-</div></section>` : ""}
+${DEMO ? tourSection() : ""}
 
 <section id="shop"><div class="wrap">
   <div class="sec-head rv"><div><div class="eyebrow">Shop by category</div><h2 style="margin-top:10px">Start with what you haul.</h2></div><a class="btn btn-line sm" href="#/finder">Not sure? Use the Finder</a></div>
@@ -360,10 +380,7 @@ ${meetHTML()}
 
 ${WHY}
 
-${DEMO ? `<section id="reviews"><div class="wrap">
-  <div class="sec-head"><div><div class="eyebrow">What customers say</div><h2 style="margin-top:10px">Straight answers. Right trailer.</h2></div><span class="muted" style="font-size:.85rem">Sample reviews for the concept</span></div>
-  <div class="tq-grid">${DATA.testimonials.map(t => `<figure class="tq"><span class="stars" aria-label="5 stars">★★★★★</span><blockquote>“${esc(t.q)}”</blockquote><figcaption><b>${esc(t.who)}</b>${esc(t.what)}</figcaption></figure>`).join("")}</div>
-</div></section>` : ""}
+${DEMO ? reviewsSection() : ""}
 
 <section id="quote" class="bgsec quote-bg"><div class="wrap quote-grid"><div id="visit">
   <div class="eyebrow" style="color:var(--gold-2)">Visit · Quote or reserve</div><h2 style="margin-top:10px">Tell us what you haul.</h2>
@@ -463,14 +480,14 @@ VIEWS.inventory = {
     Object.keys(DATA.types).forEach(k => counts[k] = S.inventory.filter(t => t.type === k && t.status !== "sold").length);
     return `<div class="page-head"><div class="wrap"><div class="crumbs"><a href="#/home">Home</a> / Inventory</div>
       <div class="eyebrow">On the lot and arriving</div><h1 style="margin-top:10px">Inventory.</h1>
-      <p class="lede">${onLot().length} units ready to hitch up in Waxhaw today, plus what's on the truck from Timpte. Prices are sample prices for the concept.</p></div></div>
+      <p class="lede">${onLot().length} units ready to hitch up in Waxhaw today, plus what's on the truck from Timpte.${DEMO ? " Prices are sample prices for the concept." : ""}</p></div></div>
     <section style="padding-top:34px"><div class="wrap">
       <div class="toolbar"><div class="chips" role="group" aria-label="Filter by type">
         <button class="chip" data-act="inv-type" data-type="all" aria-pressed="${inv.type === "all"}">All <small>${counts.all}</small></button>
         ${Object.keys(DATA.types).map(k => `<button class="chip" data-act="inv-type" data-type="${k}" aria-pressed="${inv.type === k}">${DATA.types[k]} <small>${counts[k]}</small></button>`).join("")}</div>
         <div class="tb-right"><label for="invQ" class="sr">Search inventory</label><input id="invQ" data-search placeholder="Search model or type" value="${esc(inv.q)}">
         <label for="invSort" class="sr">Sort</label><select id="invSort" data-act="inv-sort">
-          ${[["featured", "Featured"], ["price-asc", "Price: low to high"], ["price-desc", "Price: high to low"], ["newest", "Newest arrivals"], ["payload", "Most payload"]].map(([v, l]) => `<option value="${v}" ${inv.sort === v ? "selected" : ""}>${l}</option>`).join("")}</select></div></div>
+          ${[["featured", "Featured"], ...(DEMO ? [["price-asc", "Price: low to high"], ["price-desc", "Price: high to low"]] : []), ["newest", "Newest arrivals"], ["payload", "Most payload"]].map(([v, l]) => `<option value="${v}" ${inv.sort === v ? "selected" : ""}>${l}</option>`).join("")}</select></div></div>
       <p class="rcount" id="invCount" aria-live="polite"></p>
       <div class="tgrid" id="invGrid"></div>
     </div></section>
@@ -610,7 +627,7 @@ VIEWS.parts = {
     const cats = ["All"].concat([...new Set(DATA.parts.map(p => p.cat))]);
     return `<div class="page-head"><div class="wrap"><div class="crumbs"><a href="#/home">Home</a> / Parts</div><div class="eyebrow">Own · Parts counter</div><h1 style="margin-top:10px">Parts.</h1>
       <p class="lede">Lights, tires, bearings, couplers and tie-downs for Timpte trailers. Order here and pick up in Waxhaw, usually in one to two business days.</p>
-      ${own ? `<div class="badges" style="margin-top:16px"><span class="badge info">Your ${own.year} ${esc(own.model)}</span><label class="badge" style="cursor:pointer;margin:0"><input type="checkbox" data-act="parts-fit" ${partsUI.fit ? "checked" : ""}> Only parts that fit it</label></div>` : `<p class="note">Own a Timpte? <button class="link" data-act="as" data-user="marcus">Sign in as Marcus</button> to see parts filtered to his trailer.</p>`}
+      ${own ? `<div class="badges" style="margin-top:16px"><span class="badge info">Your ${own.year} ${esc(own.model)}</span><label class="badge" style="cursor:pointer;margin:0"><input type="checkbox" data-act="parts-fit" ${partsUI.fit ? "checked" : ""}> Only parts that fit it</label></div>` : (DEMO ? partsSigninNote() : `<p class="note">Not sure which part fits? Ask ${A}, or call the counter at ${DATA.business.phone}.</p>`)}
     </div></div>
     <section style="padding-top:30px"><div class="wrap parts-grid"><div>
       <div class="toolbar"><div class="chips">${cats.map(c => `<button class="chip" data-act="parts-cat" data-c="${c}" aria-pressed="${partsUI.cat === c}">${c}</button>`).join("")}</div>
@@ -624,18 +641,18 @@ function renderParts() {
   const own = myOwned()[0]; const q = partsUI.q.toLowerCase();
   const list = DATA.parts.filter(p => (partsUI.cat === "All" || p.cat === partsUI.cat) && (!q || (p.name + " " + p.kw.join(" ") + " " + p.id).toLowerCase().includes(q)) && (!own || !partsUI.fit || p.fits.includes(own.type)));
   $("#pList").innerHTML = list.length ? list.map(p => `<div class="part"><em>${p.cat}</em><b>${esc(p.name)}</b><small>Part ${p.id} · fits ${p.fits.map(typeLabel).join(", ")}</small>
-    <div class="pp"><strong>${money(p.price)}</strong><button class="btn btn-gold xs" data-act="cart-add" data-id="${p.id}">Add</button></div></div>`).join("") : `<div class="empty" style="grid-column:1/-1"><b>No parts match.</b>Call the counter at ${DATA.business.phone}. We order what we don't stock.</div>`;
+    <div class="pp"><strong>${DEMO ? money(p.price) : `<span class="callp">Call for price</span>`}</strong><button class="btn btn-gold xs" data-act="cart-add" data-id="${p.id}">Add</button></div></div>`).join("") : `<div class="empty" style="grid-column:1/-1"><b>No parts match.</b>Call the counter at ${DATA.business.phone}. We order what we don't stock.</div>`;
 }
 function renderCart() {
   const box = $("#cartBox"); if (!box) return;
   const u = me(); const total = partsTotal(S.cart);
   box.innerHTML = `<h3>Your order</h3>${S.cart.length ? S.cart.map(([id, q]) => { const p = DATA.parts.find(x => x.id === id);
-    return `<div class="citem"><span>${esc(p.name)}</span><b>${money(p.price * q)}</b><span class="qtyc"><button data-act="cart-qty" data-id="${id}" data-d="-1" aria-label="Fewer">−</button><span>${q}</span><button data-act="cart-qty" data-id="${id}" data-d="1" aria-label="More">+</button></span></div>`; }).join("") +
-    `<div class="ctotal"><span>Subtotal</span><span>${money(total)}</span></div>
+    return `<div class="citem"><span>${esc(p.name)}</span><b>${DEMO ? money(p.price * q) : ""}</b><span class="qtyc"><button data-act="cart-qty" data-id="${id}" data-d="-1" aria-label="Fewer">−</button><span>${q}</span><button data-act="cart-qty" data-id="${id}" data-d="1" aria-label="More">+</button></span></div>`; }).join("") +
+    `${DEMO ? `<div class="ctotal"><span>Subtotal</span><span>${money(total)}</span></div>` : ""}
     <form data-form="parts-checkout" novalidate style="display:grid;gap:10px">
       <div><label for="pcName">Name</label><input id="pcName" name="name" value="${u && u.role === "customer" ? esc(u.name) : ""}" required></div>
       <div><label for="pcPhone">Phone</label><input id="pcPhone" name="phone" type="tel" value="${u && u.role === "customer" ? esc(u.phone) : ""}" required></div>
-      <button class="btn btn-gold" type="submit">Place order for pickup</button><p class="note" style="margin:0">Pay at pickup. Tax added at the counter.</p></form>`
+      <button class="btn btn-gold" type="submit">Place order for pickup</button><p class="note" style="margin:0">${DEMO ? "Pay at pickup. Tax added at the counter." : "We confirm the price and pickup day by phone. Pay at pickup."}</p></form>`
     : `<p class="muted" style="margin:0">Nothing yet. Add parts from the list${myOwned().length ? `, or ask ${A}: “order a tail light kit.”` : "."}</p>`}`;
 }
 
@@ -645,9 +662,9 @@ VIEWS.service = {
   html() {
     const u = me(); const own = myOwned();
     return `<div class="page-head"><div class="wrap"><div class="crumbs"><a href="#/home">Home</a> / Service</div><div class="eyebrow">Own · Service bay</div><h1 style="margin-top:10px">Service.</h1>
-      <p class="lede">Inspections, bearings, brakes, wiring and warranty work, done here in Waxhaw by the people who sold you the trailer. Sample prices below.</p></div></div>
+      <p class="lede">Inspections, bearings, brakes, wiring and warranty work, done here in Waxhaw by the people who sold you the trailer.${DEMO ? " Sample prices below." : ""}</p></div></div>
     <section style="padding-top:34px"><div class="wrap">
-      <div class="grid3">${DATA.services.map(s => `<div class="svc"><b>${s.name}</b><span>${s.price}</span><p>${s.desc}</p></div>`).join("")}</div>
+      <div class="grid3">${DATA.services.map(s => `<div class="svc"><b>${s.name}</b><span>${DEMO || s.id === "warranty" ? s.price : "Call for pricing"}</span><p>${s.desc}</p></div>`).join("")}</div>
       <div class="grid2" style="margin-top:34px">
         <form class="q" data-form="service" novalidate id="book"><h3 style="margin-bottom:16px">Book service</h3><div class="fields">
           <div class="full"><label for="sUnit">Trailer</label><select id="sUnit" name="unit">${own.map(o => `<option>${o.year} ${esc(o.model)}</option>`).join("")}<option>Another Timpte trailer</option><option>A trailer from another brand</option></select></div>
@@ -715,7 +732,7 @@ VIEWS.about = {
       <div class="panel"><h3>How we sell</h3><ul class="flist" style="grid-template-columns:1fr">
         <li>${tick}We start with the load and the truck, not the biggest trailer on the lot.</li>
         <li>${tick}If your truck can't tow it safely, we'll tell you, even if it costs us the sale.</li>
-        <li>${tick}Real prices on the website. Holds without a deposit while we confirm details.</li>
+        <li>${tick}${DEMO ? "Real prices on the website." : "A straight price the same business day."} Holds without a deposit while we confirm details.</li>
         <li>${tick}Parts, service and warranty handled here, not shipped off.</li></ul></div>
       <div class="panel"><h3>Who you'll talk to</h3><div class="rows">${DATA.team.map(t => `<div style="display:flex;gap:12px;align-items:flex-start"><i class="av">${initials(t.name)}</i><div><b>${esc(t.name)}</b> · <span class="muted">${esc(t.role)}</span><p style="margin:4px 0 0;color:var(--text-2);font-size:.95rem">${esc(t.note)}</p></div></div>`).join("")}
         <div style="display:flex;gap:12px;align-items:flex-start"><i class="av dark">${A[0]}</i><div><b>${A}</b> · <span class="muted">AI trailer advisor</span><p style="margin:4px 0 0;color:var(--text-2);font-size:.95rem">${ANDY_LINE} Any hour. <button class="link" data-act="tessa-open">Ask now</button></p></div></div></div></div>
@@ -727,7 +744,9 @@ VIEWS.about = {
   }
 };
 
-/* ---------- account ---------- */
+/* ---------- account (demo site only) ---------- */
+/* @demo */
+function partsSigninNote() { return `<p class="note">Own a Timpte? <button class="link" data-act="as" data-user="marcus">Sign in as Marcus</button> to see parts filtered to his trailer.</p>`; }
 VIEWS.account = {
   title: "My Account · Timeless Trailers",
   html() {
@@ -753,3 +772,4 @@ VIEWS.account = {
     </div></section>`;
   }
 };
+/* @end-demo */

@@ -1,5 +1,5 @@
 
-
+/* @demo */
 VIEWS.vision = {
   title: "What the finished site adds · Timeless Trailers",
   html() {
@@ -16,11 +16,11 @@ VIEWS.vision = {
     return `<div class="page-head"><div class="wrap"><div class="crumbs"><a href="#/home">Home</a> / The finished site</div><div class="eyebrow">Concept v3 · for review</div><h1 style="margin-top:10px">What the finished site adds.</h1>
       <p class="lede">This version has real Timpte models, specs, photos and video. Here's what the full build adds on top, so you can picture the whole thing before we build it.</p></div></div>
     <section style="padding-top:34px"><div class="wrap"><div class="grid2">${items.map(([h, p]) => `<div class="panel"><h3>${h}</h3><p style="margin:0;color:var(--text-2)">${p}</p></div>`).join("")}</div>
-      <div class="panel" style="margin-top:22px"><h3>What's sample in this version</h3><p style="margin:0;color:var(--text-2)">Stock numbers and what's on the lot. Sample prices, the demo customers and staff, and the sample reviews only appear in demo mode (open #/demo). Everything about the trailers themselves (model names, payloads, weights, decks, angles, axles, tires) comes from Timpte's 2026 spec sheets, and Andy answers from them.</p></div>
+      <div class="panel" style="margin-top:22px"><h3>What's sample in this version</h3><p style="margin:0;color:var(--text-2)">Stock numbers and what's on the lot. Sample prices, the demo customers and staff, and the sample reviews only appear on this demo site; the public site shows "Call for price" and has no sign-in. Everything about the trailers themselves (model names, payloads, weights, decks, angles, axles, tires) comes from Timpte's 2026 spec sheets, and Andy answers from them.</p></div>
     </div></section>`;
   }
 };
-
+/* @end-demo */
 
 /* ---------- flair: reveal on scroll, counters, lightbox ---------- */
 function enhance() {
@@ -50,7 +50,8 @@ function openLightbox(i) {
   if (!dlg.open) dlg.showModal();
 }
 
-/* ---------- admin ---------- */
+/* ---------- admin (demo site only; the public site never gets this code) ---------- */
+/* @demo */
 const adm = { tab: "inventory", log: [], pending: {}, booted: false, syncing: false };
 const STAGES = ["New", "Contacted", "Quoted", "Won", "Lost"];
 VIEWS.admin = {
@@ -272,6 +273,7 @@ function syncSpecs() {
     toast("Specs up to date. All units match Timpte's latest build sheets.");
   }, 2200);
 }
+/* @end-demo */
 
 /* ==========================================================================
    ANDY (customer chat). Andy lives on Stammer; the site opens him in a panel on
@@ -320,6 +322,7 @@ function holdModal(id) {
       <div><label for="hPhone">Phone</label><input id="hPhone" name="phone" type="tel" required value="${cu ? esc(cu.phone) : ""}"></div></div>
       <div class="form-foot"><p>The team calls you today to confirm.</p><button class="btn btn-gold" type="submit">Hold this unit</button></div></form>`);
 }
+/* @demo */
 function quoteModal(id) {
   const t = unit(id); if (!t) return;
   const u = me(); const cu = u && u.role === "customer" ? u : null;
@@ -336,6 +339,19 @@ function quoteModal(id) {
 function signinModal() {
   openModal(`<h3>Sign in to the demo</h3><p class="sub">One click, no password. Two sides of the counter.</p>${tourHTML()}`, { wide: true });
 }
+function signIn(id, keep) {
+  S.user = id; save(); closeModal(); closeDrawer();
+  chat.booted = false; chat.ctx = {};
+  const p = persona(id); toast(`Signed in as ${esc(p.name)} · ${esc(p.title)}`);
+  if (keep) { openChat(); return render(true); }
+  const target = p.role === "customer" ? "#/account" : "#/admin";
+  if (location.hash === target) render(); else location.hash = target;
+}
+function footerDemoHTML() {
+  return `<a href="#/account">My Account</a><a href="#/admin">Dealer console</a><a href="#/vision">What the finished site adds</a>`;
+}
+function footerResetHTML() { return `<button data-act="reset">Reset demo</button>`; }
+/* @end-demo */
 
 /* ---- validation ---- */
 function need(f, names) {
@@ -349,7 +365,6 @@ const doneHTML = (h, p) => `<div class="done">${'<svg viewBox="0 0 24 24" fill="
 const FORMS = {
   "hero-ask"(f) { const v = f.elements.q.value.trim(); if (!v) { f.elements.q.focus(); return; } f.reset(); userSays(v); },
   chat(f) { const v = f.elements.q.value; f.reset(); if (/^leave my number$/i.test(v.trim())) return userSays("Have someone call me"); userSays(v); },
-  "admin-chat"(f) { const v = f.elements.q.value.trim(); if (!v) return; adminSay(v); },
   quote(f) {
     if (!need(f, ["name", "phone"])) return;
     const e = f.elements; const first = e.name.value.trim().split(" ")[0];
@@ -360,20 +375,12 @@ const FORMS = {
   hold(f) {
     if (!need(f, ["name", "phone"])) return;
     const t = unit(f.dataset.id); const h = createHold(t, f.elements.name.value.trim(), f.elements.phone.value.trim());
-    closeModal(); rerender(); toast(`${t.id} is on hold until ${fmtWhen(h.expires)}. <a href="#/account?s=a-holds">See it in My Account</a>`, 5000);
-  },
-  quoteb(f) {
-    if (!need(f, ["name", "phone"])) return;
-    const t = unit(f.dataset.id); const ids = $$("input[name=addon]:checked", f).map(i => i.value);
-    const q = createQuote(t, ids, f.elements.name.value.trim(), f.elements.phone.value.trim());
-    f.parentNode.innerHTML = `<button class="xbtn" data-act="modal-close" aria-label="Close" style="position:absolute;top:14px;right:14px">${ICON.x}</button>` + doneHTML(`Quote ${q.id} saved.`, `Out the door: <b>${money(quoteCalc(t, ids).total)}</b>. The team will call to walk through it.`) +
-      `<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap"><a class="btn btn-gold sm" href="#/account?s=a-quotes">View in My Account</a><button class="btn btn-line sm" data-act="hold" data-id="${t.id}">Hold this unit</button></div>`;
-    rerender();
+    closeModal(); rerender(); toast(`${t.id} is on hold until ${fmtWhen(h.expires)}.${DEMO ? ` <a href="#/account?s=a-holds">See it in My Account</a>` : " We'll call you today to confirm."}`, 5000);
   },
   "parts-checkout"(f) {
     if (!need(f, ["name", "phone"])) return;
     const o = createPartsOrder(S.cart.slice(), f.elements.name.value.trim(), f.elements.phone.value.trim()); S.cart = []; save();
-    renderCart(); toast(`Order ${o.id} placed. We'll text when it's ready for pickup. <a href="#/account?s=a-orders">My Account</a>`, 5000);
+    renderCart(); toast(`Order ${o.id} placed. We'll text when it's ready for pickup.${DEMO ? ` <a href="#/account?s=a-orders">My Account</a>` : ""}`, 5000);
   },
   service(f) {
     if (!need(f, ["name", "phone"])) return;
@@ -382,11 +389,22 @@ const FORMS = {
   },
   prequal(f) { if (!need(f, ["name", "phone"])) return; addLead({ name: f.elements.name.value.trim(), phone: f.elements.phone.value.trim(), interest: "Financing pre-qualify · " + money(fin.price), source: "Financing" }); f.innerHTML = doneHTML("You're in line.", "The team will call today with real rates for " + money(fin.price) + "."); },
   warranty(f) { const v = f.elements.vin.value.trim(); if (v.length < 6) { f.elements.vin.classList.add("bad"); toast("Enter the VIN or serial from the frame tag."); return; } f.innerHTML = `<p style="margin:0"><b style="color:var(--green)">✓ Registered.</b> Warranty on ${esc(v)} is on file with Timpte (sample).</p>`; },
+  /* @demo */
+  "admin-chat"(f) { const v = f.elements.q.value.trim(); if (!v) return; adminSay(v); },
+  quoteb(f) {
+    if (!need(f, ["name", "phone"])) return;
+    const t = unit(f.dataset.id); const ids = $$("input[name=addon]:checked", f).map(i => i.value);
+    const q = createQuote(t, ids, f.elements.name.value.trim(), f.elements.phone.value.trim());
+    f.parentNode.innerHTML = `<button class="xbtn" data-act="modal-close" aria-label="Close" style="position:absolute;top:14px;right:14px">${ICON.x}</button>` + doneHTML(`Quote ${q.id} saved.`, `Out the door: <b>${money(quoteCalc(t, ids).total)}</b>. The team will call to walk through it.`) +
+      `<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap"><a class="btn btn-gold sm" href="#/account?s=a-quotes">View in My Account</a><button class="btn btn-line sm" data-act="hold" data-id="${t.id}">Hold this unit</button></div>`;
+    rerender();
+  },
   "add-unit"(f) {
     const e = f.elements; if (!e.model.value.trim() || !(+e.price.value > 0)) { [e.model, e.price].forEach(i => i.classList.toggle("bad", !i.value.trim())); return; }
     const t = newUnit({ model: e.model.value.trim(), type: e.type.value, price: +e.price.value, year: +e.year.value, status: e.status.value });
     closeModal(); adm.tab = "inventory"; renderAdminMain([t.id]); renderKpis(); toast(`Added ${t.id}. It's live in inventory.`);
-  }
+  },
+  /* @end-demo */
 };
 
 /* ==========================================================================
@@ -399,8 +417,7 @@ function parseHash() {
   if (!h.startsWith("#/")) h = "#/home";
   const [path, qs] = h.slice(2).split("?");
   const parts = path.split("/").filter(Boolean);
-  if (parts[0] === "demo") { try { localStorage.setItem("tt-demo", "1"); } catch (e) {} location.replace(location.pathname + "#/home"); location.reload(); }
-  if (!DEMO && (parts[0] === "account" || parts[0] === "admin")) parts[0] = "home";
+  if (!DEMO && (parts[0] === "account" || parts[0] === "admin" || parts[0] === "vision")) parts[0] = "home";
   const q = {}; new URLSearchParams(qs || "").forEach((v, k) => { q[k] = v; });
   return { name: VIEWS[parts[0]] ? parts[0] : "home", arg: parts[1] ? decodeURIComponent(parts[1]) : null, q };
 }
@@ -438,7 +455,6 @@ document.addEventListener("click", e => {
     case "cmp-clear": S.compare = []; save(); render(true); break;
     case "cmp-starter": S.compare = ["TT-0155", "TT-0160"]; save(); render(true); break;
     case "hold": e.preventDefault(); holdModal(id); break;
-    case "quote": quoteModal(id); break;
     case "ask": { const t = unit(id); openChat(t ? `Tell me about the ${tname(t)}, stock ${t.id}` : "", el); break; }
     case "quote-model": closeModal(); location.hash = "#/home?s=quote&m=" + encodeURIComponent(el.dataset.model || ""); break;
     case "tessa-open": e.preventDefault(); closeDrawer(); openChat("", el); break;
@@ -448,13 +464,9 @@ document.addEventListener("click", e => {
       const s = el.dataset.say;
       userSays(s); break;
     }
-    case "signin-open": e.preventDefault(); closeMenus(); closeDrawer(); signinModal(); break;
-    case "as": signIn(el.dataset.user); break;
-    case "signout": e.preventDefault(); { const n = me() ? me().name : ""; S.user = null; save(); chat.booted = false; chat.ctx = {}; render(true); toast(`Signed out${n ? " of " + esc(n) : ""}.`); } break;
     case "burger": openDrawer(); break;
     case "drawer-close": closeDrawer(); break;
     case "modal-close": closeModal(); break;
-    case "reset": resetDemo(); break;
     case "inv-type": inv.type = el.dataset.type; renderInvGrid(); break;
     case "inv-clear": inv.type = "all"; inv.q = ""; $$("[data-search]").forEach(i => i.value = ""); renderInvGrid(); break;
     case "line-f": { const f = el.dataset.f; $$("[data-act=line-f]").forEach(x => x.setAttribute("aria-pressed", x === el)); $$(".model").forEach(m => { m.hidden = !(f === "all" || (" " + m.dataset.cat + " ").includes(" " + f + " ")); }); break; }
@@ -465,8 +477,14 @@ document.addEventListener("click", e => {
     case "parts-cat": partsUI.cat = el.dataset.c; $$("[data-act=parts-cat]").forEach(x => x.setAttribute("aria-pressed", x === el)); renderParts(); break;
     case "parts-fit": partsUI.fit = el.checked; renderParts(); break;
     case "fin-term": fin.term = +el.dataset.n; $$("[data-act=fin-term]").forEach(x => x.setAttribute("aria-pressed", x === el)); renderCalc(); break;
-    case "release": releaseHold(id); render(true); toast("Hold released. The unit is back on the lot."); break;
     case "doc": toast(`Sample: “${esc(el.dataset.n)}” would open as a PDF here.`); break;
+    /* @demo */
+    case "quote": quoteModal(id); break;
+    case "signin-open": e.preventDefault(); closeMenus(); closeDrawer(); signinModal(); break;
+    case "as": signIn(el.dataset.user); break;
+    case "signout": e.preventDefault(); { const n = me() ? me().name : ""; S.user = null; save(); chat.booted = false; chat.ctx = {}; render(true); toast(`Signed out${n ? " of " + esc(n) : ""}.`); } break;
+    case "reset": resetDemo(); break;
+    case "release": releaseHold(id); render(true); toast("Hold released. The unit is back on the lot."); break;
     case "adm-tab": adm.tab = el.dataset.k; renderAdminMain(); break;
     case "adm-add": openAddUnit(); break;
     case "adm-sold": setStatus(id, "sold"); renderAdminMain([id]); renderKpis(); toast(`${id} marked sold.`); break;
@@ -474,21 +492,15 @@ document.addEventListener("click", e => {
     case "adm-confirm": adminConfirm(el.dataset.k, true); break;
     case "adm-cancel": adminConfirm(el.dataset.k, false); break;
     case "sync": syncSpecs(); break;
+    /* @end-demo */
   }
 });
-function signIn(id, keep) {
-  S.user = id; save(); closeModal(); closeDrawer();
-  chat.booted = false; chat.ctx = {};
-  const p = persona(id); toast(`Signed in as ${esc(p.name)} · ${esc(p.title)}`);
-  if (keep) { openChat(); return render(true); }
-  const target = p.role === "customer" ? "#/account" : "#/admin";
-  if (location.hash === target) render(); else location.hash = target;
-}
 document.addEventListener("change", e => {
   const el = e.target;
   if (el.dataset.act === "cmp-add" && el.value) { toggleCompare(el.value); render(true); return; }
   if (el.dataset.act === "inv-sort") { inv.sort = el.value; renderInvGrid(); return; }
   if (el.dataset.act === "fin-tr") { const t = unit(el.value); fin.id = el.value; if (t) { fin.price = t.price; fin.down = Math.round(t.price * DATA.finance.downPct / 100); $("#fPrice").value = fin.price; $("#fDown").value = fin.down; } renderCalc(); return; }
+  /* @demo */
   if (el.dataset.edit) {
     const t = unit(el.dataset.id);
     if (el.dataset.edit === "price") { const v = Math.round(+el.value); if (v > 0 && v !== t.price) { setPrice([t.id], v); toast(`${t.id} now ${money(v)}.`); } }
@@ -504,6 +516,7 @@ document.addEventListener("change", e => {
     if (el.dataset.adm === "hold" && v === "Converted") { const t = unit(r.trailerId); if (t) t.status = "sold"; }
     logChange(`${id} → <b>${esc(v)}</b>`); save(); renderAdminMain(); renderKpis(); toast(`${id} set to ${esc(v)}.`);
   }
+  /* @end-demo */
 });
 document.addEventListener("input", e => {
   const el = e.target;
@@ -545,8 +558,8 @@ function buildChrome() {
     <div><img src="${img("timeless-logo")}" alt="Timeless Trailers"><p>The only dealer in the U.S. that sells Timpte equipment trailers exclusively · ${esc(b.address)} · ${b.phone} · ${b.hours}</p><a class="tbadge" href="${b.timpte}" target="_blank" rel="noopener"><img src="${img("timpte-et-logo")}" alt="Timpte Equipment Trailers" loading="lazy"><span>Timpte-exclusive dealer</span></a></div>
     <div><h4>Shop</h4><a href="#/inventory">On the lot</a><a href="#/inventory?s=lineup">Lineup</a><a href="#/finder">Trailer Finder</a><a href="#/compare">Compare</a></div>
     <div><h4>Own</h4><a href="#/parts">Parts</a><a href="#/service">Service</a><a href="#/service?s=resources">Owner resources</a><a href="#/financing">Financing</a></div>
-    <div><h4>Company</h4><a href="#/about">About</a><a href="#/about?s=visit">Visit</a><a href="#/about?s=contact">Contact</a><a href="#/account">My Account</a><a href="#/admin">Dealer console</a></div>
-  </div><div class="fbot"><span>Site concept by Albright Agency · Sample data, no real orders</span><button data-act="reset">Reset demo</button></div></div></footer>
+    <div><h4>Company</h4><a href="#/about">About</a><a href="#/about?s=visit">Visit</a><a href="#/about?s=contact">Contact</a>${DEMO ? footerDemoHTML() : ""}</div>
+  </div><div class="fbot"><span>Site concept by Albright Agency · Sample stock, no real orders</span>${DEMO ? footerResetHTML() : ""}</div></div></footer>
   <div class="mbar"><a class="btn btn-line-light" href="#/inventory">On the lot</a><a class="btn btn-gold" href="#/home?s=quote">Get a quote</a></div>
   <div class="cmp-tray" id="cmpTray" hidden></div>
   <div class="toasts" id="toasts" aria-live="polite"></div>

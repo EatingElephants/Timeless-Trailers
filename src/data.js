@@ -272,6 +272,14 @@ const DATA = {
     ["Dump trailers, every 6 months", "Hydraulic fluid level, hoses and cylinder pins"]
   ],
 
+  /* Who's on the About page. Kayla is a sample name until Matt gives us his real team. */
+  team: [
+    { name: "Matt Lyons", role: "Owner", note: "Answers the phone, walks the lot with you and stands behind every unit he sells." },
+    { name: "Kayla Brooks", role: "Sales & parts (sample)", note: "Quotes, parts orders and keeping the lead board moving." }
+  ],
+
+  /* @demo */
+  /* Everything from here to the end of DATA is demo-site only. build.py cuts it out of the public site. */
   personas: [
     { id: "dana", role: "customer", name: "Dana Whitfield", short: "Dana W.", title: "Shopping for a car hauler", phone: "704-555-0148", email: "dana.w@example.com", town: "Monroe, NC", truck: "Chevy Silverado 1500",
       story: "Restoring a '67 Mustang. Needs a car hauler a half-ton can pull.",
@@ -285,11 +293,6 @@ const DATA = {
     { id: "kayla", role: "staff", name: "Kayla Brooks", short: "Kayla B.", title: "Sales & parts", phone: "704-589-3100",
       story: "Works the lead board and the parts counter.",
       tryList: ["Move a parts order to Ready for pickup", "Mark a unit sold", "Schedule an open service ticket"] }
-  ],
-
-  team: [
-    { name: "Matt Lyons", role: "Owner", note: "Answers the phone, walks the lot with you and stands behind every unit he sells." },
-    { name: "Kayla Brooks", role: "Sales & parts (sample)", note: "Quotes, parts orders and keeping the lead board moving." }
   ],
 
   testimonials: [
@@ -329,5 +332,6 @@ const DATA = {
       { id: "L-506", name: "Priya Nair", phone: "980-555-0156", interest: "UTV hauler, two side-by-sides", source: "Phone", stage: "New", created: d(-1) },
       { id: "L-507", name: "Bill Hester", phone: "704-555-0119", interest: "Car hauler", source: "Walk-in", stage: "Lost", created: d(-12) }
     ]
-  }
+  },
+  /* @end-demo */
 };

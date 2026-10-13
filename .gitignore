@@ -4,3 +4,8 @@ Thumbs.db
 .DS_Store
 node_modules/
 .wrangler/
+# The demo site shares the public site's media. Only its index.html is committed;
+# build.py links these locally and Cloudflare copies them at deploy time.
+site-demo/img/
+site-demo/video/
+site-demo/specs/
