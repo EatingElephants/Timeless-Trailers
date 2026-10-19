@@ -58,7 +58,7 @@
   .nav .logo img{height:48px;width:auto}
   .nav-links{display:flex;gap:6px;margin-left:6px}
   .menu{position:relative}
-  .menu>button,.menu>a{background:none;border:0;color:#d9d3c8;font-weight:600;font-size:.95rem;display:inline-flex;align-items:center;gap:5px;cursor:pointer;padding:10px 10px;text-decoration:none;border-radius:6px}
+  .menu>button,.menu>a{background:none;border:0;color:#d9d3c8;font-weight:600;font-size:.95rem;display:inline-flex;align-items:center;gap:5px;cursor:pointer;padding:10px 10px;text-decoration:none;border-radius:6px;white-space:nowrap}
   .menu>button:hover,.menu.open>button,.menu>button[aria-current="true"],.menu>a[aria-current="true"]{color:#fff;background:#24201b}
   .nav-about{color:var(--gold-2)!important;font-weight:700}
   .menu>button svg{width:12px;height:12px;transition:transform .15s}
@@ -66,7 +66,7 @@
   .dd{position:absolute;top:calc(100% + 6px);left:0;min-width:250px;background:var(--paper);border-radius:12px;box-shadow:0 18px 50px rgba(0,0,0,.28);padding:8px;display:none;z-index:5}
   .dd::before{content:"";position:absolute;left:0;right:0;top:-8px;height:8px}
   .menu.open .dd{display:block}
-  @media (hover:hover) and (min-width:941px){.menu:hover .dd{display:block}.menu:hover>button svg{transform:rotate(180deg)}}
+  @media (hover:hover) and (min-width:1061px){.menu:hover .dd{display:block}.menu:hover>button svg{transform:rotate(180deg)}}
   .dd a{display:block;padding:10px 12px;border-radius:8px;color:var(--text);text-decoration:none;font-weight:700;font-size:.95rem}
   .dd a small{display:block;color:var(--text-3);font-weight:400;font-size:.82rem}
   .dd a:hover,.dd a:focus-visible{background:var(--bg)}
@@ -86,8 +86,8 @@
   .av.dark{background:var(--ink);color:var(--yellow)}
   .burger{display:none;background:none;border:1px solid #4a443c;color:#fff;border-radius:8px;width:44px;height:44px;place-items:center;cursor:pointer}
   .burger svg{width:22px;height:22px}
-  @media (max-width:1100px){.hsearch{max-width:180px}.nav-links{gap:0}}
-  @media (max-width:940px){.nav-links,.hsearch{display:none}.burger{display:inline-grid}.nav-right{margin-left:auto}}
+  @media (max-width:1240px){.hsearch{max-width:180px}.nav-links{gap:0}.menu>button,.menu>a{padding:10px 7px;font-size:.9rem}}
+  @media (max-width:1060px){.nav-links,.hsearch{display:none}.burger{display:inline-grid}.nav-right{margin-left:auto}}
   @media (max-width:560px){.nav .logo img{height:40px}.nav-right .acct-slot{display:none}.nav-right .btn-tessa svg{display:none}.nav-right .btn-tessa{padding:10px 11px;font-size:.88rem}.nav{gap:10px}}
 
   /* drawer */

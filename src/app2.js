@@ -545,7 +545,6 @@ window.addEventListener("hashchange", () => render());
 function buildChrome() {
   const b = DATA.business;
   $("#chromeTop").innerHTML = `
-  <div class="ubar"><div class="wrap"><span>${ICON.phone}<a href="tel:${b.tel}">${b.phone}</a></span><span class="u-hours">${ICON.clock}${b.hours}</span><span class="u-addr">${ICON.pin}${esc(b.address)}</span></div></div>
   <header class="site"><div class="wrap nav">
     <a class="logo" href="#/home" aria-label="Timeless Trailers home"><img src="${img("timeless-logo")}" alt="Timeless Trailers · Built once. Lasts forever."></a>
     <nav class="nav-links" id="navLinks" aria-label="Main"></nav>

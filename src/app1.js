@@ -195,13 +195,14 @@ function statusPill(s) {
 /* ---------------- chrome: header, account slot, drawer ---------------- */
 function navHTML() {
   return `
-  <div class="menu" data-menu="inv"><button aria-expanded="false" data-nav="inventory,trailer,finder,compare">Inventory ${ICON.caret}</button>
-    <div class="dd"><a href="#/inventory">On the lot<small>${onLot().length} units ready today</small></a><a href="#/inventory?s=lineup">Lineup by category<small>Order any Timpte model</small></a><a href="#/finder">Trailer Finder<small>Four questions, ranked matches</small></a><a href="#/compare">Compare models<small>Side by side, up to three</small></a></div></div>
-  <div class="menu" data-menu="own"><button aria-expanded="false" data-nav="parts,service,financing">Own ${ICON.caret}</button>
-    <div class="dd"><a href="#/parts">Parts<small>Order for pickup in Waxhaw</small></a><a href="#/service">Service<small>Inspections, bearings, brakes</small></a><a href="#/service?s=resources">Owner resources<small>Maintenance, manuals, warranty</small></a><a href="#/financing">Financing<small>Payment calculator</small></a></div></div>
   <div class="menu"><a href="#/about" data-nav="about" class="nav-about">About us</a></div>
-  <div class="menu" data-menu="co"><button aria-expanded="false" data-nav="about-visit">Visit ${ICON.caret}</button>
-    <div class="dd"><a href="#/about?s=visit">Visit<small>${esc(DATA.business.address)}</small></a><a href="#/about?s=contact">Contact<small>Call, text or send a note</small></a></div></div>`;
+  <div class="menu" data-menu="inv"><button aria-expanded="false" data-nav="inventory,trailer,finder,compare">Inventory ${ICON.caret}</button>
+    <div class="dd"><a href="#/inventory">On the lot<small>${onLot().length} units ready today</small></a><a href="#/inventory?s=lineup">Lineup by category<small>Order any Timpte model</small></a><a href="#/finder">Trailer Finder<small>Start with what you haul</small></a><a href="#/compare">Compare models<small>Side by side, up to three</small></a></div></div>
+  <div class="menu" data-menu="own"><button aria-expanded="false" data-nav="parts,service">Parts and services ${ICON.caret}</button>
+    <div class="dd"><a href="#/parts">Parts<small>Order for pickup in Waxhaw</small></a><a href="#/service">Service<small>Inspections, bearings, brakes</small></a></div></div>
+  <div class="menu"><a href="#/financing" data-nav="financing">Financing</a></div>
+  <div class="menu"><a href="#/service?s=resources">Owner resources</a></div>
+  <div class="menu"><a href="#/about?s=contact">Contact us</a></div>`;
 }
 function acctSlotHTML() { return DEMO ? acctSlotDemoHTML() : ""; }
 /* @demo */
@@ -227,9 +228,10 @@ function openDrawer() {
   const html = `<div class="drawer-bg" data-act="drawer-close"></div><nav class="drawer" aria-label="Menu">
     <div class="dhead"><img src="${img("timeless-logo")}" alt="Timeless Trailers" style="height:40px;width:auto"><button class="xbtn" data-act="drawer-close" aria-label="Close menu">${ICON.x}</button></div>
     <div class="dsearch"><label for="dSearch" class="sr">Search inventory</label><input id="dSearch" placeholder="Search trailers: dump, tilt, 1020…" data-search></div>
+    <h4>About us</h4><a href="#/about">About us</a>
     <h4>Inventory</h4><a href="#/inventory">On the lot</a><a href="#/inventory?s=lineup">Lineup by category</a><a href="#/finder">Trailer Finder</a><a href="#/compare">Compare models</a>
-    <h4>Own</h4><a href="#/parts">Parts</a><a href="#/service">Service</a><a href="#/service?s=resources">Owner resources</a><a href="#/financing">Financing</a>
-    <h4>Company</h4><a href="#/about">About</a><a href="#/about?s=visit">Visit</a><a href="#/about?s=contact">Contact</a>
+    <h4>Parts and services</h4><a href="#/parts">Parts</a><a href="#/service">Service</a>
+    <h4>More</h4><a href="#/financing">Financing</a><a href="#/service?s=resources">Owner resources</a><a href="#/about?s=contact">Contact us</a>
     ${DEMO ? drawerAcctHTML() : ""}
     <div style="margin-top:22px;display:grid;gap:8px"><button class="btn btn-gold" data-act="tessa-open">Ask ${A}</button><a class="btn btn-line" href="tel:${DATA.business.tel}">Call ${DATA.business.phone}</a></div></nav>`;
   const box = document.createElement("div"); box.id = "drawer"; box.innerHTML = html; document.body.appendChild(box);

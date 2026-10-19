@@ -489,7 +489,7 @@
   .nav .logo img{height:48px;width:auto}
   .nav-links{display:flex;gap:6px;margin-left:6px}
   .menu{position:relative}
-  .menu>button,.menu>a{background:none;border:0;color:#d9d3c8;font-weight:600;font-size:.95rem;display:inline-flex;align-items:center;gap:5px;cursor:pointer;padding:10px 10px;text-decoration:none;border-radius:6px}
+  .menu>button,.menu>a{background:none;border:0;color:#d9d3c8;font-weight:600;font-size:.95rem;display:inline-flex;align-items:center;gap:5px;cursor:pointer;padding:10px 10px;text-decoration:none;border-radius:6px;white-space:nowrap}
   .menu>button:hover,.menu.open>button,.menu>button[aria-current="true"],.menu>a[aria-current="true"]{color:#fff;background:#24201b}
   .nav-about{color:var(--gold-2)!important;font-weight:700}
   .menu>button svg{width:12px;height:12px;transition:transform .15s}
@@ -497,7 +497,7 @@
   .dd{position:absolute;top:calc(100% + 6px);left:0;min-width:250px;background:var(--paper);border-radius:12px;box-shadow:0 18px 50px rgba(0,0,0,.28);padding:8px;display:none;z-index:5}
   .dd::before{content:"";position:absolute;left:0;right:0;top:-8px;height:8px}
   .menu.open .dd{display:block}
-  @media (hover:hover) and (min-width:941px){.menu:hover .dd{display:block}.menu:hover>button svg{transform:rotate(180deg)}}
+  @media (hover:hover) and (min-width:1061px){.menu:hover .dd{display:block}.menu:hover>button svg{transform:rotate(180deg)}}
   .dd a{display:block;padding:10px 12px;border-radius:8px;color:var(--text);text-decoration:none;font-weight:700;font-size:.95rem}
   .dd a small{display:block;color:var(--text-3);font-weight:400;font-size:.82rem}
   .dd a:hover,.dd a:focus-visible{background:var(--bg)}
@@ -517,8 +517,8 @@
   .av.dark{background:var(--ink);color:var(--yellow)}
   .burger{display:none;background:none;border:1px solid #4a443c;color:#fff;border-radius:8px;width:44px;height:44px;place-items:center;cursor:pointer}
   .burger svg{width:22px;height:22px}
-  @media (max-width:1100px){.hsearch{max-width:180px}.nav-links{gap:0}}
-  @media (max-width:940px){.nav-links,.hsearch{display:none}.burger{display:inline-grid}.nav-right{margin-left:auto}}
+  @media (max-width:1240px){.hsearch{max-width:180px}.nav-links{gap:0}.menu>button,.menu>a{padding:10px 7px;font-size:.9rem}}
+  @media (max-width:1060px){.nav-links,.hsearch{display:none}.burger{display:inline-grid}.nav-right{margin-left:auto}}
   @media (max-width:560px){.nav .logo img{height:40px}.nav-right .acct-slot{display:none}.nav-right .btn-tessa svg{display:none}.nav-right .btn-tessa{padding:10px 11px;font-size:.88rem}.nav{gap:10px}}
 
   /* drawer */
@@ -1743,13 +1743,14 @@ function statusPill(s) {
 /* ---------------- chrome: header, account slot, drawer ---------------- */
 function navHTML() {
   return `
-  <div class="menu" data-menu="inv"><button aria-expanded="false" data-nav="inventory,trailer,finder,compare">Inventory ${ICON.caret}</button>
-    <div class="dd"><a href="#/inventory">On the lot<small>${onLot().length} units ready today</small></a><a href="#/inventory?s=lineup">Lineup by category<small>Order any Timpte model</small></a><a href="#/finder">Trailer Finder<small>Four questions, ranked matches</small></a><a href="#/compare">Compare models<small>Side by side, up to three</small></a></div></div>
-  <div class="menu" data-menu="own"><button aria-expanded="false" data-nav="parts,service,financing">Own ${ICON.caret}</button>
-    <div class="dd"><a href="#/parts">Parts<small>Order for pickup in Waxhaw</small></a><a href="#/service">Service<small>Inspections, bearings, brakes</small></a><a href="#/service?s=resources">Owner resources<small>Maintenance, manuals, warranty</small></a><a href="#/financing">Financing<small>Payment calculator</small></a></div></div>
   <div class="menu"><a href="#/about" data-nav="about" class="nav-about">About us</a></div>
-  <div class="menu" data-menu="co"><button aria-expanded="false" data-nav="about-visit">Visit ${ICON.caret}</button>
-    <div class="dd"><a href="#/about?s=visit">Visit<small>${esc(DATA.business.address)}</small></a><a href="#/about?s=contact">Contact<small>Call, text or send a note</small></a></div></div>`;
+  <div class="menu" data-menu="inv"><button aria-expanded="false" data-nav="inventory,trailer,finder,compare">Inventory ${ICON.caret}</button>
+    <div class="dd"><a href="#/inventory">On the lot<small>${onLot().length} units ready today</small></a><a href="#/inventory?s=lineup">Lineup by category<small>Order any Timpte model</small></a><a href="#/finder">Trailer Finder<small>Start with what you haul</small></a><a href="#/compare">Compare models<small>Side by side, up to three</small></a></div></div>
+  <div class="menu" data-menu="own"><button aria-expanded="false" data-nav="parts,service">Parts and services ${ICON.caret}</button>
+    <div class="dd"><a href="#/parts">Parts<small>Order for pickup in Waxhaw</small></a><a href="#/service">Service<small>Inspections, bearings, brakes</small></a></div></div>
+  <div class="menu"><a href="#/financing" data-nav="financing">Financing</a></div>
+  <div class="menu"><a href="#/service?s=resources">Owner resources</a></div>
+  <div class="menu"><a href="#/about?s=contact">Contact us</a></div>`;
 }
 function acctSlotHTML() { return DEMO ? acctSlotDemoHTML() : ""; }
 /* @demo */
@@ -1775,9 +1776,10 @@ function openDrawer() {
   const html = `<div class="drawer-bg" data-act="drawer-close"></div><nav class="drawer" aria-label="Menu">
     <div class="dhead"><img src="${img("timeless-logo")}" alt="Timeless Trailers" style="height:40px;width:auto"><button class="xbtn" data-act="drawer-close" aria-label="Close menu">${ICON.x}</button></div>
     <div class="dsearch"><label for="dSearch" class="sr">Search inventory</label><input id="dSearch" placeholder="Search trailers: dump, tilt, 1020…" data-search></div>
+    <h4>About us</h4><a href="#/about">About us</a>
     <h4>Inventory</h4><a href="#/inventory">On the lot</a><a href="#/inventory?s=lineup">Lineup by category</a><a href="#/finder">Trailer Finder</a><a href="#/compare">Compare models</a>
-    <h4>Own</h4><a href="#/parts">Parts</a><a href="#/service">Service</a><a href="#/service?s=resources">Owner resources</a><a href="#/financing">Financing</a>
-    <h4>Company</h4><a href="#/about">About</a><a href="#/about?s=visit">Visit</a><a href="#/about?s=contact">Contact</a>
+    <h4>Parts and services</h4><a href="#/parts">Parts</a><a href="#/service">Service</a>
+    <h4>More</h4><a href="#/financing">Financing</a><a href="#/service?s=resources">Owner resources</a><a href="#/about?s=contact">Contact us</a>
     ${DEMO ? drawerAcctHTML() : ""}
     <div style="margin-top:22px;display:grid;gap:8px"><button class="btn btn-gold" data-act="tessa-open">Ask ${A}</button><a class="btn btn-line" href="tel:${DATA.business.tel}">Call ${DATA.business.phone}</a></div></nav>`;
   const box = document.createElement("div"); box.id = "drawer"; box.innerHTML = html; document.body.appendChild(box);
@@ -2869,7 +2871,6 @@ window.addEventListener("hashchange", () => render());
 function buildChrome() {
   const b = DATA.business;
   $("#chromeTop").innerHTML = `
-  <div class="ubar"><div class="wrap"><span>${ICON.phone}<a href="tel:${b.tel}">${b.phone}</a></span><span class="u-hours">${ICON.clock}${b.hours}</span><span class="u-addr">${ICON.pin}${esc(b.address)}</span></div></div>
   <header class="site"><div class="wrap nav">
     <a class="logo" href="#/home" aria-label="Timeless Trailers home"><img src="${img("timeless-logo")}" alt="Timeless Trailers · Built once. Lasts forever."></a>
     <nav class="nav-links" id="navLinks" aria-label="Main"></nav>
