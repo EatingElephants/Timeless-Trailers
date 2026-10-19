@@ -172,7 +172,7 @@ function openAddUnit() {
     </div><div class="form-foot"><span></span><button class="btn btn-gold" type="submit">Add to inventory</button></div></form>`);
 }
 
-/* admin AI advisor */
+/* admin advisor */
 function renderAdminTessa() {
   const box = $("#adminTessa"); if (!box) return;
   box.innerHTML = `<div class="ah"><i class="av">${A[0]}</i><div><b>${A} for the dealership</b><small>Ask in plain English. You confirm every change.</small></div></div>
@@ -562,7 +562,7 @@ function buildChrome() {
   <div class="mbar"><a class="btn btn-line-light" href="#/inventory">On the lot</a><a class="btn btn-gold" href="#/home?s=quote">Get a quote</a></div>
   <div class="cmp-tray" id="cmpTray" hidden></div>
   <div class="toasts" id="toasts" aria-live="polite"></div>
-  <button class="tz-fab" id="tzFab" data-act="tessa-open" aria-expanded="false" aria-controls="tzPanel"><i class="av">${A[0]}</i><span><small>AI trailer advisor</small>Ask ${A}</span></button>
+  <button class="tz-fab" id="tzFab" data-act="tessa-open" aria-expanded="false" aria-controls="tzPanel"><i class="av">${A[0]}</i><span><small>Trailer advisor</small>Ask ${A}</span></button>
   <aside class="tz-panel" id="tzPanel" role="dialog" aria-label="Chat with ${A}" aria-hidden="true">
     <div class="tz-head"><i class="av">${A[0]}</i><div><b>${A}</b><small>Timeless trailer advisor · online</small></div><span class="sp"></span>
       <button id="tzClose" data-act="tessa-close" aria-label="Close chat">${ICON.x}</button></div>

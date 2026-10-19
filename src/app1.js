@@ -339,7 +339,7 @@ ${exclHTML()}
 <div class="stats"><div class="wrap stats-grid">
   <div class="stat"><b data-count="${DATA.business.modelsCarried}">${DATA.business.modelsCarried}</b><span>Timpte models available to order</span></div>
   <a class="stat" href="#/inventory"><b data-count="${lot.length}">${lot.length}</b><span>Units on the lot today</span></a>
-  <button class="stat" data-act="tessa-open"><b>24/7<i class="live-dot"></i></b><span>${A}, our AI trailer advisor</span><em>Ask now →</em></button>
+  <button class="stat" data-act="tessa-open"><b>24/7<i class="live-dot"></i></b><span>${A}, our trailer advisor</span><em>Ask now →</em></button>
   <a class="stat" href="#/about"><b>Only</b><span>America's only Timpte-exclusive dealer</span></a>
 </div></div>
 
@@ -407,7 +407,7 @@ function exclHTML(cls = "") {
 
 function meetHTML() {
   return `<section class="meet bgsec" id="meet"><div class="wrap meet-grid"><div>
-  <div class="eyebrow" style="color:var(--gold-2)">AI trailer advisor</div>
+  <div class="eyebrow" style="color:var(--gold-2)">Trailer advisor</div>
   <h2 style="margin-top:10px">Meet <span>${A}.</span></h2>
   <p class="lede">${A} knows every Timpte model, every spec sheet and what's on our lot. ${ANDY_LINE} Day or night.</p>
   <ul class="caps">
@@ -737,7 +737,7 @@ VIEWS.about = {
         <li>${tick}${DEMO ? "Real prices on the website." : "A straight price the same business day."} Holds without a deposit while we confirm details.</li>
         <li>${tick}Parts, service and warranty handled here, not shipped off.</li></ul></div>
       <div class="panel"><h3>Who you'll talk to</h3><div class="rows">${DATA.team.map(t => `<div style="display:flex;gap:12px;align-items:flex-start"><i class="av">${initials(t.name)}</i><div><b>${esc(t.name)}</b> · <span class="muted">${esc(t.role)}</span><p style="margin:4px 0 0;color:var(--text-2);font-size:.95rem">${esc(t.note)}</p></div></div>`).join("")}
-        <div style="display:flex;gap:12px;align-items:flex-start"><i class="av dark">${A[0]}</i><div><b>${A}</b> · <span class="muted">AI trailer advisor</span><p style="margin:4px 0 0;color:var(--text-2);font-size:.95rem">${ANDY_LINE} Any hour. <button class="link" data-act="tessa-open">Ask now</button></p></div></div></div></div>
+        <div style="display:flex;gap:12px;align-items:flex-start"><i class="av dark">${A[0]}</i><div><b>${A}</b> · <span class="muted">Trailer advisor</span><p style="margin:4px 0 0;color:var(--text-2);font-size:.95rem">${ANDY_LINE} Any hour. <button class="link" data-act="tessa-open">Ask now</button></p></div></div></div></div>
     </div></section>
     ${exclHTML()}
     ${WHY}

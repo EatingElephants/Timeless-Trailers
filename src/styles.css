@@ -305,7 +305,7 @@
   @media (max-width:980px){.line-grid{grid-template-columns:repeat(2,1fr)}}
   @media (max-width:480px){.line-grid{grid-template-columns:1fr}}
 
-  /* AI advisor promo */
+  /* advisor promo */
   .meet{background:radial-gradient(1200px 500px at 85% 0%,#2c2720 0,transparent 60%),var(--ink);color:#fff;position:relative;overflow:hidden}
   .meet-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
   .meet h2{color:#fff}
