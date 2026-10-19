@@ -2,7 +2,10 @@
 
 A clickable mock-up for Matt Lyons's Timpte dealership in Waxhaw, NC, built by Albright Agency. Version 3: real Timpte models, specs, photos and video, with Andy, the trailer advisor.
 
-## Where we left off (October 13, 2026)
+## Where we left off (October 19, 2026)
+
+- **Oct 19 small edits (done, live on both sites):** menu order is About us, Inventory, Parts and services, Financing, Owner resources, Contact us; the phone/hours/address strip above the header is gone; the word "AI" is gone everywhere (Andy is "trailer advisor"). Josh fixes the Timpte spelling and any AI wording inside Stammer himself. The demo Worker is live at https://timeless-trailers-demo.jsalbrig-studio.workers.dev/.
+- **Big edits still to come** (agreed order): real page addresses for Google, the other nine Timpte models, then form delivery once the Zoho timing is known. Matt's inputs still needed: real lot list and photos, domain name, wording sign-offs, Josh's parts file.
 
 - **Two sites, one build.** Matt asked for a normal trailer site without the back end, and a second one with it. `build.py` now writes both from the same `src/` files:
   - `site/` is the **public site**: no sign-in, no My Account, no dealer console, no sample people, "Call for price" everywhere. The back-end code is cut out of the file, not just hidden. Link: https://timeless-trailers.jsalbrig-studio.workers.dev/
