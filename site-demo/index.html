@@ -515,6 +515,7 @@
   .menu .dd.right{left:auto;right:0}
   .av{display:inline-grid;place-items:center;flex:none;width:40px;height:40px;border-radius:50%;background:linear-gradient(180deg,var(--gold-2),var(--gold));color:var(--ink);font:900 1rem/1 var(--display);letter-spacing:.04em}
   .av.dark{background:var(--ink);color:var(--yellow)}
+  .av-img{object-fit:cover;object-position:50% 30%;border:2px solid var(--gold-2);background:#fff8e8}
   .burger{display:none;background:none;border:1px solid #4a443c;color:#fff;border-radius:8px;width:44px;height:44px;place-items:center;cursor:pointer}
   .burger svg{width:22px;height:22px}
   @media (max-width:1240px){.hsearch{max-width:180px}.nav-links{gap:0}.menu>button,.menu>a{padding:10px 7px;font-size:.9rem}}
@@ -1004,13 +1005,19 @@
   .locked{max-width:760px;margin:0 auto;text-align:center}
 
   /* chat */
-  .tz-fab{position:fixed;right:20px;bottom:calc(var(--mbar-h) + 20px);z-index:58;display:flex;align-items:center;gap:10px;background:var(--ink);color:#fff;border:2px solid var(--gold);border-radius:999px;padding:6px 18px 6px 6px;cursor:pointer;box-shadow:0 14px 40px rgba(0,0,0,.35);font-weight:700;transition:transform .15s}
-  .tz-fab:hover{transform:translateY(-2px)}
-  .tz-fab .av{width:44px;height:44px;font-size:1.2rem;position:relative}
-  .tz-fab .av::after{content:"";position:absolute;right:0;bottom:2px;width:11px;height:11px;border-radius:50%;background:#47c27a;border:2px solid var(--ink)}
-  .tz-fab small{display:block;color:#a9a298;font-weight:600;font-size:.76rem;line-height:1}
-  .tz-fab span{line-height:1.2;text-align:left}
-  @media (max-width:600px){.tz-fab{padding:5px;right:14px}.tz-fab span{display:none}}
+  /* Andy the mascot, bottom right: the cartoon waves, the speech bubble says Ask Andy, the whole thing is one button */
+  .tz-fab{position:fixed;right:10px;bottom:calc(var(--mbar-h) + 4px);z-index:58;display:flex;align-items:flex-end;background:none;border:0;padding:0;cursor:pointer;font:inherit;color:var(--ink);filter:drop-shadow(0 12px 22px rgba(0,0,0,.32))}
+  .tz-fab img{display:block;width:160px;height:160px;object-fit:contain;transform-origin:50% 100%;animation:andy-float 4.5s ease-in-out infinite}
+  .tz-fab .bubble{position:relative;background:#fff;border:2px solid var(--gold);border-radius:16px;padding:8px 14px;font-weight:800;font-size:1.05rem;line-height:1.1;white-space:nowrap;text-align:left;margin:0 -4px 104px 0;animation:andy-float 4.5s ease-in-out infinite;animation-delay:.2s}
+  .tz-fab .bubble small{display:block;color:var(--text-3);font-weight:600;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;margin-bottom:2px}
+  .tz-fab .bubble::before{content:"";position:absolute;right:-12px;bottom:12px;border:6px solid transparent;border-left:7px solid var(--gold)}
+  .tz-fab .bubble::after{content:"";position:absolute;right:-8px;bottom:13px;border:5px solid transparent;border-left:6px solid #fff}
+  .tz-fab:hover img,.tz-fab:focus-visible img{animation:andy-wave .7s ease-in-out}
+  .tz-fab:hover .bubble{background:#fff8e8}
+  @keyframes andy-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+  @keyframes andy-wave{0%,100%{transform:rotate(0)}25%{transform:rotate(-5deg) translateY(-4px)}60%{transform:rotate(4deg) translateY(-4px)}}
+  @media (max-width:600px){.tz-fab{right:6px}.tz-fab img{width:104px;height:104px}.tz-fab .bubble{padding:6px 10px;font-size:.9rem;margin-bottom:64px}.tz-fab .bubble small{font-size:.62rem}}
+  @media (prefers-reduced-motion:reduce){.tz-fab img,.tz-fab .bubble{animation:none}}
   .tz-panel{position:fixed;top:0;right:0;bottom:0;z-index:60;width:min(440px,100%);background:#f7f6f3;box-shadow:-20px 0 60px rgba(0,0,0,.35);display:flex;flex-direction:column;overflow:hidden;transform:translateX(105%);visibility:hidden;transition:transform .32s ease,visibility .32s}
   .tz-panel.open{transform:none;visibility:visible}
   body.chat-open .tz-fab{display:none}
@@ -1896,7 +1903,7 @@ VIEWS.home = {
   <div class="eyebrow">America's only Timpte-exclusive dealer · Waxhaw, NC</div>
   <h1 style="margin-top:16px">Built once. <span>Lasts forever.</span></h1>
   <p class="lede">All-aluminum Timpte trailers for contractors, haulers and weekend toys, from the only dealer in the U.S. that sells Timpte exclusively. Tell us what you haul and we'll match the trailer.</p>
-  <form class="hero-ask" data-form="hero-ask"><i class="av">${A[0]}</i><label for="heroAsk" class="sr">Tell ${A} what you haul</label><input id="heroAsk" name="q" placeholder="Tell ${A} what you haul…" autocomplete="off"><button class="btn btn-gold" type="submit" aria-label="Send to ${A}">${ICON.send}<span>Ask</span></button></form>
+  <form class="hero-ask" data-form="hero-ask"><img class="av av-img" src="${img("andy-face")}" alt="" width="40" height="40"><label for="heroAsk" class="sr">Tell ${A} what you haul</label><input id="heroAsk" name="q" placeholder="Tell ${A} what you haul…" autocomplete="off"><button class="btn btn-gold" type="submit" aria-label="Send to ${A}">${ICON.send}<span>Ask</span></button></form>
   <div class="hero-try"><span>Try:</span>${tryChips.map(c => `<button type="button" data-act="say" data-say="${esc(c)}">${esc(c)}</button>`).join("")}</div>
   <div class="hero-ctas"><a class="btn btn-dark" href="#/inventory">See what's on the lot</a><a class="btn btn-line" href="#/finder">Find my trailer</a></div>
   <div class="trustrow"><span>${tick}3-year manufacturer warranty</span><span>${tick}Financing available</span><span>${tick}No rust. All aluminum.</span></div>
@@ -1988,7 +1995,7 @@ function meetHTML() {
   <div class="ctas"><button class="btn btn-gold" data-act="tessa-open">Start a conversation</button><a class="btn btn-line-light" href="#/finder">Use the Trailer Finder</a></div>
   <p class="note" style="color:#8f897f">Matt confirms every price, hold and order personally.</p>
 </div>
-<div class="democ" aria-hidden="true"><div class="dh"><i class="av">${A[0]}</i><div><b>${A}</b><small>Timeless trailer advisor · online</small></div></div>
+<div class="democ" aria-hidden="true"><div class="dh"><img class="av av-img" src="${img("andy-face")}" alt="" width="40" height="40"><div><b>${A}</b><small>Timeless trailer advisor · online</small></div></div>
   <div class="dlog" id="demoLog"></div><div class="dinput"><span class="typed" id="demoTyped"></span><span class="cur"></span></div></div>
 </div></section>`;
 }
@@ -2939,9 +2946,9 @@ function buildChrome() {
   <div class="mbar"><a class="btn btn-line-light" href="#/inventory">On the lot</a><a class="btn btn-gold" href="#/home?s=quote">Get a quote</a></div>
   <div class="cmp-tray" id="cmpTray" hidden></div>
   <div class="toasts" id="toasts" aria-live="polite"></div>
-  <button class="tz-fab" id="tzFab" data-act="tessa-open" aria-expanded="false" aria-controls="tzPanel"><i class="av">${A[0]}</i><span><small>Trailer advisor</small>Ask ${A}</span></button>
+  <button class="tz-fab" id="tzFab" data-act="tessa-open" aria-expanded="false" aria-controls="tzPanel" aria-label="Ask ${A}, our trailer advisor"><span class="bubble"><small>Trailer advisor</small>Ask ${A}</span><img src="${img("andy-wave")}" alt="" width="160" height="160"></button>
   <aside class="tz-panel" id="tzPanel" role="dialog" aria-label="Ask ${A}" aria-hidden="true">
-    <div class="tz-head"><i class="av">${A[0]}</i><div><b>${A}</b><small>Timeless trailer advisor · online</small></div><span class="sp"></span>
+    <div class="tz-head"><img class="av av-img" src="${img("andy-face")}" alt="" width="40" height="40"><div><b>${A}</b><small>Timeless trailer advisor · online</small></div><span class="sp"></span>
       <div class="tz-seg" id="tzSeg" hidden role="group" aria-label="Chat or voice"><button type="button" data-act="tz-mode" data-m="chat" aria-pressed="false">Chat</button><button type="button" data-act="tz-mode" data-m="voice" aria-pressed="false">Voice</button></div>
       <button id="tzClose" data-act="tessa-close" aria-label="Close">${ICON.x}</button></div>
     <div class="tz-choose" id="tzChoose">

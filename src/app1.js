@@ -328,7 +328,7 @@ VIEWS.home = {
   <div class="eyebrow">America's only Timpte-exclusive dealer · Waxhaw, NC</div>
   <h1 style="margin-top:16px">Built once. <span>Lasts forever.</span></h1>
   <p class="lede">All-aluminum Timpte trailers for contractors, haulers and weekend toys, from the only dealer in the U.S. that sells Timpte exclusively. Tell us what you haul and we'll match the trailer.</p>
-  <form class="hero-ask" data-form="hero-ask"><i class="av">${A[0]}</i><label for="heroAsk" class="sr">Tell ${A} what you haul</label><input id="heroAsk" name="q" placeholder="Tell ${A} what you haul…" autocomplete="off"><button class="btn btn-gold" type="submit" aria-label="Send to ${A}">${ICON.send}<span>Ask</span></button></form>
+  <form class="hero-ask" data-form="hero-ask"><img class="av av-img" src="${img("andy-face")}" alt="" width="40" height="40"><label for="heroAsk" class="sr">Tell ${A} what you haul</label><input id="heroAsk" name="q" placeholder="Tell ${A} what you haul…" autocomplete="off"><button class="btn btn-gold" type="submit" aria-label="Send to ${A}">${ICON.send}<span>Ask</span></button></form>
   <div class="hero-try"><span>Try:</span>${tryChips.map(c => `<button type="button" data-act="say" data-say="${esc(c)}">${esc(c)}</button>`).join("")}</div>
   <div class="hero-ctas"><a class="btn btn-dark" href="#/inventory">See what's on the lot</a><a class="btn btn-line" href="#/finder">Find my trailer</a></div>
   <div class="trustrow"><span>${tick}3-year manufacturer warranty</span><span>${tick}Financing available</span><span>${tick}No rust. All aluminum.</span></div>
@@ -420,7 +420,7 @@ function meetHTML() {
   <div class="ctas"><button class="btn btn-gold" data-act="tessa-open">Start a conversation</button><a class="btn btn-line-light" href="#/finder">Use the Trailer Finder</a></div>
   <p class="note" style="color:#8f897f">Matt confirms every price, hold and order personally.</p>
 </div>
-<div class="democ" aria-hidden="true"><div class="dh"><i class="av">${A[0]}</i><div><b>${A}</b><small>Timeless trailer advisor · online</small></div></div>
+<div class="democ" aria-hidden="true"><div class="dh"><img class="av av-img" src="${img("andy-face")}" alt="" width="40" height="40"><div><b>${A}</b><small>Timeless trailer advisor · online</small></div></div>
   <div class="dlog" id="demoLog"></div><div class="dinput"><span class="typed" id="demoTyped"></span><span class="cur"></span></div></div>
 </div></section>`;
 }
