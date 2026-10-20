@@ -280,31 +280,61 @@ function syncSpecs() {
    the right. The panel can't type into Stammer's window for the visitor, so a
    question typed on the site is copied to the clipboard and shown above the chat.
    ========================================================================== */
+/* Two ways to reach Andy, both on Stammer: the chat window and the voice agent (a phone-style call in the browser).
+   Every "Ask Andy" opens the panel on a chooser first; the visitor picks Chat or Voice, and can switch at the top of the panel. */
 const STAMMER_EMBED = "https://app.stammer.ai/en/chatbot/embed/6c5361b8-327c-4024-a1e8-6eff602a3384";
-const chat = { booted: false, busy: false, ctx: {}, opener: null };
+const VOICE_EMBED = "https://app.stammer.ai/en/voice/embed/d44a66c8-dec4-45b3-ad38-7b7ddf60e1a0";
+const chat = { mode: null, pendingQ: "", opener: null, booted: false, ctx: {} };
 function loadChatFrame() {
   const box = $("#tzFrame"); if (!box || box.firstChild) return;
   const f = document.createElement("iframe");
-  f.title = `Chat with ${A}`; f.setAttribute("allow", "microphone; clipboard-read; clipboard-write"); f.src = STAMMER_EMBED;
+  f.title = `Chat with ${A}`; f.setAttribute("allow", "clipboard-read; clipboard-write"); f.src = STAMMER_EMBED;
   box.appendChild(f);
 }
+function loadVoiceFrame() {
+  const box = $("#tzVoiceBox"); if (!box || box.firstChild) return;
+  const f = document.createElement("iframe");
+  f.title = `Talk to ${A}`; f.setAttribute("allow", "microphone; autoplay"); f.width = "104"; f.height = "104"; f.src = VOICE_EMBED;
+  box.appendChild(f);
+}
+/* Taking the voice frame out ends the call. Done when the visitor switches to chat or closes the panel, so Andy never keeps talking unseen. */
+function unloadVoiceFrame() { const box = $("#tzVoiceBox"); if (box) box.innerHTML = ""; }
 function showQ(q) {
   const box = $("#tzQ"); if (!box) return;
   if (!q) { box.hidden = true; box.innerHTML = ""; return; }
-  box.hidden = false; box.innerHTML = `<b>${esc(q)}</b><small>Type this in the chat below to send it.</small>`;
+  box.hidden = false;
+  if (chat.mode === "voice") { box.innerHTML = `<b>${esc(q)}</b><small>Tap the phone, then just say it.</small>`; return; }
+  box.innerHTML = `<b>${esc(q)}</b><small>Type this in the chat below to send it.</small>`;
   try { navigator.clipboard.writeText(q).then(() => { const s = box.querySelector("small"); if (s) s.textContent = "Copied. Paste it in the chat below (Ctrl+V) to send."; }, () => {}); } catch (e) { /* fine */ }
+}
+function showChooser() {
+  ["#tzSeg", "#tzNote", "#tzQ", "#tzFrame", "#tzVoice", "#tzFoot"].forEach(s => { const el = $(s); if (el) el.hidden = true; });
+  $("#tzChoose").hidden = false;
+}
+function setMode(m) {
+  chat.mode = m;
+  $("#tzChoose").hidden = true; $("#tzSeg").hidden = false; $("#tzNote").hidden = false; $("#tzFoot").hidden = false;
+  $$("#tzSeg button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.m === m)));
+  $("#tzFrame").hidden = m !== "chat"; $("#tzVoice").hidden = m !== "voice";
+  if (m === "chat") { unloadVoiceFrame(); loadChatFrame(); } else loadVoiceFrame();
+  $("#tzFoot").innerHTML = m === "chat"
+    ? `Chat not showing? <a href="${STAMMER_EMBED}" target="_blank" rel="noopener">Open the chat in a new tab</a>.`
+    : `Nothing happening? Check that your browser allowed the microphone, or <a href="${VOICE_EMBED}" target="_blank" rel="noopener">open the voice line in a new tab</a>.`;
+  $("#tzPanel").setAttribute("aria-label", m === "chat" ? `Chat with ${A}` : `Talk to ${A}`);
+  showQ(chat.pendingQ);
 }
 function openChat(question, opener) {
   chat.opener = opener || document.activeElement;
-  loadChatFrame();
+  chat.pendingQ = typeof question === "string" ? question.trim() : "";
   const p = $("#tzPanel"); p.classList.add("open"); p.setAttribute("aria-hidden", "false");
   document.body.classList.add("chat-open"); $("#tzFab").setAttribute("aria-expanded", "true");
-  showQ(typeof question === "string" ? question : "");
-  setTimeout(() => { const c = $("#tzClose"); if (c) c.focus(); }, 320);
+  showChooser();
+  setTimeout(() => { const c = $("#tzChoose button"); if (c) c.focus(); }, 320);
 }
 function closeChat() {
   const p = $("#tzPanel"); p.classList.remove("open"); p.setAttribute("aria-hidden", "true");
   document.body.classList.remove("chat-open"); $("#tzFab").setAttribute("aria-expanded", "false");
+  unloadVoiceFrame();
   if (chat.opener && chat.opener.focus) chat.opener.focus();
 }
 function resetChat() { closeChat(); }
@@ -459,6 +489,7 @@ document.addEventListener("click", e => {
     case "quote-model": closeModal(); location.hash = "#/home?s=quote&m=" + encodeURIComponent(el.dataset.model || ""); break;
     case "tessa-open": e.preventDefault(); closeDrawer(); openChat("", el); break;
     case "tessa-close": closeChat(); break;
+    case "tz-mode": setMode(el.dataset.m === "voice" ? "voice" : "chat"); break;
     case "tessa-reset": resetChat(); break;
     case "say": {
       const s = el.dataset.say;
@@ -563,13 +594,25 @@ function buildChrome() {
   <div class="cmp-tray" id="cmpTray" hidden></div>
   <div class="toasts" id="toasts" aria-live="polite"></div>
   <button class="tz-fab" id="tzFab" data-act="tessa-open" aria-expanded="false" aria-controls="tzPanel"><i class="av">${A[0]}</i><span><small>Trailer advisor</small>Ask ${A}</span></button>
-  <aside class="tz-panel" id="tzPanel" role="dialog" aria-label="Chat with ${A}" aria-hidden="true">
+  <aside class="tz-panel" id="tzPanel" role="dialog" aria-label="Ask ${A}" aria-hidden="true">
     <div class="tz-head"><i class="av">${A[0]}</i><div><b>${A}</b><small>Timeless trailer advisor · online</small></div><span class="sp"></span>
-      <button id="tzClose" data-act="tessa-close" aria-label="Close chat">${ICON.x}</button></div>
-    <p class="tz-note">Ask about any Timpte model, what fits your machine, or what your truck can tow. A person at Timeless confirms every price and hold.</p>
+      <div class="tz-seg" id="tzSeg" hidden role="group" aria-label="Chat or voice"><button type="button" data-act="tz-mode" data-m="chat" aria-pressed="false">Chat</button><button type="button" data-act="tz-mode" data-m="voice" aria-pressed="false">Voice</button></div>
+      <button id="tzClose" data-act="tessa-close" aria-label="Close">${ICON.x}</button></div>
+    <div class="tz-choose" id="tzChoose">
+      <p class="tz-choose-h">How do you want to ask ${A}?</p>
+      <button type="button" class="tz-choice" data-act="tz-mode" data-m="chat"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8 8 0 0 1-8 8H8l-5 3 1.5-4.5A8 8 0 1 1 21 12z"/></svg></i><span><b>Chat with ${A}</b><small>Type your question and read the answer.</small></span></button>
+      <button type="button" class="tz-choice" data-act="tz-mode" data-m="voice"><i>${ICON.phone}</i><span><b>Talk to ${A}</b><small>Speak and hear the answer, like a phone call.</small></span></button>
+      <p class="tz-choose-note">Either way, a person at Timeless confirms every price and hold.</p>
+    </div>
+    <p class="tz-note" id="tzNote" hidden>Ask about any Timpte model, what fits your machine, or what your truck can tow. A person at Timeless confirms every price and hold.</p>
     <div class="tz-q" id="tzQ" hidden aria-live="polite"></div>
-    <div class="tz-frame" id="tzFrame"></div>
-    <div class="tz-foot">Chat not showing? <a href="${STAMMER_EMBED}" target="_blank" rel="noopener">Open the chat in a new tab</a>.</div>
+    <div class="tz-frame" id="tzFrame" hidden></div>
+    <div class="tz-voice" id="tzVoice" hidden>
+      <div class="tz-voice-box" id="tzVoiceBox"></div>
+      <b>Tap the phone to start talking.</b>
+      <p>Say what you haul and what you tow. ${A} answers out loud. Allow the microphone when your browser asks, and tap the phone again to hang up.</p>
+    </div>
+    <div class="tz-foot" id="tzFoot" hidden></div>
   </aside>`;
 }
 document.addEventListener("DOMContentLoaded", () => { buildChrome(); setMbar(); render(); });

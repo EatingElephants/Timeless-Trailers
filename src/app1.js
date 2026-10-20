@@ -327,7 +327,7 @@ VIEWS.home = {
 <section class="hero hero-full"><video class="hero-bg" autoplay muted loop playsinline poster="video/hero-full.webp" aria-hidden="true"><source src="video/hero-full.mp4" type="video/mp4"></video><div class="hero-shade"></div><div class="wrap hero-inner">
   <div class="eyebrow">America's only Timpte-exclusive dealer · Waxhaw, NC</div>
   <h1 style="margin-top:16px">Built once. <span>Lasts forever.</span></h1>
-  <p class="lede">All-aluminum Timpte trailers for contractors, haulers and weekend toys, sold by the only dealer in the U.S. that sells Timpte equipment trailers exclusively, and one who picks up the phone. See what's on the lot today, or tell us what you haul and we'll match the trailer.</p>
+  <p class="lede">All-aluminum Timpte trailers for contractors, haulers and weekend toys, from the only dealer in the U.S. that sells Timpte exclusively. Tell us what you haul and we'll match the trailer.</p>
   <form class="hero-ask" data-form="hero-ask"><i class="av">${A[0]}</i><label for="heroAsk" class="sr">Tell ${A} what you haul</label><input id="heroAsk" name="q" placeholder="Tell ${A} what you haul…" autocomplete="off"><button class="btn btn-gold" type="submit" aria-label="Send to ${A}">${ICON.send}<span>Ask</span></button></form>
   <div class="hero-try"><span>Try:</span>${tryChips.map(c => `<button type="button" data-act="say" data-say="${esc(c)}">${esc(c)}</button>`).join("")}</div>
   <div class="hero-ctas"><a class="btn btn-dark" href="#/inventory">See what's on the lot</a><a class="btn btn-line" href="#/finder">Find my trailer</a></div>
