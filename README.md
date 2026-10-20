@@ -2,7 +2,12 @@
 
 A clickable mock-up for Matt Lyons's Timpte dealership in Waxhaw, NC, built by Albright Agency. Version 3: real Timpte models, specs, photos and video, with Andy, the trailer advisor.
 
-## Where we left off (October 19, 2026)
+## Where we left off (October 20, 2026)
+
+- **Oct 20, for the Timpte visit (done, live on both sites):**
+  - **Hero video rule:** the trailer has to be clearly in every scene. The montage now opens with the Corvette on the EZ Load deck, then a '55 Chevy and a Porsche on EZ Loads from Timpte's product reel (caption strip cropped off), then the UTV, skid steer, telehandler and gooseneck ramps. The bottom shade is lighter and the hero paragraph shorter so the deck isn't buried under the text. Recipe: `tools/hero_montage.ps1`.
+  - **Ask Andy opens a chooser:** Chat with Andy (Stammer chat) or Talk to Andy (Stammer voice agent, embed id `d44a66c8-...` in `src/app2.js` as `VOICE_EMBED`). A Chat/Voice switch sits in the panel head. Leaving voice or closing the panel ends the call. The voice button is Stammer's blue phone; a color filter in `src/styles.css` shifts it to our gold. Josh can test a real call on his laptop (the preview pane blocks the microphone). If Stammer offers button settings, that's where to change its shape.
+  - **Andy the mascot:** a cartoon Andy (gold cap, beard, clipboard) sits bottom right with an "Ask Andy" bubble and is the button. Three drawings crossfade in a 12-second loop: waving, looking at you, reading his clipboard. His face is the avatar in the hero ask box, Meet Andy and the panel head. Drawn in Canva (design "Blank square holding page" in Josh's Canva; page 1 is a sample poster Canva added, pages 2 to 5 are the Andys). Originals: `03 Media\Andy\` next to the Timpte library. `tools/make_andy.py` makes the web files in `site/img/` (`andy-1/2/3.webp`, `andy-face.webp`, `andy-thumbs.webp`, the last one unused so far). A properly rigged, page-turning animation would need an animator and layered artwork.
 
 - **Oct 19 small edits (done, live on both sites):** menu order is About us, Inventory, Parts and services, Financing, Owner resources, Contact us; the phone/hours/address strip above the header is gone; the word "AI" is gone everywhere (Andy is "trailer advisor"). Josh fixes the Timpte spelling and any AI wording inside Stammer himself. The demo Worker is live at https://timeless-trailers-demo.jsalbrig-studio.workers.dev/.
 - **Big edits still to come** (agreed order): real page addresses for Google, the other nine Timpte models, then form delivery once the Zoho timing is known. Matt's inputs still needed: real lot list and photos, domain name, wording sign-offs, Josh's parts file.
@@ -45,7 +50,8 @@ Edit files in `src/`, never `site/index.html` or `site-demo/index.html`. The bui
 | The demo people, sample reviews, sample leads, quotes and tickets (demo site only) | `src/data.js`, after the `/* @demo */` line near the bottom |
 | Page layout and copy | `src/app1.js` (pages) and `src/app2.js` (Andy, admin, chat) |
 | What is demo-only | anything between `/* @demo */` and `/* @end-demo */` in `src/*.js`, and anything behind `DEMO ?` |
-| The banner across the top of each site | `build.py`, `BANNER_PUBLIC` and `BANNER_DEMO` |
+| Andy's chat or voice addresses | `src/app2.js`, `STAMMER_EMBED` and `VOICE_EMBED` |
+| Andy's cartoon (corner button, avatars) | originals in `03 Media\Andy\`, then run `tools/make_andy.py` |
 | Colors, fonts, spacing | `src/styles.css` |
 | Which Timpte photos are used | `tools/make_images.py`, then run it |
 | Which spec sheets are published | `build.py`, the `SPECS` list |

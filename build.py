@@ -37,10 +37,8 @@ DEMO_SITE = ROOT / "site-demo"
 LIB = Path(r"C:\Users\jsalb\OneDrive\Desktop\Albright Innovations\Matt Lyons\Timeless Trailers\03 Media\Tempte Website Content")
 SHEETS = LIB / "Product Catalog & Spec Sheets"
 
-BANNER_PUBLIC = ('<b>Design concept v3</b> · Clickable mock-up by Albright Agency. Trailer specs, photos and video are Timpte\'s. '
-                 'Stock numbers and what\'s on the lot are sample data.')
-BANNER_DEMO = ('<b>Design concept v3 · Demo site</b> · Clickable mock-up by Albright Agency with the dealer back end. Trailer specs, photos and video are Timpte\'s. '
-               'Prices, stock and people are sample data. <a href="#/vision">What the finished site adds →</a>')
+# The "Design concept v3" strip across the top came off on Oct 20 (Josh: it cost an inch of the hero video).
+# The demo site still links to "What the finished site adds" from its footer.
 
 # Spec sheets published on the site (dealer-only documents are deliberately not here)
 SPECS = {
@@ -115,7 +113,6 @@ def build_page(folder, demo):
         html = html.replace("%%" + key + "%%", code)
     html = html.replace("%%JSONLD%%", jsonld())
     html = html.replace("%%DEMO%%", "true" if demo else "false")
-    html = html.replace("%%BANNER%%", BANNER_DEMO if demo else BANNER_PUBLIC)
     if "%%" in html:
         raise SystemExit(f"{folder.name}: an unfilled %%placeholder%% is left in the page.")
     if not demo and re.search(r"Dealer console|signin-open|renderKpis|personas:|Reset demo", html):
