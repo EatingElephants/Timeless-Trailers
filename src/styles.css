@@ -730,6 +730,7 @@
   .hero-full .trustrow{color:#d9d3c8}
   .hero-full .trustrow svg{color:var(--gold-2)}
   .hero-full .stock-badge{position:absolute;right:max(20px,calc((100% - 1180px)/2 + 20px));bottom:56px;z-index:2}
+  @media (min-width:901px){.hero-full .hero-inner{padding-right:270px}}  /* keeps the text and the trust row clear of the "ready today" badge */
   .hero-scroll{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);color:#cfc9bf;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;z-index:2;display:flex;flex-direction:column;align-items:center;gap:6px;opacity:.8}
   .hero-scroll i{width:1px;height:28px;background:var(--gold-2);display:block;animation:drop 1.6s ease-in-out infinite}
   @keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
