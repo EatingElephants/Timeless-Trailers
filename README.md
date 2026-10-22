@@ -96,3 +96,12 @@ Two Cloudflare Workers, both fed from this one GitHub repo. Every push updates b
 5. Save and deploy. The link is https://timeless-trailers-demo.jsalbrig-studio.workers.dev/
 
 The existing public Worker is not touched. If the demo site ever shows missing photos, the build command in step 3 is what to check.
+
+### Go-live clicks (Josh, Friday to Sunday)
+
+1. **Domain into Cloudflare.** Cloudflare dashboard → Add a domain → type Matt's domain → Free plan → it shows two nameservers. At the registrar (where Matt bought the domain), replace the nameservers with those two. Wait; Cloudflare emails when it's active (minutes to a day).
+2. **Lead email.** On that domain in Cloudflare → Email → Email Routing → Get started. Under Destination addresses add Matt's email; Matt clicks the verification email. Then in this repo open `wrangler.jsonc`: remove the `//` in front of the `"send_email"` line, set `LEAD_TO` to Matt's email and `LEAD_FROM` to `website@` + the domain. Double-click `build.bat`, commit, push. Test: send the quote form on the live site; it should land in Matt's inbox within a minute. Until this is done the forms say "call us".
+3. **Point the domain at the site.** Workers & Pages → `timeless-trailers` → Settings → Domains & Routes → Add → Custom domain → the domain (and again for `www.` + the domain). Cloudflare makes the DNS records itself.
+4. **Tell the site its address.** `src/config.json` → `"url": "https://<the domain>"`. Build, commit, push.
+5. **Visitor counts.** Cloudflare → Web Analytics → Add a site → the domain → copy the token into `src/config.json` → `"cloudflareToken"`. Build, commit, push.
+6. **Launch day.** `src/config.json` → `"indexable": true`. Build, commit, push. Then Google Search Console (search.google.com/search-console) → add the domain → Sitemaps → submit `https://<the domain>/sitemap.xml`.
