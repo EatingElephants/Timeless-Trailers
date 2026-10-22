@@ -6,9 +6,9 @@ A clickable mock-up for Matt Lyons's Timpte dealership in Waxhaw, NC, built by A
 
 Timpte's leadership liked the site, Andy and the dealer back end. Phase one is the customer site on Matt's own domain. The agreed plan is in the repo's history as `Timeless Trailers: public site live by Sunday`; the short version:
 
-- **Done Thursday:** real page addresses (one folder per page, sitemap, 404, structured data), dealer data in plain files (`src/config.json`, `models.json`, `inventory.json`, `parts.json`), prices switched on, the Parts page on Timpte's full catalog, Owner resources, Contact and Privacy pages, sample manuals and warranty form removed.
-- **Friday:** leads to Matt's inbox (a small Worker, `worker.js`, using Cloudflare Email Routing), forms wired to it, analytics, a phone-size hero video, launch content clean-up.
-- **Saturday:** Matt's real inventory and list prices into `inventory.json`, the nine remaining Timpte models, device testing, domain attached.
+- **Done Thursday:** real page addresses (one folder per page, sitemap, 404, structured data), dealer data in plain files (`src/config.json`, `models.json`, `inventory.json`, `parts.json`), prices switched on, the Parts page on Timpte's full catalog (324 parts), Owner resources, Contact and Privacy pages, sample manuals and warranty form removed, `worker.js` lead endpoint and the forms wired to it (answers "call us" until the domain is in), a phone-size hero video, all 19 Timpte models with numbers from the 2026 sheets (the nine new ones reuse their family's photos until Timpte or Matt supplies model-specific shots).
+- **Friday:** domain into Cloudflare, Email Routing on, lead email switched on in `wrangler.jsonc`; analytics token; Matt's answers folded in.
+- **Saturday:** Matt's real inventory and list prices into `inventory.json`, device testing, domain attached to the Worker.
 - **Sunday:** `config.json` → `"indexable": true`, final push, submit the sitemap in Google Search Console, one real test lead.
 
 **Needed from Matt (the long poles):** the domain name and a login or someone to change its nameservers; the lot list with stock numbers, status and list prices (plus list prices per model if he wants those shown); his lead email address and one click on Cloudflare's verification email; sign-offs on the hold wording, the About page names, hours, financing wording, and whether the parts catalog prices are customer prices.

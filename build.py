@@ -55,7 +55,9 @@ SPECS = {
     "timpte-14k-dump.pdf": SHEETS / "Powerhouse Spec Sheets" / "Timpte_ET_14K_Dump_SpecSheet.pdf",
     "timpte-16k-dump.pdf": SHEETS / "Powerhouse Spec Sheets" / "Timpte_ET_16K_Dump_SpecSheet.pdf",
     "timpte-16k-gooseneck.pdf": SHEETS / "Powerhouse Spec Sheets" / "Timpte_ET_16K_Gooseneck_SpecSheet.pdf",
-    "timpte-deck-over-2026.pdf": LIB / "Sales Bulletins" / "Timpte-DeckOver-SpecSheet-072326.pdf",
+    "timpte-16khd-gooseneck.pdf": SHEETS / "Powerhouse Spec Sheets" / "Timpte_ET_16KHD_Gooseneck_SpecSheet.pdf",
+    "timpte-14k-deck-over.pdf": SHEETS / "Powerhouse Spec Sheets" / "Timpte_ET_14K_DeckOver_SpecSheet.pdf",
+    "timpte-16k-deck-over.pdf": SHEETS / "Powerhouse Spec Sheets" / "Timpte_ET_16K_DeckOver_SpecSheet.pdf",
     "timpte-equipment-trailer-catalog-2026.pdf": SHEETS / "Timpte_Equipment_Trailer_Catalog_082526.pdf",
 }
 

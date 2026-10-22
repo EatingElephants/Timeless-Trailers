@@ -246,6 +246,57 @@
     "slug": "1420-split-tilt",
     "listPrice": null
   },
+  "1424ST": {
+    "model": "Timpte 1424 Split Tilt",
+    "type": "tilt",
+    "img": "card-1420st",
+    "video": "split-tilt-walkaround",
+    "spec": "timpte-14k-split-tilt.pdf",
+    "gallery": [
+      "g-1420st-1",
+      "g-1420st-2",
+      "g-1420st-3",
+      "g-1420st-4"
+    ],
+    "payload": 11000,
+    "gvwr": 14000,
+    "empty": 3000,
+    "deck": "18' tilt + 6' stationary x 82-3/8\"",
+    "deckFt": 24,
+    "width": "102\" overall",
+    "length": "28' 6\"",
+    "loading": "Split tilt deck",
+    "angle": 11.5,
+    "axles": "Tandem 7,000 lb rubber torsion",
+    "hitch": "Bumper pull (2-5/16\" ball, adjustable)",
+    "brakes": "Electric, self-adjusting",
+    "tires": "ST235/80R16E, 10 ply",
+    "blurb": "14K split tilt with the longer 18-foot tilt section and a 6-foot front deck: room for a skid steer with the attachment riding up front.",
+    "feat": [
+      "11.5° tilt",
+      "11,000 lb payload",
+      "24' of deck"
+    ],
+    "features": [
+      "18' tilt deck + 6' stationary deck, 82-3/8\" wide",
+      "22\" deck height, 11.5° loading angle",
+      "Tandem 7,000 lb rubber torsion axles",
+      "18 stake pockets",
+      "Side crank jack, 12,000 lb",
+      "Adjustable 2-5/16\" coupler",
+      "LED lighting"
+    ],
+    "suits": [
+      "compact",
+      "miniex",
+      "utv",
+      "mower",
+      "car"
+    ],
+    "key": "1424ST",
+    "slug": "1424-split-tilt",
+    "listPrice": null
+  },
   "1624ST": {
     "model": "Timpte 1624 Split Tilt",
     "type": "tilt",
@@ -297,92 +348,102 @@
     "slug": "1624-split-tilt",
     "listPrice": null
   },
-  "1414D": {
-    "model": "Timpte 1414 Dump",
-    "type": "dump",
-    "img": "card-1414d",
+  "1420DO": {
+    "model": "Timpte 1420 Deck Over",
+    "type": "deckover",
+    "img": "card-1620do",
     "video": null,
-    "spec": "timpte-14k-dump.pdf",
-    "gallery": [],
-    "payload": 10540,
+    "spec": "timpte-14k-deck-over.pdf",
+    "gallery": [
+      "g-1620do-1",
+      "g-1620do-2",
+      "g-1620do-3",
+      "g-1620do-4"
+    ],
+    "payload": 11320,
     "gvwr": 14000,
-    "empty": 3460,
-    "deck": "14' box x 82\" inside, 24\" sides",
-    "deckFt": 14,
-    "width": "102\" overall",
-    "length": "",
-    "loading": "Dexter scissor hoist",
-    "angle": null,
+    "empty": 2680,
+    "deck": "20' x 98.25\" (incl. 60\" dovetail)",
+    "deckFt": 20,
+    "width": "102\" overall, 98.25\" deck",
+    "length": "25' 8\"",
+    "loading": "Dovetail + 50/50 ramps (approx. 4')",
+    "angle": 14,
     "axles": "Tandem 7,000 lb rubber torsion",
     "hitch": "Bumper pull (2-5/16\" ball, adjustable)",
     "brakes": "Electric, self-adjusting",
     "tires": "ST235/80R16E, 10 ply",
-    "blurb": "14K aluminum dump with a 14-foot box, a scissor hoist and a rear gate that swings like a barn door or spreads.",
+    "blurb": "14K deck over: the full 98-inch deck above the wheels, 7K torsion axles and 50/50 ramps. The lighter-duty way into a deck over.",
     "feat": [
-      "10,540 lb payload",
-      "Scissor hoist",
-      "Mesh tarp"
+      "98\" wide deck",
+      "11,320 lb payload",
+      "50/50 ramps"
     ],
     "features": [
-      "Aluminum construction with no structural welds",
-      "14' x 82\" box, 24\" sides",
-      "Dexter scissor hoist",
-      "Barn door / spreader combo rear gate",
-      "Full-length mesh tarp",
-      "A-frame toolbox, spare tire and mount",
-      "Rear stabilizers",
-      "Tandem 7,000 lb rubber torsion axles"
+      "20' x 98.25\" usable deck over the wheels",
+      "60\" dovetail with approx. 4' 50/50 ramps",
+      "35\" deck height, 14° loading angle",
+      "Tandem 7,000 lb rubber torsion axles",
+      "24 stake pockets",
+      "Side crank jack, 12,000 lb"
     ],
     "suits": [
-      "material",
-      "mower"
+      "compact",
+      "miniex",
+      "car",
+      "utv"
     ],
-    "key": "1414D",
-    "slug": "1414-dump",
+    "key": "1420DO",
+    "slug": "1420-deck-over",
     "listPrice": null
   },
-  "1614D": {
-    "model": "Timpte 1614 Dump",
-    "type": "dump",
-    "img": "card-1614d",
+  "1426DO": {
+    "model": "Timpte 1426 Deck Over",
+    "type": "deckover",
+    "img": "card-1620do",
     "video": null,
-    "spec": "timpte-16k-dump.pdf",
-    "gallery": [],
-    "payload": 12400,
-    "gvwr": 16000,
-    "empty": 3600,
-    "deck": "14' box x 82\" inside, 24\" sides",
-    "deckFt": 14,
-    "width": "102\" overall",
-    "length": "",
-    "loading": "Dexter scissor hoist",
-    "angle": null,
-    "axles": "Tandem 8,000 lb rubber torsion",
+    "spec": "timpte-14k-deck-over.pdf",
+    "gallery": [
+      "g-1620do-1",
+      "g-1620do-2",
+      "g-1620do-3",
+      "g-1620do-4"
+    ],
+    "payload": 11000,
+    "gvwr": 14000,
+    "empty": 3000,
+    "deck": "25' 4\" x 98.25\" (incl. 60\" dovetail)",
+    "deckFt": 25.3,
+    "width": "102\" overall, 98.25\" deck",
+    "length": "31' 8\"",
+    "loading": "Dovetail + 50/50 ramps (approx. 4')",
+    "angle": 14,
+    "axles": "Tandem 7,000 lb rubber torsion",
     "hitch": "Bumper pull (2-5/16\" ball, adjustable)",
     "brakes": "Electric, self-adjusting",
-    "tires": "ST235/80R16, 14 ply",
-    "blurb": "16K aluminum dump for landscapers, contractors and cleanup crews. More payload than the 14K, same 14-foot box.",
+    "tires": "ST235/80R16E, 10 ply",
+    "blurb": "14K deck over with a 25-foot-4 deck: two machines, or a long load, above the wheels on 7K torsion axles.",
     "feat": [
-      "12,400 lb payload",
-      "8K axles",
-      "Mesh tarp"
+      "25' 4\" deck",
+      "11,000 lb payload",
+      "50/50 ramps"
     ],
     "features": [
-      "Aluminum construction with no structural welds",
-      "14' x 82\" box, 24\" sides",
-      "Dexter scissor hoist",
-      "Barn door / spreader combo rear gate",
-      "Full-length mesh tarp",
-      "A-frame toolbox, spare tire and mount",
-      "Rear stabilizers",
-      "Tandem 8,000 lb rubber torsion axles"
+      "25' 4\" x 98.25\" usable deck over the wheels",
+      "60\" dovetail with approx. 4' 50/50 ramps",
+      "35\" deck height, 14° loading angle",
+      "Tandem 7,000 lb rubber torsion axles",
+      "28 stake pockets",
+      "Side crank jack, 12,000 lb"
     ],
     "suits": [
-      "material",
-      "mower"
+      "compact",
+      "miniex",
+      "car",
+      "utv"
     ],
-    "key": "1614D",
-    "slug": "1614-dump",
+    "key": "1426DO",
+    "slug": "1426-deck-over",
     "listPrice": null
   },
   "1620DO": {
@@ -390,7 +451,7 @@
     "type": "deckover",
     "img": "card-1620do",
     "video": null,
-    "spec": "timpte-deck-over-2026.pdf",
+    "spec": "timpte-16k-deck-over.pdf",
     "gallery": [
       "g-1620do-1",
       "g-1620do-2",
@@ -433,6 +494,57 @@
     ],
     "key": "1620DO",
     "slug": "1620-deck-over",
+    "listPrice": null
+  },
+  "1626DO": {
+    "model": "Timpte 1626 Deck Over",
+    "type": "deckover",
+    "img": "card-1620do",
+    "video": null,
+    "spec": "timpte-16k-deck-over.pdf",
+    "gallery": [
+      "g-1620do-1",
+      "g-1620do-2",
+      "g-1620do-3",
+      "g-1620do-4"
+    ],
+    "payload": 12620,
+    "gvwr": 16000,
+    "empty": 3380,
+    "deck": "25' 4\" x 98.25\" (incl. 60\" dovetail)",
+    "deckFt": 25.3,
+    "width": "102\" overall, 98.25\" deck",
+    "length": "31' 8\"",
+    "loading": "Dovetail + 50/50 ramps (approx. 4')",
+    "angle": 14,
+    "axles": "Tandem 8,000 lb rubber torsion",
+    "hitch": "Bumper pull (2-5/16\" ball, adjustable)",
+    "brakes": "Electric, self-adjusting",
+    "tires": "ST235/80R16G, 14 ply",
+    "blurb": "16K deck over with a 25-foot-4 deck and 8K torsion axles: the longest bumper-pull deck over in the line, for bigger machines and long loads.",
+    "feat": [
+      "25' 4\" deck",
+      "12,620 lb payload",
+      "50/50 ramps"
+    ],
+    "features": [
+      "25' 4\" x 98.25\" usable deck over the wheels",
+      "60\" dovetail with approx. 4' 50/50 ramps",
+      "35\" deck height, 14° loading angle",
+      "Tandem 8,000 lb rubber torsion axles",
+      "28 stake pockets",
+      "Side crank jack, 12,000 lb",
+      "2026 update: up to 520 lb more payload than the previous model"
+    ],
+    "suits": [
+      "compact",
+      "miniex",
+      "heavy",
+      "car",
+      "utv"
+    ],
+    "key": "1626DO",
+    "slug": "1626-deck-over",
     "listPrice": null
   },
   "1620GN": {
@@ -483,6 +595,336 @@
     ],
     "key": "1620GN",
     "slug": "1620-gooseneck",
+    "listPrice": null
+  },
+  "1626GN": {
+    "model": "Timpte 1626 Gooseneck",
+    "type": "gooseneck",
+    "img": "card-1620gn",
+    "video": "gooseneck-launch",
+    "spec": "timpte-16k-gooseneck.pdf",
+    "gallery": [
+      "g-1620gn-1",
+      "g-1620gn-2",
+      "g-1620gn-3",
+      "g-1620gn-4"
+    ],
+    "payload": 12220,
+    "gvwr": 16000,
+    "empty": 3780,
+    "deck": "25' 4\" x 98.25\" (incl. 60\" dovetail)",
+    "deckFt": 25.3,
+    "width": "102\" overall, 98.25\" deck",
+    "length": "34' 7\"",
+    "loading": "Dovetail + ramps (approx. 4')",
+    "angle": 14,
+    "axles": "Tandem 7,000 lb rubber torsion",
+    "hitch": "Gooseneck (2-5/16\" ball)",
+    "brakes": "Electric, self-adjusting",
+    "tires": "ST235/80R16E, 10 ply",
+    "blurb": "16K gooseneck deck over with a 25-foot-4 deck: two machines on one trip, with the steadier gooseneck ride and dual 12K jacks.",
+    "feat": [
+      "25' 4\" deck",
+      "12,220 lb payload",
+      "Dual 12K jacks"
+    ],
+    "features": [
+      "25' 4\" x 98.25\" usable deck",
+      "60\" dovetail with approx. 4' ramps",
+      "35\" deck height, 14° loading angle",
+      "Tandem 7,000 lb rubber torsion axles",
+      "Dual 12,000 lb jacks",
+      "28 stake pockets",
+      "Toolbox with chain rack, chain tray, spare tire and mount, front bump rail"
+    ],
+    "suits": [
+      "heavy",
+      "compact",
+      "miniex",
+      "car",
+      "utv"
+    ],
+    "key": "1626GN",
+    "slug": "1626-gooseneck",
+    "listPrice": null
+  },
+  "1620HD": {
+    "model": "Timpte 1620HD Gooseneck",
+    "type": "gooseneck",
+    "img": "card-1620gn",
+    "video": "gooseneck-launch",
+    "spec": "timpte-16khd-gooseneck.pdf",
+    "gallery": [
+      "g-1620gn-1",
+      "g-1620gn-2",
+      "g-1620gn-3",
+      "g-1620gn-4"
+    ],
+    "payload": 12540,
+    "gvwr": 16000,
+    "empty": 3530,
+    "deck": "20' x 98.25\" (incl. 60\" dovetail)",
+    "deckFt": 20,
+    "width": "102\" overall, 98.25\" deck",
+    "length": "28' 7\"",
+    "loading": "Dovetail + ramps (approx. 4')",
+    "angle": 14,
+    "axles": "Tandem 8,000 lb rubber torsion",
+    "hitch": "Gooseneck (2-5/16\" ball)",
+    "brakes": "Electric, self-adjusting",
+    "tires": "ST235/80R16G, 14 ply",
+    "blurb": "The heavy-duty 1620: the same 20-foot gooseneck deck over built on true 8K axles and 14-ply tires, for crews that load it to the line every day.",
+    "feat": [
+      "True 8K axles",
+      "12,540 lb payload",
+      "14-ply tires"
+    ],
+    "features": [
+      "20' x 98.25\" usable deck",
+      "60\" dovetail with approx. 4' ramps",
+      "35\" deck height, 14° loading angle",
+      "Tandem 8,000 lb rubber torsion axles",
+      "ST235/80R16G 14-ply tires",
+      "Dual 12,000 lb jacks",
+      "Toolbox with chain rack, chain tray, spare tire and mount, front bump rail"
+    ],
+    "suits": [
+      "heavy",
+      "compact",
+      "miniex",
+      "car",
+      "utv"
+    ],
+    "key": "1620HD",
+    "slug": "1620hd-gooseneck",
+    "listPrice": null
+  },
+  "1626HD": {
+    "model": "Timpte 1626HD Gooseneck",
+    "type": "gooseneck",
+    "img": "card-1620gn",
+    "video": "gooseneck-launch",
+    "spec": "timpte-16khd-gooseneck.pdf",
+    "gallery": [
+      "g-1620gn-1",
+      "g-1620gn-2",
+      "g-1620gn-3",
+      "g-1620gn-4"
+    ],
+    "payload": 12140,
+    "gvwr": 16000,
+    "empty": 3860,
+    "deck": "25' 4\" x 98.25\" (incl. 60\" dovetail)",
+    "deckFt": 25.3,
+    "width": "102\" overall, 98.25\" deck",
+    "length": "34' 7\"",
+    "loading": "Dovetail + ramps (approx. 4')",
+    "angle": 14,
+    "axles": "Tandem 8,000 lb rubber torsion",
+    "hitch": "Gooseneck (2-5/16\" ball)",
+    "brakes": "Electric, self-adjusting",
+    "tires": "ST235/80R16G, 14 ply",
+    "blurb": "The heavy-duty 1626: a 25-foot-4 gooseneck deck over on true 8K axles and 14-ply tires. The biggest, toughest trailer in the lineup.",
+    "feat": [
+      "25' 4\" deck",
+      "True 8K axles",
+      "12,140 lb payload"
+    ],
+    "features": [
+      "25' 4\" x 98.25\" usable deck",
+      "60\" dovetail with approx. 4' ramps",
+      "35\" deck height, 14° loading angle",
+      "Tandem 8,000 lb rubber torsion axles",
+      "ST235/80R16G 14-ply tires",
+      "Dual 12,000 lb jacks",
+      "28 stake pockets",
+      "Toolbox with chain rack, chain tray, spare tire and mount, front bump rail"
+    ],
+    "suits": [
+      "heavy",
+      "compact",
+      "miniex",
+      "car",
+      "utv"
+    ],
+    "key": "1626HD",
+    "slug": "1626hd-gooseneck",
+    "listPrice": null
+  },
+  "1414D": {
+    "model": "Timpte 1414 Dump",
+    "type": "dump",
+    "img": "card-1414d",
+    "video": null,
+    "spec": "timpte-14k-dump.pdf",
+    "gallery": [],
+    "payload": 10540,
+    "gvwr": 14000,
+    "empty": 3460,
+    "deck": "14' box x 82\" inside, 24\" sides",
+    "deckFt": 14,
+    "width": "102\" overall",
+    "length": "",
+    "loading": "Dexter scissor hoist",
+    "angle": null,
+    "axles": "Tandem 7,000 lb rubber torsion",
+    "hitch": "Bumper pull (2-5/16\" ball, adjustable)",
+    "brakes": "Electric, self-adjusting",
+    "tires": "ST235/80R16E, 10 ply",
+    "blurb": "14K aluminum dump with a 14-foot box, a scissor hoist and a rear gate that swings like a barn door or spreads.",
+    "feat": [
+      "10,540 lb payload",
+      "Scissor hoist",
+      "Mesh tarp"
+    ],
+    "features": [
+      "Aluminum construction with no structural welds",
+      "14' x 82\" box, 24\" sides",
+      "Dexter scissor hoist",
+      "Barn door / spreader combo rear gate",
+      "Full-length mesh tarp",
+      "A-frame toolbox, spare tire and mount",
+      "Rear stabilizers",
+      "Tandem 7,000 lb rubber torsion axles"
+    ],
+    "suits": [
+      "material",
+      "mower"
+    ],
+    "key": "1414D",
+    "slug": "1414-dump",
+    "listPrice": null
+  },
+  "1416D": {
+    "model": "Timpte 1416 Dump",
+    "type": "dump",
+    "img": "card-1414d",
+    "video": null,
+    "spec": "timpte-14k-dump.pdf",
+    "gallery": [],
+    "payload": 10360,
+    "gvwr": 14000,
+    "empty": 3640,
+    "deck": "16' box x 82\" inside, 24\" sides",
+    "deckFt": 16,
+    "width": "102\" overall",
+    "length": "",
+    "loading": "Dexter scissor hoist",
+    "angle": null,
+    "axles": "Tandem 7,000 lb rubber torsion",
+    "hitch": "Bumper pull (2-5/16\" ball, adjustable)",
+    "brakes": "Electric, self-adjusting",
+    "tires": "ST235/80R16E, 10 ply",
+    "blurb": "14K aluminum dump with the longer 16-foot box, for mulch, brush and bulky loads that need room more than weight.",
+    "feat": [
+      "16' box",
+      "10,360 lb payload",
+      "Scissor hoist"
+    ],
+    "features": [
+      "Aluminum construction with no structural welds",
+      "16' x 82\" box, 24\" sides",
+      "Dexter scissor hoist",
+      "Barn door / spreader combo rear gate",
+      "Full-length mesh tarp",
+      "A-frame toolbox, spare tire and mount",
+      "Rear stabilizers",
+      "Tandem 7,000 lb rubber torsion axles"
+    ],
+    "suits": [
+      "material",
+      "mower"
+    ],
+    "key": "1416D",
+    "slug": "1416-dump",
+    "listPrice": null
+  },
+  "1614D": {
+    "model": "Timpte 1614 Dump",
+    "type": "dump",
+    "img": "card-1614d",
+    "video": null,
+    "spec": "timpte-16k-dump.pdf",
+    "gallery": [],
+    "payload": 12400,
+    "gvwr": 16000,
+    "empty": 3600,
+    "deck": "14' box x 82\" inside, 24\" sides",
+    "deckFt": 14,
+    "width": "102\" overall",
+    "length": "",
+    "loading": "Dexter scissor hoist",
+    "angle": null,
+    "axles": "Tandem 8,000 lb rubber torsion",
+    "hitch": "Bumper pull (2-5/16\" ball, adjustable)",
+    "brakes": "Electric, self-adjusting",
+    "tires": "ST235/80R16, 14 ply",
+    "blurb": "16K aluminum dump for landscapers, contractors and cleanup crews. More payload than the 14K, same 14-foot box.",
+    "feat": [
+      "12,400 lb payload",
+      "8K axles",
+      "Mesh tarp"
+    ],
+    "features": [
+      "Aluminum construction with no structural welds",
+      "14' x 82\" box, 24\" sides",
+      "Dexter scissor hoist",
+      "Barn door / spreader combo rear gate",
+      "Full-length mesh tarp",
+      "A-frame toolbox, spare tire and mount",
+      "Rear stabilizers",
+      "Tandem 8,000 lb rubber torsion axles"
+    ],
+    "suits": [
+      "material",
+      "mower"
+    ],
+    "key": "1614D",
+    "slug": "1614-dump",
+    "listPrice": null
+  },
+  "1616D": {
+    "model": "Timpte 1616 Dump",
+    "type": "dump",
+    "img": "card-1614d",
+    "video": null,
+    "spec": "timpte-16k-dump.pdf",
+    "gallery": [],
+    "payload": 12210,
+    "gvwr": 16000,
+    "empty": 3790,
+    "deck": "16' box x 82\" inside, 24\" sides",
+    "deckFt": 16,
+    "width": "102\" overall",
+    "length": "",
+    "loading": "Dexter scissor hoist",
+    "angle": null,
+    "axles": "Tandem 8,000 lb rubber torsion",
+    "hitch": "Bumper pull (2-5/16\" ball, adjustable)",
+    "brakes": "Electric, self-adjusting",
+    "tires": "ST235/80R16, 14 ply",
+    "blurb": "16K aluminum dump with a 16-foot box and 8K axles: the most room and the most payload of the dump line.",
+    "feat": [
+      "16' box",
+      "12,210 lb payload",
+      "8K axles"
+    ],
+    "features": [
+      "Aluminum construction with no structural welds",
+      "16' x 82\" box, 24\" sides",
+      "Dexter scissor hoist",
+      "Barn door / spreader combo rear gate",
+      "Full-length mesh tarp",
+      "A-frame toolbox, spare tire and mount",
+      "Rear stabilizers",
+      "Tandem 8,000 lb rubber torsion axles"
+    ],
+    "suits": [
+      "material",
+      "mower"
+    ],
+    "key": "1616D",
+    "slug": "1616-dump",
     "listPrice": null
   }
 }
