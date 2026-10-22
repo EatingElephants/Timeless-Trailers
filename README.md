@@ -42,6 +42,13 @@ Timpte's leadership liked the site, Andy and the dealer back end. Phase one is t
 - **Zoho is phase two, and it owns the relationship side.** Decided Oct 11: leads, contacts, quotes, follow-up, the pipeline board and service tickets go to Zoho CRM (shared with Axis Ice). The website keeps inventory, prices, status, photos, specs and Andy. When Zoho is in, every lead-producing form and Andy post into Zoho (webhook), and the demo Leads, Quotes, Holds, Parts and Service tabs in the dealer console come out. Don't build CRM features into the site.
 - **After Matt's feedback:** edit `src/data.js` (models, stock, copy), rebuild, commit, push. One push updates both hosted links.
 
+## The notes
+
+- `docs/SITE-MAP.md`: how the site is put together, page by page, the three layers, the data files, the phases ahead, who owns what, and the decisions log. Read this first if you're new.
+- This README: current state and the go-live steps.
+- `CLAUDE.md`: the rules of the build.
+- GitHub → Commits: every snapshot ever pushed, with a note. Any of them can be restored.
+
 ## The one rule
 
 Edit files in `src/`, never anything in `site/` or `site-demo/`. The build overwrites both folders (every page, `app.js`, `site.css`, the sitemap).
