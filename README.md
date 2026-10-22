@@ -2,6 +2,19 @@
 
 A clickable mock-up for Matt Lyons's Timpte dealership in Waxhaw, NC, built by Albright Agency. Version 3: real Timpte models, specs, photos and video, with Andy, the trailer advisor.
 
+## Going live (plan agreed October 22, 2026: public site live by Sunday, October 25)
+
+Timpte's leadership liked the site, Andy and the dealer back end. Phase one is the customer site on Matt's own domain. The agreed plan is in the repo's history as `Timeless Trailers: public site live by Sunday`; the short version:
+
+- **Done Thursday:** real page addresses (one folder per page, sitemap, 404, structured data), dealer data in plain files (`src/config.json`, `models.json`, `inventory.json`, `parts.json`), prices switched on, the Parts page on Timpte's full catalog, Owner resources, Contact and Privacy pages, sample manuals and warranty form removed.
+- **Friday:** leads to Matt's inbox (a small Worker, `worker.js`, using Cloudflare Email Routing), forms wired to it, analytics, a phone-size hero video, launch content clean-up.
+- **Saturday:** Matt's real inventory and list prices into `inventory.json`, the nine remaining Timpte models, device testing, domain attached.
+- **Sunday:** `config.json` → `"indexable": true`, final push, submit the sitemap in Google Search Console, one real test lead.
+
+**Needed from Matt (the long poles):** the domain name and a login or someone to change its nameservers; the lot list with stock numbers, status and list prices (plus list prices per model if he wants those shown); his lead email address and one click on Cloudflare's verification email; sign-offs on the hold wording, the About page names, hours, financing wording, and whether the parts catalog prices are customer prices.
+
+**Switches in `src/config.json`:** `site.url` (the live domain, once known), `site.indexable` (false until launch), `showPrices`, `showPartsPrices`, `assistant.voiceOn`, `analytics.cloudflareToken`, `leads.to`.
+
 ## Where we left off (October 20, 2026)
 
 - **Oct 20, for the Timpte visit (done, live on both sites):**
@@ -31,7 +44,11 @@ A clickable mock-up for Matt Lyons's Timpte dealership in Waxhaw, NC, built by A
 
 ## The one rule
 
-Edit files in `src/`, never `site/index.html` or `site-demo/index.html`. The build overwrites both.
+Edit files in `src/`, never anything in `site/` or `site-demo/`. The build overwrites both folders (every page, `app.js`, `site.css`, the sitemap).
+
+## Page addresses
+
+Every page has its own address: `/`, `/trailers/` (the lot and the lineup), `/trailers/split-tilt/` and the other four categories, `/trailers/1420-split-tilt/` and one page per model, `/stock/TT-0160/` and one per unit on the lot, `/finder/`, `/compare/`, `/parts/`, `/service/`, `/owner-resources/`, `/financing/`, `/about/`, `/contact/`, `/privacy/`. The demo site adds `/account/`, `/admin/` and `/vision/`. Old `#/` links still work. `build.py` writes each page with its own title, description and structured data so search engines can read it, and the script takes over from there.
 
 ## How to change something
 
@@ -43,10 +60,11 @@ Edit files in `src/`, never `site/index.html` or `site-demo/index.html`. The bui
 
 | You want to change | Open |
 |---|---|
-| A trailer's specs, blurb, photos or video | `src/data.js`, the `MODELS` list at the top |
-| What's on the lot, prices, stock numbers | `src/data.js`, `inventory` |
-| Andy's name | `src/data.js`, `ASSISTANT_NAME` |
-| Parts, services, the About page team | `src/data.js`, further down |
+| The dealer: name, phone, address, hours, Andy's name and addresses, the switches | `src/config.json` |
+| A trailer model's specs, blurb, photos, video, list price | `src/models.json` (one entry per Timpte model; `slug` is its web address) |
+| What's on the lot: stock numbers, status, prices | `src/inventory.json` |
+| Parts | `src/parts.json`, made by `tools/parts_from_catalog.py` from Timpte's catalog PDF; don't edit by hand |
+| Services, maintenance schedule, categories, lineup, videos | `src/data.js` |
 | The demo people, sample reviews, sample leads, quotes and tickets (demo site only) | `src/data.js`, after the `/* @demo */` line near the bottom |
 | Page layout and copy | `src/app1.js` (pages) and `src/app2.js` (Andy, admin, chat) |
 | What is demo-only | anything between `/* @demo */` and `/* @end-demo */` in `src/*.js`, and anything behind `DEMO ?` |

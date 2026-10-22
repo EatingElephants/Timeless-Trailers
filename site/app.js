@@ -364,7 +364,7 @@ function quoteFormHTML(pre) {
   const opts = ["Not sure yet, help me choose"].concat(DATA.lineup.map(l => l.model));
   if (pre && !opts.includes(pre)) opts.push(pre);
   const u = me();
-  return `<form class="q" data-form="quote" novalidate><div class="fbody"><div class="fields">
+  return `<form class="q" data-form="quote" novalidate><div class="fbody"><div class="fields"><input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
     <div class="full"><label for="qTrailer">Trailer</label><select id="qTrailer" name="trailer">${opts.map(o => `<option ${o === pre ? "selected" : ""}>${esc(o)}</option>`).join("")}</select></div>
     <div><label for="qHaul">What are you hauling?</label><input id="qHaul" name="haul" placeholder="e.g. Bobcat T66"></div>
     <div><label for="qWeight">Loaded weight (approx.)</label><input id="qWeight" name="weight" placeholder="e.g. 9,000 lb"></div>
@@ -1055,34 +1055,70 @@ function need(f, names) {
 }
 const doneHTML = (h, p) => `<div class="done">${'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m7 12 3.5 3.5L17 9"/></svg>'}<h3>${h}</h3><p>${p}</p></div>`;
 
+/* ---- sending a form to Matt ----
+   The public site posts every form to /api/lead (worker.js emails it). The demo site keeps everything in the browser.
+   If the send fails, the form stays put and shows the phone number; the site never claims "we'll call you" for a
+   request nobody received. */
+async function sendLead(f, kind, fields) {
+  const e = f.elements;
+  const payload = Object.assign({ kind, name: e.name.value.trim(), phone: e.phone.value.trim(), page: location.pathname + location.search, website: (e.website && e.website.value) || "" }, fields || {});
+  if (DEMO) return { ok: true };
+  const btn = f.querySelector("button[type=submit]"); const label = btn ? btn.textContent : "";
+  if (btn) { btn.disabled = true; btn.textContent = "Sending…"; }
+  try {
+    const res = await fetch("/api/lead", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+    const j = await res.json().catch(() => ({}));
+    if (res.ok && j.ok) return { ok: true };
+    throw new Error(j.error || ("HTTP " + res.status));
+  } catch (err) {
+    if (btn) { btn.disabled = false; btn.textContent = label; }
+    let n = f.querySelector(".lead-fail");
+    if (!n) { n = document.createElement("p"); n.className = "note lead-fail"; (f.querySelector(".form-foot") || f).appendChild(n); }
+    n.innerHTML = `That didn't go through. Call or text <a href="tel:${DATA.business.tel}">${DATA.business.phone}</a> and we'll take it from there.`;
+    toast("That didn't send. Please call us.");
+    return { ok: false };
+  }
+}
+
 const FORMS = {
   "hero-ask"(f) { const v = f.elements.q.value.trim(); if (!v) { f.elements.q.focus(); return; } f.reset(); userSays(v); },
   chat(f) { const v = f.elements.q.value; f.reset(); if (/^leave my number$/i.test(v.trim())) return userSays("Have someone call me"); userSays(v); },
-  quote(f) {
+  async quote(f) {
     if (!need(f, ["name", "phone"])) return;
     const e = f.elements; const first = e.name.value.trim().split(" ")[0];
     const tr = e.trailer.value.indexOf("Not sure") === 0 ? "the right trailer" : e.trailer.value;
+    const r = await sendLead(f, "Quote request", { trailer: e.trailer.value, haul: e.haul.value, weight: e.weight.value, tow: e.tow.value, when: e.when.value, financing: e.fin.value, notes: e.notes.value });
+    if (!r.ok) return;
     addLead({ name: e.name.value.trim(), phone: e.phone.value.trim(), interest: (tr === "the right trailer" ? "Help choosing" : tr) + (e.haul.value ? " · " + e.haul.value : ""), source: "Quote form" });
     f.querySelector(".fbody").innerHTML = doneHTML("Got it, " + esc(first) + ".", "We'll call you today about " + esc(tr) + " with availability, pricing and next steps.");
   },
-  hold(f) {
+  async hold(f) {
     if (!need(f, ["name", "phone"])) return;
-    const t = unit(f.dataset.id); const h = createHold(t, f.elements.name.value.trim(), f.elements.phone.value.trim());
+    const t = unit(f.dataset.id);
+    const r = await sendLead(f, "Hold request", { trailer: tname(t), stock: t.id, price: PRICES && t.price ? money(t.price) : "" });
+    if (!r.ok) return;
+    const h = createHold(t, f.elements.name.value.trim(), f.elements.phone.value.trim());
     closeModal(); rerender(); toast(`${t.id} is on hold until ${fmtWhen(h.expires)}.${DEMO ? ` <a href="/account/?s=a-holds">See it in My Account</a>` : " We'll call you today to confirm."}`, 5000);
   },
-  "parts-checkout"(f) {
+  async "parts-checkout"(f) {
     if (!need(f, ["name", "phone"])) return;
-    const items = S.cart.slice(); const o = createPartsOrder(items, f.elements.name.value.trim(), f.elements.phone.value.trim());
+    const items = S.cart.slice();
+    const r = await sendLead(f, "Parts request", { items: items.map(([id, q]) => { const p = DATA.parts.find(x => x.id === id); return (q > 1 ? q + " × " : "") + id + (p ? " " + p.name : ""); }).join("; "), unit: f.elements.unit.value });
+    if (!r.ok) return;
+    const o = createPartsOrder(items, f.elements.name.value.trim(), f.elements.phone.value.trim());
     addLead({ name: f.elements.name.value.trim(), phone: f.elements.phone.value.trim(), interest: "Parts: " + items.map(([id, q]) => (q > 1 ? q + " × " : "") + id).join(", ") + (f.elements.unit.value.trim() ? " · " + f.elements.unit.value.trim() : ""), source: "Parts request" });
     S.cart = []; save();
     renderCart(); toast(`Request sent. We'll call ${esc(f.elements.phone.value.trim())} to confirm the price and the pickup day.${DEMO ? ` <a href="/account/?s=a-orders">My Account</a>` : ""}`, 6000);
   },
-  service(f) {
+  async service(f) {
     if (!need(f, ["name", "phone"])) return;
-    const e = f.elements; const tk = createTicket({ name: e.name.value.trim(), phone: e.phone.value.trim(), unit: e.unit.value, service: e.service.value, notes: e.notes.value.trim(), date: e.date.value ? new Date(e.date.value + "T12:00").toISOString() : null });
+    const e = f.elements;
+    const r = await sendLead(f, "Service booking", { unit: e.unit.value, service: e.service.value, date: e.date.value, notes: e.notes.value });
+    if (!r.ok) return;
+    const tk = createTicket({ name: e.name.value.trim(), phone: e.phone.value.trim(), unit: e.unit.value, service: e.service.value, notes: e.notes.value.trim(), date: e.date.value ? new Date(e.date.value + "T12:00").toISOString() : null });
     f.innerHTML = doneHTML(`Ticket ${tk.id} open.`, `We'll call ${esc(e.phone.value)} to confirm drop-off${e.date.value ? " around " + fmtDate(tk.date) : ""}. ${me() ? '<a href="/account/?s=a-tickets">Track it in My Account</a>.' : ""}`);
   },
-  prequal(f) { if (!need(f, ["name", "phone"])) return; addLead({ name: f.elements.name.value.trim(), phone: f.elements.phone.value.trim(), interest: "Financing pre-qualify · " + money(fin.price), source: "Financing" }); f.innerHTML = doneHTML("You're in line.", "The team will call today with real rates for " + money(fin.price) + "."); },
+  async prequal(f) { if (!need(f, ["name", "phone"])) return; const r = await sendLead(f, "Financing pre-qualify", { price: money(fin.price), as: f.elements.as.value }); if (!r.ok) return; addLead({ name: f.elements.name.value.trim(), phone: f.elements.phone.value.trim(), interest: "Financing pre-qualify · " + money(fin.price), source: "Financing" }); f.innerHTML = doneHTML("You're in line.", "The team will call today with real rates for " + money(fin.price) + "."); },
   warranty(f) { const v = f.elements.vin.value.trim(); if (v.length < 6) { f.elements.vin.classList.add("bad"); toast("Enter the VIN or serial from the frame tag."); return; } f.innerHTML = `<p style="margin:0"><b style="color:var(--green)">✓ Registered.</b> Warranty on ${esc(v)} is on file with Timpte (sample).</p>`; },
   
 };

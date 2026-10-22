@@ -1,13 +1,26 @@
-// Cloudflare settings for the PUBLIC site. Tells Cloudflare the website lives in the site/ folder.
-// Every page has its own folder there (site/trailers/1420-split-tilt/index.html), so an unknown
-// address gets the real 404 page instead of the home page.
-// "npx wrangler deploy" publishes the folder as-is.
+// Cloudflare settings for the PUBLIC site.
+// worker.js answers POST /api/lead (emails the form to Matt) and serves everything else from site/.
+// Every page has its own folder there, so an unknown address gets the real 404 page.
+// "npx wrangler deploy" publishes it.
+//
+// To turn lead email on (once Matt's domain is in Cloudflare with Email Routing enabled and his address verified):
+//   1. uncomment the "send_email" block below,
+//   2. fill in LEAD_TO (Matt's address) and LEAD_FROM (an address on the site's domain, e.g. website@<domain>),
+//   3. push. Until then /api/lead answers 503 and the site shows "call us" when a form is sent.
 {
   "name": "timeless-trailers",
+  "main": "worker.js",
   "compatibility_date": "2026-10-01",
   "assets": {
     "directory": "./site",
+    "binding": "ASSETS",
     "not_found_handling": "404-page",
     "html_handling": "auto-trailing-slash"
+  },
+  "vars": {
+    "LEAD_TO": "",
+    "LEAD_FROM": "",
+    "LEAD_NAME": "Timeless Trailers website"
   }
+  // ,"send_email": [{ "name": "SEND_EMAIL" }]
 }

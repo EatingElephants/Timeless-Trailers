@@ -287,7 +287,7 @@ function quoteFormHTML(pre) {
   const opts = ["Not sure yet, help me choose"].concat(DATA.lineup.map(l => l.model));
   if (pre && !opts.includes(pre)) opts.push(pre);
   const u = me();
-  return `<form class="q" data-form="quote" novalidate><div class="fbody"><div class="fields">
+  return `<form class="q" data-form="quote" novalidate><div class="fbody"><div class="fields"><input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
     <div class="full"><label for="qTrailer">Trailer</label><select id="qTrailer" name="trailer">${opts.map(o => `<option ${o === pre ? "selected" : ""}>${esc(o)}</option>`).join("")}</select></div>
     <div><label for="qHaul">What are you hauling?</label><input id="qHaul" name="haul" placeholder="e.g. Bobcat T66"></div>
     <div><label for="qWeight">Loaded weight (approx.)</label><input id="qWeight" name="weight" placeholder="e.g. 9,000 lb"></div>
