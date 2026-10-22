@@ -101,22 +101,13 @@ const DATA = {
     { id: "jack", label: "Powered tongue jack", price: 349, types: ["tilt", "deckover", "dump"], rec: false }
   ],
 
-  parts: [
-    { id: "P-101", name: "LED stop/turn/tail light kit (pair)", price: 89, cat: "Lighting", fits: ["tilt", "deckover", "gooseneck", "dump", "ezload"], kw: ["light", "tail", "lamp", "led"] },
-    { id: "P-108", name: "7-way plug with 8 ft cord", price: 54, cat: "Lighting", fits: ["tilt", "deckover", "gooseneck", "dump", "ezload"], kw: ["plug", "7-way", "wiring", "cord"] },
-    { id: "P-102", name: "ST235/80R16 spare on aluminum wheel", price: 329, cat: "Tires & wheels", fits: ["tilt", "deckover", "gooseneck", "dump"], kw: ["tire", "spare", "wheel"] },
-    { id: "P-103", name: "ST225/75R15 spare on aluminum wheel", price: 239, cat: "Tires & wheels", fits: ["ezload"], kw: ["tire", "spare", "wheel"] },
-    { id: "P-106", name: "Hub and bearing kit, 7K axle", price: 164, cat: "Axles & brakes", fits: ["tilt", "deckover", "gooseneck", "dump"], kw: ["bearing", "hub", "axle"] },
-    { id: "P-107", name: "Bearing repack kit, 3.5K axle", price: 38, cat: "Axles & brakes", fits: ["ezload"], kw: ["bearing", "repack", "grease"] },
-    { id: "P-112", name: "12 in electric brake magnets (pair)", price: 112, cat: "Axles & brakes", fits: ["tilt", "deckover", "gooseneck", "dump", "ezload"], kw: ["brake", "magnet"] },
-    { id: "P-105", name: "Breakaway kit with battery and charger", price: 96, cat: "Axles & brakes", fits: ["tilt", "deckover", "gooseneck", "dump", "ezload"], kw: ["breakaway", "battery"] },
-    { id: "P-104", name: "2-5/16 in adjustable coupler", price: 118, cat: "Hitch", fits: ["tilt", "deckover", "gooseneck", "dump", "ezload"], kw: ["coupler", "hitch", "ball"] },
-    { id: "P-109", name: "2 in ratchet straps (4-pack)", price: 72, cat: "Tie-downs", fits: ["tilt", "deckover", "gooseneck", "dump", "ezload"], kw: ["strap", "ratchet", "tie"] },
-    { id: "P-110", name: "Weld-on D-ring, 10,000 lb", price: 18, cat: "Tie-downs", fits: ["tilt", "deckover", "gooseneck", "dump", "ezload"], kw: ["d-ring", "d ring", "ring"] },
-    { id: "P-113", name: "Tilt-deck rubber stop bumper", price: 34, cat: "Deck", fits: ["tilt"], kw: ["bumper", "stop", "rubber", "tilt"] },
-    { id: "P-111", name: "Replacement roll tarp, 14 ft", price: 189, cat: "Deck", fits: ["dump"], kw: ["tarp"] },
-    { id: "P-114", name: "Dump hydraulic fluid, 1 gal", price: 29, cat: "Hydraulics", fits: ["dump"], kw: ["fluid", "hydraulic", "oil"] }
-  ],
+  /* Parts: Timpte's serviceable parts catalog (src/parts.json, made by tools/parts_from_catalog.py).
+     fits = which trailer types a catalog section applies to, so an owner can filter to their trailer. */
+  parts: PARTS.parts.map(p => {
+    const sec = p.section.replace(" Parts", "");
+    const fits = { "Split Tilt": ["tilt"], "Deck Over": ["deckover"], "Gooseneck": ["gooseneck"], "Dump": ["dump"], "Ramped": ["ezload"] }[sec] || ["tilt", "deckover", "gooseneck", "dump", "ezload"];
+    return { id: p.no, name: p.name, price: p.price || 0, callForPrice: !!p.callForPrice, cat: sec, series: p.series || "Both", fitsSeries: p.fits, fits, kw: [] };
+  }),
 
   services: [
     { id: "inspect", name: "Annual safety inspection", price: "$129", desc: "Lights, brakes, bearings, tires, tie-downs and frame, with a written checklist.", kw: ["inspect", "inspection", "check-up", "checkup"] },

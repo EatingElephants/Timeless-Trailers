@@ -19,14 +19,30 @@
     "tel": "+17045893100",
     "email": "",
     "hours": "Mon–Fri 9am–5pm",
-    "openingHours": { "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "09:00", "closes": "17:00" },
+    "openingHours": {
+      "days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "09:00",
+      "closes": "17:00"
+    },
     "address": "4417-A Helms Road, Waxhaw, NC 28173",
     "street": "4417-A Helms Road",
     "city": "Waxhaw",
     "state": "NC",
     "zip": "28173",
     "maps": "https://www.google.com/maps/dir/?api=1&destination=4417-A+Helms+Road%2C+Waxhaw%2C+NC+28173",
-    "areaServed": ["Waxhaw NC", "Charlotte NC", "Union County NC", "North Carolina", "South Carolina"],
+    "areaServed": [
+      "Waxhaw NC",
+      "Charlotte NC",
+      "Union County NC",
+      "North Carolina",
+      "South Carolina"
+    ],
     "modelsCarried": 19,
     "brand": "Timpte",
     "timpte": "https://www.timpteequipmenttrailers.com"
@@ -54,6 +70,12 @@
     "owner": "Matt"
   },
   "team": [
-    { "name": "Matt Lyons", "role": "Owner", "note": "Answers the phone, walks the lot with you and stands behind every unit he sells." }
-  ]
+    {
+      "name": "Matt Lyons",
+      "role": "Owner",
+      "note": "Answers the phone, walks the lot with you and stands behind every unit he sells."
+    }
+  ],
+  "showPartsPrices": false,
+  "_commentParts": "showPartsPrices: the catalog's prices show on the Parts page only when this is true (Matt confirms they are customer prices)."
 }

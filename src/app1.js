@@ -624,42 +624,51 @@ VIEWS.compare = {
   }
 };
 
-/* ---------- parts ---------- */
-const partsUI = { q: "", fit: true, cat: "All" };
+/* ---------- parts: Timpte's serviceable parts catalog, by part number ---------- */
+const PARTPRICES = DEMO || !!CONFIG.showPartsPrices;
+const partsUI = { q: "", fit: true, cat: "All", series: "All" };
+const money2 = n => "$" + Number(n).toFixed(2);
 VIEWS.parts = {
-  title: "Parts · Timeless Trailers",
+  title: "Timpte parts by part number · Timeless Trailers",
   html() {
     const own = myOwned()[0];
     const cats = ["All"].concat([...new Set(DATA.parts.map(p => p.cat))]);
     return `<div class="page-head"><div class="wrap"><div class="crumbs"><a href="/">Home</a> / Parts</div><div class="eyebrow">Own · Parts counter</div><h1 style="margin-top:10px">Parts.</h1>
-      <p class="lede">Lights, tires, bearings, couplers and tie-downs for Timpte trailers. Order here and pick up in Waxhaw, usually in one to two business days.</p>
-      ${own ? `<div class="badges" style="margin-top:16px"><span class="badge info">Your ${own.year} ${esc(own.model)}</span><label class="badge" style="cursor:pointer;margin:0"><input type="checkbox" data-act="parts-fit" ${partsUI.fit ? "checked" : ""}> Only parts that fit it</label></div>` : (DEMO ? partsSigninNote() : `<p class="note">Not sure which part fits? Ask ${A}, or call the counter at ${DATA.business.phone}.</p>`)}
+      <p class="lede">Every serviceable part in Timpte's catalog, by part number: axles, hoists, latches, lights, decals and more. Find it, add it to your request, and we order it for pickup in Waxhaw.</p>
+      ${own ? `<div class="badges" style="margin-top:16px"><span class="badge info">Your ${own.year} ${esc(own.model)}</span><label class="badge" style="cursor:pointer;margin:0"><input type="checkbox" data-act="parts-fit" ${partsUI.fit ? "checked" : ""}> Only parts for it</label></div>` : (DEMO ? partsSigninNote() : `<p class="note">Not sure which part you need? Ask ${A} with your model and serial number, or call the counter at ${DATA.business.phone}.</p>`)}
     </div></div>
     <section style="padding-top:30px"><div class="wrap parts-grid"><div>
-      <div class="toolbar"><div class="chips">${cats.map(c => `<button class="chip" data-act="parts-cat" data-c="${c}" aria-pressed="${partsUI.cat === c}">${c}</button>`).join("")}</div>
-      <div class="tb-right"><label for="pQ" class="sr">Search parts</label><input id="pQ" data-act="parts-q" placeholder="Search parts" value="${esc(partsUI.q)}"></div></div>
+      <div class="toolbar"><div class="chips">${cats.map(c => `<button class="chip" data-act="parts-cat" data-c="${esc(c)}" aria-pressed="${partsUI.cat === c}">${esc(c)}</button>`).join("")}</div>
+      <div class="tb-right"><label for="pQ" class="sr">Search parts</label><input id="pQ" data-act="parts-q" placeholder="Part number or name" value="${esc(partsUI.q)}"></div></div>
+      <div class="chips" style="margin:-8px 0 14px">${["All", "Motorsports", "Powerhouse"].map(s => `<button class="chip" data-act="parts-series" data-s="${s}" aria-pressed="${partsUI.series === s}">${s === "All" ? "All series" : "Timpte " + s}</button>`).join("")}</div>
+      <p class="rcount" id="pCount" aria-live="polite"></p>
       <div class="plist" id="pList"></div></div>
       <aside class="cart" id="cartBox"></aside></div></section>`;
   },
   mount() { renderParts(); renderCart(); }
 };
 function renderParts() {
-  const own = myOwned()[0]; const q = partsUI.q.toLowerCase();
-  const list = DATA.parts.filter(p => (partsUI.cat === "All" || p.cat === partsUI.cat) && (!q || (p.name + " " + p.kw.join(" ") + " " + p.id).toLowerCase().includes(q)) && (!own || !partsUI.fit || p.fits.includes(own.type)));
-  $("#pList").innerHTML = list.length ? list.map(p => `<div class="part"><em>${p.cat}</em><b>${esc(p.name)}</b><small>Part ${p.id} · fits ${p.fits.map(typeLabel).join(", ")}</small>
-    <div class="pp"><strong>${DEMO ? money(p.price) : `<span class="callp">Call for price</span>`}</strong><button class="btn btn-gold xs" data-act="cart-add" data-id="${p.id}">Add</button></div></div>`).join("") : `<div class="empty" style="grid-column:1/-1"><b>No parts match.</b>Call the counter at ${DATA.business.phone}. We order what we don't stock.</div>`;
+  const own = myOwned()[0]; const q = partsUI.q.toLowerCase().trim();
+  let list = DATA.parts.filter(p => (partsUI.cat === "All" || p.cat === partsUI.cat) && (partsUI.series === "All" || p.series === partsUI.series || p.series === "Both") && (!own || !partsUI.fit || p.fits.includes(own.type)));
+  if (q) list = list.filter(p => (p.id + " " + p.name + " " + (p.fitsSeries || []).join(" ") + " " + p.cat).toLowerCase().includes(q));
+  const shown = list.slice(0, 80);
+  const c = $("#pCount"); if (c) c.textContent = `${list.length} part${list.length === 1 ? "" : "s"}${q ? ` matching “${partsUI.q}”` : ""}${list.length > shown.length ? `, showing the first ${shown.length}. Narrow it down with a search.` : ""}`;
+  $("#pList").innerHTML = shown.length ? shown.map(p => `<div class="part"><em>${esc(p.cat)}${p.fitsSeries ? " · fits " + esc(p.fitsSeries.join(", ")) : ""}</em><b>${esc(p.name)}</b><small>Part ${esc(p.id)} · Timpte ${esc(p.series === "Both" ? "Motorsports and Powerhouse" : p.series)}</small>
+    <div class="pp"><strong>${PARTPRICES && p.price ? money2(p.price) : `<span class="callp">Call for price</span>`}</strong><button class="btn btn-gold xs" data-act="cart-add" data-id="${esc(p.id)}">Request</button></div></div>`).join("")
+    : `<div class="empty" style="grid-column:1/-1"><b>No part matches.</b>Try the part number from your old part or the catalog, or ask ${A}. We order what we don't stock: ${DATA.business.phone}.</div>`;
 }
 function renderCart() {
   const box = $("#cartBox"); if (!box) return;
-  const u = me(); const total = partsTotal(S.cart);
-  box.innerHTML = `<h3>Your order</h3>${S.cart.length ? S.cart.map(([id, q]) => { const p = DATA.parts.find(x => x.id === id);
-    return `<div class="citem"><span>${esc(p.name)}</span><b>${DEMO ? money(p.price * q) : ""}</b><span class="qtyc"><button data-act="cart-qty" data-id="${id}" data-d="-1" aria-label="Fewer">−</button><span>${q}</span><button data-act="cart-qty" data-id="${id}" data-d="1" aria-label="More">+</button></span></div>`; }).join("") +
-    `${DEMO ? `<div class="ctotal"><span>Subtotal</span><span>${money(total)}</span></div>` : ""}
+  const u = me(); const total = PARTPRICES ? partsTotal(S.cart) : 0;
+  box.innerHTML = `<h3>Your parts request</h3>${S.cart.length ? S.cart.map(([id, q]) => { const p = DATA.parts.find(x => x.id === id); if (!p) return "";
+    return `<div class="citem"><span>${esc(p.name)}<br><small class="muted">Part ${esc(p.id)}</small></span><b>${PARTPRICES && p.price ? money2(p.price * q) : ""}</b><span class="qtyc"><button data-act="cart-qty" data-id="${esc(id)}" data-d="-1" aria-label="Fewer">−</button><span>${q}</span><button data-act="cart-qty" data-id="${esc(id)}" data-d="1" aria-label="More">+</button></span></div>`; }).join("") +
+    `${PARTPRICES && total ? `<div class="ctotal"><span>Parts</span><span>${money2(total)}</span></div>` : ""}
     <form data-form="parts-checkout" novalidate style="display:grid;gap:10px">
       <div><label for="pcName">Name</label><input id="pcName" name="name" value="${u && u.role === "customer" ? esc(u.name) : ""}" required></div>
       <div><label for="pcPhone">Phone</label><input id="pcPhone" name="phone" type="tel" value="${u && u.role === "customer" ? esc(u.phone) : ""}" required></div>
-      <button class="btn btn-gold" type="submit">Place order for pickup</button><p class="note" style="margin:0">${DEMO ? "Pay at pickup. Tax added at the counter." : "We confirm the price and pickup day by phone. Pay at pickup."}</p></form>`
-    : `<p class="muted" style="margin:0">Nothing yet. Add parts from the list${myOwned().length ? `, or ask ${A}: “order a tail light kit.”` : "."}</p>`}`;
+      <div><label for="pcUnit">Your trailer (model and serial, if handy)</label><input id="pcUnit" name="unit" placeholder="e.g. 2024 1420 Split Tilt"></div>
+      <button class="btn btn-gold" type="submit">Send the request</button><p class="note" style="margin:0">We confirm the price and the pickup day by phone. Pay at pickup.</p></form>`
+    : `<p class="muted" style="margin:0">Nothing yet. Find a part and hit Request. Parts are ordered through us and picked up in Waxhaw.</p>`}`;
 }
 
 /* ---------- service ---------- */

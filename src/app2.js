@@ -409,8 +409,10 @@ const FORMS = {
   },
   "parts-checkout"(f) {
     if (!need(f, ["name", "phone"])) return;
-    const o = createPartsOrder(S.cart.slice(), f.elements.name.value.trim(), f.elements.phone.value.trim()); S.cart = []; save();
-    renderCart(); toast(`Order ${o.id} placed. We'll text when it's ready for pickup.${DEMO ? ` <a href="/account/?s=a-orders">My Account</a>` : ""}`, 5000);
+    const items = S.cart.slice(); const o = createPartsOrder(items, f.elements.name.value.trim(), f.elements.phone.value.trim());
+    addLead({ name: f.elements.name.value.trim(), phone: f.elements.phone.value.trim(), interest: "Parts: " + items.map(([id, q]) => (q > 1 ? q + " × " : "") + id).join(", ") + (f.elements.unit.value.trim() ? " · " + f.elements.unit.value.trim() : ""), source: "Parts request" });
+    S.cart = []; save();
+    renderCart(); toast(`Request sent. We'll call ${esc(f.elements.phone.value.trim())} to confirm the price and the pickup day.${DEMO ? ` <a href="/account/?s=a-orders">My Account</a>` : ""}`, 6000);
   },
   service(f) {
     if (!need(f, ["name", "phone"])) return;
@@ -542,6 +544,7 @@ document.addEventListener("click", e => {
     case "cart-add": { const c = S.cart.find(x => x[0] === id); if (c) c[1]++; else S.cart.push([id, 1]); save(); renderCart(); toast("Added to your parts order."); break; }
     case "cart-qty": { const c = S.cart.find(x => x[0] === id); if (c) { c[1] += +el.dataset.d; if (c[1] < 1) S.cart = S.cart.filter(x => x[0] !== id); } save(); renderCart(); break; }
     case "parts-cat": partsUI.cat = el.dataset.c; $$("[data-act=parts-cat]").forEach(x => x.setAttribute("aria-pressed", x === el)); renderParts(); break;
+    case "parts-series": partsUI.series = el.dataset.s; $$("[data-act=parts-series]").forEach(x => x.setAttribute("aria-pressed", x === el)); renderParts(); break;
     case "parts-fit": partsUI.fit = el.checked; renderParts(); break;
     case "fin-term": fin.term = +el.dataset.n; $$("[data-act=fin-term]").forEach(x => x.setAttribute("aria-pressed", x === el)); renderCalc(); break;
     case "doc": toast(`Sample: “${esc(el.dataset.n)}” would open as a PDF here.`); break;

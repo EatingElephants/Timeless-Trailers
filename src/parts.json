@@ -5,8 +5,11 @@
   {
    "no": "577-302796",
    "name": "Install Kit 7K Torsion Axle",
-   "fits": null,
+   "fits": [
+    "7K"
+   ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 5,
    "price": 1134.87,
    "callForPrice": false
@@ -14,8 +17,11 @@
   {
    "no": "577-302797",
    "name": "Install Kit 7K (R3) Torsion Axle",
-   "fits": null,
+   "fits": [
+    "7K"
+   ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 5,
    "price": 1628.33,
    "callForPrice": false
@@ -28,6 +34,19 @@
     "10K"
    ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
+   "page": 5,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "182834",
+   "name": "Install Kit 1026 (EZ) Torsion Axle",
+   "fits": [
+    "1026"
+   ],
+   "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 5,
    "price": null,
    "callForPrice": true
@@ -35,8 +54,11 @@
   {
    "no": "577-302520",
    "name": "Install Kit RDSD Tail Light",
-   "fits": null,
+   "fits": [
+    "5K"
+   ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 5,
    "price": 130.11,
    "callForPrice": false
@@ -49,6 +71,7 @@
     "10K"
    ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 5,
    "price": 176.78,
    "callForPrice": false
@@ -56,8 +79,11 @@
   {
    "no": "577-302522",
    "name": "Install Kit CBSD License Plate",
-   "fits": null,
+   "fits": [
+    "5K"
+   ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 5,
    "price": 191.44,
    "callForPrice": false
@@ -65,8 +91,11 @@
   {
    "no": "577-302764",
    "name": "Install Kit CBSD License Plate",
-   "fits": null,
+   "fits": [
+    "7K"
+   ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 5,
    "price": 176.78,
    "callForPrice": false
@@ -79,6 +108,7 @@
     "10K"
    ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 5,
    "price": 139.44,
    "callForPrice": false
@@ -91,6 +121,7 @@
     "10K"
    ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 5,
    "price": 314.03,
    "callForPrice": false
@@ -103,6 +134,7 @@
     "10K"
    ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 5,
    "price": 139.44,
    "callForPrice": false
@@ -115,6 +147,7 @@
     "10K"
    ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 5,
    "price": 314.03,
    "callForPrice": false
@@ -127,6 +160,7 @@
     "10K"
    ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 5,
    "price": 120.15,
    "callForPrice": false
@@ -139,6 +173,7 @@
     "10K"
    ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 5,
    "price": 185.65,
    "callForPrice": false
@@ -152,6 +187,7 @@
     "10K"
    ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 5,
    "price": 2.06,
    "callForPrice": false
@@ -165,8 +201,9 @@
     "10K"
    ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 5,
-   "price": null,
+   "price": 14.28,
    "callForPrice": false
   },
   {
@@ -177,6 +214,7 @@
     "10K"
    ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 5,
    "price": 20.25,
    "callForPrice": false
@@ -189,6 +227,7 @@
     "10K"
    ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 5,
    "price": 3.13,
    "callForPrice": false
@@ -202,8 +241,37 @@
     "10K"
    ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 5,
    "price": 11.07,
+   "callForPrice": false
+  },
+  {
+   "no": "030-51840",
+   "name": "Amber Side Marker Light",
+   "fits": [
+    "5K",
+    "7K",
+    "10K"
+   ],
+   "section": "Torsion Parts",
+   "series": "Motorsports",
+   "page": 6,
+   "price": 5.43,
+   "callForPrice": false
+  },
+  {
+   "no": "030-54116",
+   "name": "Red Side Marker Light",
+   "fits": [
+    "5K",
+    "7K",
+    "10K"
+   ],
+   "section": "Torsion Parts",
+   "series": "Motorsports",
+   "page": 6,
+   "price": 5.43,
    "callForPrice": false
   },
   {
@@ -214,7 +282,8 @@
     "7K",
     "10K"
    ],
-   "section": "Accessories",
+   "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 6,
    "price": 151.96,
    "callForPrice": false
@@ -227,7 +296,8 @@
     "7K",
     "10K"
    ],
-   "section": "Accessories",
+   "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 6,
    "price": 176.3,
    "callForPrice": false
@@ -239,7 +309,8 @@
     "7K",
     "10K"
    ],
-   "section": "Accessories",
+   "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 6,
    "price": 176.03,
    "callForPrice": false
@@ -251,7 +322,8 @@
     "7K",
     "10K"
    ],
-   "section": "Accessories",
+   "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 6,
    "price": 172.81,
    "callForPrice": false
@@ -264,7 +336,8 @@
     "7K",
     "10K"
    ],
-   "section": "Accessories",
+   "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 6,
    "price": 5.68,
    "callForPrice": false
@@ -276,7 +349,8 @@
     "7K",
     "10K"
    ],
-   "section": "Accessories",
+   "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 6,
    "price": 8.04,
    "callForPrice": false
@@ -290,6 +364,7 @@
     "10K"
    ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 7,
    "price": 136.05,
    "callForPrice": false
@@ -297,8 +372,11 @@
   {
    "no": "577-302561",
    "name": "Install Kit Lock Rod Weldment",
-   "fits": null,
+   "fits": [
+    "5K"
+   ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 7,
    "price": 222.34,
    "callForPrice": false
@@ -306,8 +384,11 @@
   {
    "no": "577-302837",
    "name": "Install Kit Lock Rod Weldment",
-   "fits": null,
+   "fits": [
+    "7K"
+   ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 7,
    "price": 250.86,
    "callForPrice": false
@@ -315,23 +396,27 @@
   {
    "no": "577-302912",
    "name": "Install Kit Lock Rod Weldment",
-   "fits": null,
+   "fits": [
+    "10K"
+   ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 7,
    "price": 246.47,
    "callForPrice": false
   },
   {
    "no": "577-302553",
-   "name": "Install Kit Lock Handle LOCK HANDLE ASSEMBLY PART NO.",
+   "name": "Install Kit Lock Handle",
    "fits": [
     "5K",
     "7K",
     "10K"
    ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 7,
-   "price": null,
+   "price": 71.2,
    "callForPrice": false
   },
   {
@@ -343,6 +428,7 @@
     "10K"
    ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 7,
    "price": 41.75,
    "callForPrice": false
@@ -350,8 +436,11 @@
   {
    "no": "577-302792",
    "name": "Install Kit Front CBSD Fender",
-   "fits": null,
+   "fits": [
+    "7K"
+   ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 7,
    "price": 365.46,
    "callForPrice": false
@@ -359,10 +448,37 @@
   {
    "no": "577-302793",
    "name": "Install Kit Front RDSD Fender",
-   "fits": null,
+   "fits": [
+    "7K"
+   ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 7,
    "price": 365.46,
+   "callForPrice": false
+  },
+  {
+   "no": "152924",
+   "name": "Install Kit Gun Metal Gray Front CBSD Fender",
+   "fits": [
+    "7K"
+   ],
+   "section": "Torsion Parts",
+   "series": "Motorsports",
+   "page": 7,
+   "price": 487.45,
+   "callForPrice": false
+  },
+  {
+   "no": "152926",
+   "name": "Install Kit Gun Metal Gray Front RDSD Fender",
+   "fits": [
+    "7K"
+   ],
+   "section": "Torsion Parts",
+   "series": "Motorsports",
+   "page": 7,
+   "price": 487.45,
    "callForPrice": false
   },
   {
@@ -373,6 +489,7 @@
     "10K"
    ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 7,
    "price": 355.75,
    "callForPrice": false
@@ -385,33 +502,117 @@
     "10K"
    ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 7,
    "price": 355.75,
    "callForPrice": false
   },
   {
+   "no": "152931",
+   "name": "Install Kit Gun Metal Gray Front CBSD Fender",
+   "fits": [
+    "5K",
+    "10K"
+   ],
+   "section": "Torsion Parts",
+   "series": "Motorsports",
+   "page": 7,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "152933",
+   "name": "Install Kit Gun Metal Gray Front RDSD Fender",
+   "fits": [
+    "5K",
+    "10K"
+   ],
+   "section": "Torsion Parts",
+   "series": "Motorsports",
+   "page": 7,
+   "price": null,
+   "callForPrice": true
+  },
+  {
    "no": "577-302794",
    "name": "Install Kit Rear Fender",
-   "fits": null,
+   "fits": [
+    "7K"
+   ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 7,
    "price": 298.57,
    "callForPrice": false
   },
   {
+   "no": "152928",
+   "name": "Install Kit Gun Metal Gray Rear Fender",
+   "fits": [
+    "7K"
+   ],
+   "section": "Torsion Parts",
+   "series": "Motorsports",
+   "page": 7,
+   "price": 468.08,
+   "callForPrice": false
+  },
+  {
    "no": "577-302904",
    "name": "Install Kit Rear Fender",
-   "fits": null,
+   "fits": [
+    "10K"
+   ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 7,
    "price": 282.49,
    "callForPrice": false
   },
   {
+   "no": "152935",
+   "name": "Install Kit Gun Metal Gray Rear Fender",
+   "fits": [
+    "10K"
+   ],
+   "section": "Torsion Parts",
+   "series": "Motorsports",
+   "page": 7,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "150993",
+   "name": "Bearings & Seal Service Kit",
+   "fits": [
+    "7K"
+   ],
+   "section": "Torsion Parts",
+   "series": "Motorsports",
+   "page": 8,
+   "price": 54.63,
+   "callForPrice": false
+  },
+  {
+   "no": "150994",
+   "name": "Bearings & Seal Service Kit",
+   "fits": [
+    "10K"
+   ],
+   "section": "Torsion Parts",
+   "series": "Motorsports",
+   "page": 8,
+   "price": 98.0,
+   "callForPrice": false
+  },
+  {
    "no": "577-302800",
    "name": "Install Kit 7K",
-   "fits": null,
+   "fits": [
+    "7K"
+   ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 8,
    "price": 53.1,
    "callForPrice": false
@@ -424,6 +625,7 @@
     "10K"
    ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 8,
    "price": 109.96,
    "callForPrice": false
@@ -431,8 +633,11 @@
   {
    "no": "035-300301",
    "name": "Chrome Cap for 14\" Tire",
-   "fits": null,
+   "fits": [
+    "7K"
+   ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 8,
    "price": 8.95,
    "callForPrice": false
@@ -445,6 +650,7 @@
     "10K"
    ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 8,
    "price": 9.42,
    "callForPrice": false
@@ -458,6 +664,7 @@
     "10K"
    ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 8,
    "price": 3.63,
    "callForPrice": false
@@ -471,6 +678,7 @@
     "10K"
    ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 8,
    "price": 4.91,
    "callForPrice": false
@@ -484,6 +692,7 @@
     "10K"
    ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 8,
    "price": 3.43,
    "callForPrice": false
@@ -497,17 +706,212 @@
     "10K"
    ],
    "section": "Torsion Parts",
+   "series": "Motorsports",
    "page": 8,
    "price": 234.83,
    "callForPrice": false
   },
   {
-   "no": "031-300035",
-   "name": "3K, 7K, 10K",
-   "fits": null,
+   "no": "150151",
+   "name": "Taskmaster Cap Covers 14\"",
+   "fits": [
+    "7K"
+   ],
+   "section": "Torsion Parts",
+   "series": "Motorsports",
+   "page": 8,
+   "price": 11.2,
+   "callForPrice": false
+  },
+  {
+   "no": "150152",
+   "name": "Taskmaster Cap Covers 15\"",
+   "fits": [
+    "10K"
+   ],
+   "section": "Torsion Parts",
+   "series": "Motorsports",
+   "page": 8,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "152764",
+   "name": "Axle Torsion 7K",
+   "fits": [
+    "7K"
+   ],
    "section": "Ramped Parts",
+   "series": "Motorsports",
+   "page": 9,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "158598",
+   "name": "Axle Torsion 10K",
+   "fits": [
+    "10K"
+   ],
+   "section": "Ramped Parts",
+   "series": "Motorsports",
+   "page": 9,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "152766",
+   "name": "7K Fender",
+   "fits": [
+    "7K"
+   ],
+   "section": "Ramped Parts",
+   "series": "Motorsports",
+   "page": 9,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "154855",
+   "name": "10K Fender",
+   "fits": [
+    "10K"
+   ],
+   "section": "Ramped Parts",
+   "series": "Motorsports",
+   "page": 9,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "158930",
+   "name": "Ramp",
+   "fits": [
+    "7K",
+    "10K"
+   ],
+   "section": "Ramped Parts",
+   "series": "Motorsports",
+   "page": 9,
+   "price": 517.08,
+   "callForPrice": false
+  },
+  {
+   "no": "151020",
+   "name": "Ramp Pin",
+   "fits": [
+    "7K",
+    "10K"
+   ],
+   "section": "Ramped Parts",
+   "series": "Motorsports",
+   "page": 9,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "153317",
+   "name": "Recessed D-Ring 6,000 lb.",
+   "fits": [
+    "7K",
+    "10K"
+   ],
+   "section": "Ramped Parts",
+   "series": "Motorsports",
+   "page": 9,
+   "price": 43.74,
+   "callForPrice": false
+  },
+  {
+   "no": "153321",
+   "name": "Rubber Bumper",
+   "fits": [
+    "7K",
+    "10K"
+   ],
+   "section": "Ramped Parts",
+   "series": "Motorsports",
+   "page": 9,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "150167",
+   "name": "Stabilizer Jack AY RT",
+   "fits": [
+    "7K",
+    "10K"
+   ],
+   "section": "Ramped Parts",
+   "series": "Motorsports",
+   "page": 10,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "031-300035",
+   "name": "License Harness",
+   "fits": [
+    "3K",
+    "7K",
+    "10K"
+   ],
+   "section": "Ramped Parts",
+   "series": "Motorsports",
    "page": 10,
    "price": 25.67,
+   "callForPrice": false
+  },
+  {
+   "no": "151842",
+   "name": "Harness Main CBSD",
+   "fits": [
+    "7K",
+    "10K"
+   ],
+   "section": "Ramped Parts",
+   "series": "Motorsports",
+   "page": 10,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "151843",
+   "name": "Harness Main RDSD",
+   "fits": [
+    "7K",
+    "10K"
+   ],
+   "section": "Ramped Parts",
+   "series": "Motorsports",
+   "page": 10,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "152441",
+   "name": "Junction Box AY",
+   "fits": [
+    "7K",
+    "10K"
+   ],
+   "section": "Ramped Parts",
+   "series": "Motorsports",
+   "page": 10,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "150142",
+   "name": "Lug Nuts",
+   "fits": [
+    "7K",
+    "10K"
+   ],
+   "section": "Ramped Parts",
+   "series": "Motorsports",
+   "page": 10,
+   "price": 0.56,
    "callForPrice": false
   },
   {
@@ -518,6 +922,7 @@
     "10K"
    ],
    "section": "Ramped Parts",
+   "series": "Motorsports",
    "page": 10,
    "price": null,
    "callForPrice": true
@@ -531,6 +936,7 @@
     "10K"
    ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 11,
    "price": 77.71,
    "callForPrice": false
@@ -544,8 +950,21 @@
     "10K"
    ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 11,
    "price": 77.71,
+   "callForPrice": false
+  },
+  {
+   "no": "187437",
+   "name": "Rear Cable",
+   "fits": [
+    "3K"
+   ],
+   "section": "Leaf Spring Parts",
+   "series": "Motorsports",
+   "page": 11,
+   "price": null,
    "callForPrice": false
   },
   {
@@ -557,6 +976,7 @@
     "10K"
    ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 11,
    "price": 72.74,
    "callForPrice": false
@@ -569,6 +989,7 @@
     "10K"
    ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 11,
    "price": 91.51,
    "callForPrice": false
@@ -581,6 +1002,7 @@
     "10K"
    ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 11,
    "price": 105.6,
    "callForPrice": false
@@ -594,6 +1016,7 @@
     "10K"
    ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 11,
    "price": 178.09,
    "callForPrice": false
@@ -607,6 +1030,7 @@
     "10K"
    ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 11,
    "price": 210.97,
    "callForPrice": false
@@ -620,6 +1044,7 @@
     "10K"
    ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 11,
    "price": 30.16,
    "callForPrice": false
@@ -633,6 +1058,7 @@
     "10K"
    ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 11,
    "price": 30.16,
    "callForPrice": false
@@ -645,6 +1071,7 @@
     "7K"
    ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 11,
    "price": 17.24,
    "callForPrice": false
@@ -657,6 +1084,7 @@
     "7K"
    ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 11,
    "price": 17.24,
    "callForPrice": false
@@ -670,6 +1098,7 @@
     "10K"
    ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 11,
    "price": 88.74,
    "callForPrice": false
@@ -682,6 +1111,7 @@
     "7K"
    ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 12,
    "price": 249.99,
    "callForPrice": false
@@ -689,8 +1119,11 @@
   {
    "no": "577-302937",
    "name": "Lower Swing Arm Spindle CBSD",
-   "fits": null,
+   "fits": [
+    "10K"
+   ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 12,
    "price": 359.88,
    "callForPrice": false
@@ -698,8 +1131,11 @@
   {
    "no": "577-302938",
    "name": "Lower Swing Arm Spindle RDSD",
-   "fits": null,
+   "fits": [
+    "10K"
+   ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 12,
    "price": 389.21,
    "callForPrice": false
@@ -712,6 +1148,7 @@
     "7K"
    ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 12,
    "price": 679.53,
    "callForPrice": false
@@ -724,6 +1161,7 @@
     "7K"
    ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 12,
    "price": 679.53,
    "callForPrice": false
@@ -731,8 +1169,11 @@
   {
    "no": "577-302924",
    "name": "CBSD Swing Arm",
-   "fits": null,
+   "fits": [
+    "10K"
+   ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 12,
    "price": null,
    "callForPrice": true
@@ -740,8 +1181,11 @@
   {
    "no": "577-302925",
    "name": "RDSD Swing Arm",
-   "fits": null,
+   "fits": [
+    "10K"
+   ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 12,
    "price": null,
    "callForPrice": true
@@ -754,6 +1198,7 @@
     "7K"
    ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 12,
    "price": 101.54,
    "callForPrice": false
@@ -761,17 +1206,25 @@
   {
    "no": "577-302927",
    "name": "2,500 lb. Leaf Spring",
-   "fits": null,
+   "fits": [
+    "10K"
+   ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 12,
    "price": 125.04,
    "callForPrice": false
   },
   {
    "no": "577-302684",
-   "name": "3K, 7K, 10K",
-   "fits": null,
+   "name": "Spring Shackle",
+   "fits": [
+    "3K",
+    "7K",
+    "10K"
+   ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 12,
    "price": 24.91,
    "callForPrice": false
@@ -785,15 +1238,31 @@
     "10K"
    ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 12,
    "price": 46.61,
    "callForPrice": false
   },
   {
+   "no": "577-302930",
+   "name": "Wheel Hub",
+   "fits": [
+    "10K"
+   ],
+   "section": "Leaf Spring Parts",
+   "series": "Motorsports",
+   "page": 12,
+   "price": 113.33,
+   "callForPrice": false
+  },
+  {
    "no": "577-302940",
    "name": "Brake Backer Plate LH",
-   "fits": null,
+   "fits": [
+    "10K"
+   ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 13,
    "price": 230.92,
    "callForPrice": false
@@ -801,8 +1270,11 @@
   {
    "no": "577-302941",
    "name": "Brake Backer Plate RH",
-   "fits": null,
+   "fits": [
+    "10K"
+   ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 13,
    "price": 230.92,
    "callForPrice": false
@@ -810,8 +1282,11 @@
   {
    "no": "577-302866",
    "name": "CBSD Fender Kit",
-   "fits": null,
+   "fits": [
+    "10K"
+   ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 13,
    "price": 247.76,
    "callForPrice": false
@@ -819,8 +1294,11 @@
   {
    "no": "577-302867",
    "name": "RDSD Fender Kit",
-   "fits": null,
+   "fits": [
+    "10K"
+   ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 13,
    "price": 247.76,
    "callForPrice": false
@@ -833,6 +1311,7 @@
     "7K"
    ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 13,
    "price": 178.41,
    "callForPrice": false
@@ -845,6 +1324,7 @@
     "7K"
    ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 13,
    "price": 193.42,
    "callForPrice": false
@@ -857,6 +1337,7 @@
     "7K"
    ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 13,
    "price": 193.42,
    "callForPrice": false
@@ -864,8 +1345,11 @@
   {
    "no": "577-302869",
    "name": "CBSD Rear Fender",
-   "fits": null,
+   "fits": [
+    "10K"
+   ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 13,
    "price": 225.28,
    "callForPrice": false
@@ -873,8 +1357,11 @@
   {
    "no": "577-302870",
    "name": "RDSD Rear Fender",
-   "fits": null,
+   "fits": [
+    "10K"
+   ],
    "section": "Leaf Spring Parts",
+   "series": "Motorsports",
    "page": 13,
    "price": 225.28,
    "callForPrice": false
@@ -889,6 +1376,7 @@
     "10K"
    ],
    "section": "Toolbox Area",
+   "series": "Motorsports",
    "page": 14,
    "price": 147.95,
    "callForPrice": false
@@ -902,6 +1390,7 @@
     "10K"
    ],
    "section": "Toolbox Area",
+   "series": "Motorsports",
    "page": 14,
    "price": 37.65,
    "callForPrice": false
@@ -916,6 +1405,7 @@
     "10K"
    ],
    "section": "Toolbox Area",
+   "series": "Motorsports",
    "page": 14,
    "price": 43.83,
    "callForPrice": false
@@ -930,6 +1420,7 @@
     "10K"
    ],
    "section": "Toolbox Area",
+   "series": "Motorsports",
    "page": 14,
    "price": 51.45,
    "callForPrice": false
@@ -944,6 +1435,7 @@
     "10K"
    ],
    "section": "Toolbox Area",
+   "series": "Motorsports",
    "page": 14,
    "price": 47.27,
    "callForPrice": false
@@ -958,6 +1450,7 @@
     "10K"
    ],
    "section": "Toolbox Area",
+   "series": "Motorsports",
    "page": 14,
    "price": 36.75,
    "callForPrice": false
@@ -972,6 +1465,7 @@
     "10K"
    ],
    "section": "Toolbox Area",
+   "series": "Motorsports",
    "page": 15,
    "price": 9.45,
    "callForPrice": false
@@ -985,6 +1479,7 @@
     "10K"
    ],
    "section": "Toolbox Area",
+   "series": "Motorsports",
    "page": 15,
    "price": 51.56,
    "callForPrice": false
@@ -999,15 +1494,31 @@
     "10K"
    ],
    "section": "Toolbox Area",
+   "series": "Motorsports",
    "page": 15,
    "price": 106.81,
    "callForPrice": false
+  },
+  {
+   "no": "103373",
+   "name": "Pilot Valve on Pump Assembly",
+   "fits": [
+    "5K",
+    "7K",
+    "10K"
+   ],
+   "section": "Toolbox Area",
+   "series": "Motorsports",
+   "page": 15,
+   "price": null,
+   "callForPrice": true
   },
   {
    "no": "035-302919",
    "name": "512 Trailer Model Decal",
    "fits": null,
    "section": "Trailer Decals",
+   "series": "Motorsports",
    "page": 16,
    "price": 20.66,
    "callForPrice": false
@@ -1017,33 +1528,73 @@
    "name": "514 Trailer Model Decal",
    "fits": null,
    "section": "Trailer Decals",
+   "series": "Motorsports",
    "page": 16,
    "price": 20.66,
    "callForPrice": false
+  },
+  {
+   "no": "151801",
+   "name": "718 Trailer Model Decal",
+   "fits": null,
+   "section": "Trailer Decals",
+   "series": "Motorsports",
+   "page": 16,
+   "price": null,
+   "callForPrice": true
   },
   {
    "no": "035-302915",
    "name": "720 Trailer Model Decal",
    "fits": null,
    "section": "Trailer Decals",
+   "series": "Motorsports",
    "page": 16,
    "price": 20.66,
+   "callForPrice": false
+  },
+  {
+   "no": "151802",
+   "name": "Trailer Model Decal",
+   "fits": [
+    "1018"
+   ],
+   "section": "Trailer Decals",
+   "series": "Motorsports",
+   "page": 16,
+   "price": 23.22,
    "callForPrice": false
   },
   {
    "no": "035-302914",
    "name": "Trailer Model Decal",
-   "fits": null,
+   "fits": [
+    "1020"
+   ],
    "section": "Trailer Decals",
+   "series": "Motorsports",
    "page": 16,
    "price": 20.66,
    "callForPrice": false
   },
   {
+   "no": "153123",
+   "name": "Trailer Model Decal",
+   "fits": [
+    "1026"
+   ],
+   "section": "Trailer Decals",
+   "series": "Motorsports",
+   "page": 16,
+   "price": null,
+   "callForPrice": true
+  },
+  {
    "no": "035-300260",
-   "name": "Pinch Point Decal",
+   "name": "All Pinch Point Decal",
    "fits": null,
    "section": "Trailer Decals",
+   "series": "Motorsports",
    "page": 16,
    "price": 1.49,
    "callForPrice": false
@@ -1053,6 +1604,7 @@
    "name": "512 Install Kit Hydraulic Cylinder Maxxim",
    "fits": null,
    "section": "Hydraulics",
+   "series": "Motorsports",
    "page": 17,
    "price": 379.51,
    "callForPrice": false
@@ -1062,6 +1614,7 @@
    "name": "514 Install Kit Hydraulic Cylinder Maxxim",
    "fits": null,
    "section": "Hydraulics",
+   "series": "Motorsports",
    "page": 17,
    "price": 379.51,
    "callForPrice": false
@@ -1071,6 +1624,7 @@
    "name": "512 Install Kit Hydraulic Cylinder Wolverine",
    "fits": null,
    "section": "Hydraulics",
+   "series": "Motorsports",
    "page": 17,
    "price": 362.75,
    "callForPrice": false
@@ -1080,6 +1634,7 @@
    "name": "514 Install Kit Hydraulic Cylinder Wolverine",
    "fits": null,
    "section": "Hydraulics",
+   "series": "Motorsports",
    "page": 17,
    "price": 362.64,
    "callForPrice": false
@@ -1087,8 +1642,11 @@
   {
    "no": "577-303013",
    "name": "Kit Front Hydraulic Cylinder 7KR3",
-   "fits": null,
+   "fits": [
+    "7K"
+   ],
    "section": "Hydraulics",
+   "series": "Motorsports",
    "page": 17,
    "price": 267.99,
    "callForPrice": false
@@ -1096,8 +1654,11 @@
   {
    "no": "577-303011",
    "name": "Kit Rear Hydraulic Cylinder 7KR3",
-   "fits": null,
+   "fits": [
+    "7K"
+   ],
    "section": "Hydraulics",
+   "series": "Motorsports",
    "page": 17,
    "price": 267.99,
    "callForPrice": false
@@ -1105,8 +1666,11 @@
   {
    "no": "577-302771",
    "name": "Install Kit Front Hydraulic Cylinder",
-   "fits": null,
+   "fits": [
+    "7K"
+   ],
    "section": "Hydraulics",
+   "series": "Motorsports",
    "page": 17,
    "price": 263.61,
    "callForPrice": false
@@ -1114,8 +1678,11 @@
   {
    "no": "577-302772",
    "name": "Install Kit Rear Hydraulic Cylinder",
-   "fits": null,
+   "fits": [
+    "7K"
+   ],
    "section": "Hydraulics",
+   "series": "Motorsports",
    "page": 17,
    "price": 263.56,
    "callForPrice": false
@@ -1123,8 +1690,11 @@
   {
    "no": "577-302769",
    "name": "Front Hydraulic Cylinder Kit 720A",
-   "fits": null,
+   "fits": [
+    "7K"
+   ],
    "section": "Hydraulics",
+   "series": "Motorsports",
    "page": 17,
    "price": 263.45,
    "callForPrice": false
@@ -1132,8 +1702,11 @@
   {
    "no": "577-302770",
    "name": "Rear Hydraulic Cylinder Kit 720A",
-   "fits": null,
+   "fits": [
+    "7K"
+   ],
    "section": "Hydraulics",
+   "series": "Motorsports",
    "page": 17,
    "price": 239.26,
    "callForPrice": false
@@ -1141,8 +1714,11 @@
   {
    "no": "577-302916",
    "name": "Front Hydraulic Cylinder Install Kit",
-   "fits": null,
+   "fits": [
+    "10K"
+   ],
    "section": "Hydraulics",
+   "series": "Motorsports",
    "page": 17,
    "price": 373.67,
    "callForPrice": false
@@ -1150,11 +1726,38 @@
   {
    "no": "577-302918",
    "name": "Rear Hydraulic Cylinder Install Kit",
-   "fits": null,
+   "fits": [
+    "10K"
+   ],
    "section": "Hydraulics",
+   "series": "Motorsports",
    "page": 17,
    "price": 374.16,
    "callForPrice": false
+  },
+  {
+   "no": "182833",
+   "name": "Hydraulic Locking Cylinder Kit",
+   "fits": [
+    "1026"
+   ],
+   "section": "Hydraulics",
+   "series": "Motorsports",
+   "page": 17,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "182895",
+   "name": "Hydraulic Locking Cylinder with Stop Kit",
+   "fits": [
+    "1026"
+   ],
+   "section": "Hydraulics",
+   "series": "Motorsports",
+   "page": 17,
+   "price": null,
+   "callForPrice": true
   },
   {
    "no": "577-302527",
@@ -1165,6 +1768,7 @@
     "10K"
    ],
    "section": "Hydraulics",
+   "series": "Motorsports",
    "page": 18,
    "price": 36.06,
    "callForPrice": false
@@ -1178,15 +1782,31 @@
     "10K"
    ],
    "section": "Hydraulics",
+   "series": "Motorsports",
    "page": 18,
    "price": 36.03,
    "callForPrice": false
   },
   {
+   "no": "182832",
+   "name": "38\" Hydraulic Hose Service Kit",
+   "fits": [
+    "1026"
+   ],
+   "section": "Hydraulics",
+   "series": "Motorsports",
+   "page": 18,
+   "price": null,
+   "callForPrice": true
+  },
+  {
    "no": "577-302528",
    "name": "78\" Hydraulic Hose Service Kit",
-   "fits": null,
+   "fits": [
+    "5K"
+   ],
    "section": "Hydraulics",
+   "series": "Motorsports",
    "page": 18,
    "price": 47.27,
    "callForPrice": false
@@ -1194,8 +1814,11 @@
   {
    "no": "577-302529",
    "name": "84\" Hydraulic Hose Service Kit",
-   "fits": null,
+   "fits": [
+    "5K"
+   ],
    "section": "Hydraulics",
+   "series": "Motorsports",
    "page": 18,
    "price": 47.84,
    "callForPrice": false
@@ -1203,8 +1826,11 @@
   {
    "no": "577-302531",
    "name": "90\" Hydraulic Hose Service Kit",
-   "fits": null,
+   "fits": [
+    "5K"
+   ],
    "section": "Hydraulics",
+   "series": "Motorsports",
    "page": 18,
    "price": 48.01,
    "callForPrice": false
@@ -1212,8 +1838,11 @@
   {
    "no": "577-302530",
    "name": "98\" Hydraulic Hose Service Kit",
-   "fits": null,
+   "fits": [
+    "5K"
+   ],
    "section": "Hydraulics",
+   "series": "Motorsports",
    "page": 18,
    "price": 48.14,
    "callForPrice": false
@@ -1226,6 +1855,7 @@
     "10K"
    ],
    "section": "Hydraulics",
+   "series": "Motorsports",
    "page": 18,
    "price": 51.17,
    "callForPrice": false
@@ -1238,15 +1868,43 @@
     "10K"
    ],
    "section": "Hydraulics",
+   "series": "Motorsports",
    "page": 18,
    "price": 52.34,
    "callForPrice": false
   },
   {
+   "no": "182831",
+   "name": "172\" Hydraulic Hose Service Kit",
+   "fits": [
+    "1026"
+   ],
+   "section": "Hydraulics",
+   "series": "Motorsports",
+   "page": 18,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "182830",
+   "name": "176\" Hydraulic Hose Service Kit",
+   "fits": [
+    "1026"
+   ],
+   "section": "Hydraulics",
+   "series": "Motorsports",
+   "page": 18,
+   "price": null,
+   "callForPrice": true
+  },
+  {
    "no": "035-301256",
    "name": "Axle Torsion 14K 1,4730",
-   "fits": null,
+   "fits": [
+    "14K"
+   ],
    "section": "Split Tilt Parts",
+   "series": "Powerhouse",
    "page": 20,
    "price": null,
    "callForPrice": false
@@ -1254,8 +1912,11 @@
   {
    "no": "020-302514",
    "name": "Axle Torsion 16K",
-   "fits": null,
+   "fits": [
+    "16K"
+   ],
    "section": "Split Tilt Parts",
+   "series": "Powerhouse",
    "page": 20,
    "price": 1720.39,
    "callForPrice": false
@@ -1268,6 +1929,7 @@
     "16K"
    ],
    "section": "Split Tilt Parts",
+   "series": "Powerhouse",
    "page": 20,
    "price": 163.81,
    "callForPrice": false
@@ -1280,6 +1942,7 @@
     "16K"
    ],
    "section": "Split Tilt Parts",
+   "series": "Powerhouse",
    "page": 20,
    "price": 157.01,
    "callForPrice": false
@@ -1292,6 +1955,7 @@
     "16K"
    ],
    "section": "Split Tilt Parts",
+   "series": "Powerhouse",
    "page": 20,
    "price": 567.29,
    "callForPrice": false
@@ -1304,8 +1968,35 @@
     "16K"
    ],
    "section": "Split Tilt Parts",
+   "series": "Powerhouse",
    "page": 20,
    "price": 567.29,
+   "callForPrice": false
+  },
+  {
+   "no": "150239",
+   "name": "CBSD Low Prole Fender",
+   "fits": [
+    "14K",
+    "16K"
+   ],
+   "section": "Split Tilt Parts",
+   "series": "Powerhouse",
+   "page": 20,
+   "price": 392.58,
+   "callForPrice": false
+  },
+  {
+   "no": "150240",
+   "name": "RDSD Low Prole Fender",
+   "fits": [
+    "14K",
+    "16K"
+   ],
+   "section": "Split Tilt Parts",
+   "series": "Powerhouse",
+   "page": 20,
+   "price": 392.58,
    "callForPrice": false
   },
   {
@@ -1316,6 +2007,7 @@
     "16K"
    ],
    "section": "Split Tilt Parts",
+   "series": "Powerhouse",
    "page": 21,
    "price": 174.27,
    "callForPrice": false
@@ -1328,6 +2020,7 @@
     "16K"
    ],
    "section": "Split Tilt Parts",
+   "series": "Powerhouse",
    "page": 21,
    "price": 261.83,
    "callForPrice": false
@@ -1340,6 +2033,7 @@
     "16K"
    ],
    "section": "Split Tilt Parts",
+   "series": "Powerhouse",
    "page": 21,
    "price": null,
    "callForPrice": true
@@ -1352,36 +2046,44 @@
     "16K"
    ],
    "section": "Split Tilt Parts",
+   "series": "Powerhouse",
    "page": 21,
    "price": 698.85,
    "callForPrice": false
   },
   {
    "no": "577-302499",
-   "name": "Install Kit Rub Rail - 38",
-   "fits": null,
+   "name": "Install Kit Rub Rail - 38 / \"",
+   "fits": [
+    "14K"
+   ],
    "section": "Split Tilt Parts",
+   "series": "Powerhouse",
    "page": 21,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "577-302501",
-   "name": "Install Kit Rub Rail - 46",
-   "fits": null,
+   "name": "Install Kit Rub Rail - 46 / \"",
+   "fits": [
+    "14K"
+   ],
    "section": "Split Tilt Parts",
+   "series": "Powerhouse",
    "page": 21,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "577-302502",
-   "name": "Install Kit Rub Rail - 51",
+   "name": "Install Kit Rub Rail - 51 / \"",
    "fits": [
     "14K",
     "16K"
    ],
    "section": "Split Tilt Parts",
+   "series": "Powerhouse",
    "page": 21,
    "price": null,
    "callForPrice": true
@@ -1394,6 +2096,7 @@
     "16K"
    ],
    "section": "Split Tilt Parts",
+   "series": "Powerhouse",
    "page": 21,
    "price": 119.56,
    "callForPrice": false
@@ -1406,15 +2109,20 @@
     "16K"
    ],
    "section": "Split Tilt Parts",
+   "series": "Powerhouse",
    "page": 21,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "034-301333",
-   "name": "14K, 16K",
-   "fits": null,
+   "name": "Black Endcap",
+   "fits": [
+    "14K",
+    "16K"
+   ],
    "section": "Split Tilt Parts",
+   "series": "Powerhouse",
    "page": 22,
    "price": 4.6,
    "callForPrice": false
@@ -1427,6 +2135,7 @@
     "16K"
    ],
    "section": "Split Tilt Parts",
+   "series": "Powerhouse",
    "page": 22,
    "price": null,
    "callForPrice": true
@@ -1439,6 +2148,7 @@
     "16K"
    ],
    "section": "Split Tilt Parts",
+   "series": "Powerhouse",
    "page": 22,
    "price": null,
    "callForPrice": true
@@ -1451,6 +2161,7 @@
     "16K"
    ],
    "section": "Split Tilt Parts",
+   "series": "Powerhouse",
    "page": 22,
    "price": null,
    "callForPrice": true
@@ -1463,6 +2174,7 @@
     "16K"
    ],
    "section": "Split Tilt Parts",
+   "series": "Powerhouse",
    "page": 22,
    "price": null,
    "callForPrice": true
@@ -1475,7 +2187,8 @@
     "16K"
    ],
    "section": "Split Tilt Parts",
-   "page": 24,
+   "series": "Powerhouse",
+   "page": 23,
    "price": 43.25,
    "callForPrice": false
   },
@@ -1487,7 +2200,8 @@
     "16K"
    ],
    "section": "Split Tilt Parts",
-   "page": 24,
+   "series": "Powerhouse",
+   "page": 23,
    "price": null,
    "callForPrice": true
   },
@@ -1499,7 +2213,8 @@
     "16K"
    ],
    "section": "Split Tilt Parts",
-   "page": 24,
+   "series": "Powerhouse",
+   "page": 23,
    "price": 136.72,
    "callForPrice": false
   },
@@ -1511,7 +2226,8 @@
     "16K"
    ],
    "section": "Split Tilt Parts",
-   "page": 24,
+   "series": "Powerhouse",
+   "page": 23,
    "price": null,
    "callForPrice": true
   },
@@ -1523,52 +2239,68 @@
     "16K"
    ],
    "section": "Split Tilt Parts",
-   "page": 24,
+   "series": "Powerhouse",
+   "page": 23,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "577-302894",
    "name": "Weldment Deck base Dual Cylinder",
-   "fits": null,
+   "fits": [
+    "16K"
+   ],
    "section": "Split Tilt Parts",
-   "page": 24,
+   "series": "Powerhouse",
+   "page": 23,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "577-303106",
    "name": "Install Kit Tube Pivot AY",
-   "fits": null,
+   "fits": [
+    "14K"
+   ],
    "section": "Split Tilt Parts",
-   "page": 24,
+   "series": "Powerhouse",
+   "page": 23,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "577-302896",
    "name": "Install Kit Tube Pivot AY",
-   "fits": null,
+   "fits": [
+    "16K"
+   ],
    "section": "Split Tilt Parts",
-   "page": 24,
+   "series": "Powerhouse",
+   "page": 23,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "029-302860",
    "name": "Adapter Plug 6 MNPT 5406-6",
-   "fits": null,
+   "fits": [
+    "16K"
+   ],
    "section": "Split Tilt Parts",
-   "page": 25,
+   "series": "Powerhouse",
+   "page": 24,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "029-301430",
    "name": "Valve Check Orice",
-   "fits": null,
+   "fits": [
+    "16K"
+   ],
    "section": "Split Tilt Parts",
-   "page": 25,
+   "series": "Powerhouse",
+   "page": 24,
    "price": 97.35,
    "callForPrice": false
   },
@@ -1580,117 +2312,176 @@
     "16K"
    ],
    "section": "Split Tilt Parts",
-   "page": 25,
+   "series": "Powerhouse",
+   "page": 24,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "029-302865",
    "name": "SAE8-6MNPT HEX (Straight)",
-   "fits": null,
+   "fits": [
+    "16K"
+   ],
    "section": "Split Tilt Parts",
-   "page": 25,
+   "series": "Powerhouse",
+   "page": 24,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "029-302880",
    "name": "6JIC-8ORING (Tee)",
-   "fits": null,
+   "fits": [
+    "16K"
+   ],
    "section": "Split Tilt Parts",
-   "page": 25,
+   "series": "Powerhouse",
+   "page": 24,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "577-302985",
    "name": "Tube Suspension Spacer",
-   "fits": null,
+   "fits": [
+    "14K"
+   ],
    "section": "Split Tilt Parts",
-   "page": 25,
+   "series": "Powerhouse",
+   "page": 24,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "577-303104",
    "name": "Tube Suspension Spacer",
-   "fits": null,
+   "fits": [
+    "16K"
+   ],
    "section": "Split Tilt Parts",
-   "page": 25,
+   "series": "Powerhouse",
+   "page": 24,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "032-300320",
-   "name": "Nut Lug",
-   "fits": null,
+   "name": "Nut Lug - /\"",
+   "fits": [
+    "14K"
+   ],
    "section": "Split Tilt Parts",
-   "page": 25,
-   "price": null,
+   "series": "Powerhouse",
+   "page": 24,
+   "price": 2.29,
    "callForPrice": false
   },
   {
    "no": "032-302778",
-   "name": "Nut Lug",
-   "fits": null,
+   "name": "Nut Lug - /\"",
+   "fits": [
+    "16K"
+   ],
    "section": "Split Tilt Parts",
+   "series": "Powerhouse",
+   "page": 24,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "150995",
+   "name": "Bearings & Seal Service Kit",
+   "fits": [
+    "14K"
+   ],
+   "section": "Split Tilt Parts",
+   "series": "Powerhouse",
+   "page": 25,
+   "price": 89.28,
+   "callForPrice": false
+  },
+  {
+   "no": "577-302892",
+   "name": "Install Kit Cylinder Mount Reinforcement",
+   "fits": [
+    "16K"
+   ],
+   "section": "Split Tilt Parts",
+   "series": "Powerhouse",
    "page": 25,
    "price": null,
    "callForPrice": true
   },
   {
-   "no": "577-302892",
-   "name": "Install Kit Cylinder Mount Reinforcement Call for CYLINDER MOUNT REINFORCEMENT PLATE & LOCK PART NO.",
-   "fits": null,
-   "section": "Split Tilt Parts",
-   "page": 26,
-   "price": null,
-   "callForPrice": false
-  },
-  {
    "no": "041-302046",
    "name": "Bracket Service Block Stop",
-   "fits": null,
+   "fits": [
+    "14K"
+   ],
    "section": "Split Tilt Parts",
-   "page": 26,
+   "series": "Powerhouse",
+   "page": 25,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "041-302816",
    "name": "Bracket Service Block Stop",
-   "fits": null,
+   "fits": [
+    "16K"
+   ],
    "section": "Split Tilt Parts",
-   "page": 26,
+   "series": "Powerhouse",
+   "page": 25,
    "price": null,
    "callForPrice": true
   },
   {
+   "no": "150074",
+   "name": "DO 14K Stillwell Cylinder Kit",
+   "fits": [
+    "14K"
+   ],
+   "section": "Split Tilt Parts",
+   "series": "Powerhouse",
+   "page": 25,
+   "price": 639.15,
+   "callForPrice": false
+  },
+  {
    "no": "040-301877",
    "name": "Plate Service Block Mount",
-   "fits": null,
+   "fits": [
+    "14K"
+   ],
    "section": "Split Tilt Parts",
-   "page": 26,
+   "series": "Powerhouse",
+   "page": 25,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "040-302814",
    "name": "Plate Service Block Mount",
-   "fits": null,
+   "fits": [
+    "16K"
+   ],
    "section": "Split Tilt Parts",
-   "page": 26,
+   "series": "Powerhouse",
+   "page": 25,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "577-303071",
-   "name": "Cylinder Attachment Kit",
+   "name": "DO 14K Cylinder Attachment Kit",
    "fits": [
     "14K"
    ],
    "section": "Split Tilt Parts",
-   "page": 26,
+   "series": "Powerhouse",
+   "page": 25,
    "price": 127.18,
    "callForPrice": false
   },
@@ -1699,7 +2490,8 @@
    "name": "14KSTTB Hydraulic Hose 46-1/2\"",
    "fits": null,
    "section": "Split Tilt Parts",
-   "page": 28,
+   "series": "Powerhouse",
+   "page": 26,
    "price": null,
    "callForPrice": true
   },
@@ -1708,7 +2500,8 @@
    "name": "14KSTTB Hydraulic Hose 62-1/2\"",
    "fits": null,
    "section": "Split Tilt Parts",
-   "page": 28,
+   "series": "Powerhouse",
+   "page": 26,
    "price": null,
    "callForPrice": true
   },
@@ -1717,7 +2510,8 @@
    "name": "14KSTTB Hydraulic Hose 48\"",
    "fits": null,
    "section": "Split Tilt Parts",
-   "page": 28,
+   "series": "Powerhouse",
+   "page": 26,
    "price": null,
    "callForPrice": true
   },
@@ -1726,352 +2520,1602 @@
    "name": "14KSTTB Hydraulic Hose 50-1/2\"",
    "fits": null,
    "section": "Split Tilt Parts",
-   "page": 28,
+   "series": "Powerhouse",
+   "page": 26,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "152872",
+   "name": "16KSTTB Hydraulic Hose 42\"",
+   "fits": null,
+   "section": "Split Tilt Parts",
+   "series": "Powerhouse",
+   "page": 26,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "152871",
+   "name": "16KSTTB Hydraulic Hose 34\"",
+   "fits": null,
+   "section": "Split Tilt Parts",
+   "series": "Powerhouse",
+   "page": 26,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "029-301116",
    "name": "Hydraulic Cylinder",
-   "fits": null,
+   "fits": [
+    "14K"
+   ],
    "section": "Split Tilt Parts",
-   "page": 28,
+   "series": "Powerhouse",
+   "page": 26,
    "price": 330.15,
    "callForPrice": false
   },
   {
    "no": "029-302929",
    "name": "Hydraulic Cylinder",
-   "fits": null,
+   "fits": [
+    "16K"
+   ],
    "section": "Split Tilt Parts",
-   "page": 28,
+   "series": "Powerhouse",
+   "page": 26,
    "price": 372.88,
    "callForPrice": false
   },
   {
    "no": "577-302967",
-   "name": "Install Kit 14K DO Axle",
-   "fits": null,
-   "section": "14K Deck Over Parts",
-   "page": 29,
+   "name": "DO Install Kit 14K DO Axle",
+   "fits": [
+    "14K"
+   ],
+   "section": "Deck Over Parts",
+   "series": "Powerhouse",
+   "page": 27,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "577-302969",
-   "name": "Install Kit Tail Light Tube",
-   "fits": null,
-   "section": "14K Deck Over Parts",
-   "page": 29,
+   "name": "DO Install Kit Tail Light Tube",
+   "fits": [
+    "14K"
+   ],
+   "section": "Deck Over Parts",
+   "series": "Powerhouse",
+   "page": 27,
    "price": 419.66,
    "callForPrice": false
   },
   {
    "no": "577-302987",
-   "name": "Ramp Springs Install Kit",
-   "fits": null,
-   "section": "14K Deck Over Parts",
-   "page": 29,
+   "name": "DO Ramp Springs Install Kit",
+   "fits": [
+    "14K"
+   ],
+   "section": "Deck Over Parts",
+   "series": "Powerhouse",
+   "page": 27,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "577-302956",
-   "name": "Install Kit 14K DO Step",
-   "fits": null,
-   "section": "14K Deck Over Parts",
-   "page": 30,
+   "name": "DO Install Kit 14K DO Step",
+   "fits": [
+    "14K"
+   ],
+   "section": "Deck Over Parts",
+   "series": "Powerhouse",
+   "page": 28,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "577-302947",
-   "name": "Install Kit RDSD Ramp Lock",
-   "fits": null,
-   "section": "14K Deck Over Parts",
-   "page": 30,
+   "name": "DO Install Kit RDSD Ramp Lock",
+   "fits": [
+    "14K"
+   ],
+   "section": "Deck Over Parts",
+   "series": "Powerhouse",
+   "page": 28,
    "price": 104.69,
    "callForPrice": false
   },
   {
    "no": "577-302946",
-   "name": "Install Kit CBSD Ramp Lock",
-   "fits": null,
-   "section": "14K Deck Over Parts",
-   "page": 30,
+   "name": "DO Install Kit CBSD Ramp Lock",
+   "fits": [
+    "14K"
+   ],
+   "section": "Deck Over Parts",
+   "series": "Powerhouse",
+   "page": 28,
    "price": 103.1,
    "callForPrice": false
   },
   {
    "no": "577-302949",
-   "name": "Install Kit CBSD Ramp Lock Arm",
-   "fits": null,
-   "section": "14K Deck Over Parts",
-   "page": 30,
+   "name": "DO Install Kit CBSD Ramp Lock Arm",
+   "fits": [
+    "14K"
+   ],
+   "section": "Deck Over Parts",
+   "series": "Powerhouse",
+   "page": 28,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "577-302950",
-   "name": "Install Kit RDSD Ramp Lock Arm",
-   "fits": null,
-   "section": "14K Deck Over Parts",
-   "page": 30,
+   "name": "DO Install Kit RDSD Ramp Lock Arm",
+   "fits": [
+    "14K"
+   ],
+   "section": "Deck Over Parts",
+   "series": "Powerhouse",
+   "page": 28,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "577-302989",
-   "name": "CBSD Ramp Install Kit",
-   "fits": null,
-   "section": "14K Deck Over Parts",
-   "page": 30,
+   "name": "DO CBSD Ramp Install Kit",
+   "fits": [
+    "14K"
+   ],
+   "section": "Deck Over Parts",
+   "series": "Powerhouse",
+   "page": 28,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "577-302990",
-   "name": "RDSD Ramp Install Kit",
-   "fits": null,
-   "section": "14K Deck Over Parts",
-   "page": 30,
+   "name": "DO RDSD Ramp Install Kit",
+   "fits": [
+    "14K"
+   ],
+   "section": "Deck Over Parts",
+   "series": "Powerhouse",
+   "page": 28,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "577-302962",
-   "name": "Install Kit Jack Handle Mount",
-   "fits": null,
-   "section": "14K Deck Over Parts",
-   "page": 30,
+   "name": "DO Install Kit Jack Handle Mount",
+   "fits": [
+    "14K"
+   ],
+   "section": "Deck Over Parts",
+   "series": "Powerhouse",
+   "page": 28,
    "price": null,
    "callForPrice": true
   },
   {
+   "no": "026-302698",
+   "name": "DO Jack Handle",
+   "fits": [
+    "14K"
+   ],
+   "section": "Deck Over Parts",
+   "series": "Powerhouse",
+   "page": 28,
+   "price": 39.78,
+   "callForPrice": false
+  },
+  {
    "no": "577-302965",
-   "name": "Install Kit Bump Rail",
-   "fits": null,
-   "section": "14K Deck Over Parts",
-   "page": 31,
+   "name": "DO Install Kit Bump Rail",
+   "fits": [
+    "14K"
+   ],
+   "section": "Deck Over Parts",
+   "series": "Powerhouse",
+   "page": 29,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "577-302960",
-   "name": "Install Kit Jack Weldment",
-   "fits": null,
-   "section": "14K Deck Over Parts",
-   "page": 31,
+   "name": "DO Install Kit Jack Weldment",
+   "fits": [
+    "14K"
+   ],
+   "section": "Deck Over Parts",
+   "series": "Powerhouse",
+   "page": 29,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "577-302945",
-   "name": "Install Kit Rub Rail",
-   "fits": null,
-   "section": "14K Deck Over Parts",
-   "page": 31,
+   "name": "DO Install Kit Rub Rail",
+   "fits": [
+    "14K"
+   ],
+   "section": "Deck Over Parts",
+   "series": "Powerhouse",
+   "page": 29,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "577-302971",
-   "name": "Hat Channel Lock Latch",
-   "fits": null,
-   "section": "14K Deck Over Parts",
-   "page": 31,
+   "name": "DO Hat Channel Lock Latch",
+   "fits": [
+    "14K"
+   ],
+   "section": "Deck Over Parts",
+   "series": "Powerhouse",
+   "page": 29,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "577-302981",
-   "name": "Toolbox Mounting Plate",
-   "fits": null,
-   "section": "14K Deck Over Parts",
-   "page": 31,
+   "name": "DO Toolbox Mounting Plate",
+   "fits": [
+    "14K"
+   ],
+   "section": "Deck Over Parts",
+   "series": "Powerhouse",
+   "page": 29,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "577-302973",
-   "name": "Hat Channel Lock Arm Mount",
-   "fits": null,
-   "section": "14K Deck Over Parts",
-   "page": 32,
+   "name": "DO Hat Channel Lock Arm Mount",
+   "fits": [
+    "14K"
+   ],
+   "section": "Deck Over Parts",
+   "series": "Powerhouse",
+   "page": 30,
    "price": 95.28,
    "callForPrice": false
   },
   {
    "no": "577-302975",
-   "name": "Install Kit Side Marker Bracket",
-   "fits": null,
-   "section": "14K Deck Over Parts",
-   "page": 32,
+   "name": "DO Install Kit Side Marker Bracket",
+   "fits": [
+    "14K"
+   ],
+   "section": "Deck Over Parts",
+   "series": "Powerhouse",
+   "page": 30,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "577-302977",
-   "name": "Install Kit Ramp Grab Handle",
-   "fits": null,
-   "section": "14K Deck Over Parts",
-   "page": 32,
+   "name": "DO Install Kit Ramp Grab Handle",
+   "fits": [
+    "14K"
+   ],
+   "section": "Deck Over Parts",
+   "series": "Powerhouse",
+   "page": 30,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "577-302994",
-   "name": "Ramp Link Weldment",
-   "fits": null,
-   "section": "14K Deck Over Parts",
-   "page": 32,
+   "name": "DO Ramp Link Weldment",
+   "fits": [
+    "14K"
+   ],
+   "section": "Deck Over Parts",
+   "series": "Powerhouse",
+   "page": 30,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "577-302995",
-   "name": "Spring Link Weldment (LH)",
-   "fits": null,
-   "section": "14K Deck Over Parts",
-   "page": 32,
+   "name": "DO Spring Link Weldment (LH)",
+   "fits": [
+    "14K"
+   ],
+   "section": "Deck Over Parts",
+   "series": "Powerhouse",
+   "page": 30,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "577-302996",
-   "name": "Spring Link Weldment (RH)",
-   "fits": null,
-   "section": "14K Deck Over Parts",
-   "page": 32,
+   "name": "DO Spring Link Weldment (RH)",
+   "fits": [
+    "14K"
+   ],
+   "section": "Deck Over Parts",
+   "series": "Powerhouse",
+   "page": 30,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "577-302983",
-   "name": "Install Kit Ramp Pivot Tubes",
-   "fits": null,
-   "section": "14K Deck Over Parts",
-   "page": 32,
+   "name": "DO Install Kit Ramp Pivot Tubes",
+   "fits": [
+    "14K"
+   ],
+   "section": "Deck Over Parts",
+   "series": "Powerhouse",
+   "page": 30,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "577-302979",
-   "name": "Install Stake Pocket Replacement",
-   "fits": null,
-   "section": "14K Deck Over Parts",
-   "page": 32,
+   "name": "DO Install Stake Pocket Replacement",
+   "fits": [
+    "14K"
+   ],
+   "section": "Deck Over Parts",
+   "series": "Powerhouse",
+   "page": 30,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "150153",
+   "name": "Taskmaster Cap Covers 16\"",
+   "fits": [
+    "14K",
+    "16K"
+   ],
+   "section": "Deck Over Parts",
+   "series": "Powerhouse",
+   "page": 30,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "035-301795",
-   "name": "DO Chrome Cap for \" Tire",
+   "name": "DO Chrome Cap for 1 \" Tire",
    "fits": [
     "14K",
     "16K"
    ],
-   "section": "14K Deck Over Parts",
+   "section": "Deck Over Parts",
+   "series": "Powerhouse",
+   "page": 30,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "183591",
+   "name": "Landing Leg RH",
+   "fits": [
+    "1620",
+    "1626",
+    "1620HD",
+    "1626HD"
+   ],
+   "section": "Gooseneck Parts",
+   "series": "Powerhouse",
+   "page": 31,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "183592",
+   "name": "Landing Leg LH",
+   "fits": [
+    "1620",
+    "1626",
+    "1620HD",
+    "1626HD"
+   ],
+   "section": "Gooseneck Parts",
+   "series": "Powerhouse",
+   "page": 31,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "183549",
+   "name": "7K Axle",
+   "fits": [
+    "1620",
+    "1626"
+   ],
+   "section": "Gooseneck Parts",
+   "series": "Powerhouse",
+   "page": 31,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "183551",
+   "name": "8K Axle",
+   "fits": [
+    "1620HD",
+    "1626HD"
+   ],
+   "section": "Gooseneck Parts",
+   "series": "Powerhouse",
+   "page": 31,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "183250",
+   "name": "Landing Leg Cross Shaft",
+   "fits": [
+    "1620",
+    "1626",
+    "1620HD",
+    "1626HD"
+   ],
+   "section": "Gooseneck Parts",
+   "series": "Powerhouse",
+   "page": 31,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "183555",
+   "name": "Front Corner Light Bracket",
+   "fits": [
+    "1620",
+    "1626",
+    "1620HD",
+    "1626HD"
+   ],
+   "section": "Gooseneck Parts",
+   "series": "Powerhouse",
+   "page": 31,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "183598",
+   "name": "Midship Light Bracket",
+   "fits": [
+    "1620",
+    "1626",
+    "1620HD",
+    "1626HD"
+   ],
+   "section": "Gooseneck Parts",
+   "series": "Powerhouse",
+   "page": 31,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "183822",
+   "name": "Spare Tire Mount AY 7K Axle",
+   "fits": [
+    "1620",
+    "1626",
+    "1620HD",
+    "1626HD"
+   ],
+   "section": "Gooseneck Parts",
+   "series": "Powerhouse",
+   "page": 32,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "183824",
+   "name": "Spare Tire Mount AY 8K Axle",
+   "fits": [
+    "1620",
+    "1626",
+    "1620HD",
+    "1626HD"
+   ],
+   "section": "Gooseneck Parts",
+   "series": "Powerhouse",
+   "page": 32,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "183557",
+   "name": "Toolbox",
+   "fits": [
+    "1620",
+    "1626",
+    "1620HD",
+    "1626HD"
+   ],
+   "section": "Gooseneck Parts",
+   "series": "Powerhouse",
+   "page": 32,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "183646",
+   "name": "Toolbox Latch & Plate",
+   "fits": [
+    "1620",
+    "1626",
+    "1620HD",
+    "1626HD"
+   ],
+   "section": "Gooseneck Parts",
+   "series": "Powerhouse",
+   "page": 32,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "183559",
+   "name": "Chain Basket",
+   "fits": [
+    "1620",
+    "1626",
+    "1620HD",
+    "1626HD"
+   ],
+   "section": "Gooseneck Parts",
+   "series": "Powerhouse",
    "page": 32,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "026-302212",
-   "name": "1620, 1626, 1620HD, 1626HD Landing Leg Crank Handle Call for PART NO.",
-   "fits": null,
+   "name": "Landing Leg Crank Handle",
+   "fits": [
+    "1620",
+    "1626",
+    "1620HD",
+    "1626HD"
+   ],
    "section": "Gooseneck Parts",
+   "series": "Powerhouse",
+   "page": 32,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "183563",
+   "name": "Stake Pockets",
+   "fits": [
+    "1620",
+    "1626",
+    "1620HD",
+    "1626HD"
+   ],
+   "section": "Gooseneck Parts",
+   "series": "Powerhouse",
+   "page": 32,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "183359",
+   "name": "Handle Gasket",
+   "fits": [
+    "1620",
+    "1626",
+    "1620HD",
+    "1626HD"
+   ],
+   "section": "Gooseneck Parts",
+   "series": "Powerhouse",
+   "page": 33,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "183553",
+   "name": "Ramp",
+   "fits": [
+    "1620",
+    "1626",
+    "1620HD",
+    "1626HD"
+   ],
+   "section": "Gooseneck Parts",
+   "series": "Powerhouse",
+   "page": 33,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "183763",
+   "name": "Step",
+   "fits": [
+    "1620",
+    "1626",
+    "1620HD",
+    "1626HD"
+   ],
+   "section": "Gooseneck Parts",
+   "series": "Powerhouse",
+   "page": 33,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "183569",
+   "name": "Step Handle",
+   "fits": [
+    "1620",
+    "1626",
+    "1620HD",
+    "1626HD"
+   ],
+   "section": "Gooseneck Parts",
+   "series": "Powerhouse",
+   "page": 33,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "183565",
+   "name": "Ramp Springs",
+   "fits": [
+    "1620",
+    "1626",
+    "1620HD",
+    "1626HD"
+   ],
+   "section": "Gooseneck Parts",
+   "series": "Powerhouse",
+   "page": 33,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "183642",
+   "name": "Ramp Lock",
+   "fits": [
+    "1620",
+    "1626",
+    "1620HD",
+    "1626HD"
+   ],
+   "section": "Gooseneck Parts",
+   "series": "Powerhouse",
+   "page": 33,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "183640",
+   "name": "Ramp 90-Degree Lock",
+   "fits": [
+    "1620",
+    "1626",
+    "1620HD",
+    "1626HD"
+   ],
+   "section": "Gooseneck Parts",
+   "series": "Powerhouse",
    "page": 34,
    "price": null,
    "callForPrice": true
   },
   {
-   "no": "035-303057",
-   "name": "1620, 1626, 1620HD, 1626HD Rubber Bumper Call for All pricing for options are for the part only. Install not included. PART NO.",
-   "fits": null,
+   "no": "183670",
+   "name": "Rub Rail 27-9/16\"",
+   "fits": [
+    "1620",
+    "1626",
+    "1620HD",
+    "1626HD"
+   ],
    "section": "Gooseneck Parts",
-   "page": 38,
+   "series": "Powerhouse",
+   "page": 34,
    "price": null,
    "callForPrice": true
   },
   {
+   "no": "183672",
+   "name": "Rub Rail 5-9/16\"",
+   "fits": [
+    "1620",
+    "1626",
+    "1620HD",
+    "1626HD"
+   ],
+   "section": "Gooseneck Parts",
+   "series": "Powerhouse",
+   "page": 34,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "183679",
+   "name": "Coupler Set Screw",
+   "fits": [
+    "1620",
+    "1626",
+    "1620HD",
+    "1626HD"
+   ],
+   "section": "Gooseneck Parts",
+   "series": "Powerhouse",
+   "page": 34,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "184429",
+   "name": "Coupler Set Bolt and Nut",
+   "fits": [
+    "1620",
+    "1626",
+    "1620HD",
+    "1626HD"
+   ],
+   "section": "Gooseneck Parts",
+   "series": "Powerhouse",
+   "page": 34,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "032-44932",
+   "name": "Coupler Bolt",
+   "fits": [
+    "1620",
+    "1626",
+    "1620HD",
+    "1626HD"
+   ],
+   "section": "Gooseneck Parts",
+   "series": "Powerhouse",
+   "page": 34,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "183676",
+   "name": "Coupler Nut",
+   "fits": [
+    "1620",
+    "1626",
+    "1620HD",
+    "1626HD"
+   ],
+   "section": "Gooseneck Parts",
+   "series": "Powerhouse",
+   "page": 35,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "035-303057",
+   "name": "Rubber Bumper",
+   "fits": [
+    "1620",
+    "1626",
+    "1620HD",
+    "1626HD"
+   ],
+   "section": "Gooseneck Parts",
+   "series": "Powerhouse",
+   "page": 35,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "183837",
+   "name": "Bumper Kit",
+   "fits": [
+    "1620",
+    "1626",
+    "1620HD",
+    "1626HD"
+   ],
+   "section": "Gooseneck Parts",
+   "series": "Powerhouse",
+   "page": 35,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "150996",
+   "name": "Bearings & Seal Service Kit",
+   "fits": [
+    "16K"
+   ],
+   "section": "Gooseneck Parts",
+   "series": "Powerhouse",
+   "page": 35,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "186850",
+   "name": "14K Axle",
+   "fits": [
+    "14K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 36,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "186848",
+   "name": "16K Axle",
+   "fits": [
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 36,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187011",
+   "name": "Dump",
+   "fits": [
+    "14K Dump",
+    "16K"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 36,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187072",
+   "name": "Tarp",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 36,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "034-48212",
+   "name": "Tarp Handle",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 36,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187031",
+   "name": "Tarp Enclosure",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 36,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187021",
+   "name": "Tarp Bearing",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 36,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187005",
+   "name": "Rear Tarp Tube",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 36,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187007",
+   "name": "Main Tarp Tube",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 36,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "186867",
+   "name": "Main Deckboard",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 36,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187013",
+   "name": "Rear Deckboard",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 36,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187015",
+   "name": "Front Deckboard",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 36,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "186857",
+   "name": "Lock Rod",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 36,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "186851",
+   "name": "Wear Pad A-Frame",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 37,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187023",
+   "name": "Wear Pad 48",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 37,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187000",
+   "name": "Stability Jack",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 37,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187010",
+   "name": "16K Adjustable Coupler",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 37,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187036",
+   "name": "Landing Leg",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 37,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187059",
+   "name": "Cam Latch Keeper Lower",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 37,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187058",
+   "name": "Cam Latch Keeper Upper",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 37,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187040",
+   "name": "Cam Latch Tube Handle",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 37,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187055",
+   "name": "Cam Latch Retainer Bracket",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 37,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187061",
+   "name": "Cam Latch Hasp",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 37,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "186836",
+   "name": "Door Hinge Body (Door Side)",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 37,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "186838",
+   "name": "Door Hinge Base (Frame Side)",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 37,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187017",
+   "name": "Door Hold Back Latch",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 37,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187002",
+   "name": "RDSD Door",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 38,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187004",
+   "name": "CBSD Door",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 38,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187027",
+   "name": "Scissor Lift/Cylinder (Complete Hoist)",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 38,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187153",
+   "name": "Hydraulic Cylinder (Cylinder Only)",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 38,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187025",
+   "name": "Pump",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 38,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "186859",
+   "name": "Top Rail Front",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 38,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "186864",
+   "name": "Top Rail CBSD 14'",
+   "fits": [
+    "1414 Dump",
+    "1614 Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 38,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "186865",
+   "name": "Top R ail RDSD 14'",
+   "fits": [
+    "1414 Dump",
+    "1614 Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 38,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "186861",
+   "name": "Top Rail CBSD 16'",
+   "fits": [
+    "1416 Dump",
+    "1616 Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 38,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "186862",
+   "name": "Top Rail RDSD 16'",
+   "fits": [
+    "1416 Dump",
+    "1616 Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 38,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "186390",
+   "name": "Ramp AY TSDT",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 38,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187033",
+   "name": "Ramp Retainment Pin CBSD",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 38,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187034",
+   "name": "Ramp Retainment Pin",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 38,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187049",
+   "name": "Wall Panel CBSD 14'",
+   "fits": [
+    "1414 Dump",
+    "1614 Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 39,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187051",
+   "name": "Wall Panel RDSD 14'",
+   "fits": [
+    "1414 Dump",
+    "1614 Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 39,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187045",
+   "name": "Wall Panel CBSD 16'",
+   "fits": [
+    "1416 Dump",
+    "1616 Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 39,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187134",
+   "name": "Spreader Gate Frame",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 39,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187029",
+   "name": "Spreader Gate Release Handle",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 39,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "186855",
+   "name": "Spreader Gate Chain",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 39,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187136",
+   "name": "Toolbox Lid",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 39,
+   "price": null,
+   "callForPrice": false
+  },
+  {
+   "no": "187138",
+   "name": "Toolbox Strut",
+   "fits": [
+    "14K Dump",
+    "16K Dump"
+   ],
+   "section": "Dump Parts",
+   "series": "Powerhouse",
+   "page": 39,
+   "price": null,
+   "callForPrice": false
+  },
+  {
    "no": "035-302921",
    "name": "Trailer Model Decal",
-   "fits": null,
+   "fits": [
+    "1420"
+   ],
    "section": "Trailer Decals",
-   "page": 43,
+   "series": "Powerhouse",
+   "page": 40,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "035-302922",
-   "name": "1424 Trailer Model Decal",
-   "fits": null,
+   "name": "Trailer Model Decal",
+   "fits": [
+    "1424"
+   ],
    "section": "Trailer Decals",
-   "page": 43,
+   "series": "Powerhouse",
+   "page": 40,
    "price": null,
    "callForPrice": true
   },
   {
    "no": "035-302923",
    "name": "Trailer Model Decal",
-   "fits": null,
+   "fits": [
+    "16K"
+   ],
    "section": "Trailer Decals",
-   "page": 43,
+   "series": "Powerhouse",
+   "page": 40,
    "price": null,
    "callForPrice": true
   },
   {
-   "no": "577-302720",
-   "name": "Front Panel",
+   "no": "183414",
+   "name": "1620GNDO Trailer Model Decal",
+   "fits": null,
+   "section": "Trailer Decals",
+   "series": "Powerhouse",
+   "page": 40,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "183416",
+   "name": "1620GNDOHD Trailer Model Decal",
+   "fits": null,
+   "section": "Trailer Decals",
+   "series": "Powerhouse",
+   "page": 40,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "183412",
+   "name": "1626GNDO Trailer Model Decal",
+   "fits": null,
+   "section": "Trailer Decals",
+   "series": "Powerhouse",
+   "page": 40,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "183415",
+   "name": "1626GNDOHD Trailer Model Decal",
+   "fits": null,
+   "section": "Trailer Decals",
+   "series": "Powerhouse",
+   "page": 40,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "035-61917",
+   "name": "DO Do Not Step Decal",
+   "fits": [
+    "14K",
+    "16K"
+   ],
+   "section": "Trailer Decals",
+   "series": "Powerhouse",
+   "page": 40,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "035-29482",
+   "name": "DO Conspicuity Tape",
+   "fits": [
+    "14K",
+    "16K"
+   ],
+   "section": "Trailer Decals",
+   "series": "Powerhouse",
+   "page": 40,
+   "price": null,
+   "callForPrice": true
+  },
+  {
+   "no": "577-302722",
+   "name": "EA Nose Cone",
    "fits": null,
    "section": "Accessories",
-   "page": 44,
+   "series": "Both",
+   "page": 41,
+   "price": 131.58,
+   "callForPrice": false
+  },
+  {
+   "no": "577-302720",
+   "name": "EA Front Panel",
+   "fits": null,
+   "section": "Accessories",
+   "series": "Both",
+   "page": 41,
    "price": 459.89,
    "callForPrice": false
   },
   {
    "no": "577-302724",
-   "name": "CBSD Side Panel",
+   "name": "EA CBSD Side Panel",
    "fits": null,
    "section": "Accessories",
-   "page": 44,
+   "series": "Both",
+   "page": 41,
    "price": 73.44,
    "callForPrice": false
   },
   {
    "no": "577-302725",
-   "name": "RDSD Side Panel",
+   "name": "EA RDSD Side Panel",
    "fits": null,
    "section": "Accessories",
-   "page": 44,
+   "series": "Both",
+   "page": 41,
    "price": 73.44,
    "callForPrice": false
   },
   {
    "no": "577-302718",
-   "name": "RDSD Side Panel",
+   "name": "EA RDSD Side Panel",
    "fits": null,
    "section": "Accessories",
-   "page": 44,
+   "series": "Both",
+   "page": 41,
    "price": 225.28,
    "callForPrice": false
   },
   {
    "no": "577-302717",
-   "name": "CBSD Side Panel",
+   "name": "EA CBSD Side Panel",
    "fits": null,
    "section": "Accessories",
-   "page": 44,
+   "series": "Both",
+   "page": 41,
    "price": 225.28,
    "callForPrice": false
   },
   {
    "no": "035-303012",
-   "name": "Black Fastener Caps",
+   "name": "100 Black Fastener Caps",
    "fits": null,
    "section": "Accessories",
-   "page": 44,
+   "series": "Both",
+   "page": 41,
    "price": null,
    "callForPrice": true
   }
