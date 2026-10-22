@@ -11,140 +11,17 @@
    demo people, quotes, leads, machine weights and truck tow ratings.
    ========================================================================== */
 
-const ASSISTANT_NAME = "Andy";
+/* CONFIG, MODELS, INVENTORY and PARTS come from src/config.json, models.json, inventory.json and parts.json;
+   build.py puts them in front of this file. Edit those files, not this one, for anything about this dealer. */
+const ASSISTANT_NAME = CONFIG.assistant.name;
 
 const DAY = 864e5;
 function d(n){ return new Date(Date.now() + n * DAY).toISOString(); }
 
-/* ---- Timpte models, one entry per model, numbers from the spec sheets ----
-   suits = the kinds of load Andy and the Finder will match it to            */
-const MODELS = {
-  "514": {
-    model: "Timpte 514 EZ Load", type: "ezload", img: "card-514", video: "514-utv", spec: "timpte-514-ez-load.pdf",
-    gallery: ["g-514-1", "g-514-2", "g-514-3", "g-514-4"],
-    payload: 3720, gvwr: 5000, empty: 1280, deck: "14' x 78\"", deckFt: 14, width: "102\" overall", length: "19' 1\"",
-    loading: "Powered EZ Load deck", angle: 4, angleText: "Under 4°", axles: "Single 5,000 lb rubber torsion",
-    hitch: "Bumper pull (2-5/16\" ball)", brakes: "Electric, self-adjusting", tires: "ST225/75R15E, 10 ply",
-    blurb: "Single-axle EZ Load with a powered deck that drops low, so mowers, golf carts and side-by-sides drive straight on.",
-    feat: ["Under 4° load angle", "Single axle", "1,280 lb empty"],
-    features: ["Powered EZ Load deck system, loading angle under 4°", "14' x 78\" deck, 18\" deck height", "5,000 lb rubber torsion axle", "(4) D-rings with 20 mounting locations", "Electric self-adjusting brakes", "LED lighting"],
-    suits: ["mower", "utv", "car"]
-  },
-  "720": {
-    model: "Timpte 720 EZ Load", type: "ezload", img: "card-720", video: null, spec: "timpte-720-ez-load.pdf",
-    gallery: ["g-720-1", "g-720-2", "g-720-3", "g-720-4"],
-    payload: 5020, gvwr: 7000, empty: 1980, deck: "19' 6\" x 82.5\"", deckFt: 19.5, width: "102\" overall", length: "24' 5\"",
-    loading: "Powered EZ Load deck", angle: 4, angleText: "Under 4°", axles: "Tandem 3,500 lb rubber torsion",
-    hitch: "Bumper pull (2-5/16\" ball, adjustable)", brakes: "Electric, self-adjusting", tires: "ST205/75R14D, 8 ply",
-    blurb: "7K EZ Load with a 19' 6\" deck. Low enough for a lowered car, light enough for most half-tons.",
-    feat: ["Under 4° load angle", "Tandem axle", "5,020 lb payload"],
-    features: ["Powered EZ Load deck system, loading angle under 4°", "19' 6\" x 82.5\" deck, 22.5\" deck height", "Tandem 3,500 lb rubber torsion axles", "(4) D-rings with 24 mounting locations", "Adjustable coupler", "LED lighting"],
-    suits: ["car", "utv", "mower"]
-  },
-  "1020": {
-    model: "Timpte 1020 EZ Load", type: "ezload", img: "card-1020", video: "1026-launch", spec: "timpte-10k-ez-load.pdf",
-    gallery: ["g-1020-1", "g-1020-2", "g-1020-3", "g-1020-4"],
-    payload: 7580, gvwr: 10000, empty: 2420, deck: "19' 6\" x 81\"", deckFt: 19.5, width: "102\" overall", length: "24' 6\"",
-    loading: "Powered EZ Load deck", angle: 4, angleText: "Under 4°", axles: "Tandem 5,000 lb rubber torsion",
-    hitch: "Bumper pull (2-5/16\" ball, adjustable)", brakes: "Electric, self-adjusting", tires: "ST225/75R15E, 10 ply",
-    blurb: "10K EZ Load for heavier cars, trucks and compact tractors. L-track on three sides makes tie-down quick.",
-    feat: ["Under 4° load angle", "L-track tie-downs", "7,580 lb payload"],
-    features: ["Powered EZ Load deck system, loading angle under 4°", "19' 6\" x 81\" deck, 24\" deck height", "Tandem 5,000 lb rubber torsion axles", "(4) movable D-rings in integrated L-track, front and both sides", "4 stake pockets", "LED lighting"],
-    suits: ["car", "utv", "mower"]
-  },
-  "1026": {
-    model: "Timpte 1026 EZ Load", type: "ezload", img: "card-1026", video: "1026-launch", spec: "timpte-10k-ez-load.pdf",
-    gallery: ["g-1026-1", "g-1026-2", "g-1026-3", "g-1026-4"],
-    payload: 7360, gvwr: 10000, empty: 2640, deck: "26' x 81\"", deckFt: 26, width: "102\" overall", length: "31' 2\"",
-    loading: "Powered EZ Load deck", angle: 4, angleText: "Under 4°", axles: "Tandem 5,000 lb rubber torsion",
-    hitch: "Bumper pull (2-5/16\" ball, adjustable)", brakes: "Electric, self-adjusting", tires: "ST225/75R15E, 10 ply",
-    blurb: "The longest deck in the EZ Load line: 26 feet. A Jeep and a side-by-side, or a car with room to spare.",
-    feat: ["26' deck", "Under 4° load angle", "7,360 lb payload"],
-    features: ["Powered EZ Load deck system, loading angle under 4°", "26' x 81\" deck, 24\" deck height", "Tandem 5,000 lb rubber torsion axles", "(4) movable D-rings in integrated L-track", "8 stake pockets", "LED lighting"],
-    suits: ["car", "utv", "mower"]
-  },
-  "1420ST": {
-    model: "Timpte 1420 Split Tilt", type: "tilt", img: "card-1420st", video: "split-tilt-walkaround", spec: "timpte-14k-split-tilt.pdf",
-    gallery: ["g-1420st-1", "g-1420st-2", "g-1420st-3", "g-1420st-4"],
-    payload: 11320, gvwr: 14000, empty: 2680, deck: "16' tilt + 4' stationary x 82-3/8\"", deckFt: 20, width: "102\" overall", length: "24' 6\"",
-    loading: "Split tilt deck", angle: 12, axles: "Tandem 7,000 lb rubber torsion",
-    hitch: "Bumper pull (2-5/16\" ball, adjustable)", brakes: "Electric, self-adjusting", tires: "ST235/80R16E, 10 ply",
-    blurb: "14K split tilt for skid steers and mini excavators. The 16-foot tilt section drops while the 4-foot front deck stays put.",
-    feat: ["12° tilt", "11,320 lb payload", "18 stake pockets"],
-    features: ["16' tilt deck + 4' stationary deck, 82-3/8\" wide", "22\" deck height, 12° loading angle", "Tandem 7,000 lb rubber torsion axles", "18 stake pockets", "Side crank jack, 12,000 lb", "Adjustable 2-5/16\" coupler", "LED lighting"],
-    suits: ["compact", "miniex", "utv", "mower", "car"]
-  },
-  "1624ST": {
-    model: "Timpte 1624 Split Tilt", type: "tilt", img: "card-1624st", video: "split-tilt-walkaround", spec: "timpte-16k-split-tilt.pdf",
-    gallery: ["g-1624st-1", "g-1624st-2", "g-1624st-3", "g-1624st-4"],
-    payload: 12800, gvwr: 16000, empty: 3200, deck: "18' tilt + 6' stationary x 82-3/8\"", deckFt: 24, width: "102\" overall", length: "29' 1\"",
-    loading: "Split tilt deck", angle: 12, axles: "Tandem 8,000 lb rubber torsion",
-    hitch: "Bumper pull (2-5/16\" ball, adjustable)", brakes: "Electric, self-adjusting", tires: "ST235/80R16G, 14 ply",
-    blurb: "16K split tilt with an 18-foot tilt and a 6-foot front deck, for bigger track loaders and a mini-ex with attachments.",
-    feat: ["16K GVW", "12,800 lb payload", "8K axles"],
-    features: ["18' tilt deck + 6' stationary deck, 82-3/8\" wide", "22\" deck height, 12° loading angle", "Tandem 8,000 lb rubber torsion axles", "ST235/80R16G 14-ply tires", "18 stake pockets", "Side crank jack, 12,000 lb", "LED lighting"],
-    suits: ["compact", "miniex", "heavy", "utv", "car"]
-  },
-  "1414D": {
-    model: "Timpte 1414 Dump", type: "dump", img: "card-1414d", video: null, spec: "timpte-14k-dump.pdf",
-    gallery: [],
-    payload: 10540, gvwr: 14000, empty: 3460, deck: "14' box x 82\" inside, 24\" sides", deckFt: 14, width: "102\" overall", length: "",
-    loading: "Dexter scissor hoist", angle: null, axles: "Tandem 7,000 lb rubber torsion",
-    hitch: "Bumper pull (2-5/16\" ball, adjustable)", brakes: "Electric, self-adjusting", tires: "ST235/80R16E, 10 ply",
-    blurb: "14K aluminum dump with a 14-foot box, a scissor hoist and a rear gate that swings like a barn door or spreads.",
-    feat: ["10,540 lb payload", "Scissor hoist", "Mesh tarp"],
-    features: ["Aluminum construction with no structural welds", "14' x 82\" box, 24\" sides", "Dexter scissor hoist", "Barn door / spreader combo rear gate", "Full-length mesh tarp", "A-frame toolbox, spare tire and mount", "Rear stabilizers", "Tandem 7,000 lb rubber torsion axles"],
-    suits: ["material", "mower"]
-  },
-  "1614D": {
-    model: "Timpte 1614 Dump", type: "dump", img: "card-1614d", video: null, spec: "timpte-16k-dump.pdf",
-    gallery: [],
-    payload: 12400, gvwr: 16000, empty: 3600, deck: "14' box x 82\" inside, 24\" sides", deckFt: 14, width: "102\" overall", length: "",
-    loading: "Dexter scissor hoist", angle: null, axles: "Tandem 8,000 lb rubber torsion",
-    hitch: "Bumper pull (2-5/16\" ball, adjustable)", brakes: "Electric, self-adjusting", tires: "ST235/80R16, 14 ply",
-    blurb: "16K aluminum dump for landscapers, contractors and cleanup crews. More payload than the 14K, same 14-foot box.",
-    feat: ["12,400 lb payload", "8K axles", "Mesh tarp"],
-    features: ["Aluminum construction with no structural welds", "14' x 82\" box, 24\" sides", "Dexter scissor hoist", "Barn door / spreader combo rear gate", "Full-length mesh tarp", "A-frame toolbox, spare tire and mount", "Rear stabilizers", "Tandem 8,000 lb rubber torsion axles"],
-    suits: ["material", "mower"]
-  },
-  "1620DO": {
-    model: "Timpte 1620 Deck Over", type: "deckover", img: "card-1620do", video: null, spec: "timpte-deck-over-2026.pdf",
-    gallery: ["g-1620do-1", "g-1620do-2", "g-1620do-3", "g-1620do-4"],
-    payload: 12940, gvwr: 16000, empty: 3060, deck: "20' x 98.25\" (incl. 60\" dovetail)", deckFt: 20, width: "102\" overall, 98.25\" deck", length: "25' 8\"",
-    loading: "Dovetail + 50/50 ramps (approx. 4')", angle: 14, axles: "Tandem 8,000 lb rubber torsion",
-    hitch: "Bumper pull (2-5/16\" ball, adjustable)", brakes: "Electric, self-adjusting", tires: "ST235/80R16G, 14 ply",
-    blurb: "16K deck over: the full 98-inch deck sits above the wheels, with a 5-foot dovetail and 50/50 ramps. Updated design for 2026.",
-    feat: ["98\" wide deck", "12,940 lb payload", "50/50 ramps"],
-    features: ["20' x 98.25\" usable deck over the wheels", "60\" dovetail with approx. 4' 50/50 ramps", "35\" deck height, 14° loading angle", "Tandem 8,000 lb rubber torsion axles", "24 stake pockets", "2026 update: up to 520 lb more payload than the previous model"],
-    suits: ["compact", "miniex", "heavy", "car", "utv"]
-  },
-  "1620GN": {
-    model: "Timpte 1620 Gooseneck", type: "gooseneck", img: "card-1620gn", video: "gooseneck-launch", spec: "timpte-16k-gooseneck.pdf",
-    gallery: ["g-1620gn-1", "g-1620gn-2", "g-1620gn-3", "g-1620gn-4"],
-    payload: 12480, gvwr: 16000, empty: 3460, deck: "20' x 98.25\" (incl. 60\" dovetail)", deckFt: 20, width: "102\" overall, 98.25\" deck", length: "28' 7\"",
-    loading: "Dovetail + ramps (approx. 4')", angle: 14, axles: "Tandem 7,000 lb rubber torsion",
-    hitch: "Gooseneck (2-5/16\" ball)", brakes: "Electric, self-adjusting", tires: "ST235/80R16E, 10 ply",
-    blurb: "16K gooseneck deck over for longer runs and bigger machines. Toolbox with chain rack, chain tray and spare tire come standard.",
-    feat: ["Gooseneck", "12,480 lb payload", "Dual 12K jacks"],
-    features: ["20' x 98.25\" usable deck", "60\" dovetail with approx. 4' ramps", "35\" deck height, 14° loading angle", "Tandem 7,000 lb rubber torsion axles", "Dual 12,000 lb jacks", "Toolbox with chain rack, chain tray, spare tire and mount, front bump rail"],
-    suits: ["heavy", "compact", "miniex", "car", "utv"]
-  }
-};
-
-/* One physical unit on the lot (sample stock built from real models) */
-function stock(key, o) { return Object.assign({ year: 2026 }, MODELS[key], o); }
+/* MODELS: see src/models.json (one entry per Timpte model, numbers from the spec sheets). */
 
 const DATA = {
-  business: {
-    name: "Timeless Trailers",
-    phone: "704-589-3100",
-    tel: "+17045893100",
-    hours: "Mon–Fri 9am–5pm",
-    address: "4417-A Helms Road, Waxhaw, NC 28173",
-    maps: "https://www.google.com/maps/dir/?api=1&destination=4417-A+Helms+Road%2C+Waxhaw%2C+NC+28173",
-    modelsCarried: 19,
-    timpte: "https://www.timpteequipmenttrailers.com"
-  },
+  business: CONFIG.business,
 
   /* Sample financing terms used by every payment estimate */
   finance: { apr: 8.49, term: 60, downPct: 10, terms: [24, 36, 48, 60, 72] },
@@ -172,22 +49,8 @@ const DATA = {
     "torsion-axle": { title: "Timpte's rubber torsion suspension", len: "1:25" }
   },
 
-  /* Sample stock built from real models. Prices and stock numbers are SAMPLE. */
-  inventory: [
-    stock("1614D", { id: "TT-0142", price: 18400, status: "lot", added: d(-21) }),
-    stock("1614D", { id: "TT-0143", price: 18400, status: "lot", added: d(-9) }),
-    stock("1414D", { id: "TT-0150", price: 16200, status: "lot", added: d(-14) }),
-    stock("1420ST", { id: "TT-0138", price: 17900, status: "lot", added: d(-30) }),
-    stock("1420ST", { id: "TT-0165", price: 17900, status: "order", eta: "late October", added: d(-2) }),
-    stock("1624ST", { id: "TT-0147", price: 21900, status: "lot", added: d(-6) }),
-    stock("1620GN", { id: "TT-0129", price: 21500, status: "lot", added: d(-75) }),
-    stock("1620DO", { id: "TT-0152", price: 17600, status: "lot", added: d(-11) }),
-    stock("1020", { id: "TT-0155", price: 14900, status: "lot", added: d(-12) }),
-    stock("1020", { id: "TT-0156", price: 14900, status: "order", eta: "mid November", added: d(-1) }),
-    stock("720", { id: "TT-0160", price: 10900, status: "lot", added: d(-4) }),
-    stock("1026", { id: "TT-0133", price: 16400, status: "lot", added: d(-40) }),
-    stock("514", { id: "TT-0158", price: 6950, status: "hold", added: d(-18) })
-  ],
+  /* Units on the lot: src/inventory.json. Each unit is its model's specs plus stock number, status, price and date. */
+  inventory: INVENTORY.units.map(u => Object.assign({ year: 2026 }, MODELS[u.key], u, { added: u.added || d(-(u.addedDaysAgo || 0)) })),
 
   /* Defaults used when Andy (or the Add trailer form) adds a new unit */
   typeDefaults: {
@@ -273,10 +136,7 @@ const DATA = {
   ],
 
   /* Who's on the About page. Kayla is a sample name until Matt gives us his real team. */
-  team: [
-    { name: "Matt Lyons", role: "Owner", note: "Answers the phone, walks the lot with you and stands behind every unit he sells." },
-    { name: "Kayla Brooks", role: "Sales & parts (sample)", note: "Quotes, parts orders and keeping the lead board moving." }
-  ],
+  team: CONFIG.team,
 
   /* @demo */
   /* Everything from here to the end of DATA is demo-site only. build.py cuts it out of the public site. */

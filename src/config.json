@@ -1,0 +1,59 @@
+{
+  "_comment": "Everything about THIS dealer lives here. A second dealer is a second copy of this file plus their models, inventory, parts and photos. build.py inlines it into app.js as CONFIG.",
+  "site": {
+    "name": "Timeless Trailers",
+    "tagline": "Built once. Lasts forever.",
+    "url": "https://timeless-trailers.jsalbrig-studio.workers.dev",
+    "indexable": false,
+    "title": "Timeless Trailers · The only dealer in the U.S. that sells Timpte equipment trailers exclusively · Waxhaw, NC",
+    "description": "The only dealer in the U.S. that sells Timpte equipment trailers exclusively. Aluminum split tilt, deck over, gooseneck, dump and EZ Load trailers in Waxhaw, NC, with real specs, photos and video for every model.",
+    "ogTitle": "Timeless Trailers · America's only Timpte-exclusive dealer",
+    "ogDescription": "Timpte aluminum equipment trailers in Waxhaw, NC. Real specs, photos and video for every model.",
+    "ogImage": "/video/hero-full.webp",
+    "builtBy": "Albright Agency"
+  },
+  "business": {
+    "name": "Timeless Trailers",
+    "legalName": "Timeless Trailers",
+    "phone": "704-589-3100",
+    "tel": "+17045893100",
+    "email": "",
+    "hours": "Mon–Fri 9am–5pm",
+    "openingHours": { "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "09:00", "closes": "17:00" },
+    "address": "4417-A Helms Road, Waxhaw, NC 28173",
+    "street": "4417-A Helms Road",
+    "city": "Waxhaw",
+    "state": "NC",
+    "zip": "28173",
+    "maps": "https://www.google.com/maps/dir/?api=1&destination=4417-A+Helms+Road%2C+Waxhaw%2C+NC+28173",
+    "areaServed": ["Waxhaw NC", "Charlotte NC", "Union County NC", "North Carolina", "South Carolina"],
+    "modelsCarried": 19,
+    "brand": "Timpte",
+    "timpte": "https://www.timpteequipmenttrailers.com"
+  },
+  "assistant": {
+    "name": "Andy",
+    "chat": "https://app.stammer.ai/en/chatbot/embed/6c5361b8-327c-4024-a1e8-6eff602a3384",
+    "voice": "https://app.stammer.ai/en/voice/embed/d44a66c8-dec4-45b3-ad38-7b7ddf60e1a0",
+    "voiceOn": true
+  },
+  "showPrices": true,
+  "holdHours": 48,
+  "leads": {
+    "to": "",
+    "from": "",
+    "subject": "New lead from the website"
+  },
+  "analytics": {
+    "cloudflareToken": ""
+  },
+  "wording": {
+    "exclusive": "The only dealer in the U.S. that sells Timpte equipment trailers exclusively.",
+    "exclusiveShort": "America's only Timpte-exclusive dealer",
+    "andy": "Andy matches the trailer to your load and truck, then Matt sends your quote the same business day.",
+    "owner": "Matt"
+  },
+  "team": [
+    { "name": "Matt Lyons", "role": "Owner", "note": "Answers the phone, walks the lot with you and stands behind every unit he sells." }
+  ]
+}

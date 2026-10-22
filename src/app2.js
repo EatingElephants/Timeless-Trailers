@@ -13,7 +13,7 @@ VIEWS.vision = {
       ["Financing applications", "A real pre-qualify form through the lender Timeless uses."],
       ["Google and the answer tools", "Each model gets its own page with structured data, so searches for a Timpte split tilt near Charlotte find Timeless."]
     ];
-    return `<div class="page-head"><div class="wrap"><div class="crumbs"><a href="#/home">Home</a> / The finished site</div><div class="eyebrow">Concept v3 · for review</div><h1 style="margin-top:10px">What the finished site adds.</h1>
+    return `<div class="page-head"><div class="wrap"><div class="crumbs"><a href="/">Home</a> / The finished site</div><div class="eyebrow">Concept v3 · for review</div><h1 style="margin-top:10px">What the finished site adds.</h1>
       <p class="lede">This version has real Timpte models, specs, photos and video. Here's what the full build adds on top, so you can picture the whole thing before we build it.</p></div></div>
     <section style="padding-top:34px"><div class="wrap"><div class="grid2">${items.map(([h, p]) => `<div class="panel"><h3>${h}</h3><p style="margin:0;color:var(--text-2)">${p}</p></div>`).join("")}</div>
       <div class="panel" style="margin-top:22px"><h3>What's sample in this version</h3><p style="margin:0;color:var(--text-2)">Stock numbers and what's on the lot. Sample prices, the demo customers and staff, and the sample reviews only appear on this demo site; the public site shows "Call for price" and has no sign-in. Everything about the trailers themselves (model names, payloads, weights, decks, angles, axles, tires) comes from Timpte's 2026 spec sheets, and Andy answers from them.</p></div>
@@ -100,7 +100,7 @@ function renderAdminMain(flashId) {
         <td><select data-edit="status" data-id="${t.id}" aria-label="Status for ${t.id}">${[["lot", "On the lot"], ["order", "On order"], ["hold", "On hold"], ["sold", "Sold"]].map(([v, l]) => `<option value="${v}" ${t.status === v ? "selected" : ""}>${l}</option>`).join("")}</select></td>
         <td><input type="number" step="50" min="0" data-edit="price" data-id="${t.id}" value="${t.price}" aria-label="Price for ${t.id}"></td>
         <td>${fmtDate(t.added)}</td>
-        <td style="white-space:nowrap">${t.status !== "sold" ? `<button class="btn btn-line xs" data-act="adm-sold" data-id="${t.id}">Mark sold</button>` : ""} <a class="btn btn-line xs" href="#/trailer/${t.id}">View</a></td></tr>`).join("")}</tbody></table></div>`;
+        <td style="white-space:nowrap">${t.status !== "sold" ? `<button class="btn btn-line xs" data-act="adm-sold" data-id="${t.id}">Mark sold</button>` : ""} <a class="btn btn-line xs" href="/stock/${t.id}/">View</a></td></tr>`).join("")}</tbody></table></div>`;
   } else if (adm.tab === "leads") {
     body = `<div class="atools"><span class="muted" style="font-size:.9rem">Drag a card between columns, or use its dropdown.</span></div><div class="kanban-wrap"><div class="kanban">${STAGES.map(s => { const ls = S.leads.filter(l => l.stage === s);
       return `<div class="kcol" data-stage="${s}"><h4>${s}<span>${ls.length}</span></h4>${ls.map(l => `<div class="lead" draggable="true" data-lead="${l.id}"><b>${esc(l.name)}</b><span>${esc(l.interest)}</span><small>${esc(l.source)} · ${fmtDate(l.created)} · ${esc(l.phone)}</small>
@@ -282,8 +282,9 @@ function syncSpecs() {
    ========================================================================== */
 /* Two ways to reach Andy, both on Stammer: the chat window and the voice agent (a phone-style call in the browser).
    Every "Ask Andy" opens the panel on a chooser first; the visitor picks Chat or Voice, and can switch at the top of the panel. */
-const STAMMER_EMBED = "https://app.stammer.ai/en/chatbot/embed/6c5361b8-327c-4024-a1e8-6eff602a3384";
-const VOICE_EMBED = "https://app.stammer.ai/en/voice/embed/d44a66c8-dec4-45b3-ad38-7b7ddf60e1a0";
+const STAMMER_EMBED = CONFIG.assistant.chat;
+const VOICE_EMBED = CONFIG.assistant.voice;
+const VOICE_ON = !!(VOICE_EMBED && CONFIG.assistant.voiceOn);
 const chat = { mode: null, pendingQ: "", opener: null, booted: false, ctx: {} };
 function loadChatFrame() {
   const box = $("#tzFrame"); if (!box || box.firstChild) return;
@@ -328,8 +329,8 @@ function openChat(question, opener) {
   chat.pendingQ = typeof question === "string" ? question.trim() : "";
   const p = $("#tzPanel"); p.classList.add("open"); p.setAttribute("aria-hidden", "false");
   document.body.classList.add("chat-open"); $("#tzFab").setAttribute("aria-expanded", "true");
-  showChooser();
-  setTimeout(() => { const c = $("#tzChoose button"); if (c) c.focus(); }, 320);
+  if (VOICE_ON) { showChooser(); setTimeout(() => { const c = $("#tzChoose button"); if (c) c.focus(); }, 320); }
+  else { setMode("chat"); $("#tzSeg").hidden = true; setTimeout(() => { const c = $("#tzClose"); if (c) c.focus(); }, 320); }
 }
 function closeChat() {
   const p = $("#tzPanel"); p.classList.remove("open"); p.setAttribute("aria-hidden", "true");
@@ -346,7 +347,7 @@ function holdModal(id) {
   const t = unit(id); if (!t) return;
   if (t.status !== "lot" && t.status !== "order") { toast(`${t.id} is ${statusInfo(t).label.toLowerCase()}.`); return; }
   const u = me(); const cu = u && u.role === "customer" ? u : null;
-  openModal(`<h3>Hold ${t.id}</h3><p class="sub">${esc(tname(t))}${DEMO ? " · " + money(t.price) : ""}. We hold it 48 hours while we confirm details. No payment online.</p>
+  openModal(`<h3>Hold ${t.id}</h3><p class="sub">${esc(tname(t))}${PRICES ? " · " + money(t.price) : ""}. We hold it ${CONFIG.holdHours || 48} hours while we confirm details. No payment online.</p>
     <form data-form="hold" data-id="${t.id}" novalidate><div class="fields">
       <div><label for="hName">Name</label><input id="hName" name="name" required value="${cu ? esc(cu.name) : ""}"></div>
       <div><label for="hPhone">Phone</label><input id="hPhone" name="phone" type="tel" required value="${cu ? esc(cu.phone) : ""}"></div></div>
@@ -374,11 +375,10 @@ function signIn(id, keep) {
   chat.booted = false; chat.ctx = {};
   const p = persona(id); toast(`Signed in as ${esc(p.name)} · ${esc(p.title)}`);
   if (keep) { openChat(); return render(true); }
-  const target = p.role === "customer" ? "#/account" : "#/admin";
-  if (location.hash === target) render(); else location.hash = target;
+  go(p.role === "customer" ? "/account/" : "/admin/");
 }
 function footerDemoHTML() {
-  return `<a href="#/account">My Account</a><a href="#/admin">Dealer console</a><a href="#/vision">What the finished site adds</a>`;
+  return `<a href="/account/">My Account</a><a href="/admin/">Dealer console</a><a href="/vision/">What the finished site adds</a>`;
 }
 function footerResetHTML() { return `<button data-act="reset">Reset demo</button>`; }
 /* @end-demo */
@@ -405,17 +405,17 @@ const FORMS = {
   hold(f) {
     if (!need(f, ["name", "phone"])) return;
     const t = unit(f.dataset.id); const h = createHold(t, f.elements.name.value.trim(), f.elements.phone.value.trim());
-    closeModal(); rerender(); toast(`${t.id} is on hold until ${fmtWhen(h.expires)}.${DEMO ? ` <a href="#/account?s=a-holds">See it in My Account</a>` : " We'll call you today to confirm."}`, 5000);
+    closeModal(); rerender(); toast(`${t.id} is on hold until ${fmtWhen(h.expires)}.${DEMO ? ` <a href="/account/?s=a-holds">See it in My Account</a>` : " We'll call you today to confirm."}`, 5000);
   },
   "parts-checkout"(f) {
     if (!need(f, ["name", "phone"])) return;
     const o = createPartsOrder(S.cart.slice(), f.elements.name.value.trim(), f.elements.phone.value.trim()); S.cart = []; save();
-    renderCart(); toast(`Order ${o.id} placed. We'll text when it's ready for pickup.${DEMO ? ` <a href="#/account?s=a-orders">My Account</a>` : ""}`, 5000);
+    renderCart(); toast(`Order ${o.id} placed. We'll text when it's ready for pickup.${DEMO ? ` <a href="/account/?s=a-orders">My Account</a>` : ""}`, 5000);
   },
   service(f) {
     if (!need(f, ["name", "phone"])) return;
     const e = f.elements; const tk = createTicket({ name: e.name.value.trim(), phone: e.phone.value.trim(), unit: e.unit.value, service: e.service.value, notes: e.notes.value.trim(), date: e.date.value ? new Date(e.date.value + "T12:00").toISOString() : null });
-    f.innerHTML = doneHTML(`Ticket ${tk.id} open.`, `We'll call ${esc(e.phone.value)} to confirm drop-off${e.date.value ? " around " + fmtDate(tk.date) : ""}. ${me() ? '<a href="#/account?s=a-tickets">Track it in My Account</a>.' : ""}`);
+    f.innerHTML = doneHTML(`Ticket ${tk.id} open.`, `We'll call ${esc(e.phone.value)} to confirm drop-off${e.date.value ? " around " + fmtDate(tk.date) : ""}. ${me() ? '<a href="/account/?s=a-tickets">Track it in My Account</a>.' : ""}`);
   },
   prequal(f) { if (!need(f, ["name", "phone"])) return; addLead({ name: f.elements.name.value.trim(), phone: f.elements.phone.value.trim(), interest: "Financing pre-qualify · " + money(fin.price), source: "Financing" }); f.innerHTML = doneHTML("You're in line.", "The team will call today with real rates for " + money(fin.price) + "."); },
   warranty(f) { const v = f.elements.vin.value.trim(); if (v.length < 6) { f.elements.vin.classList.add("bad"); toast("Enter the VIN or serial from the frame tag."); return; } f.innerHTML = `<p style="margin:0"><b style="color:var(--green)">✓ Registered.</b> Warranty on ${esc(v)} is on file with Timpte (sample).</p>`; },
@@ -426,7 +426,7 @@ const FORMS = {
     const t = unit(f.dataset.id); const ids = $$("input[name=addon]:checked", f).map(i => i.value);
     const q = createQuote(t, ids, f.elements.name.value.trim(), f.elements.phone.value.trim());
     f.parentNode.innerHTML = `<button class="xbtn" data-act="modal-close" aria-label="Close" style="position:absolute;top:14px;right:14px">${ICON.x}</button>` + doneHTML(`Quote ${q.id} saved.`, `Out the door: <b>${money(quoteCalc(t, ids).total)}</b>. The team will call to walk through it.`) +
-      `<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap"><a class="btn btn-gold sm" href="#/account?s=a-quotes">View in My Account</a><button class="btn btn-line sm" data-act="hold" data-id="${t.id}">Hold this unit</button></div>`;
+      `<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap"><a class="btn btn-gold sm" href="/account/?s=a-quotes">View in My Account</a><button class="btn btn-line sm" data-act="hold" data-id="${t.id}">Hold this unit</button></div>`;
     rerender();
   },
   "add-unit"(f) {
@@ -440,20 +440,54 @@ const FORMS = {
 /* ==========================================================================
    ROUTER + EVENTS
    ========================================================================== */
-function parseHash() {
-  let h = location.hash || "#/home";
-  const legacy = { "#lot": "#/inventory", "#quote": "#/home?s=quote", "#match": "#/home?s=match", "#lineup": "#/inventory?s=lineup", "#top": "#/home" };
-  if (legacy[h]) { history.replaceState(null, "", legacy[h]); h = legacy[h]; }
-  if (!h.startsWith("#/")) h = "#/home";
-  const [path, qs] = h.slice(2).split("?");
-  const parts = path.split("/").filter(Boolean);
-  if (!DEMO && (parts[0] === "account" || parts[0] === "admin" || parts[0] === "vision")) parts[0] = "home";
-  const q = {}; new URLSearchParams(qs || "").forEach((v, k) => { q[k] = v; });
-  return { name: VIEWS[parts[0]] ? parts[0] : "home", arg: parts[1] ? decodeURIComponent(parts[1]) : null, q };
+/* Real page addresses. build.py writes one folder per address (so every page loads on its own and search engines
+   can read it); this router takes over once the script runs, and keeps the old #/ links working. */
+const CAT_SLUG = { tilt: "split-tilt", deckover: "deck-over", gooseneck: "gooseneck", dump: "dump", ezload: "ez-load" };
+const SLUG_CAT = Object.fromEntries(Object.entries(CAT_SLUG).map(([k, v]) => [v, k]));
+const PAGES = { "": "home", trailers: "inventory", stock: "trailer", finder: "finder", compare: "compare", parts: "parts", service: "service",
+  "owner-resources": "resources", financing: "financing", about: "about", contact: "contact", privacy: "privacy", account: "account", admin: "admin", vision: "vision" };
+function catPath(type) { return "/trailers/" + (CAT_SLUG[type] || "") + "/"; }
+function modelPath(m) { return "/trailers/" + m.slug + "/"; }
+function legacyPath(h) {
+  const simple = { "#lot": "/trailers/", "#quote": "/?s=quote", "#match": "/?s=match", "#lineup": "/trailers/?s=lineup", "#top": "/" };
+  if (simple[h]) return simple[h];
+  if (!h.startsWith("#/")) return null;
+  const [p, qs] = h.slice(2).split("?"); const parts = p.split("/").filter(Boolean); const q = new URLSearchParams(qs || "");
+  const n = parts[0] || "home"; let path = "/";
+  if (n === "inventory") { if (q.get("type")) { path = catPath(q.get("type")); q.delete("type"); } else path = "/trailers/"; }
+  else if (n === "trailer" && parts[1]) path = "/stock/" + parts[1] + "/";
+  else if (n === "service" && q.get("s") === "resources") { path = "/owner-resources/"; q.delete("s"); }
+  else if (n === "about" && (q.get("s") === "contact" || q.get("s") === "visit")) { path = "/contact/"; q.delete("s"); }
+  else if (n !== "home") path = "/" + n + "/";
+  const s = q.toString(); return path + (s ? "?" + s : "");
 }
+function parseRoute() {
+  const old = legacyPath(location.hash);
+  if (old) history.replaceState(null, "", old);
+  const parts = location.pathname.split("/").filter(Boolean).map(x => { try { return decodeURIComponent(x); } catch (e) { return x; } });
+  const q = {}; new URLSearchParams(location.search).forEach((v, k) => { q[k] = v; });
+  let name = PAGES[parts[0] || ""] || "notfound", arg = parts[1] || null;
+  if (parts[0] === "trailers" && parts[1]) {
+    if (SLUG_CAT[parts[1]]) { name = "inventory"; q.type = SLUG_CAT[parts[1]]; arg = null; }
+    else { const m = Object.values(MODELS).find(x => x.slug === parts[1]); name = m ? "model" : "notfound"; arg = m ? m.key : parts[1]; }
+  }
+  if (!DEMO && (name === "account" || name === "admin" || name === "vision")) name = "home";
+  if (!VIEWS[name]) name = "notfound";
+  return { name, arg, q };
+}
+function go(path) {
+  if (path !== location.pathname + location.search) history.pushState(null, "", path);
+  render();
+}
+/* Internal links (an href that starts with / and isn't a file) change pages without reloading. */
+function isInternal(a) {
+  const h = a.getAttribute("href") || "";
+  return h.startsWith("/") && !h.startsWith("//") && !/^\/(img|video|specs)\//.test(h) && !a.target && !a.hasAttribute("download");
+}
+window.addEventListener("popstate", () => render());
 function render(keepScroll) {
   const prev = route.name;
-  route = parseHash();
+  route = parseRoute();
   const v = VIEWS[route.name];
   const y = window.scrollY;
   $("#app").innerHTML = v.html(route);
@@ -471,6 +505,8 @@ document.addEventListener("click", e => {
   if (menuBtn) { const m = menuBtn.parentNode; const open = !m.classList.contains("open"); closeMenus(m); m.classList.toggle("open", open); menuBtn.setAttribute("aria-expanded", open); return; }
   if (!e.target.closest(".menu")) closeMenus();
   const lb = e.target.closest("[data-lb]"); if (lb) { e.preventDefault(); openLightbox(+lb.dataset.lb); return; }
+  const link = e.target.closest("a[href]");
+  if (link && !link.dataset.act && isInternal(link) && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey && e.button === 0) { e.preventDefault(); closeModal(); go(link.getAttribute("href")); return; }
   const el = e.target.closest("[data-act]"); if (!el) return;
   const a = el.dataset.act, id = el.dataset.id;
   if (el.tagName === "SELECT" || (el.tagName === "INPUT" && el.type !== "checkbox")) return;
@@ -486,7 +522,7 @@ document.addEventListener("click", e => {
     case "cmp-starter": S.compare = ["TT-0155", "TT-0160"]; save(); render(true); break;
     case "hold": e.preventDefault(); holdModal(id); break;
     case "ask": { const t = unit(id); openChat(t ? `Tell me about the ${tname(t)}, stock ${t.id}` : "", el); break; }
-    case "quote-model": closeModal(); location.hash = "#/home?s=quote&m=" + encodeURIComponent(el.dataset.model || ""); break;
+    case "quote-model": closeModal(); go("/?s=quote&m=" + encodeURIComponent(el.dataset.model || "")); break;
     case "tessa-open": e.preventDefault(); closeDrawer(); openChat("", el); break;
     case "tessa-close": closeChat(); break;
     case "tz-mode": setMode(el.dataset.m === "voice" ? "voice" : "chat"); break;
@@ -556,7 +592,7 @@ document.addEventListener("input", e => {
     $$("[data-search]").forEach(i => { if (i !== el) i.value = el.value; });
     if (route.name !== "inventory") {
       inv.type = "all";
-      history.pushState(null, "", "#/inventory"); render();
+      history.pushState(null, "", "/trailers/"); render();
       if (el.isConnected) el.focus(); else { const q = $("#invQ"); if (q) { q.focus(); q.setSelectionRange(q.value.length, q.value.length); } }
     }
     else renderInvGrid();
@@ -577,7 +613,7 @@ function buildChrome() {
   const b = DATA.business;
   $("#chromeTop").innerHTML = `
   <header class="site"><div class="wrap nav">
-    <a class="logo" href="#/home" aria-label="Timeless Trailers home"><img src="${img("timeless-logo")}" alt="Timeless Trailers · Built once. Lasts forever."></a>
+    <a class="logo" href="/" aria-label="Timeless Trailers home"><img src="${img("timeless-logo")}" alt="Timeless Trailers · Built once. Lasts forever."></a>
     <nav class="nav-links" id="navLinks" aria-label="Main"></nav>
     <div class="hsearch">${ICON.search}<label for="hSearch" class="sr">Search inventory</label><input id="hSearch" data-search placeholder="Search trailers" autocomplete="off"></div>
     <div class="nav-right"><button class="btn btn-gold btn-tessa" data-act="tessa-open">${ICON.spark}<span>Ask ${A}</span></button><div class="acct-slot" id="acctSlot"></div>
@@ -586,11 +622,11 @@ function buildChrome() {
   $("#chromeBottom").innerHTML = `
   <footer><div class="wrap"><div class="fgrid">
     <div><img src="${img("timeless-logo")}" alt="Timeless Trailers"><p>The only dealer in the U.S. that sells Timpte equipment trailers exclusively · ${esc(b.address)} · ${b.phone} · ${b.hours}</p><a class="tbadge" href="${b.timpte}" target="_blank" rel="noopener"><img src="${img("timpte-et-logo")}" alt="Timpte Equipment Trailers" loading="lazy"><span>Timpte-exclusive dealer</span></a></div>
-    <div><h4>Shop</h4><a href="#/inventory">On the lot</a><a href="#/inventory?s=lineup">Lineup</a><a href="#/finder">Trailer Finder</a><a href="#/compare">Compare</a></div>
-    <div><h4>Own</h4><a href="#/parts">Parts</a><a href="#/service">Service</a><a href="#/service?s=resources">Owner resources</a><a href="#/financing">Financing</a></div>
-    <div><h4>Company</h4><a href="#/about">About</a><a href="#/about?s=visit">Visit</a><a href="#/about?s=contact">Contact</a>${DEMO ? footerDemoHTML() : ""}</div>
-  </div><div class="fbot"><span>Site concept by Albright Agency · Sample stock, no real orders</span>${DEMO ? footerResetHTML() : ""}</div></div></footer>
-  <div class="mbar"><a class="btn btn-line-light" href="#/inventory">On the lot</a><a class="btn btn-gold" href="#/home?s=quote">Get a quote</a></div>
+    <div><h4>Shop</h4><a href="/trailers/">On the lot</a><a href="/trailers/?s=lineup">Lineup</a><a href="/finder/">Trailer Finder</a><a href="/compare/">Compare</a></div>
+    <div><h4>Own</h4><a href="/parts/">Parts</a><a href="/service/">Service</a><a href="/owner-resources/">Owner resources</a><a href="/financing/">Financing</a></div>
+    <div><h4>Company</h4><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/owner-resources/">Owner resources</a><a href="/privacy/">Privacy</a>${DEMO ? footerDemoHTML() : ""}</div>
+  </div><div class="fbot"><span>${DEMO ? "Demo site by Albright Agency · Sample stock, no real orders" : `© ${new Date().getFullYear()} ${esc(b.name)} · Site by <a href="https://albright-innovations.com" target="_blank" rel="noopener">${esc(CONFIG.site.builtBy)}</a>`}</span>${DEMO ? footerResetHTML() : ""}</div></div></footer>
+  <div class="mbar"><a class="btn btn-line-light" href="/trailers/">On the lot</a><a class="btn btn-gold" href="/?s=quote">Get a quote</a></div>
   <div class="cmp-tray" id="cmpTray" hidden></div>
   <div class="toasts" id="toasts" aria-live="polite"></div>
   <button class="tz-fab" id="tzFab" data-act="tessa-open" aria-expanded="false" aria-controls="tzPanel" aria-label="Ask ${A}, our trailer advisor"><span class="bubble"><small>Trailer advisor</small>Ask ${A}</span><span class="andy"><img class="f1" src="${img("andy-1")}" alt="" width="160" height="160"><img class="f2" src="${img("andy-2")}" alt="" width="160" height="160"><img class="f3" src="${img("andy-3")}" alt="" width="160" height="160"></span></button>
@@ -601,7 +637,7 @@ function buildChrome() {
     <div class="tz-choose" id="tzChoose">
       <p class="tz-choose-h">How do you want to ask ${A}?</p>
       <button type="button" class="tz-choice" data-act="tz-mode" data-m="chat"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8 8 0 0 1-8 8H8l-5 3 1.5-4.5A8 8 0 1 1 21 12z"/></svg></i><span><b>Chat with ${A}</b><small>Type your question and read the answer.</small></span></button>
-      <button type="button" class="tz-choice" data-act="tz-mode" data-m="voice"><i>${ICON.phone}</i><span><b>Talk to ${A}</b><small>Speak and hear the answer, like a phone call.</small></span></button>
+      ${VOICE_ON ? `<button type="button" class="tz-choice" data-act="tz-mode" data-m="voice"><i>${ICON.phone}</i><span><b>Talk to ${A}</b><small>Speak and hear the answer, like a phone call.</small></span></button>` : ""}
       <p class="tz-choose-note">Either way, a person at Timeless confirms every price and hold.</p>
     </div>
     <p class="tz-note" id="tzNote" hidden>Ask about any Timpte model, what fits your machine, or what your truck can tow. A person at Timeless confirms every price and hold.</p>

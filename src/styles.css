@@ -710,7 +710,7 @@
   @media (max-width:900px){.why-grid2{grid-template-columns:1fr}}
   .tbadge{display:inline-flex;align-items:center;gap:12px;margin-top:14px;background:#fff;border-radius:10px;padding:8px 14px;text-decoration:none;color:#444;font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
   .tbadge img{height:26px;width:auto}
-  @media (prefers-reduced-motion:reduce){.hero-video{display:none}.hero-art::before{content:"";display:block;width:100%;max-width:560px;aspect-ratio:16/9;border-radius:14px;background:url(video/hero-loop.webp) center/cover}}
+  @media (prefers-reduced-motion:reduce){.hero-video{display:none}.hero-art::before{content:"";display:block;width:100%;max-width:560px;aspect-ratio:16/9;border-radius:14px;background:url(/video/hero-loop.webp) center/cover}}
 
   /* ===== v3 flair pass ===== */
   /* full-screen video hero */
@@ -770,12 +770,12 @@
   .bgsec{position:relative;background-size:cover;background-position:center;color:#fff;isolation:isolate}
   .bgsec::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,12,10,.86),rgba(14,12,10,.72));z-index:-1}
   @media (min-width:901px) and (prefers-reduced-motion:no-preference){.bgsec{background-attachment:fixed}}
-  .meet.bgsec{background-image:url(img/bg-showroom.webp)}
-  .quote-bg{background-image:url(img/bg-gooseneck.webp)}
+  .meet.bgsec{background-image:url(/img/bg-showroom.webp)}
+  .quote-bg{background-image:url(/img/bg-gooseneck.webp)}
   .quote-bg .lede,.quote-bg .visit small{color:#cfc9bf}
   .quote-bg .visit b,.quote-bg .visit a{color:#fff}
   .quote-bg .mapcard{border-color:rgba(255,255,255,.2)}
-  .lineup-bg{background-image:url(img/bg-lineup.webp)}
+  .lineup-bg{background-image:url(/img/bg-lineup.webp)}
   .lineup-bg h2,.lineup-bg .eyebrow{color:#fff}
   .lineup-bg .lede{color:#d9d3c8}
   .lineup-bg .chip{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3);color:#fff}

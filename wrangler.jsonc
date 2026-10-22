@@ -1,10 +1,13 @@
-// Cloudflare settings. Tells Cloudflare the website lives in the site/ folder.
-// Nothing else to configure: "npx wrangler deploy" publishes that folder as-is.
+// Cloudflare settings for the PUBLIC site. Tells Cloudflare the website lives in the site/ folder.
+// Every page has its own folder there (site/trailers/1420-split-tilt/index.html), so an unknown
+// address gets the real 404 page instead of the home page.
+// "npx wrangler deploy" publishes the folder as-is.
 {
   "name": "timeless-trailers",
   "compatibility_date": "2026-10-01",
   "assets": {
     "directory": "./site",
-    "not_found_handling": "single-page-application"
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
   }
 }

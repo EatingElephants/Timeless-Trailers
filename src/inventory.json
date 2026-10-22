@@ -1,0 +1,122 @@
+{
+  "_comment": "Units on the lot. SAMPLE until Matt's list replaces it. key = the model in models.json; price = the unit's list price; status = lot | order | hold | sold.",
+  "units": [
+    {
+      "id": "TT-0142",
+      "key": "1614D",
+      "year": 2026,
+      "status": "lot",
+      "price": 18400,
+      "eta": null,
+      "addedDaysAgo": 21
+    },
+    {
+      "id": "TT-0143",
+      "key": "1614D",
+      "year": 2026,
+      "status": "lot",
+      "price": 18400,
+      "eta": null,
+      "addedDaysAgo": 9
+    },
+    {
+      "id": "TT-0150",
+      "key": "1414D",
+      "year": 2026,
+      "status": "lot",
+      "price": 16200,
+      "eta": null,
+      "addedDaysAgo": 14
+    },
+    {
+      "id": "TT-0138",
+      "key": "1420ST",
+      "year": 2026,
+      "status": "lot",
+      "price": 17900,
+      "eta": null,
+      "addedDaysAgo": 30
+    },
+    {
+      "id": "TT-0165",
+      "key": "1420ST",
+      "year": 2026,
+      "status": "order",
+      "price": 17900,
+      "eta": "late October",
+      "addedDaysAgo": 2
+    },
+    {
+      "id": "TT-0147",
+      "key": "1624ST",
+      "year": 2026,
+      "status": "lot",
+      "price": 21900,
+      "eta": null,
+      "addedDaysAgo": 6
+    },
+    {
+      "id": "TT-0129",
+      "key": "1620GN",
+      "year": 2026,
+      "status": "lot",
+      "price": 21500,
+      "eta": null,
+      "addedDaysAgo": 75
+    },
+    {
+      "id": "TT-0152",
+      "key": "1620DO",
+      "year": 2026,
+      "status": "lot",
+      "price": 17600,
+      "eta": null,
+      "addedDaysAgo": 11
+    },
+    {
+      "id": "TT-0155",
+      "key": "1020",
+      "year": 2026,
+      "status": "lot",
+      "price": 14900,
+      "eta": null,
+      "addedDaysAgo": 12
+    },
+    {
+      "id": "TT-0156",
+      "key": "1020",
+      "year": 2026,
+      "status": "order",
+      "price": 14900,
+      "eta": "mid November",
+      "addedDaysAgo": 1
+    },
+    {
+      "id": "TT-0160",
+      "key": "720",
+      "year": 2026,
+      "status": "lot",
+      "price": 10900,
+      "eta": null,
+      "addedDaysAgo": 4
+    },
+    {
+      "id": "TT-0133",
+      "key": "1026",
+      "year": 2026,
+      "status": "lot",
+      "price": 16400,
+      "eta": null,
+      "addedDaysAgo": 40
+    },
+    {
+      "id": "TT-0158",
+      "key": "514",
+      "year": 2026,
+      "status": "hold",
+      "price": 6950,
+      "eta": null,
+      "addedDaysAgo": 18
+    }
+  ]
+}
