@@ -381,6 +381,7 @@ function footerDemoHTML() {
   return `<a href="/account/">My Account</a><a href="/admin/">Dealer console</a><a href="/vision/">What the finished site adds</a>`;
 }
 function footerResetHTML() { return `<button data-act="reset">Reset demo</button>`; }
+function footerDemoNote() { return "Demo site by Albright Agency · Sample stock, no real orders"; }
 /* @end-demo */
 
 /* ---- validation ---- */
@@ -456,7 +457,6 @@ const FORMS = {
     f.innerHTML = doneHTML(`Ticket ${tk.id} open.`, `We'll call ${esc(e.phone.value)} to confirm drop-off${e.date.value ? " around " + fmtDate(tk.date) : ""}. ${me() ? '<a href="/account/?s=a-tickets">Track it in My Account</a>.' : ""}`);
   },
   async prequal(f) { if (!need(f, ["name", "phone"])) return; const r = await sendLead(f, "Financing pre-qualify", { price: money(fin.price), as: f.elements.as.value }); if (!r.ok) return; addLead({ name: f.elements.name.value.trim(), phone: f.elements.phone.value.trim(), interest: "Financing pre-qualify · " + money(fin.price), source: "Financing" }); f.innerHTML = doneHTML("You're in line.", "The team will call today with real rates for " + money(fin.price) + "."); },
-  warranty(f) { const v = f.elements.vin.value.trim(); if (v.length < 6) { f.elements.vin.classList.add("bad"); toast("Enter the VIN or serial from the frame tag."); return; } f.innerHTML = `<p style="margin:0"><b style="color:var(--green)">✓ Registered.</b> Warranty on ${esc(v)} is on file with Timpte (sample).</p>`; },
   /* @demo */
   "admin-chat"(f) { const v = f.elements.q.value.trim(); if (!v) return; adminSay(v); },
   quoteb(f) {
@@ -583,7 +583,6 @@ document.addEventListener("click", e => {
     case "parts-series": partsUI.series = el.dataset.s; $$("[data-act=parts-series]").forEach(x => x.setAttribute("aria-pressed", x === el)); renderParts(); break;
     case "parts-fit": partsUI.fit = el.checked; renderParts(); break;
     case "fin-term": fin.term = +el.dataset.n; $$("[data-act=fin-term]").forEach(x => x.setAttribute("aria-pressed", x === el)); renderCalc(); break;
-    case "doc": toast(`Sample: “${esc(el.dataset.n)}” would open as a PDF here.`); break;
     /* @demo */
     case "quote": quoteModal(id); break;
     case "signin-open": e.preventDefault(); closeMenus(); closeDrawer(); signinModal(); break;
@@ -664,7 +663,7 @@ function buildChrome() {
     <div><h4>Shop</h4><a href="/trailers/">On the lot</a><a href="/trailers/?s=lineup">Lineup</a><a href="/finder/">Trailer Finder</a><a href="/compare/">Compare</a></div>
     <div><h4>Own</h4><a href="/parts/">Parts</a><a href="/service/">Service</a><a href="/owner-resources/">Owner resources</a><a href="/financing/">Financing</a></div>
     <div><h4>Company</h4><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/owner-resources/">Owner resources</a><a href="/privacy/">Privacy</a>${DEMO ? footerDemoHTML() : ""}</div>
-  </div><div class="fbot"><span>${DEMO ? "Demo site by Albright Agency · Sample stock, no real orders" : `© ${new Date().getFullYear()} ${esc(b.name)} · Site by <a href="https://albright-innovations.com" target="_blank" rel="noopener">${esc(CONFIG.site.builtBy)}</a>`}</span>${DEMO ? footerResetHTML() : ""}</div></div></footer>
+  </div><div class="fbot"><span>${DEMO ? footerDemoNote() : `© ${new Date().getFullYear()} ${esc(b.name)} · Site by <a href="https://albright-innovations.com" target="_blank" rel="noopener">${esc(CONFIG.site.builtBy)}</a>`}</span>${DEMO ? footerResetHTML() : ""}</div></div></footer>
   <div class="mbar"><a class="btn btn-line-light" href="/trailers/">On the lot</a><a class="btn btn-gold" href="/?s=quote">Get a quote</a></div>
   <div class="cmp-tray" id="cmpTray" hidden></div>
   <div class="toasts" id="toasts" aria-live="polite"></div>

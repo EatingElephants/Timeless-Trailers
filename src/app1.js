@@ -43,6 +43,8 @@ const STORE_KEY = "timeless-v2-demo";
 const DEMO = %%DEMO%%;
 /* Prices show on the public site when config.json says so (showPrices); the demo site always shows them. */
 const PRICES = DEMO || !!CONFIG.showPrices;
+/* Phones get the lighter hero video (720p, about a third of the size). */
+const SMALL = matchMedia("(max-width: 700px)").matches;
 const ANDY_LINE = "Andy matches the trailer to your load and truck, then Matt sends your quote the same business day.";
 function freshState() {
   const s = DATA.seed || { saved: {}, owned: [], holds: [], quotes: [], partsOrders: [], tickets: [], leads: [] };
@@ -326,7 +328,7 @@ VIEWS.home = {
     const featured = Object.values(groups).sort((a, b) => b.length - a.length || b[0].price - a[0].price).slice(0, 3);
     const tryChips = ["Bobcat T66 and a 2022 F-250", "Car hauler for a '67 Mustang", "Two UTVs, Silverado 1500", "What's on the lot?"];
     return `
-<section class="hero hero-full"><video class="hero-bg" autoplay muted loop playsinline poster="/video/hero-full.webp" aria-hidden="true"><source src="/video/hero-full.mp4" type="video/mp4"></video><div class="hero-shade"></div><div class="wrap hero-inner">
+<section class="hero hero-full"><video class="hero-bg" autoplay muted loop playsinline preload="${SMALL ? "metadata" : "auto"}" poster="/video/hero-full.webp" aria-hidden="true"><source src="/video/${SMALL ? "hero-mobile" : "hero-full"}.mp4" type="video/mp4"></video><div class="hero-shade"></div><div class="wrap hero-inner">
   <div class="eyebrow">America's only Timpte-exclusive dealer · Waxhaw, NC</div>
   <h1 style="margin-top:16px">Built once. <span>Lasts forever.</span></h1>
   <p class="lede">All-aluminum Timpte trailers for contractors, haulers and weekend toys, from the only dealer in the U.S. that sells Timpte exclusively. Tell us what you haul and we'll match the trailer.</p>
@@ -707,17 +709,17 @@ VIEWS.financing = {
     if (r.q.id && unit(r.q.id)) { const t = unit(r.q.id); fin.id = t.id; fin.price = t.price; fin.down = Math.round(t.price * DATA.finance.downPct / 100); }
     const u = me();
     return `<div class="page-head"><div class="wrap"><div class="crumbs"><a href="/">Home</a> / Financing</div><div class="eyebrow">Own · Financing</div><h1 style="margin-top:10px">Financing.</h1>
-      <p class="lede">Payment options through the manufacturer's programs and local lenders. Run the numbers here, then pre-qualify in two minutes. Rates shown are samples for the concept.</p></div></div>
+      <p class="lede">Payment options through the manufacturer's programs and local lenders. Run the numbers here, then pre-qualify in two minutes. Rates and terms are estimates until a lender quotes you.</p></div></div>
     <section style="padding-top:34px"><div class="wrap grid2">
       <div class="panel"><h3>Payment calculator</h3><div class="fields">
-        ${PRICES ? `<div class="full"><label for="fTr">Trailer</label><select id="fTr" data-act="fin-tr"><option value="">Enter a price</option>${S.inventory.filter(t => t.status !== "sold").map(t => `<option value="${t.id}" ${fin.id === t.id ? "selected" : ""}>${esc(tname(t))} · ${t.id} · ${money(t.price)}</option>`).join("")}</select></div>` : `<div class="full"><p class="note" style="margin:0">Enter the price from your quote, or the figure you have in mind, to see a sample payment.</p></div>`}
+        ${PRICES ? `<div class="full"><label for="fTr">Trailer</label><select id="fTr" data-act="fin-tr"><option value="">Enter a price</option>${S.inventory.filter(t => t.status !== "sold").map(t => `<option value="${t.id}" ${fin.id === t.id ? "selected" : ""}>${esc(tname(t))} · ${t.id} · ${money(t.price)}</option>`).join("")}</select></div>` : `<div class="full"><p class="note" style="margin:0">Enter the price from your quote, or the figure you have in mind, to see an estimated payment.</p></div>`}
         <div><label for="fPrice">Price ($)</label><input id="fPrice" data-fin="price" type="number" min="0" step="50" value="${fin.price}"></div>
         <div><label for="fDown">Down payment ($)</label><input id="fDown" data-fin="down" type="number" min="0" step="50" value="${fin.down}"></div>
         <div class="full"><label for="fApr">APR: <span id="fAprV">${fin.apr.toFixed(2)}%</span></label><input id="fApr" data-fin="apr" type="range" min="3.99" max="17.99" step="0.25" value="${fin.apr}"></div>
         <div class="full"><label>Term</label><div class="termset">${DATA.finance.terms.map(n => `<button type="button" class="chip" data-act="fin-term" data-n="${n}" aria-pressed="${fin.term === n}">${n} mo</button>`).join("")}</div></div>
       </div></div>
       <div style="display:grid;gap:18px"><div class="calc-out" id="calcOut" aria-live="polite"></div>
-        <form class="q" data-form="prequal" novalidate><h3 style="margin-bottom:6px">Pre-qualify</h3><p class="muted" style="margin:0 0 14px;font-size:.92rem">Soft check only in the real build. No effect on credit. This demo just creates a lead.</p><div class="fields">
+        <form class="q" data-form="prequal" novalidate><h3 style="margin-bottom:6px">Pre-qualify</h3><p class="muted" style="margin:0 0 14px;font-size:.92rem">No effect on your credit. We call you with real options the same business day.</p><div class="fields">
           <div><label for="pqName">Name</label><input id="pqName" name="name" required value="${u && u.role === "customer" ? esc(u.name) : ""}"></div>
           <div><label for="pqPhone">Phone</label><input id="pqPhone" name="phone" type="tel" required value="${u && u.role === "customer" ? esc(u.phone) : ""}"></div>
           <div class="full"><label for="pqBiz">Buying as</label><select id="pqBiz" name="as"><option>An individual</option><option>A business</option></select></div></div>

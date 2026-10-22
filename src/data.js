@@ -1,14 +1,10 @@
 "use strict";
 /* ==========================================================================
-   TIMELESS TRAILERS · v3 concept (lite)
+   TIMELESS TRAILERS · site data that isn't about one dealer
    --------------------------------------------------------------------------
-   EDIT HERE. Everything the site shows comes from ASSISTANT_NAME, MODELS and DATA.
-
-   REAL (from Timpte's 2026 spec sheets): model names and every spec number
-   in MODELS below (payload, GVW, empty weight, deck, loading angle, axles,
-   tires, hitch), plus the photos, videos and spec-sheet PDFs.
-   SAMPLE (for the mock-up): prices, stock numbers, what's on the lot, the
-   demo people, quotes, leads, machine weights and truck tow ratings.
+   The dealer's own facts live in config.json, models.json, inventory.json and parts.json.
+   This file holds the rest: categories, lineup, videos, finder labels, services, maintenance,
+   and (demo site only) the sample people and records.
    ========================================================================== */
 
 /* CONFIG, MODELS, INVENTORY and PARTS come from src/config.json, models.json, inventory.json and parts.json;
@@ -23,10 +19,10 @@ function d(n){ return new Date(Date.now() + n * DAY).toISOString(); }
 const DATA = {
   business: CONFIG.business,
 
-  /* Sample financing terms used by every payment estimate */
+  /* Financing terms the payment calculator starts from (estimates only) */
   finance: { apr: 8.49, term: 60, downPct: 10, terms: [24, 36, 48, 60, 72] },
 
-  /* Sample quote fees */
+  /* Quote fees (demo quotes only) */
   fees: { doc: 199, titleTag: 105, taxRate: 0.0675, taxLabel: "Est. sales tax (sample 6.75%)" },
 
   types: { tilt: "Split Tilt", deckover: "Deck Over", gooseneck: "Gooseneck", dump: "Dump", ezload: "EZ Load" },
@@ -126,7 +122,6 @@ const DATA = {
     ["Dump trailers, every 6 months", "Hydraulic fluid level, hoses and cylinder pins"]
   ],
 
-  /* Who's on the About page. Kayla is a sample name until Matt gives us his real team. */
   team: CONFIG.team,
 
   /* @demo */
