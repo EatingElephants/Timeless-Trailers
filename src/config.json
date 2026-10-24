@@ -17,8 +17,8 @@
     "legalName": "Timeless Trailers",
     "phone": "704-589-3100",
     "tel": "+17045893100",
-    "email": "",
-    "hours": "Mon–Fri 9am–5pm",
+    "email": "matt.lyons@timelesstrailers.com",
+    "hours": "Mon–Fri 8am–5pm · Saturday by appointment",
     "openingHours": {
       "days": [
         "Monday",
@@ -27,7 +27,7 @@
         "Thursday",
         "Friday"
       ],
-      "opens": "09:00",
+      "opens": "08:00",
       "closes": "17:00"
     },
     "address": "4417-A Helms Road, Waxhaw, NC 28173",
@@ -56,7 +56,7 @@
   "showPrices": true,
   "holdHours": 48,
   "leads": {
-    "to": "",
+    "to": "matt.lyons@timelesstrailers.com",
     "from": "",
     "subject": "New lead from the website"
   },

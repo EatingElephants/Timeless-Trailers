@@ -18,8 +18,8 @@
     "html_handling": "auto-trailing-slash"
   },
   "vars": {
-    "LEAD_TO": "",
-    "LEAD_FROM": "",
+    "LEAD_TO": "matt.lyons@timelesstrailers.com",
+    "LEAD_FROM": "website@timelesstrailers.com",
     "LEAD_NAME": "Timeless Trailers website"
   }
   // ,"send_email": [{ "name": "SEND_EMAIL" }]

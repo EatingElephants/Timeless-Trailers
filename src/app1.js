@@ -305,13 +305,13 @@ function visitList() {
   const b = DATA.business;
   return `<ul class="visit"><li>${ICON.pin}<div><small>Yard</small><b>${esc(b.address)}</b></div></li>
     <li>${ICON.phone}<div><small>Call or text</small><b><a href="tel:${b.tel}" style="text-decoration:none">${b.phone}</a></b></div></li>
-    <li>${ICON.clock}<div><small>Hours</small><b>Mon–Fri · 9am–5pm</b></div></li></ul>
+    <li>${ICON.clock}<div><small>Hours</small><b>${esc(b.hours)}</b></div></li>${b.email ? `<li>${ICON.send}<div><small>Email</small><b><a href="mailto:${esc(b.email)}" style="text-decoration:none">${esc(b.email)}</a></b></div></li>` : ""}</ul>
     <div class="mapcard" role="img" aria-label="Map placeholder for the Waxhaw yard"><div class="pin"><span>Timeless Trailers</span>${ICON.pinFill}</div><a class="btn btn-dark sm" href="${b.maps}" target="_blank" rel="noopener">Get directions</a></div>`;
 }
 const WHY = `<div class="why"><div class="wrap why-grid">
   <div class="why-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 3 7v10l9 5 9-5V7z"/><path d="m3 7 9 5 9-5M12 12v10"/></svg><b>All-aluminum</b><p>No rust, less weight, more payload. Built to outlast the truck that pulls it.</p></div>
   <div class="why-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><b>3-year warranty</b><p>Manufacturer-backed coverage, with your Customer Service Center (CSC) to handle it.</p></div>
-  <div class="why-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg><b>Financing</b><p>Payment options through the manufacturer's programs. Ask when you quote.</p></div>
+  <div class="why-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg><b>Financing</b><p>Payment options offered through preferred vendors. Ask when you quote.</p></div>
   <div class="why-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><b>Timpte-exclusive</b><p>The only Customer Service Center (CSC) in the U.S. that sells Timpte equipment trailers exclusively. Real people, same-day answers.</p></div></div></div>`;
 
 /* ---------------- views ---------------- */
@@ -366,7 +366,7 @@ ${DEMO ? tourSection() : ""}
 
 ${meetHTML()}
 
-<section class="why-timpte" id="why-timpte"><div class="wrap why-grid2"><div><div class="eyebrow">Why Timpte</div><h2 style="margin-top:10px">Built in Lincoln, Nebraska. Made in the USA.</h2><p class="lede">Every Timpte equipment trailer is built in Lincoln, Nebraska, from American-made parts: an aluminum frame and deck, rubber torsion suspension, and no structural welds, so there's nothing to rust and nothing to crack. Made in the USA is one of the main reasons Matt chose to sell Timpte and nothing else. Two lines: <b>Powerhouse</b> for equipment, <b>Motorsports</b> for cars, UTVs and toys.</p><div class="brandrow"><img src="${img("timpte-powerhouse-logo")}" alt="Timpte Powerhouse" loading="lazy"><img src="${img("timpte-motorsports-logo")}" alt="Timpte Motorsports" loading="lazy"></div></div>${videoHTML("torsion-axle")}</div></section>
+<section class="why-timpte" id="why-timpte"><div class="wrap why-grid2"><div><div class="eyebrow">Why Timpte</div><h2 style="margin-top:10px">Built in Lincoln, Nebraska. Made in the USA.</h2><p class="lede">Every Timpte equipment trailer is built in Lincoln, Nebraska, from American-made parts: an aluminum frame and deck, rubber torsion suspension, and no structural welds, so there's nothing to rust and nothing to crack. Made in the USA is one of the main reasons the owner chose to sell Timpte and nothing else. Two lines: <b>Powerhouse</b> for equipment, <b>Motorsports</b> for cars, UTVs and toys.</p><div class="brandrow"><img src="${img("timpte-powerhouse-logo")}" alt="Timpte Powerhouse" loading="lazy"><img src="${img("timpte-motorsports-logo")}" alt="Timpte Motorsports" loading="lazy"></div></div>${videoHTML("torsion-axle")}</div></section>
 
 <section class="matcher" id="match"><div class="wrap match-grid"><div>
   <div class="eyebrow" style="color:var(--gold-2)">Find your trailer</div><h2 style="margin-top:10px">What are you hauling?</h2>
@@ -390,7 +390,7 @@ ${DEMO ? reviewsSection() : ""}
 
 <section id="quote" class="bgsec quote-bg"><div class="wrap quote-grid"><div id="visit">
   <div class="eyebrow" style="color:var(--gold-2)">Visit · Quote or reserve</div><h2 style="margin-top:10px">Tell us what you haul.</h2>
-  <p class="lede">A few details get you a real answer the same business day: the right model, what's on the lot, and your quote from Matt.</p>${visitList()}
+  <p class="lede">A few details get you a real answer within 24 hours: the right model, what's on the lot, and your quote.</p>${visitList()}
 </div>${quoteFormHTML(route.q.m)}</div></section>
 
 <div class="ctaband"><div class="wrap"><div><h2>Need it this week?</h2><p>${lot.length} trailers are ready to hitch up in Waxhaw. Call, or ask ${A} now.</p></div>
@@ -707,7 +707,7 @@ VIEWS.financing = {
     if (r.q.id && unit(r.q.id)) { const t = unit(r.q.id); fin.id = t.id; fin.price = t.price; fin.down = Math.round(t.price * DATA.finance.downPct / 100); }
     const u = me();
     return `<div class="page-head"><div class="wrap"><div class="crumbs"><a href="/">Home</a> / Financing</div><div class="eyebrow">Own · Financing</div><h1 style="margin-top:10px">Financing.</h1>
-      <p class="lede">Payment options through the manufacturer's programs and local lenders. Run the numbers here, then pre-qualify in two minutes. Rates and terms are estimates until a lender quotes you.</p></div></div>
+      <p class="lede">Payment options offered through preferred vendors. Run the numbers here, then pre-qualify in two minutes. Rates and terms are estimates until a lender quotes you.</p></div></div>
     <section style="padding-top:34px"><div class="wrap grid2">
       <div class="panel"><h3>Payment calculator</h3><div class="fields">
         ${PRICES ? `<div class="full"><label for="fTr">Trailer</label><select id="fTr" data-act="fin-tr"><option value="">Enter a price</option>${S.inventory.filter(t => t.status !== "sold").map(t => `<option value="${t.id}" ${fin.id === t.id ? "selected" : ""}>${esc(tname(t))} · ${t.id} · ${money(t.price)}</option>`).join("")}</select></div>` : `<div class="full"><p class="note" style="margin:0">Enter the price from your quote, or the figure you have in mind, to see an estimated payment.</p></div>`}

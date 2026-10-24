@@ -294,7 +294,7 @@ def routes(demo):
         ("/compare/", "Compare trailers", "Side by side", "Compare models.", "Up to three trailers, side by side.", f"Compare Timpte trailers side by side: payload, GVWR, deck, loading angle, axles and tires. {name}, {city}."),
         ("/parts/", "Parts", "Own · Parts counter", "Parts.", "Timpte parts by part number, ordered through us and picked up in Waxhaw.", f"Timpte equipment trailer parts by part number. Order through {name} and pick up in {city}."),
         ("/service/", "Service", "Own · Service bay", "Service.", "Inspections, bearings, brakes, wiring and warranty work, done here in Waxhaw.", f"Trailer service in {city}: inspections, bearings, brakes, wiring and Timpte warranty work at {name}."),
-        ("/financing/", "Financing", "Own · Financing", "Financing.", "Payment options through the manufacturer's programs and local lenders.", f"Trailer financing and a payment calculator from {name}, {city}."),
+        ("/financing/", "Financing", "Own · Financing", "Financing.", "Payment options offered through preferred vendors.", f"Trailer financing and a payment calculator from {name}, {city}."),
         ("/about/", "About", "Company", "A Customer Service Center that picks up the phone.", excl, f"{excl} Based in {city}. {name}."),
         ("/contact/", "Contact and visit", "Visit · Call · Quote", "Come see the lot.", f"{esc(BIZ['address'])} · {esc(BIZ['phone'])} · {esc(BIZ['hours'])}", f"Visit {name} at {BIZ['address']}, call {BIZ['phone']}, or ask for a quote. {BIZ['hours']}."),
     ]
