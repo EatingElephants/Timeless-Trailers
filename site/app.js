@@ -1261,14 +1261,7 @@ function buildChrome() {
   </div><div class="fbot"><span>${DEMO ? footerDemoNote() : `© ${new Date().getFullYear()} ${esc(b.name)} · Site by <a href="https://albright-innovations.com" target="_blank" rel="noopener">${esc(CONFIG.site.builtBy)}</a>`}</span>${DEMO ? footerResetHTML() : ""}</div></div></footer>
   <div class="mbar"><a class="btn btn-line-light" href="/trailers/">On the Lot</a><a class="btn btn-gold" href="/?s=quote">Get a Quote</a></div>
   <a class="usa" href="/?s=why-timpte" aria-label="Made in the USA. Timpte trailers are built in Lincoln, Nebraska">
-    <svg viewBox="0 0 112 76" aria-hidden="true">
-      <defs><filter id="usaGrunge" x="-6%" y="-8%" width="112%" height="116%"><feTurbulence type="fractalNoise" baseFrequency="0.3" numOctaves="3" seed="11" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  8 0 0 0 -2.6" result="m"/><feComposite in="SourceGraphic" in2="m" operator="in"/></filter></defs>
-      <g transform="rotate(-8 56 38)" filter="url(#usaGrunge)" fill="#c8202d">
-        <rect x="9" y="10.5" width="94" height="55" rx="6" fill="none" stroke="#c8202d" stroke-width="3.8"/>
-        <text x="56" y="34" text-anchor="middle" font-size="16.5" letter-spacing="1.3">MADE IN</text>
-        <text x="56" y="61" text-anchor="middle" font-size="33" letter-spacing="1.6">USA</text>
-      </g>
-    </svg></a>
+    <img src="${img("usa-badge")}" alt="" width="520" height="612"></a>
   <div class="cmp-tray" id="cmpTray" hidden></div>
   <div class="toasts" id="toasts" aria-live="polite"></div>
   <button class="tz-fab" id="tzFab" data-act="tessa-open" aria-expanded="false" aria-controls="tzPanel" aria-label="Ask ${A}, our trailer advisor"><span class="bubble"><small>Trailer advisor</small>Ask ${A}</span><span class="andy"><img class="f1" src="${img("andy-1")}" alt="" width="160" height="160"><img class="f2" src="${img("andy-2")}" alt="" width="160" height="160"><img class="f3" src="${img("andy-3")}" alt="" width="160" height="160"></span></button>

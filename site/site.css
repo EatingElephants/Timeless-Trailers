@@ -644,14 +644,13 @@
   .spec-preview img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover}
   .spec-preview b{display:block;padding:10px 14px;font-weight:700;color:var(--ink)}
   @media (hover:none){.spec-preview{display:none}}
-  /* Made in the USA stamp (Matt, Oct 24): a red rubber stamp, tilted, floating at the top right under the header.
-     Josh's call on Oct 24 night: just the stamp, no plate; top right so the compare tray keeps the bottom left. */
-  .usa{position:fixed;right:14px;top:calc(var(--hdr) + 10px);z-index:57;display:block;width:122px;text-decoration:none;transition:transform .2s}
-  .usa:hover,.usa:focus-visible{transform:scale(1.05)}
-  .usa svg{display:block;width:100%;height:auto;overflow:visible}
-  .usa text{font-family:var(--display);font-weight:900}
+  /* Made in the USA shield (Matt, Oct 24), top right under the header on every page. The picture is Josh's sticker
+     artwork with the Timpte logo set into its white panel: tools/usa_badge.py makes site/img/usa-badge.webp. */
+  .usa{position:fixed;right:14px;top:calc(var(--hdr) + 10px);z-index:57;display:block;width:118px;text-decoration:none;filter:drop-shadow(0 6px 10px rgba(0,0,0,.35));transition:transform .2s}
+  .usa:hover,.usa:focus-visible{transform:scale(1.04)}
+  .usa img{display:block;width:100%;height:auto}
   body.chat-open .usa{display:none}
-  @media (max-width:600px){.usa{right:8px;top:calc(var(--hdr) + 6px);width:84px}}
+  @media (max-width:600px){.usa{right:8px;top:calc(var(--hdr) + 6px);width:78px}}
   /* chat-or-voice chooser */
   .tz-panel [hidden]{display:none!important}
   .tz-head .tz-seg{display:flex;gap:2px;background:#24201b;border:1px solid #4a443c;border-radius:999px;padding:3px}

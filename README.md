@@ -79,6 +79,7 @@ Every page has its own address: `/`, `/trailers/` (the lot and the lineup), `/tr
 | Andy's chat or voice addresses | `src/app2.js`, `STAMMER_EMBED` and `VOICE_EMBED` |
 | Andy's cartoon (corner button, avatars) | originals in `03 Media\Andy\`; `tools/cap_logo.py` puts the logo on the cap, then `tools/make_andy.py` on the `capped` folder |
 | The white Timpte logo in the footer | `tools/timpte_white_logo.py` from Timpte's PNG |
+| The Made in the USA shield at the top right | `tools/usa_badge.py`: Josh's sticker artwork (`03 Media\Made in the USA badge.webp`) with the Timpte logo in its white panel |
 | Colors, fonts, spacing | `src/styles.css` |
 | Which Timpte photos are used | `tools/make_images.py`, then run it |
 | Which spec sheets are published | `build.py`, the `SPECS` list |
