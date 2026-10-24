@@ -199,13 +199,13 @@ function statusPill(s) {
 /* ---------------- chrome: header, account slot, drawer ---------------- */
 function navHTML() {
   return `
-  <div class="menu"><a href="/about/" data-nav="about" class="nav-about">About us</a></div>
+  <div class="menu"><a href="/about/" data-nav="about" class="nav-about">About Us</a></div>
   <div class="menu" data-menu="inv"><button aria-expanded="false" data-nav="inventory,trailer,finder,compare">Inventory ${ICON.caret}</button>
-    <div class="dd"><a href="/trailers/">On the lot<small>${onLot().length} units ready today</small></a><a href="/trailers/?s=lineup">Lineup by category<small>Order any Timpte model</small></a><a href="/finder/">Trailer Finder<small>Start with what you haul</small></a><a href="/compare/">Compare models<small>Side by side, up to three</small></a></div></div>
+    <div class="dd"><a href="/trailers/">On the Lot<small>${onLot().length} units ready today</small></a><a href="/trailers/?s=lineup">Lineup by Category<small>Order any Timpte model</small></a><a href="/finder/">Trailer Finder<small>Start with what you haul</small></a><a href="/compare/">Compare Models<small>Side by side, up to three</small></a></div></div>
   <div class="menu"><a href="/accessories/" data-nav="accessories">Accessories</a></div>
   <div class="menu"><a href="/financing/" data-nav="financing">Financing</a></div>
-  <div class="menu"><a href="/owner-resources/">Owner resources</a></div>
-  <div class="menu"><a href="/contact/">Contact us</a></div>`;
+  <div class="menu"><a href="/owner-resources/">Owner Resources</a></div>
+  <div class="menu"><a href="/contact/">Contact Us</a></div>`;
 }
 function acctSlotHTML() { return DEMO ? acctSlotDemoHTML() : ""; }
 /* @demo */
@@ -218,7 +218,7 @@ function acctSlotDemoHTML() {
 }
 function drawerAcctHTML() {
   const u = me();
-  return `<h4>Account</h4>${u ? `<a href="/account/">My Account · ${esc(u.short)}</a>${isStaff() ? `<a href="/admin/">Dealer console</a>` : ""}<a href="#" data-act="signout">Sign out</a>` : `<a href="#" data-act="signin-open">Sign in to the demo</a>`}`;
+  return `<h4>Account</h4>${u ? `<a href="/account/">My Account · ${esc(u.short)}</a>${isStaff() ? `<a href="/admin/">Dealer Console</a>` : ""}<a href="#" data-act="signout">Sign Out</a>` : `<a href="#" data-act="signin-open">Sign In to the Demo</a>`}`;
 }
 /* @end-demo */
 function updateChrome() {
@@ -231,10 +231,10 @@ function openDrawer() {
   const html = `<div class="drawer-bg" data-act="drawer-close"></div><nav class="drawer" aria-label="Menu">
     <div class="dhead"><img src="${img("timeless-logo")}" alt="Timeless Trailers" style="height:40px;width:auto"><button class="xbtn" data-act="drawer-close" aria-label="Close menu">${ICON.x}</button></div>
     <div class="dsearch"><label for="dSearch" class="sr">Search inventory</label><input id="dSearch" placeholder="Search trailers: dump, tilt, 1020…" data-search></div>
-    <h4>About us</h4><a href="/about/">About us</a>
-    <h4>Inventory</h4><a href="/trailers/">On the lot</a><a href="/trailers/?s=lineup">Lineup by category</a><a href="/finder/">Trailer Finder</a><a href="/compare/">Compare models</a>
+    <h4>About Us</h4><a href="/about/">About Us</a>
+    <h4>Inventory</h4><a href="/trailers/">On the Lot</a><a href="/trailers/?s=lineup">Lineup by Category</a><a href="/finder/">Trailer Finder</a><a href="/compare/">Compare Models</a>
     <h4>Accessories</h4><a href="/accessories/">Accessories</a>
-    <h4>More</h4><a href="/financing/">Financing</a><a href="/owner-resources/">Owner resources</a><a href="/contact/">Contact us</a>
+    <h4>More</h4><a href="/financing/">Financing</a><a href="/owner-resources/">Owner Resources</a><a href="/contact/">Contact Us</a>
     ${DEMO ? drawerAcctHTML() : ""}
     <div style="margin-top:22px;display:grid;gap:8px"><button class="btn btn-gold" data-act="tessa-open">Ask ${A}</button><a class="btn btn-line" href="tel:${DATA.business.tel}">Call ${DATA.business.phone}</a></div></nav>`;
   const box = document.createElement("div"); box.id = "drawer"; box.innerHTML = html; document.body.appendChild(box);

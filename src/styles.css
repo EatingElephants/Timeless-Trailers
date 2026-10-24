@@ -644,14 +644,14 @@
   .spec-preview img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover}
   .spec-preview b{display:block;padding:10px 14px;font-weight:700;color:var(--ink)}
   @media (hover:none){.spec-preview{display:none}}
-  /* Made in the USA sticker, bottom left on every page (Matt, Oct 24) */
-  .usa{position:fixed;left:14px;bottom:calc(var(--mbar-h) + 14px);z-index:57;display:flex;align-items:center;gap:10px;background:#fff;color:var(--ink);border:3px solid #fff;border-radius:12px;padding:6px 12px 6px 6px;text-decoration:none;box-shadow:0 10px 28px rgba(0,0,0,.3);transform:rotate(-2deg);transition:transform .2s}
-  .usa:hover,.usa:focus-visible{transform:rotate(0) translateY(-2px)}
-  .usa .flag{width:56px;height:37px;flex:none;border-radius:4px;overflow:visible;filter:drop-shadow(0 1px 2px rgba(0,0,0,.25))}
+  /* Made in the USA badge, bottom left on every page (Matt, Oct 24). Still and straight: Josh found the rippling one looked crooked. */
+  .usa{position:fixed;left:14px;bottom:calc(var(--mbar-h) + 14px);z-index:57;display:flex;align-items:center;gap:10px;background:#fff;color:var(--ink);border:1px solid rgba(0,0,0,.08);border-radius:999px;padding:5px 16px 5px 5px;text-decoration:none;box-shadow:0 10px 28px rgba(0,0,0,.28);transition:transform .2s,box-shadow .2s}
+  .usa:hover,.usa:focus-visible{transform:translateY(-2px);box-shadow:0 14px 32px rgba(0,0,0,.32)}
+  .usa .flag{width:46px;height:46px;flex:none;display:block}
   .usa b{display:block;font:900 1rem/1 var(--display);letter-spacing:.05em;text-transform:uppercase;color:#b22234}
   .usa small{display:block;font-size:.7rem;font-weight:700;color:var(--text-2);margin-top:3px;letter-spacing:.02em}
   body.chat-open .usa{display:none}
-  @media (max-width:600px){.usa{left:8px;bottom:calc(var(--mbar-h) + 8px);padding:4px 8px 4px 4px;gap:7px;transform:none}.usa .flag{width:38px;height:25px}.usa b{font-size:.78rem}.usa small{display:none}}
+  @media (max-width:600px){.usa{left:8px;bottom:calc(var(--mbar-h) + 8px);padding:3px 10px 3px 3px;gap:7px}.usa .flag{width:34px;height:34px}.usa b{font-size:.78rem}.usa small{display:none}}
   /* chat-or-voice chooser */
   .tz-panel [hidden]{display:none!important}
   .tz-head .tz-seg{display:flex;gap:2px;background:#24201b;border:1px solid #4a443c;border-radius:999px;padding:3px}
@@ -731,8 +731,9 @@
   .brandrow{display:flex;gap:28px;align-items:center;flex-wrap:wrap;margin-top:22px}
   .brandrow img{height:48px;width:auto}
   @media (max-width:900px){.why-grid2{grid-template-columns:1fr}}
-  .tbadge{display:inline-flex;align-items:center;gap:12px;margin-top:14px;background:#fff;border-radius:10px;padding:8px 14px;text-decoration:none;color:#444;font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
-  .tbadge img{height:26px;width:auto}
+  .tbadge{display:inline-flex;align-items:center;gap:14px;margin-top:18px;text-decoration:none;color:#cfc9bf;font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+  .tbadge:hover{color:#fff}
+  .tbadge img{height:30px;width:auto}
   @media (prefers-reduced-motion:reduce){.hero-video{display:none}.hero-art::before{content:"";display:block;width:100%;max-width:560px;aspect-ratio:16/9;border-radius:14px;background:url(/video/hero-loop.webp) center/cover}}
 
   /* ===== v3 flair pass ===== */

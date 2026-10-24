@@ -7,7 +7,7 @@ A clickable mock-up for Matt Lyons's Timpte dealership in Waxhaw, NC, built by A
 Timpte's leadership liked the site, Andy and the dealer back end. Phase one is the customer site on Matt's own domain. The agreed plan is in the repo's history as `Timeless Trailers: public site live by Sunday`; the short version:
 
 - **Done Thursday:** real page addresses (one folder per page, sitemap, 404, structured data), dealer data in plain files (`src/config.json`, `models.json`, `inventory.json`, `accessories.json`), prices switched on, an Accessories page from Timpte's order form (it replaced the Parts and Service pages on Oct 24), Owner resources, Contact and Privacy pages, sample manuals and warranty form removed, `worker.js` lead endpoint and the forms wired to it (answers "call us" until the domain is in), a phone-size hero video, all 19 Timpte models with numbers from the 2026 sheets (the nine new ones reuse their family's photos until Timpte or Matt supplies model-specific shots).
-- **To refine:** the logo on Andy's cap sits a little off the centre of the cap in some poses (`tools/cap_logo.py` holds the position and tilt per drawing).
+- **Andy's cap (Oct 24, evening):** the logo is centred on the cap's front panel and tilted with the brim, measured per drawing in `tools/cap_logo.py`. At icon size it reads as the gold-and-black badge rather than as words; that's as far as a cap logo on a 100-pixel mascot can go.
 - **Friday:** domain into Cloudflare, Email Routing on, lead email switched on in `wrangler.jsonc`; analytics token; Matt's answers folded in.
 - **Saturday:** Matt's real inventory and list prices into `inventory.json`, device testing, domain attached to the Worker.
 - **Sunday:** `config.json` → `"indexable": true`, final push, submit the sitemap in Google Search Console, one real test lead.
@@ -77,7 +77,8 @@ Every page has its own address: `/`, `/trailers/` (the lot and the lineup), `/tr
 | Page layout and copy | `src/app1.js` (pages) and `src/app2.js` (Andy, admin, chat) |
 | What is demo-only | anything between `/* @demo */` and `/* @end-demo */` in `src/*.js`, and anything behind `DEMO ?` |
 | Andy's chat or voice addresses | `src/app2.js`, `STAMMER_EMBED` and `VOICE_EMBED` |
-| Andy's cartoon (corner button, avatars) | originals in `03 Media\Andy\`, then run `tools/make_andy.py` |
+| Andy's cartoon (corner button, avatars) | originals in `03 Media\Andy\`; `tools/cap_logo.py` puts the logo on the cap, then `tools/make_andy.py` on the `capped` folder |
+| The white Timpte logo in the footer | `tools/timpte_white_logo.py` from Timpte's PNG |
 | Colors, fonts, spacing | `src/styles.css` |
 | Which Timpte photos are used | `tools/make_images.py`, then run it |
 | Which spec sheets are published | `build.py`, the `SPECS` list |
