@@ -94,7 +94,7 @@ for cells in rows("Equipment Trailer Parts"):
     if c and d and isinstance(j, (int, float)):
         name, fits, extra = tidy(str(d))
         items.append({"no": str(c), "name": name, "fits": fits, "detail": " · ".join(extra), "group": group or "Accessories", "msrp": round(float(j), 2), "image": None})
-(SRC / "accessories.json").write_text(json.dumps({"_comment": "Timpte accessories from the Dealer Order Form (" + xlsx.name + "): part number, description, what it fits, MSRP. Dealer prices are never copied. image = a file in site/img/ once photos arrive.", "source": xlsx.name, "items": items}, indent=1, ensure_ascii=False) + "\n", "utf-8")
+(SRC / "accessories.json").write_text(json.dumps({"_comment": "Timpte accessories from the Dealer Order Form (" + xlsx.name + "): part number, description, what it fits, MSRP. Dealer prices are never copied. image = a file in site/img/ once photos arrive.", "source": xlsx.name, "items": items}, indent=1, ensure_ascii=False) + "\n", "utf-8", newline="\n")
 print(f"accessories.json: {len(items)} items")
 for it in items: print(f"   {it['no']}  {it['name']:<48} fits {','.join(it['fits']) or '-':<14} {it['detail']:<12} ${it['msrp']:,.2f}  [{it['group']}]")
 
@@ -110,5 +110,5 @@ for cells in rows("Trailers"):
         key = CODE[code.strip()]
         models[key]["listPrice"] = int(round(msrp)); models[key]["timpteCode"] = code.strip(); models[key]["timptePart"] = str(partno) if partno else None
         seen.add(key)
-(SRC / "models.json").write_text(json.dumps(models, indent=2, ensure_ascii=False) + "\n", "utf-8")
+(SRC / "models.json").write_text(json.dumps(models, indent=2, ensure_ascii=False) + "\n", "utf-8", newline="\n")
 print("models.json list prices set for:", ", ".join(k for k in models if k in seen), "| missing:", [k for k in models if k not in seen])

@@ -55,5 +55,5 @@ n = 0
 for it in data["items"]:
     if it["no"] in USES:
         it["image"] = USES[it["no"]]; n += 1
-ACC.write_text(json.dumps(data, indent=1, ensure_ascii=False) + "\n", "utf-8")
+ACC.write_text(json.dumps(data, indent=1, ensure_ascii=False) + "\n", "utf-8", newline="\n")
 print(f"{n} of {len(data['items'])} accessories have a picture; the rest show their group's icon.")
