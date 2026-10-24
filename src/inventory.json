@@ -1,12 +1,12 @@
 {
-  "_comment": "Units on the lot. SAMPLE until Matt's list replaces it. key = the model in models.json; price = the unit's list price; status = lot | order | hold | sold.",
+  "_comment": "Units on the lot. SAMPLE until Matt's list replaces it. key = the model in models.json; price = null shows that model's list price (MSRP) from models.json, or put a number here to price one unit differently; status = lot | order | hold | sold.",
   "units": [
     {
       "id": "TT-0142",
       "key": "1614D",
       "year": 2026,
       "status": "lot",
-      "price": 18400,
+      "price": null,
       "eta": null,
       "addedDaysAgo": 21
     },
@@ -15,7 +15,7 @@
       "key": "1614D",
       "year": 2026,
       "status": "lot",
-      "price": 18400,
+      "price": null,
       "eta": null,
       "addedDaysAgo": 9
     },
@@ -24,7 +24,7 @@
       "key": "1414D",
       "year": 2026,
       "status": "lot",
-      "price": 16200,
+      "price": null,
       "eta": null,
       "addedDaysAgo": 14
     },
@@ -33,7 +33,7 @@
       "key": "1420ST",
       "year": 2026,
       "status": "lot",
-      "price": 17900,
+      "price": null,
       "eta": null,
       "addedDaysAgo": 30
     },
@@ -42,7 +42,7 @@
       "key": "1420ST",
       "year": 2026,
       "status": "order",
-      "price": 17900,
+      "price": null,
       "eta": "late October",
       "addedDaysAgo": 2
     },
@@ -51,7 +51,7 @@
       "key": "1624ST",
       "year": 2026,
       "status": "lot",
-      "price": 21900,
+      "price": null,
       "eta": null,
       "addedDaysAgo": 6
     },
@@ -60,7 +60,7 @@
       "key": "1620GN",
       "year": 2026,
       "status": "lot",
-      "price": 21500,
+      "price": null,
       "eta": null,
       "addedDaysAgo": 75
     },
@@ -69,7 +69,7 @@
       "key": "1620DO",
       "year": 2026,
       "status": "lot",
-      "price": 17600,
+      "price": null,
       "eta": null,
       "addedDaysAgo": 11
     },
@@ -78,7 +78,7 @@
       "key": "1020",
       "year": 2026,
       "status": "lot",
-      "price": 14900,
+      "price": null,
       "eta": null,
       "addedDaysAgo": 12
     },
@@ -87,7 +87,7 @@
       "key": "1020",
       "year": 2026,
       "status": "order",
-      "price": 14900,
+      "price": null,
       "eta": "mid November",
       "addedDaysAgo": 1
     },
@@ -96,7 +96,7 @@
       "key": "720",
       "year": 2026,
       "status": "lot",
-      "price": 10900,
+      "price": null,
       "eta": null,
       "addedDaysAgo": 4
     },
@@ -105,7 +105,7 @@
       "key": "1026",
       "year": 2026,
       "status": "lot",
-      "price": 16400,
+      "price": null,
       "eta": null,
       "addedDaysAgo": 40
     },
@@ -114,7 +114,7 @@
       "key": "514",
       "year": 2026,
       "status": "hold",
-      "price": 6950,
+      "price": null,
       "eta": null,
       "addedDaysAgo": 18
     }

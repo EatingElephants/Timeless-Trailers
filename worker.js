@@ -2,7 +2,7 @@
   The one bit of server code behind the public site.
 
   Cloudflare runs this in front of the static files in site/. It does two things:
-    1. POST /api/lead  takes a form from the site (quote, hold, service, parts, financing) and emails it to Matt.
+    1. POST /api/lead  takes a form from the site (quote, hold, accessories, financing) and emails it to Matt.
     2. Everything else is served from site/ as plain files (the ASSETS binding in wrangler.jsonc).
 
   Email goes out through Cloudflare Email Routing (the SEND_EMAIL binding): free, no third party, but it needs
@@ -31,7 +31,7 @@ export default {
 const FIELDS = [
   ["kind", "What"], ["name", "Name"], ["phone", "Phone"], ["email", "Email"], ["trailer", "Trailer"], ["stock", "Stock"], ["price", "Price"],
   ["haul", "Hauling"], ["weight", "Loaded weight"], ["tow", "Tow vehicle"], ["when", "When"], ["financing", "Financing"],
-  ["unit", "Their trailer"], ["service", "Service"], ["date", "Preferred day"], ["items", "Parts"], ["as", "Buying as"], ["notes", "Notes"], ["page", "Page"],
+  ["unit", "Their trailer"], ["items", "Accessories"], ["as", "Buying as"], ["notes", "Notes"], ["page", "Page"],
 ];
 
 function clean(v, max) {

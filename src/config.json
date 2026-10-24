@@ -1,5 +1,5 @@
 {
-  "_comment": "Everything about THIS dealer lives here. A second dealer is a second copy of this file plus their models, inventory, parts and photos. build.py inlines it into app.js as CONFIG.",
+  "_comment": "Everything about THIS dealer lives here. A second dealer is a second copy of this file plus their models, inventory, accessories and photos. build.py inlines it into app.js as CONFIG.",
   "site": {
     "name": "Timeless Trailers",
     "tagline": "Built once. Lasts forever.",
@@ -76,7 +76,5 @@
       "role": "Owner",
       "note": "Answers the phone, walks the lot with you and stands behind every unit he sells."
     }
-  ],
-  "showPartsPrices": false,
-  "_commentParts": "showPartsPrices: the catalog's prices show on the Parts page only when this is true (Matt confirms they are customer prices)."
+  ]
 }

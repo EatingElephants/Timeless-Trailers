@@ -46,7 +46,9 @@
     ],
     "key": "514",
     "slug": "514-ez-load",
-    "listPrice": null
+    "listPrice": 9875,
+    "timpteCode": "514TSEZ",
+    "timptePart": "106835"
   },
   "720": {
     "model": "Timpte 720 EZ Load",
@@ -95,7 +97,9 @@
     ],
     "key": "720",
     "slug": "720-ez-load",
-    "listPrice": null
+    "listPrice": 16595,
+    "timpteCode": "7KR3TSEZ",
+    "timptePart": "106851"
   },
   "1020": {
     "model": "Timpte 1020 EZ Load",
@@ -144,7 +148,9 @@
     ],
     "key": "1020",
     "slug": "1020-ez-load",
-    "listPrice": null
+    "listPrice": 18695,
+    "timpteCode": "1020R3TSEZ",
+    "timptePart": "106797"
   },
   "1026": {
     "model": "Timpte 1026 EZ Load",
@@ -193,7 +199,9 @@
     ],
     "key": "1026",
     "slug": "1026-ez-load",
-    "listPrice": null
+    "listPrice": 20795,
+    "timpteCode": "1026R3TSEZ",
+    "timptePart": "131313"
   },
   "1420ST": {
     "model": "Timpte 1420 Split Tilt",
@@ -244,7 +252,9 @@
     ],
     "key": "1420ST",
     "slug": "1420-split-tilt",
-    "listPrice": null
+    "listPrice": 15995,
+    "timpteCode": "1420STTB",
+    "timptePart": "106804"
   },
   "1424ST": {
     "model": "Timpte 1424 Split Tilt",
@@ -295,7 +305,9 @@
     ],
     "key": "1424ST",
     "slug": "1424-split-tilt",
-    "listPrice": null
+    "listPrice": 17595,
+    "timpteCode": "1424STTB",
+    "timptePart": "106806"
   },
   "1624ST": {
     "model": "Timpte 1624 Split Tilt",
@@ -346,7 +358,9 @@
     ],
     "key": "1624ST",
     "slug": "1624-split-tilt",
-    "listPrice": null
+    "listPrice": 19295,
+    "timpteCode": "1624STTBS",
+    "timptePart": "182003"
   },
   "1420DO": {
     "model": "Timpte 1420 Deck Over",
@@ -395,7 +409,9 @@
     ],
     "key": "1420DO",
     "slug": "1420-deck-over",
-    "listPrice": null
+    "listPrice": 18195,
+    "timpteCode": "1420BPDO",
+    "timptePart": "158738"
   },
   "1426DO": {
     "model": "Timpte 1426 Deck Over",
@@ -444,7 +460,9 @@
     ],
     "key": "1426DO",
     "slug": "1426-deck-over",
-    "listPrice": null
+    "listPrice": 19995,
+    "timpteCode": "1426BPDO",
+    "timptePart": "105503"
   },
   "1620DO": {
     "model": "Timpte 1620 Deck Over",
@@ -494,7 +512,9 @@
     ],
     "key": "1620DO",
     "slug": "1620-deck-over",
-    "listPrice": null
+    "listPrice": 19695,
+    "timpteCode": "1620BPDO",
+    "timptePart": "104949"
   },
   "1626DO": {
     "model": "Timpte 1626 Deck Over",
@@ -545,7 +565,9 @@
     ],
     "key": "1626DO",
     "slug": "1626-deck-over",
-    "listPrice": null
+    "listPrice": 21495,
+    "timpteCode": "1626BPDO",
+    "timptePart": "104955"
   },
   "1620GN": {
     "model": "Timpte 1620 Gooseneck",
@@ -595,7 +617,9 @@
     ],
     "key": "1620GN",
     "slug": "1620-gooseneck",
-    "listPrice": null
+    "listPrice": 21895,
+    "timpteCode": "1620GNDO",
+    "timptePart": "105151"
   },
   "1626GN": {
     "model": "Timpte 1626 Gooseneck",
@@ -646,7 +670,9 @@
     ],
     "key": "1626GN",
     "slug": "1626-gooseneck",
-    "listPrice": null
+    "listPrice": 23695,
+    "timpteCode": "1626GNDO",
+    "timptePart": "105152"
   },
   "1620HD": {
     "model": "Timpte 1620HD Gooseneck",
@@ -697,7 +723,9 @@
     ],
     "key": "1620HD",
     "slug": "1620hd-gooseneck",
-    "listPrice": null
+    "listPrice": 23395,
+    "timpteCode": "1620GNDOHD",
+    "timptePart": "105154"
   },
   "1626HD": {
     "model": "Timpte 1626HD Gooseneck",
@@ -749,7 +777,9 @@
     ],
     "key": "1626HD",
     "slug": "1626hd-gooseneck",
-    "listPrice": null
+    "listPrice": 25195,
+    "timpteCode": "1626GNDOHD",
+    "timptePart": "105143"
   },
   "1414D": {
     "model": "Timpte 1414 Dump",
@@ -793,7 +823,9 @@
     ],
     "key": "1414D",
     "slug": "1414-dump",
-    "listPrice": null
+    "listPrice": 24495,
+    "timpteCode": "1414TSDT",
+    "timptePart": "105160"
   },
   "1416D": {
     "model": "Timpte 1416 Dump",
@@ -837,7 +869,9 @@
     ],
     "key": "1416D",
     "slug": "1416-dump",
-    "listPrice": null
+    "listPrice": 25495,
+    "timpteCode": "1416TSDT",
+    "timptePart": "105159"
   },
   "1614D": {
     "model": "Timpte 1614 Dump",
@@ -881,7 +915,9 @@
     ],
     "key": "1614D",
     "slug": "1614-dump",
-    "listPrice": null
+    "listPrice": 25795,
+    "timpteCode": "1614TSDT",
+    "timptePart": "105161"
   },
   "1616D": {
     "model": "Timpte 1616 Dump",
@@ -925,6 +961,8 @@
     ],
     "key": "1616D",
     "slug": "1616-dump",
-    "listPrice": null
+    "listPrice": 26795,
+    "timpteCode": "1616TSDT",
+    "timptePart": "105158"
   }
 }

@@ -6,10 +6,10 @@ VIEWS.vision = {
     const items = [
       ["Every Timpte model", "All 19 models with full photo galleries, not the 10 shown here."],
       ["The whole video library", "Walk-arounds split into chapters, plus how-to videos: operating the tilt, dump hydraulics, coupling, lights."],
-      ["Part-number lookup", "Timpte's serviceable-parts catalog searchable by model, so an owner can order the right part from the phone."],
+      ["Accessories store", "Timpte's accessory list with photos and online checkout, so an owner can order from the phone."],
       [`${A} answers spec questions`, `"What's the loading angle on the 1624?" ${A} reads it straight from the spec sheet.`],
       ["Matt's real inventory", "The lot list, stock numbers and prices come from Matt, not sample data. Mark a unit sold and the site updates."],
-      ["Quotes and holds in Matt's inbox", "Every quote, hold and parts order lands in email or text, with a lead board to work from."],
+      ["Quotes and holds in Matt's inbox", "Every quote, hold and accessory order lands in email or text, with a lead board to work from."],
       ["Financing applications", "A real pre-qualify form through the lender Timeless uses."],
       ["Google and the answer tools", "Each model gets its own page with structured data, so searches for a Timpte split tilt near Charlotte find Timeless."]
     ];
@@ -82,12 +82,12 @@ function renderKpis() {
   k.innerHTML = `<div class="kpi"><b>${lot}</b><span>Units on the lot</span><small>${hold} on hold · ${order} arriving</small></div>
     <div class="kpi"><b>${open.length}</b><span>Open leads</span><small>${nw} new, not yet contacted</small></div>
     <div class="kpi"><b>${qo.length}</b><span>Quotes out</span><small>${money(qv)} waiting on a yes</small></div>
-    <div class="kpi"><b>${tk.length}</b><span>Open service tickets</span><small>${S.partsOrders.filter(o => o.status === "Ordered").length} parts orders to pull</small></div>`;
+    <div class="kpi"><b>${tk.length}</b><span>Open service tickets</span><small>${S.partsOrders.filter(o => o.status === "Ordered").length} accessory orders to pull</small></div>`;
 }
 function renderAdminMain(flashId) {
   const m = $("#adminMain"); if (!m) return;
   const tabs = [["inventory", "Inventory", S.inventory.filter(t => t.status !== "sold").length], ["leads", "Leads", S.leads.filter(l => ["New", "Contacted", "Quoted"].includes(l.stage)).length],
-    ["holds", "Holds", S.holds.filter(h => h.status === "Active").length], ["quotes", "Quotes", S.quotes.length], ["parts", "Parts orders", S.partsOrders.filter(o => o.status !== "Picked up").length],
+    ["holds", "Holds", S.holds.filter(h => h.status === "Active").length], ["quotes", "Quotes", S.quotes.length], ["parts", "Accessories", S.partsOrders.filter(o => o.status !== "Picked up").length],
     ["service", "Service", S.tickets.filter(t => t.status !== "Done").length], ["log", "Activity", S.log.length]];
   let body = "";
   const who = r => `<b>${esc(r.name)}</b><small>${esc(r.phone || "")}${r.userId && r.userId !== "guest" ? " · site account" : ""}</small>`;
@@ -113,7 +113,7 @@ function renderAdminMain(flashId) {
       return `<tr><td><b>${q.id}</b></td><td>${who(q)}</td><td>${t ? esc(tname(t)) + `<small>${t.id}${q.addons.length ? " · " + q.addons.length + " add-ons" : ""}</small>` : ""}</td><td><b>${t ? money(quoteCalc(t, q.addons).total) : ""}</b></td><td>${fmtDate(q.created)}</td><td>${sel("quote", q.id, q.status, ["Sent", "Accepted", "Expired"])}</td></tr>`; }).join("")}</tbody></table></div>`;
   } else if (adm.tab === "parts") {
     body = `<div class="tscroll"><table class="atable"><thead><tr><th>Order</th><th>Customer</th><th>Items</th><th>Total</th><th>Placed</th><th>Status</th></tr></thead><tbody>${S.partsOrders.map(o => `<tr><td><b>${o.id}</b></td><td>${who(o)}</td>
-      <td>${o.items.map(([id, q]) => { const p = DATA.parts.find(x => x.id === id); return `${q} × ${esc(p ? p.name : id)}`; }).join("<br>")}</td><td>${money(partsTotal(o.items))}</td><td>${fmtDate(o.created)}</td><td>${sel("parts", o.id, o.status, ["Ordered", "Ready for pickup", "Picked up"])}</td></tr>`).join("")}</tbody></table></div>`;
+      <td>${o.items.map(([id, q]) => { const p = DATA.accessories.find(x => x.id === id); return `${q} × ${esc(p ? p.name : id)}`; }).join("<br>")}</td><td>${money(partsTotal(o.items))}</td><td>${fmtDate(o.created)}</td><td>${sel("parts", o.id, o.status, ["Ordered", "Ready for pickup", "Picked up"])}</td></tr>`).join("")}</tbody></table></div>`;
   } else if (adm.tab === "service") {
     body = `<div class="tscroll"><table class="atable"><thead><tr><th>Ticket</th><th>Customer</th><th>Unit / service</th><th>Day</th><th>Status</th></tr></thead><tbody>${S.tickets.map(t => `<tr><td><b>${t.id}</b></td><td>${who(t)}</td>
       <td><b>${esc(t.service)}</b><small>${esc(t.unit)}${t.notes ? " · " + esc(t.notes) : ""}</small></td><td>${t.date ? fmtDate(t.date) : "TBD"}</td><td>${sel("ticket", t.id, t.status, ["Open", "Scheduled", "In progress", "Done"])}</td></tr>`).join("")}</tbody></table></div>`;
@@ -438,23 +438,15 @@ const FORMS = {
     const h = createHold(t, f.elements.name.value.trim(), f.elements.phone.value.trim());
     closeModal(); rerender(); toast(`${t.id} is on hold until ${fmtWhen(h.expires)}.${DEMO ? ` <a href="/account/?s=a-holds">See it in My Account</a>` : " We'll call you today to confirm."}`, 5000);
   },
-  async "parts-checkout"(f) {
+  async "acc-request"(f) {
     if (!need(f, ["name", "phone"])) return;
     const items = S.cart.slice();
-    const r = await sendLead(f, "Parts request", { items: items.map(([id, q]) => { const p = DATA.parts.find(x => x.id === id); return (q > 1 ? q + " × " : "") + id + (p ? " " + p.name : ""); }).join("; "), unit: f.elements.unit.value });
+    const r = await sendLead(f, "Accessories request", { items: items.map(([id, q]) => { const a = DATA.accessories.find(x => x.id === id); return (q > 1 ? q + " × " : "") + id + (a ? " " + a.name : ""); }).join("; "), unit: f.elements.unit.value });
     if (!r.ok) return;
     const o = createPartsOrder(items, f.elements.name.value.trim(), f.elements.phone.value.trim());
-    addLead({ name: f.elements.name.value.trim(), phone: f.elements.phone.value.trim(), interest: "Parts: " + items.map(([id, q]) => (q > 1 ? q + " × " : "") + id).join(", ") + (f.elements.unit.value.trim() ? " · " + f.elements.unit.value.trim() : ""), source: "Parts request" });
+    addLead({ name: f.elements.name.value.trim(), phone: f.elements.phone.value.trim(), interest: "Accessories: " + items.map(([id, q]) => (q > 1 ? q + " × " : "") + id).join(", ") + (f.elements.unit.value.trim() ? " · " + f.elements.unit.value.trim() : ""), source: "Accessories request" });
     S.cart = []; save();
-    renderCart(); toast(`Request sent. We'll call ${esc(f.elements.phone.value.trim())} to confirm the price and the pickup day.${DEMO ? ` <a href="/account/?s=a-orders">My Account</a>` : ""}`, 6000);
-  },
-  async service(f) {
-    if (!need(f, ["name", "phone"])) return;
-    const e = f.elements;
-    const r = await sendLead(f, "Service booking", { unit: e.unit.value, service: e.service.value, date: e.date.value, notes: e.notes.value });
-    if (!r.ok) return;
-    const tk = createTicket({ name: e.name.value.trim(), phone: e.phone.value.trim(), unit: e.unit.value, service: e.service.value, notes: e.notes.value.trim(), date: e.date.value ? new Date(e.date.value + "T12:00").toISOString() : null });
-    f.innerHTML = doneHTML(`Ticket ${tk.id} open.`, `We'll call ${esc(e.phone.value)} to confirm drop-off${e.date.value ? " around " + fmtDate(tk.date) : ""}. ${me() ? '<a href="/account/?s=a-tickets">Track it in My Account</a>.' : ""}`);
+    renderRequest(); toast(`Request sent. We'll confirm availability and the pickup day within 24 hours.${DEMO ? ` <a href="/account/?s=a-orders">My Account</a>` : ""}`, 6000);
   },
   async prequal(f) { if (!need(f, ["name", "phone"])) return; const r = await sendLead(f, "Financing pre-qualify", { price: money(fin.price), as: f.elements.as.value }); if (!r.ok) return; addLead({ name: f.elements.name.value.trim(), phone: f.elements.phone.value.trim(), interest: "Financing pre-qualify · " + money(fin.price), source: "Financing" }); f.innerHTML = doneHTML("Got it.", "You'll hear from us within 24 hours with real options for " + money(fin.price) + "."); },
   /* @demo */
@@ -482,7 +474,7 @@ const FORMS = {
    can read it); this router takes over once the script runs, and keeps the old #/ links working. */
 const CAT_SLUG = { tilt: "split-tilt", deckover: "deck-over", gooseneck: "gooseneck", dump: "dump", ezload: "ez-load" };
 const SLUG_CAT = Object.fromEntries(Object.entries(CAT_SLUG).map(([k, v]) => [v, k]));
-const PAGES = { "": "home", trailers: "inventory", stock: "trailer", finder: "finder", compare: "compare", parts: "parts", service: "service",
+const PAGES = { "": "home", trailers: "inventory", stock: "trailer", finder: "finder", compare: "compare", accessories: "accessories",
   "owner-resources": "resources", financing: "financing", about: "about", contact: "contact", privacy: "privacy", account: "account", admin: "admin", vision: "vision" };
 function catPath(type) { return "/trailers/" + (CAT_SLUG[type] || "") + "/"; }
 function modelPath(m) { return "/trailers/" + m.slug + "/"; }
@@ -503,6 +495,8 @@ function parseRoute() {
   const old = legacyPath(location.hash);
   if (old) history.replaceState(null, "", old);
   const parts = location.pathname.split("/").filter(Boolean).map(x => { try { return decodeURIComponent(x); } catch (e) { return x; } });
+  const moved = { parts: "/accessories/", service: "/owner-resources/" };
+  if (moved[parts[0]]) { history.replaceState(null, "", moved[parts[0]]); return parseRoute(); }
   const q = {}; new URLSearchParams(location.search).forEach((v, k) => { q[k] = v; });
   let name = PAGES[parts[0] || ""] || "notfound", arg = parts[1] || null;
   if (parts[0] === "trailers" && parts[1]) {
@@ -577,11 +571,10 @@ document.addEventListener("click", e => {
     case "line-f": { const f = el.dataset.f; $$("[data-act=line-f]").forEach(x => x.setAttribute("aria-pressed", x === el)); $$(".model").forEach(m => { m.hidden = !(f === "all" || (" " + m.dataset.cat + " ").includes(" " + f + " ")); }); break; }
     case "f-cat": finder.cat = el.dataset.k; renderFinder(); break;
     case "f-restart": finder.cat = null; renderFinder(); break;
-    case "cart-add": { const c = S.cart.find(x => x[0] === id); if (c) c[1]++; else S.cart.push([id, 1]); save(); renderCart(); toast("Added to your parts order."); break; }
-    case "cart-qty": { const c = S.cart.find(x => x[0] === id); if (c) { c[1] += +el.dataset.d; if (c[1] < 1) S.cart = S.cart.filter(x => x[0] !== id); } save(); renderCart(); break; }
-    case "parts-cat": partsUI.cat = el.dataset.c; $$("[data-act=parts-cat]").forEach(x => x.setAttribute("aria-pressed", x === el)); renderParts(); break;
-    case "parts-series": partsUI.series = el.dataset.s; $$("[data-act=parts-series]").forEach(x => x.setAttribute("aria-pressed", x === el)); renderParts(); break;
-    case "parts-fit": partsUI.fit = el.checked; renderParts(); break;
+    case "cart-add": { const c = S.cart.find(x => x[0] === id); if (c) c[1]++; else S.cart.push([id, 1]); save(); renderRequest(); toast("Added to your request."); break; }
+    case "cart-qty": { const c = S.cart.find(x => x[0] === id); if (c) { c[1] += +el.dataset.d; if (c[1] < 1) S.cart = S.cart.filter(x => x[0] !== id); } save(); renderRequest(); break; }
+    case "acc-group": accUI.cat = el.dataset.c; $$("[data-act=acc-group]").forEach(x => x.setAttribute("aria-pressed", x === el)); renderAccessories(); break;
+    case "acc-fit": accUI.fit = el.checked; renderAccessories(); break;
     case "fin-term": fin.term = +el.dataset.n; $$("[data-act=fin-term]").forEach(x => x.setAttribute("aria-pressed", x === el)); renderCalc(); break;
     /* @demo */
     case "quote": quoteModal(id); break;
@@ -635,7 +628,7 @@ document.addEventListener("input", e => {
     }
     else renderInvGrid();
   }
-  if (el.dataset.act === "parts-q") { partsUI.q = el.value; renderParts(); }
+  if (el.dataset.act === "acc-q") { accUI.q = el.value; renderAccessories(); }
   if (el.dataset.fin) { fin[el.dataset.fin] = +el.value || 0; if (el.dataset.fin !== "apr") { fin.id = ""; const s = $("#fTr"); if (s) s.value = ""; } renderCalc(); }
 });
 /* big picture on hover for lists that carry data-preview (the spec-sheet list on Owner resources) */
@@ -680,7 +673,7 @@ function buildChrome() {
   <footer><div class="wrap"><div class="fgrid">
     <div><img src="${img("timeless-logo")}" alt="Timeless Trailers"><p>${esc(CONFIG.wording.exclusive)} · ${esc(b.address)} · ${b.phone}${b.email ? ` · <a href="mailto:${esc(b.email)}">${esc(b.email)}</a>` : ""} · ${esc(b.hours)}</p><a class="tbadge" href="${b.timpte}" target="_blank" rel="noopener"><img src="${img("timpte-et-logo")}" alt="Timpte Equipment Trailers" loading="lazy"><span>Timpte-exclusive CSC</span></a></div>
     <div><h4>Shop</h4><a href="/trailers/">On the lot</a><a href="/trailers/?s=lineup">Lineup</a><a href="/finder/">Trailer Finder</a><a href="/compare/">Compare</a></div>
-    <div><h4>Own</h4><a href="/parts/">Parts</a><a href="/service/">Service</a><a href="/owner-resources/">Owner resources</a><a href="/financing/">Financing</a></div>
+    <div><h4>Own</h4><a href="/accessories/">Accessories</a><a href="/owner-resources/">Owner resources</a><a href="/financing/">Financing</a></div>
     <div><h4>Company</h4><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/owner-resources/">Owner resources</a><a href="/privacy/">Privacy</a>${DEMO ? footerDemoHTML() : ""}</div>
   </div><div class="fbot"><span>${DEMO ? footerDemoNote() : `© ${new Date().getFullYear()} ${esc(b.name)} · Site by <a href="https://albright-innovations.com" target="_blank" rel="noopener">${esc(CONFIG.site.builtBy)}</a>`}</span>${DEMO ? footerResetHTML() : ""}</div></div></footer>
   <div class="mbar"><a class="btn btn-line-light" href="/trailers/">On the lot</a><a class="btn btn-gold" href="/?s=quote">Get a quote</a></div>

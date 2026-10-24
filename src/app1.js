@@ -181,7 +181,7 @@ function createQuote(t, addons, name, phone) {
   save(); return q;
 }
 /* @end-demo */
-function partsTotal(items) { return items.reduce((s, [id, q]) => { const p = DATA.parts.find(x => x.id === id); return s + (p ? p.price * q : 0); }, 0); }
+function partsTotal(items) { return items.reduce((s, [id, q]) => { const p = DATA.accessories.find(x => x.id === id); return s + (p ? p.price * q : 0); }, 0); }
 function createPartsOrder(items, name, phone) {
   const o = { id: nextId("PO"), userId: S.user && !isStaff() ? S.user : "guest", name, phone, items, created: new Date().toISOString(), status: "Ordered" };
   S.partsOrders.unshift(o); save(); return o;
@@ -202,8 +202,7 @@ function navHTML() {
   <div class="menu"><a href="/about/" data-nav="about" class="nav-about">About us</a></div>
   <div class="menu" data-menu="inv"><button aria-expanded="false" data-nav="inventory,trailer,finder,compare">Inventory ${ICON.caret}</button>
     <div class="dd"><a href="/trailers/">On the lot<small>${onLot().length} units ready today</small></a><a href="/trailers/?s=lineup">Lineup by category<small>Order any Timpte model</small></a><a href="/finder/">Trailer Finder<small>Start with what you haul</small></a><a href="/compare/">Compare models<small>Side by side, up to three</small></a></div></div>
-  <div class="menu" data-menu="own"><button aria-expanded="false" data-nav="parts,service">Parts and services ${ICON.caret}</button>
-    <div class="dd"><a href="/parts/">Parts<small>Order for pickup in Waxhaw</small></a><a href="/service/">Service<small>Inspections, bearings, brakes</small></a></div></div>
+  <div class="menu"><a href="/accessories/" data-nav="accessories">Accessories</a></div>
   <div class="menu"><a href="/financing/" data-nav="financing">Financing</a></div>
   <div class="menu"><a href="/owner-resources/">Owner resources</a></div>
   <div class="menu"><a href="/contact/">Contact us</a></div>`;
@@ -234,7 +233,7 @@ function openDrawer() {
     <div class="dsearch"><label for="dSearch" class="sr">Search inventory</label><input id="dSearch" placeholder="Search trailers: dump, tilt, 1020…" data-search></div>
     <h4>About us</h4><a href="/about/">About us</a>
     <h4>Inventory</h4><a href="/trailers/">On the lot</a><a href="/trailers/?s=lineup">Lineup by category</a><a href="/finder/">Trailer Finder</a><a href="/compare/">Compare models</a>
-    <h4>Parts and services</h4><a href="/parts/">Parts</a><a href="/service/">Service</a>
+    <h4>Accessories</h4><a href="/accessories/">Accessories</a>
     <h4>More</h4><a href="/financing/">Financing</a><a href="/owner-resources/">Owner resources</a><a href="/contact/">Contact us</a>
     ${DEMO ? drawerAcctHTML() : ""}
     <div style="margin-top:22px;display:grid;gap:8px"><button class="btn btn-gold" data-act="tessa-open">Ask ${A}</button><a class="btn btn-line" href="tel:${DATA.business.tel}">Call ${DATA.business.phone}</a></div></nav>`;
@@ -269,7 +268,7 @@ function personaCard(p) {
 function tourHTML() {
   const c = DATA.personas.filter(p => p.role === "customer"), s = DATA.personas.filter(p => p.role !== "customer");
   return `<div class="tour-grid">
-    <div class="tour-col"><div class="eyebrow">Shop as a customer</div><h3>Buy a trailer, own a trailer.</h3><p>One click, no password. Save trailers, put a unit on hold, build a quote, and order parts as an owner.</p><div class="tour-cards">${c.map(personaCard).join("")}</div></div>
+    <div class="tour-col"><div class="eyebrow">Shop as a customer</div><h3>Buy a trailer, own a trailer.</h3><p>One click, no password. Save trailers, put a unit on hold, build a quote, and order accessories as an owner.</p><div class="tour-cards">${c.map(personaCard).join("")}</div></div>
     <div class="tour-col dark"><div class="eyebrow" style="color:var(--gold-2)">Run the dealership</div><h3>Behind the counter.</h3><p>Every lead, quote, hold and ticket from the site lands here. Change prices by asking ${A}, and confirm every change.</p><div class="tour-cards">${s.map(personaCard).join("")}</div></div></div>`;
 }
 function tourSection() {
@@ -418,7 +417,7 @@ function meetHTML() {
     <li>${tick}<span><b>Your truck.</b> Name what pulls it and ${A} tells you what to look for before you buy.</span></li>
     <li>${tick}<span><b>Specs.</b> Payload, deck size, loading angle, axles and tires, straight from the spec sheets.</span></li>
     <li>${tick}<span><b>The lot.</b> What's here now and what's arriving.</span></li>
-    <li>${tick}<span><b>Owners.</b> Parts, service and warranty questions.</span></li>
+    <li>${tick}<span><b>Owners.</b> Accessories, maintenance and warranty questions.</span></li>
   </ul>
   <div class="ctas"><button class="btn btn-gold" data-act="tessa-open">Start a conversation</button><a class="btn btn-line-light" href="/finder/">Use the Trailer Finder</a></div>
 </div>
@@ -624,80 +623,66 @@ VIEWS.compare = {
   }
 };
 
-/* ---------- parts: Timpte's serviceable parts catalog, by part number ---------- */
-const PARTPRICES = DEMO || !!CONFIG.showPartsPrices;
-const partsUI = { q: "", fit: true, cat: "All", series: "All" };
-const money2 = n => "$" + Number(n).toFixed(2);
-VIEWS.parts = {
-  title: "Timpte parts by part number · Timeless Trailers",
+/* ---------- accessories: Timpte's accessory list, with a request that goes to Matt ---------- */
+const accUI = { q: "", fit: true, cat: "All" };
+const money2 = n => "$" + Number(n).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const ACC_ICON = {
+  "Spare tires and holders": '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><circle cx="32" cy="32" r="24"/><circle cx="32" cy="32" r="9"/><path d="M32 8v15M32 41v15M8 32h15M41 32h15"/></svg>',
+  "Rock guards and tire racks": '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><path d="M32 6 10 14v18c0 14 10 22 22 26 12-4 22-12 22-26V14z"/><path d="M20 30h24M20 38h24M20 22h24"/></svg>',
+  "Dump trailer add-ons": '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><path d="M8 26h40l8 10v10H8z"/><path d="M8 26 14 14h30l4 12"/><circle cx="20" cy="50" r="5"/><circle cx="44" cy="50" r="5"/></svg>',
+  "Tie-downs, winches, toolboxes and more": '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><path d="M14 22h36v28H14z"/><path d="M24 22v-8h16v8M14 34h36"/></svg>'
+};
+function accCard(a) {
+  const pic = a.image ? `<img src="${img(a.image)}" alt="${esc(a.name)}" loading="lazy">` : `<i class="acc-ico" aria-hidden="true">${ACC_ICON[a.cat] || ACC_ICON["Tie-downs, winches, toolboxes and more"]}</i>`;
+  const fits = (a.fits || []).join(" / ");
+  return `<div class="acc"><div class="acc-pic">${pic}</div><div class="acc-body"><em>${esc(a.cat)}</em><b>${esc(a.name)}</b><small>Part ${esc(a.id)}${fits ? " · fits " + esc(fits) : ""}${a.detail ? " · " + esc(a.detail) : ""}</small>
+    <div class="pp"><strong>${PRICES && a.price ? money2(a.price) : `<span class="callp">Call for price</span>`}</strong><button class="btn btn-gold xs" data-act="cart-add" data-id="${esc(a.id)}">Add to request</button></div></div></div>`;
+}
+VIEWS.accessories = {
+  title: "Timpte trailer accessories · Timeless Trailers",
   html() {
     const own = myOwned()[0];
-    const cats = ["All"].concat([...new Set(DATA.parts.map(p => p.cat))]);
-    return `<div class="page-head"><div class="wrap"><div class="crumbs"><a href="/">Home</a> / Parts</div><div class="eyebrow">Own · Parts counter</div><h1 style="margin-top:10px">Parts.</h1>
-      <p class="lede">Every serviceable part in Timpte's catalog, by part number: axles, hoists, latches, lights, decals and more. Find it, add it to your request, and we order it for pickup in Waxhaw.</p>
-      ${own ? `<div class="badges" style="margin-top:16px"><span class="badge info">Your ${own.year} ${esc(own.model)}</span><label class="badge" style="cursor:pointer;margin:0"><input type="checkbox" data-act="parts-fit" ${partsUI.fit ? "checked" : ""}> Only parts for it</label></div>` : (DEMO ? partsSigninNote() : `<p class="note">Not sure which part you need? Ask ${A} with your model and serial number, or call the counter at ${DATA.business.phone}.</p>`)}
+    const cats = ["All"].concat([...new Set(DATA.accessories.map(a => a.cat))]);
+    return `<div class="page-head"><div class="wrap"><div class="crumbs"><a href="/">Home</a> / Accessories</div><div class="eyebrow">Own · Accessories</div><h1 style="margin-top:10px">Accessories.</h1>
+      <p class="lede">Timpte's own accessories for your trailer: spare tires and holders, rock guards, winch kits, tie-downs, toolboxes and dump box add-ons. Prices are Timpte's list prices. Add what you need to a request and we order it for pickup in Waxhaw.</p>
+      ${own ? `<div class="badges" style="margin-top:16px"><span class="badge info">Your ${own.year} ${esc(own.model)}</span><label class="badge" style="cursor:pointer;margin:0"><input type="checkbox" data-act="acc-fit" ${accUI.fit ? "checked" : ""}> Only accessories for it</label></div>` : (DEMO ? partsSigninNote() : `<p class="note">Not sure what fits? Ask ${A} with your model, or call us at ${DATA.business.phone}.</p>`)}
     </div></div>
-    <section style="padding-top:30px"><div class="wrap parts-grid"><div>
-      <div class="toolbar"><div class="chips">${cats.map(c => `<button class="chip" data-act="parts-cat" data-c="${esc(c)}" aria-pressed="${partsUI.cat === c}">${esc(c)}</button>`).join("")}</div>
-      <div class="tb-right"><label for="pQ" class="sr">Search parts</label><input id="pQ" data-act="parts-q" placeholder="Part number or name" value="${esc(partsUI.q)}"></div></div>
-      <div class="chips" style="margin:-8px 0 14px">${["All", "Motorsports", "Powerhouse"].map(s => `<button class="chip" data-act="parts-series" data-s="${s}" aria-pressed="${partsUI.series === s}">${s === "All" ? "All series" : "Timpte " + s}</button>`).join("")}</div>
-      <p class="rcount" id="pCount" aria-live="polite"></p>
-      <div class="plist" id="pList"></div></div>
-      <aside class="cart" id="cartBox"></aside></div></section>`;
+    <section style="padding-top:30px"><div class="wrap acc-grid"><div>
+      <div class="toolbar"><div class="chips">${cats.map(c => `<button class="chip" data-act="acc-group" data-c="${esc(c)}" aria-pressed="${accUI.cat === c}">${esc(c)}</button>`).join("")}</div>
+      <div class="tb-right"><label for="accQ" class="sr">Search accessories</label><input id="accQ" data-act="acc-q" placeholder="Search accessories" value="${esc(accUI.q)}"></div></div>
+      <p class="rcount" id="accCount" aria-live="polite"></p>
+      <div class="acc-list" id="accList"></div></div>
+      <aside class="request" id="reqBox"></aside></div></section>`;
   },
-  mount() { renderParts(); renderCart(); }
+  mount() { renderAccessories(); renderRequest(); }
 };
-function renderParts() {
-  const own = myOwned()[0]; const q = partsUI.q.toLowerCase().trim();
-  let list = DATA.parts.filter(p => (partsUI.cat === "All" || p.cat === partsUI.cat) && (partsUI.series === "All" || p.series === partsUI.series || p.series === "Both") && (!own || !partsUI.fit || p.fits.includes(own.type)));
-  if (q) list = list.filter(p => (p.id + " " + p.name + " " + (p.fitsSeries || []).join(" ") + " " + p.cat).toLowerCase().includes(q));
-  const shown = list.slice(0, 80);
-  const c = $("#pCount"); if (c) c.textContent = `${list.length} part${list.length === 1 ? "" : "s"}${q ? ` matching “${partsUI.q}”` : ""}${list.length > shown.length ? `, showing the first ${shown.length}. Narrow it down with a search.` : ""}`;
-  $("#pList").innerHTML = shown.length ? shown.map(p => `<div class="part"><em>${esc(p.cat)}${p.fitsSeries ? " · fits " + esc(p.fitsSeries.join(", ")) : ""}</em><b>${esc(p.name)}</b><small>Part ${esc(p.id)} · Timpte ${esc(p.series === "Both" ? "Motorsports and Powerhouse" : p.series)}</small>
-    <div class="pp"><strong>${PARTPRICES && p.price ? money2(p.price) : `<span class="callp">Call for price</span>`}</strong><button class="btn btn-gold xs" data-act="cart-add" data-id="${esc(p.id)}">Request</button></div></div>`).join("")
-    : `<div class="empty" style="grid-column:1/-1"><b>No part matches.</b>Try the part number from your old part or the catalog, or ask ${A}. We order what we don't stock: ${DATA.business.phone}.</div>`;
+/* Does an accessory fit this owner's trailer? Timpte lists fits by weight class (5K, 7K, 10K, 14K, 16K) or "Goosenecks";
+   the class is the front of the model key (1420ST -> 14K, 720 -> 7K). Dump add-ons fit dump trailers only. */
+function fitsType(a, own) {
+  if (!a.fits || !a.fits.length) return a.cat !== "Dump trailer add-ons" || own.type === "dump";
+  const k = ((own.key || "").match(/^(\d+?)(?=\d{2}(\D|$))/) || [])[1] + "K";
+  return a.fits.some(f => f === "Goosenecks" ? own.type === "gooseneck" : f.split(" ")[0] === k);
 }
-function renderCart() {
-  const box = $("#cartBox"); if (!box) return;
-  const u = me(); const total = PARTPRICES ? partsTotal(S.cart) : 0;
-  box.innerHTML = `<h3>Your parts request</h3>${S.cart.length ? S.cart.map(([id, q]) => { const p = DATA.parts.find(x => x.id === id); if (!p) return "";
-    return `<div class="citem"><span>${esc(p.name)}<br><small class="muted">Part ${esc(p.id)}</small></span><b>${PARTPRICES && p.price ? money2(p.price * q) : ""}</b><span class="qtyc"><button data-act="cart-qty" data-id="${esc(id)}" data-d="-1" aria-label="Fewer">−</button><span>${q}</span><button data-act="cart-qty" data-id="${esc(id)}" data-d="1" aria-label="More">+</button></span></div>`; }).join("") +
-    `${PARTPRICES && total ? `<div class="ctotal"><span>Parts</span><span>${money2(total)}</span></div>` : ""}
-    <form data-form="parts-checkout" novalidate style="display:grid;gap:10px">
-      <div><label for="pcName">Name</label><input id="pcName" name="name" value="${u && u.role === "customer" ? esc(u.name) : ""}" required></div>
-      <div><label for="pcPhone">Phone</label><input id="pcPhone" name="phone" type="tel" value="${u && u.role === "customer" ? esc(u.phone) : ""}" required></div>
-      <div><label for="pcUnit">Your trailer (model and serial, if handy)</label><input id="pcUnit" name="unit" placeholder="e.g. 2024 1420 Split Tilt"></div>
-      <button class="btn btn-gold" type="submit">Send the request</button><p class="note" style="margin:0">We confirm the price and the pickup day by phone. Pay at pickup.</p></form>`
-    : `<p class="muted" style="margin:0">Nothing yet. Find a part and hit Request. Parts are ordered through us and picked up in Waxhaw.</p>`}`;
+function renderAccessories() {
+  const own = myOwned()[0]; const q = accUI.q.toLowerCase().trim();
+  let list = DATA.accessories.filter(a => (accUI.cat === "All" || a.cat === accUI.cat) && (!own || !accUI.fit || fitsType(a, own)));
+  if (q) list = list.filter(a => (a.id + " " + a.name + " " + (a.fits || []).join(" ") + " " + a.cat).toLowerCase().includes(q));
+  const c = $("#accCount"); if (c) c.textContent = `${list.length} accessor${list.length === 1 ? "y" : "ies"}${q ? ` matching “${accUI.q}”` : ""}`;
+  $("#accList").innerHTML = list.length ? list.map(accCard).join("") : `<div class="empty" style="grid-column:1/-1"><b>Nothing matches.</b>Try a part number or a word like “winch”, or ask ${A}. We can order anything in Timpte's line: ${DATA.business.phone}.</div>`;
 }
-
-/* ---------- service ---------- */
-VIEWS.service = {
-  title: "Service · Timeless Trailers",
-  html() {
-    const u = me(); const own = myOwned();
-    return `<div class="page-head"><div class="wrap"><div class="crumbs"><a href="/">Home</a> / Service</div><div class="eyebrow">Own · Service bay</div><h1 style="margin-top:10px">Service.</h1>
-      <p class="lede">Inspections, bearings, brakes, wiring and warranty work, done here in Waxhaw by the people who sold you the trailer.${DEMO ? " Sample prices below." : ""}</p></div></div>
-    <section style="padding-top:34px"><div class="wrap">
-      <div class="grid3">${DATA.services.map(s => `<div class="svc"><b>${s.name}</b><span>${DEMO || s.id === "warranty" ? s.price : "Call for pricing"}</span><p>${s.desc}</p></div>`).join("")}</div>
-      <div class="grid2" style="margin-top:34px">
-        <form class="q" data-form="service" novalidate id="book"><h3 style="margin-bottom:16px">Book service</h3><div class="fields">
-          <div class="full"><label for="sUnit">Trailer</label><select id="sUnit" name="unit">${own.map(o => `<option>${o.year} ${esc(o.model)}</option>`).join("")}<option>Another Timpte trailer</option><option>A trailer from another brand</option></select></div>
-          <div><label for="sType">Service</label><select id="sType" name="service">${DATA.services.map(s => `<option ${route.q.svc === s.id ? "selected" : ""}>${s.name}</option>`).join("")}</select></div>
-          <div><label for="sDate">Preferred day</label><input id="sDate" name="date" type="date" value="${new Date(Date.now() + 3 * DAY).toISOString().slice(0, 10)}"></div>
-          <div><label for="sName">Name</label><input id="sName" name="name" required value="${u && u.role === "customer" ? esc(u.name) : ""}"></div>
-          <div><label for="sPhone">Phone</label><input id="sPhone" name="phone" type="tel" required value="${u && u.role === "customer" ? esc(u.phone) : ""}"></div>
-          <div class="full"><label for="sNotes">What's going on?</label><textarea id="sNotes" name="notes" placeholder="Noise, symptoms, when it started"></textarea></div>
-        </div><div class="form-foot"><p>We'll call to confirm a drop-off time. Most work is same-week.</p><button class="btn btn-gold" type="submit">Open service ticket</button></div></form>
-        <div class="panel" id="resources"><div class="eyebrow">Owner resources</div><h3 style="margin-top:8px">Keep it rolling.</h3>
-          <table class="ttable"><thead><tr><th>When</th><th>What to check</th></tr></thead><tbody>${DATA.maintenance.map(([a, b]) => `<tr><td><b>${a}</b></td><td>${b}</td></tr>`).join("")}</tbody></table>
-          <p style="margin:18px 0 0"><a class="btn btn-line sm" href="/owner-resources/">Spec sheets, the Timpte catalog and warranty help</a></p>
-          <h4 style="margin:22px 0 6px">Warranty</h4>
-          <p style="margin:0;color:var(--text-2);font-size:.95rem">Timpte backs every trailer with a 3-year warranty. We handle the claim and the repair here in Waxhaw. Call ${DATA.business.phone} with your serial number.</p>
-        </div></div>
-    </div></section>`;
-  }
-};
+function renderRequest() {
+  const box = $("#reqBox"); if (!box) return;
+  const u = me(); const total = partsTotal(S.cart);
+  box.innerHTML = `<h3>Your request</h3>${S.cart.length ? S.cart.map(([id, q]) => { const a = DATA.accessories.find(x => x.id === id); if (!a) return "";
+    return `<div class="citem"><span>${esc(a.name)}<br><small class="muted">Part ${esc(a.id)}</small></span><b>${PRICES && a.price ? money2(a.price * q) : ""}</b><span class="qtyc"><button data-act="cart-qty" data-id="${esc(id)}" data-d="-1" aria-label="Fewer">−</button><span>${q}</span><button data-act="cart-qty" data-id="${esc(id)}" data-d="1" aria-label="More">+</button></span></div>`; }).join("") +
+    `${PRICES && total ? `<div class="ctotal"><span>List price</span><span>${money2(total)}</span></div>` : ""}
+    <form data-form="acc-request" novalidate style="display:grid;gap:10px">
+      <div><label for="rqName">Name</label><input id="rqName" name="name" value="${u && u.role === "customer" ? esc(u.name) : ""}" required></div>
+      <div><label for="rqPhone">Phone</label><input id="rqPhone" name="phone" type="tel" value="${u && u.role === "customer" ? esc(u.phone) : ""}" required></div>
+      <div><label for="rqUnit">Your trailer (model, if handy)</label><input id="rqUnit" name="unit" placeholder="e.g. 2024 1420 Split Tilt"></div>
+      <button class="btn btn-gold" type="submit">Send the request</button><p class="note" style="margin:0">We confirm availability and the pickup day within 24 hours. Pay at pickup.</p></form>`
+    : `<p class="muted" style="margin:0">Nothing yet. Find an accessory and hit Add to request. Accessories are ordered through us and picked up in Waxhaw.</p>`}`;
+}
 
 /* ---------- financing ---------- */
 const fin = { price: 18900, down: 1890, apr: DATA.finance.apr, term: DATA.finance.term, id: "" };
@@ -747,7 +732,7 @@ VIEWS.about = {
         <li>${tick}We start with the load and the truck, not the biggest trailer on the lot.</li>
         <li>${tick}If your truck can't tow it safely, we'll tell you, even if it costs us the sale.</li>
         <li>${tick}${PRICES ? "Real prices on the website." : "A straight price the same business day."} Holds without a deposit while we confirm details.</li>
-        <li>${tick}Parts, service and warranty handled here, not shipped off.</li></ul></div>
+        <li>${tick}Accessories, maintenance help and warranty handled here, not shipped off.</li></ul></div>
       <div class="panel"><h3>Who you'll talk to</h3><div class="rows">${DATA.team.map(t => `<div style="display:flex;gap:12px;align-items:flex-start"><i class="av">${initials(t.name)}</i><div><b>${esc(t.name)}</b> · <span class="muted">${esc(t.role)}</span><p style="margin:4px 0 0;color:var(--text-2);font-size:.95rem">${esc(t.note)}</p></div></div>`).join("")}
         <div style="display:flex;gap:12px;align-items:flex-start"><i class="av dark">${A[0]}</i><div><b>${A}</b> · <span class="muted">Trailer advisor</span><p style="margin:4px 0 0;color:var(--text-2);font-size:.95rem">${ANDY_LINE} Any hour. <button class="link" data-act="tessa-open">Ask now</button></p></div></div></div></div>
     </div></section>
@@ -816,11 +801,11 @@ VIEWS.resources = {
   html() {
     const b = DATA.business;
     return `<div class="page-head"><div class="wrap"><div class="crumbs"><a href="/">Home</a> / Owner resources</div><div class="eyebrow">Own · Keep it rolling</div><h1 style="margin-top:10px">Owner resources.</h1>
-      <p class="lede">The maintenance schedule, every Timpte spec sheet, and where to turn for parts, service and warranty.</p></div></div>
+      <p class="lede">The maintenance schedule, every Timpte spec sheet, and where to turn for accessories, maintenance help and warranty.</p></div></div>
     <section style="padding-top:34px"><div class="wrap grid2">
       <div class="panel"><h3>Maintenance schedule</h3><table class="ttable"><thead><tr><th>When</th><th>What to check</th></tr></thead><tbody>${DATA.maintenance.map(([a, c]) => `<tr><td><b>${a}</b></td><td>${c}</td></tr>`).join("")}</tbody></table>
-        <h4 style="margin:22px 0 6px">Warranty</h4><p style="margin:0;color:var(--text-2);font-size:.95rem">Timpte backs every trailer with a 3-year warranty. We handle the claim and the repair here in Waxhaw. Call ${b.phone} with your serial number, or <a href="/service/">book service</a>.</p>
-        <h4 style="margin:22px 0 6px">Parts</h4><p style="margin:0;color:var(--text-2);font-size:.95rem">Timpte parts are ordered through us and picked up in Waxhaw. <a href="/parts/">Look up a part number</a>, or ask ${A}.</p></div>
+        <h4 style="margin:22px 0 6px">Warranty</h4><p style="margin:0;color:var(--text-2);font-size:.95rem">Timpte backs every trailer with a 3-year warranty. We handle the claim and the repair here in Waxhaw. Call ${b.phone} with your serial number, or <a href="/contact/">send us a note</a>.</p>
+        <h4 style="margin:22px 0 6px">Accessories</h4><p style="margin:0;color:var(--text-2);font-size:.95rem">Spare tires, rock guards, winches, tie-downs, toolboxes and dump box add-ons, ordered through us and picked up in Waxhaw. <a href="/accessories/">See the accessories</a>, or ask ${A}.</p></div>
       <div class="panel"><h3>Spec sheets</h3><p class="muted" style="margin:-6px 0 12px;font-size:.9rem">Not sure which is which? Hover over a name to see the trailer.</p><ul class="docs specs-list">${Object.values(MODELS).filter(m => m.spec).map(m => `<li><a data-preview="${img(m.gallery && m.gallery[0] || m.img)}" data-preview-title="${esc(m.model)}" href="/specs/${m.spec}" target="_blank" rel="noopener"><img class="spec-thumb" src="${img(m.img)}" alt="" loading="lazy"><span>${esc(m.model)}<small>PDF · Timpte 2026 spec sheet</small></span></a></li>`).join("")}</ul></div>
     </div></section>`;
   }
@@ -834,7 +819,7 @@ VIEWS.privacy = {
     return `<div class="page-head"><div class="wrap"><div class="crumbs"><a href="/">Home</a> / Privacy</div><div class="eyebrow">Plain words</div><h1 style="margin-top:10px">Privacy.</h1>
       <p class="lede">What this site collects, who sees it, and what we do with it.</p></div></div>
     <section style="padding-top:34px"><div class="wrap"><div class="panel" style="max-width:760px">
-      <h3>What we collect</h3><p>When you ask for a quote, hold a unit, book service, request a part or ask about financing, we collect what you type into the form: your name, phone number, and what you told us about your trailer, load or truck. Nothing else is required.</p>
+      <h3>What we collect</h3><p>When you ask for a quote, hold a unit, request an accessory or ask about financing, we collect what you type into the form: your name, phone number, and what you told us about your trailer, load or truck. Nothing else is required.</p>
       <h3 style="margin-top:22px">Who sees it</h3><p>Your request goes to ${esc(b.name)} in Waxhaw, NC, and to nobody else. We use it to call or text you back about what you asked. We do not sell or share it.</p>
       <h3 style="margin-top:22px">${A}, our trailer advisor</h3><p>Chat and voice conversations with ${A} run on a service called Stammer. What you say to ${A} is used to answer you and may be reviewed by us so we can improve the answers. Don't put payment details or passwords into the chat; ${A} never asks for them.</p>
       <h3 style="margin-top:22px">Cookies and tracking</h3><p>This site remembers a few things in your own browser, like trailers you saved or compared, and that information stays on your device. We count visits with a privacy-respecting analytics service that does not use cookies and does not follow you to other sites.</p>
@@ -853,7 +838,7 @@ VIEWS.notfound = {
 
 /* ---------- account (demo site only) ---------- */
 /* @demo */
-function partsSigninNote() { return `<p class="note">Own a Timpte? <button class="link" data-act="as" data-user="marcus">Sign in as Marcus</button> to see parts filtered to his trailer.</p>`; }
+function partsSigninNote() { return `<p class="note">Own a Timpte? <button class="link" data-act="as" data-user="marcus">Sign in as Marcus</button> to see accessories filtered to his trailer.</p>`; }
 VIEWS.account = {
   title: "My Account · Timeless Trailers",
   html() {
@@ -865,7 +850,7 @@ VIEWS.account = {
     const sec = (key, title, n, body, empty) => `<div class="asec" id="a-${key}"><h3>${title} <small>${n}</small></h3>${n ? `<div class="rows">${body}</div>` : `<div class="empty" style="padding:22px">${empty}</div>`}</div>`;
     const tRow = (t, right, extra = "") => `<div class="ritem"><a href="/stock/${t.id}/"><img src="${img(t.img)}" alt=""></a><div><b>${esc(tname(t))}</b><small>Stock ${t.id} · ${money(t.price)} · ${statusInfo(t).label}</small></div><div class="ra">${right}</div>${extra}</div>`;
     return `<div class="page-head"><div class="wrap">${head}
-      <nav class="acct-nav" aria-label="Account sections">${[["saved", "Saved", saved.length], ["holds", "Holds", holds.length], ["quotes", "Quotes", quotes.length], ["owned", "My trailers", owned.length], ["orders", "Parts orders", orders.length], ["tickets", "Service", tickets.length]].map(([k, l, n]) => `<a class="chip" href="/account/?s=a-${k}" style="text-decoration:none">${l} <small>${n}</small></a>`).join("")}</nav></div></div>
+      <nav class="acct-nav" aria-label="Account sections">${[["saved", "Saved", saved.length], ["holds", "Holds", holds.length], ["quotes", "Quotes", quotes.length], ["owned", "My trailers", owned.length], ["orders", "Accessory orders", orders.length], ["tickets", "Service", tickets.length]].map(([k, l, n]) => `<a class="chip" href="/account/?s=a-${k}" style="text-decoration:none">${l} <small>${n}</small></a>`).join("")}</nav></div></div>
     <section style="padding-top:10px"><div class="wrap">
       ${!u ? `<div class="asec">${tourHTML()}</div>` : ""}
       ${sec("saved", "Saved trailers", saved.length, saved.map(t => tRow(t, `<button class="heart inline" data-act="save" data-id="${t.id}" aria-pressed="true" aria-label="Remove ${t.id}">${ICON.heart}</button><button class="btn btn-line xs" data-act="cmp-btn" data-id="${t.id}">${S.compare.includes(t.id) ? "In compare ✓" : "Add to compare"}</button>`)).join(""), `Tap the heart on any trailer to save it here. <a href="/trailers/">Browse inventory</a>`)}
@@ -873,8 +858,8 @@ VIEWS.account = {
       ${sec("quotes", "Quotes", quotes.length, quotes.map(q => { const t = unit(q.trailerId); if (!t) return ""; const c = quoteCalc(t, q.addons);
         return tRow(t, `${statusPill(q.status)}<b>${money(c.total)}</b><small class="muted">${q.id} · ${fmtDate(q.created)}</small>`, `<details><summary>Itemized quote</summary>${quoteTable(q)}<p class="note">Sample tax and fees for the mock-up. Valid 14 days.</p></details>`); }).join(""), `No quotes yet. Open any trailer and hit “Get a quote”.`)}
       ${sec("owned", "My trailers", owned.length, owned.map(o => `<div class="ritem"><img src="${img(o.img)}" alt=""><div><b>${o.year} ${esc(o.model)}</b><small>VIN ${esc(o.vin)} · Bought ${fmtDateY(o.purchased)}</small><small>Warranty through ${fmtDateY(o.warrantyEnds)}</small></div>
-        <div class="ra"><span class="pill green">Under warranty</span><a class="btn btn-gold xs" href="/parts/">Order parts</a><a class="btn btn-line xs" href="/service/?s=book">Book service</a></div></div>`).join(""), `Trailers you buy from Timeless show up here with warranty dates and service history.`)}
-      ${sec("orders", "Parts orders", orders.length, orders.map(o => `<div class="ritem"><div style="font:900 1.4rem/1 var(--display)">${o.id.replace("PO-", "#")}</div><div><b>${o.items.map(([id, q]) => { const p = DATA.parts.find(x => x.id === id); return (q > 1 ? q + " × " : "") + (p ? p.name : id); }).join(", ")}</b><small>${o.id} · ${fmtDate(o.created)} · ${money(partsTotal(o.items))}</small></div><div class="ra">${statusPill(o.status)}</div></div>`).join(""), `No parts orders. <a href="/parts/">Visit the parts counter</a>`)}
+        <div class="ra"><span class="pill green">Under warranty</span><a class="btn btn-gold xs" href="/accessories/">Order accessories</a></div></div>`).join(""), `Trailers you buy from Timeless show up here with warranty dates and service history.`)}
+      ${sec("orders", "Accessory orders", orders.length, orders.map(o => `<div class="ritem"><div style="font:900 1.4rem/1 var(--display)">${o.id.replace("PO-", "#")}</div><div><b>${o.items.map(([id, q]) => { const p = DATA.accessories.find(x => x.id === id); return (q > 1 ? q + " × " : "") + (p ? p.name : id); }).join(", ")}</b><small>${o.id} · ${fmtDate(o.created)} · ${money(partsTotal(o.items))}</small></div><div class="ra">${statusPill(o.status)}</div></div>`).join(""), `No accessory orders yet. <a href="/accessories/">See the accessories</a>`)}
       ${sec("tickets", "Service tickets", tickets.length, tickets.map(t => `<div class="ritem"><div style="font:900 1.4rem/1 var(--display)">${t.id.replace("SR-", "#")}</div><div><b>${esc(t.service)}</b><small>${esc(t.unit)} · ${t.date ? "For " + fmtDate(t.date) : "Opened " + fmtDate(t.created)}</small>${t.notes ? `<small>${esc(t.notes)}</small>` : ""}</div><div class="ra">${statusPill(t.status)}</div></div>`).join(""), `No service tickets. <a href="/service/">Book service</a>`)}
     </div></section>`;
   }

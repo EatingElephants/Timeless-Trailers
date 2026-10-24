@@ -441,23 +441,28 @@
   .cmp-tray{position:fixed;left:16px;bottom:calc(var(--mbar-h) + 16px);z-index:45;background:var(--ink);color:#fff;border-radius:999px;padding:8px 8px 8px 16px;display:flex;align-items:center;gap:10px;box-shadow:0 10px 30px rgba(0,0,0,.3);font-size:.9rem;font-weight:600}
   .cmp-tray .btn{padding:8px 12px;font-size:.85rem}
 
-  /* parts */
-  .parts-grid{display:grid;grid-template-columns:1fr 330px;gap:26px;align-items:start}
-  .plist{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
-  .part{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px}
-  .part em{font-style:normal;font-size:.74rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
-  .part b{font-weight:700;line-height:1.25}
-  .part .pp{display:flex;justify-content:space-between;align-items:center;margin-top:auto;gap:8px}
-  .part .pp strong{font:900 1.5rem/1 var(--display)}
-  .part small{color:var(--text-3);font-size:.8rem}
-  .cart{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px;position:sticky;top:calc(var(--hdr) + 20px)}
-  .cart h3{font-size:1.5rem;margin-bottom:12px}
+  /* accessories: picture cards, and the request box that sticks beside them */
+  .acc-grid{display:grid;grid-template-columns:1fr 330px;gap:26px;align-items:start}
+  .acc-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+  .acc{background:var(--paper);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+  .acc-pic{aspect-ratio:4/3;background:var(--alu);display:grid;place-items:center;overflow:hidden}
+  .acc-pic img{width:100%;height:100%;object-fit:cover;display:block}
+  .acc-ico{width:64px;height:64px;color:var(--gold);opacity:.85}
+  .acc-ico svg{width:100%;height:100%}
+  .acc-body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+  .acc em{font-style:normal;font-size:.74rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+  .acc b{font-weight:700;line-height:1.25}
+  .acc small{color:var(--text-3);font-size:.8rem}
+  .acc .pp{display:flex;justify-content:space-between;align-items:center;margin-top:auto;gap:8px;padding-top:6px}
+  .acc .pp strong{font:900 1.4rem/1 var(--display)}
+  .request{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px;position:sticky;top:calc(var(--hdr) + 20px)}
+  .request h3{font-size:1.5rem;margin-bottom:12px}
   .citem{display:grid;grid-template-columns:1fr auto;gap:4px 10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:.92rem}
   .qtyc{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:8px;overflow:hidden}
   .qtyc button{background:var(--bg);border:0;width:28px;height:28px;cursor:pointer;font-weight:700}
   .qtyc span{min-width:28px;text-align:center;font-weight:700}
   .ctotal{display:flex;justify-content:space-between;font-weight:700;margin:14px 0}
-  @media (max-width:900px){.parts-grid{grid-template-columns:1fr}.cart{position:static}}
+  @media (max-width:900px){.acc-grid{grid-template-columns:1fr}.request{position:static}}
 
   /* generic panels */
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:start}

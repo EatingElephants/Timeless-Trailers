@@ -3,7 +3,7 @@
    TIMELESS TRAILERS · site data that isn't about one dealer
    --------------------------------------------------------------------------
    The dealer's own facts live in config.json, models.json, inventory.json and parts.json.
-   This file holds the rest: categories, lineup, videos, finder labels, services, maintenance,
+   This file holds the rest: categories, lineup, videos, finder labels, maintenance,
    and (demo site only) the sample people and records.
    ========================================================================== */
 
@@ -46,7 +46,7 @@ const DATA = {
   },
 
   /* Units on the lot: src/inventory.json. Each unit is its model's specs plus stock number, status, price and date. */
-  inventory: INVENTORY.units.map(u => Object.assign({ year: 2026 }, MODELS[u.key], u, { added: u.added || d(-(u.addedDaysAgo || 0)) })),
+  inventory: INVENTORY.units.map(u => Object.assign({ year: 2026 }, MODELS[u.key], u, { added: u.added || d(-(u.addedDaysAgo || 0)), price: u.price || (MODELS[u.key] && MODELS[u.key].listPrice) || 0 })),
 
   /* Defaults used when Andy (or the Add trailer form) adds a new unit */
   typeDefaults: {
@@ -97,22 +97,9 @@ const DATA = {
     { id: "jack", label: "Powered tongue jack", price: 349, types: ["tilt", "deckover", "dump"], rec: false }
   ],
 
-  /* Parts: Timpte's serviceable parts catalog (src/parts.json, made by tools/parts_from_catalog.py).
-     fits = which trailer types a catalog section applies to, so an owner can filter to their trailer. */
-  parts: PARTS.parts.map(p => {
-    const sec = p.section.replace(" Parts", "");
-    const fits = { "Split Tilt": ["tilt"], "Deck Over": ["deckover"], "Gooseneck": ["gooseneck"], "Dump": ["dump"], "Ramped": ["ezload"] }[sec] || ["tilt", "deckover", "gooseneck", "dump", "ezload"];
-    return { id: p.no, name: p.name, price: p.price || 0, callForPrice: !!p.callForPrice, cat: sec, series: p.series || "Both", fitsSeries: p.fits, fits, kw: [] };
-  }),
-
-  services: [
-    { id: "inspect", name: "Annual safety inspection", price: "$129", desc: "Lights, brakes, bearings, tires, tie-downs and frame, with a written checklist.", kw: ["inspect", "inspection", "check-up", "checkup"] },
-    { id: "bearings", name: "Bearing repack", price: "$249 tandem", desc: "Pull hubs, clean, inspect races, repack and set preload.", kw: ["bearing", "hub", "grease", "wheel noise"] },
-    { id: "brakes", name: "Brake adjust and test", price: "$99", desc: "Adjust shoes, test magnets and the breakaway system.", kw: ["brake", "stopping", "breakaway"] },
-    { id: "lights", name: "Lighting and wiring", price: "from $85", desc: "Track down the short, fix the ground, replace lamps and plugs.", kw: ["light", "wiring", "plug", "short", "lamp"] },
-    { id: "hyd", name: "Dump hydraulic service", price: "$179", desc: "Fluid, filter, hoses and cylinder check on dump trailers.", kw: ["hydraulic", "dump", "cylinder", "pump", "leak"] },
-    { id: "warranty", name: "Warranty work", price: "No charge if covered", desc: "We handle the Timpte claim and the repair here in Waxhaw.", kw: ["warranty", "crack", "weld", "defect"] }
-  ],
+  /* Accessories: Timpte's order-form list (src/accessories.json, made by tools/accessories_from_orderform.py).
+     id = Timpte part number, price = MSRP, cat = the group the page filters by. */
+  accessories: ACCESSORIES.items.map(a => Object.assign({ id: a.no, price: a.msrp, cat: a.group }, a)),
 
   maintenance: [
     ["Every trip", "Lights, tire pressure, coupler latch, safety chains, breakaway cable"],
@@ -132,13 +119,13 @@ const DATA = {
       tryList: [`Ask ${ASSISTANT_NAME} if the Mustang fits the 720 EZ Load`, "Compare two car haulers", "Hold a unit, then see it in My Account"] },
     { id: "marcus", role: "customer", name: "Marcus Bell", short: "Marcus B.", title: "Owns a 2024 1420 Split Tilt", company: "Bell Grading & Landscaping", phone: "980-555-0112", email: "marcus@example.com", town: "Indian Trail, NC", truck: "Ford F-250",
       story: "Runs a track loader and a mini-ex. Bought a 1420 Split Tilt here in 2024.",
-      tryList: ["Order parts that fit the Split Tilt", `Ask ${ASSISTANT_NAME} to open a service ticket`, "Check the warranty date in My Account"] },
+      tryList: ["Order accessories for the Split Tilt", `Ask ${ASSISTANT_NAME} to open a service ticket`, "Check the warranty date in My Account"] },
     { id: "matt", role: "owner", name: "Matt Lyons", short: "Matt L.", title: "Owner", phone: "704-589-3100",
       story: `Sees every lead, quote and ticket. Edits inventory by asking ${ASSISTANT_NAME}.`,
       tryList: [`Tell ${ASSISTANT_NAME}: drop the 1614 dump to $15,900`, "Drag a lead from New to Contacted", "Pull the latest specs from Timpte"] },
-    { id: "kayla", role: "staff", name: "Kayla Brooks", short: "Kayla B.", title: "Sales & parts", phone: "704-589-3100",
-      story: "Works the lead board and the parts counter.",
-      tryList: ["Move a parts order to Ready for pickup", "Mark a unit sold", "Schedule an open service ticket"] }
+    { id: "kayla", role: "staff", name: "Kayla Brooks", short: "Kayla B.", title: "Sales & accessories", phone: "704-589-3100",
+      story: "Works the lead board and the accessory orders.",
+      tryList: ["Move an accessory order to Ready for pickup", "Mark a unit sold", "Schedule an open service ticket"] }
   ],
 
   testimonials: [
@@ -162,8 +149,8 @@ const DATA = {
       { id: "Q-2035", userId: null, name: "Lena Park", phone: "803-555-0123", trailerId: "TT-0142", addons: ["spare"], created: d(-9), status: "Accepted" }
     ],
     partsOrders: [
-      { id: "PO-3107", userId: "marcus", name: "Marcus Bell", phone: "980-555-0112", items: [["P-101", 1], ["P-109", 1]], created: d(-3), status: "Ready for pickup" },
-      { id: "PO-3109", userId: null, name: "Greg Holt", phone: "704-555-0133", items: [["P-106", 2]], created: d(-1), status: "Ordered" }
+      { id: "PO-3107", userId: "marcus", name: "Marcus Bell", phone: "980-555-0112", items: [["122416", 1], ["122666", 2]], created: d(-3), status: "Ready for pickup" },
+      { id: "PO-3109", userId: null, name: "Greg Holt", phone: "704-555-0133", items: [["115051", 4]], created: d(-1), status: "Ordered" }
     ],
     tickets: [
       { id: "SR-1041", userId: "marcus", name: "Marcus Bell", phone: "980-555-0112", unit: "2024 Timpte 1420 Split Tilt", service: "Annual safety inspection", notes: "Due before spring season.", date: d(6), created: d(-4), status: "Scheduled" },

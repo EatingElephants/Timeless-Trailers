@@ -19,7 +19,7 @@ Where things come from:
   src/models.json      the Timpte models (specs from the spec sheets)
   src/inventory.json   the units on the lot
   src/parts.json       the parts catalog
-  src/data.js          everything else the site shows (categories, lineup, videos, services...)
+  src/data.js          everything else the site shows (categories, lineup, videos, maintenance...)
   src/app1.js + app2.js   the pages and behaviour; code between /* @demo */ and /* @end-demo */ is demo-only
   src/styles.css, src/shell.html
 
@@ -106,7 +106,7 @@ def strip_demo(js, name):
 CONFIG = load_json("config.json")
 MODELS = load_json("models.json")
 INVENTORY = load_json("inventory.json")["units"]
-PARTS = load_json("parts.json") if (SRC / "parts.json").exists() else {"parts": []}
+ACCESSORIES = load_json("accessories.json")
 SITE_URL = CONFIG["site"]["url"].rstrip("/")
 BIZ = CONFIG["business"]
 SHOW_PRICES = bool(CONFIG.get("showPrices"))
@@ -251,16 +251,27 @@ def body_simple(crumbs, eyebrow, h1, lede, extra=""):
     return head(crumbs, eyebrow, h1, lede) + (f'<section style="padding-top:34px"><div class="wrap">{extra}</div></section>' if extra else "")
 
 
+def body_accessories():
+    cards = ""
+    for a in ACCESSORIES["items"]:
+        price = money(a["msrp"]) if SHOW_PRICES else "Call for price"
+        pic = f'<img src="/img/{a["image"]}.webp" alt="{esc(a["name"])}" loading="lazy">' if a.get("image") else ""
+        small = f'Part {esc(a["no"])}' + (" · fits " + esc(" / ".join(a["fits"])) if a.get("fits") else "") + (" · " + esc(a["detail"]) if a.get("detail") else "")
+        cards += f'<div class="acc"><div class="acc-pic">{pic}</div><div class="acc-body"><em>{esc(a["group"])}</em><b>{esc(a["name"])}</b><small>{small}</small><div class="pp"><strong>{price}</strong></div></div></div>'
+    return body_simple([("Home", "/"), ("Accessories", "/accessories/")], "Own · Accessories", "Accessories.",
+                       "Timpte's own accessories for your trailer, at Timpte's list prices, ordered through us and picked up in Waxhaw.", f'<div class="acc-list">{cards}</div>')
+
+
 def body_resources():
     sheets = "".join(f'<li><a href="/specs/{m["spec"]}">{esc(m["model"])} spec sheet (PDF)</a></li>' for m in MODELS.values() if m.get("spec"))
     return body_simple([("Home", "/"), ("Owner resources", "/owner-resources/")], "Own · Keep it rolling", "Owner resources.",
-                       "The maintenance schedule, every Timpte spec sheet, and where to turn for parts, service and warranty.",
+                       "The maintenance schedule, every Timpte spec sheet, and where to turn for accessories, maintenance help and warranty.",
                        f'<div class="panel"><h3>Spec sheets</h3><ul class="docs">{sheets}</ul></div>')
 
 
 def body_privacy():
     return body_simple([("Home", "/"), ("Privacy", "/privacy/")], "Plain words", "Privacy.", "What this site collects, who sees it, and what we do with it.",
-                       f'<div class="panel" style="max-width:760px"><h3>What we collect</h3><p>When you ask for a quote, hold a unit, book service, request a part or ask about financing, we collect what you type into the form: your name, phone number, and what you told us about your trailer, load or truck.</p>'
+                       f'<div class="panel" style="max-width:760px"><h3>What we collect</h3><p>When you ask for a quote, hold a unit, request an accessory or ask about financing, we collect what you type into the form: your name, phone number, and what you told us about your trailer, load or truck.</p>'
                        f'<h3>Who sees it</h3><p>Your request goes to {esc(BIZ["name"])} in {esc(BIZ["city"])}, {esc(BIZ["state"])}, and to nobody else. We do not sell or share it.</p>'
                        f'<h3>Cookies and tracking</h3><p>This site remembers a few things in your own browser, like trailers you saved or compared. We count visits with a privacy-respecting analytics service that does not use cookies.</p>'
                        f'<h3>Questions</h3><p>Call {esc(BIZ["phone"])} or visit us at {esc(BIZ["address"])}.</p></div>')
@@ -291,15 +302,14 @@ def routes(demo):
     simple = [
         ("/finder/", "Trailer Finder", "Start with the load", "Trailer Finder.", "Pick what you haul and we'll point you at the Timpte family built for it.", f"Pick what you haul and find the Timpte trailer built for it. Split tilt, deck over, gooseneck, dump or EZ Load, from {name} in {city}."),
         ("/compare/", "Compare trailers", "Side by side", "Compare models.", "Up to three trailers, side by side.", f"Compare Timpte trailers side by side: payload, GVWR, deck, loading angle, axles and tires. {name}, {city}."),
-        ("/parts/", "Parts", "Own · Parts counter", "Parts.", "Timpte parts by part number, ordered through us and picked up in Waxhaw.", f"Timpte equipment trailer parts by part number. Order through {name} and pick up in {city}."),
-        ("/service/", "Service", "Own · Service bay", "Service.", "Inspections, bearings, brakes, wiring and warranty work, done here in Waxhaw.", f"Trailer service in {city}: inspections, bearings, brakes, wiring and Timpte warranty work at {name}."),
         ("/financing/", "Financing", "Own · Financing", "Financing.", "Payment options offered through preferred vendors.", f"Trailer financing and a payment calculator from {name}, {city}."),
         ("/about/", "About", "Company", "A Customer Service Center that picks up the phone.", excl, f"{excl} Based in {city}. {name}."),
         ("/contact/", "Contact and visit", "Visit · Call · Quote", "Come see the lot.", f"{esc(BIZ['address'])} · {esc(BIZ['phone'])} · {esc(BIZ['hours'])}", f"Visit {name} at {BIZ['address']}, call {BIZ['phone']}, or ask for a quote. {BIZ['hours']}."),
     ]
     for path, title, eyebrow, h1, lede, desc in simple:
         R.append((path, f"{title} · {name}", desc, body_simple([("Home", "/"), (title, path)], eyebrow, h1, lede), [ld_crumbs([("Home", "/"), (title, path)])], True))
-    R.append(("/owner-resources/", f"Owner resources · {name}", f"Maintenance schedule, every Timpte spec sheet, parts, service and warranty help from {name}.", body_resources(), [ld_crumbs([("Home", "/"), ("Owner resources", "/owner-resources/")])], True))
+    R.append(("/accessories/", f"Timpte trailer accessories · {name}", f"Timpte accessories at list price: spare tires and holders, rock guards, winch kits, tie-downs, toolboxes and dump box add-ons. Ordered through {name}, picked up in {city}.", body_accessories(), [ld_crumbs([("Home", "/"), ("Accessories", "/accessories/")])], True))
+    R.append(("/owner-resources/", f"Owner resources · {name}", f"Maintenance schedule, every Timpte spec sheet, accessories, maintenance and warranty help from {name}.", body_resources(), [ld_crumbs([("Home", "/"), ("Owner resources", "/owner-resources/")])], True))
     R.append(("/privacy/", f"Privacy · {name}", f"What the {name} website collects, who sees it, and what we do with it.", body_privacy(), [ld_crumbs([("Home", "/"), ("Privacy", "/privacy/")])], True))
     R.append(("/404.html", f"Page not found · {name}", "That page isn't here.", '<section><div class="wrap"><div class="empty" style="max-width:640px;margin:40px auto"><b>That page isn\'t here.</b> <a href="/trailers/">See what\'s on the lot</a>, or <a href="/">start at the front door</a>.</div></div></section>', [], False))
     if demo:
@@ -312,7 +322,7 @@ def routes(demo):
 def build_site(folder, demo):
     folder.mkdir(exist_ok=True)
     # app.js: the data files, then the three script files (demo blocks cut out of the public site)
-    data_js = "".join(f"const {k} = {json.dumps(v, ensure_ascii=False)};\n" for k, v in (("CONFIG", CONFIG), ("MODELS", MODELS), ("INVENTORY", {"units": INVENTORY}), ("PARTS", PARTS)))
+    data_js = "".join(f"const {k} = {json.dumps(v, ensure_ascii=False)};\n" for k, v in (("CONFIG", CONFIG), ("MODELS", MODELS), ("INVENTORY", {"units": INVENTORY}), ("ACCESSORIES", ACCESSORIES)))
     code = ""
     for name in ("data.js", "app1.js", "app2.js"):
         c = read(SRC / name)
@@ -335,7 +345,7 @@ def build_site(folder, demo):
     analytics = f'<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon=\'{{"token": "{token}"}}\'></script>' if token and not demo else ""
     written, urls = 0, []
     # clear old page folders so a sold unit's page goes away
-    for sub in ("trailers", "stock", "finder", "compare", "parts", "service", "owner-resources", "financing", "about", "contact", "privacy", "account", "admin", "vision"):
+    for sub in ("trailers", "stock", "finder", "compare", "parts", "service", "accessories", "owner-resources", "financing", "about", "contact", "privacy", "account", "admin", "vision"):
         if (folder / sub).exists():
             shutil.rmtree(folder / sub)
     for path, title, desc, body, graph, in_map in routes(demo):
@@ -354,6 +364,8 @@ def build_site(folder, demo):
     today = date.today().isoformat()
     (folder / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{u}</loc><lastmod>{today}</lastmod></url>\n" for u in urls) + "</urlset>\n", "utf-8", newline="\n")
     (folder / "robots.txt").write_text(("User-agent: *\nAllow: /\n\nSitemap: " + SITE_URL + "/sitemap.xml\n") if indexable else "User-agent: *\nDisallow: /\n", "utf-8", newline="\n")
+    # the Parts and Service pages became Accessories and Owner resources (Oct 24); Cloudflare reads _redirects before serving files
+    (folder / "_redirects").write_text("/parts/* /accessories/ 301\n/service/* /owner-resources/ 301\n", "utf-8", newline="\n")
     print(f"  {folder.name}: {written} pages, app.js {len(app_js) // 1024} KB, site.css {len(css) // 1024} KB, {'indexable' if indexable else 'hidden from search engines'}")
 
 

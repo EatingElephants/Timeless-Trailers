@@ -1,0 +1,303 @@
+{
+ "_comment": "Timpte accessories from the Dealer Order Form (Dealer Order Form (9.23.26).xlsx): part number, description, what it fits, MSRP. Dealer prices are never copied. image = a file in site/img/ once photos arrive.",
+ "source": "Dealer Order Form (9.23.26).xlsx",
+ "items": [
+  {
+   "no": "122416",
+   "name": "Spare Tire Holder",
+   "fits": [
+    "5K",
+    "7K",
+    "10K"
+   ],
+   "detail": "",
+   "group": "Spare tires and holders",
+   "msrp": 177.57,
+   "image": "acc-spare-tire"
+  },
+  {
+   "no": "150133",
+   "name": "Trinity Wheel & Tire",
+   "fits": [
+    "7K"
+   ],
+   "detail": "14\" · 8-ply",
+   "group": "Spare tires and holders",
+   "msrp": 192.34,
+   "image": "acc-wheel-15"
+  },
+  {
+   "no": "150134",
+   "name": "Trinity Wheel & Tire",
+   "fits": [
+    "5K",
+    "10K"
+   ],
+   "detail": "15\"",
+   "group": "Spare tires and holders",
+   "msrp": 242.96,
+   "image": "acc-wheel-15"
+  },
+  {
+   "no": "150132",
+   "name": "Trinity Wheel & Tire",
+   "fits": [
+    "7K Ramped"
+   ],
+   "detail": "14\" · 6-ply",
+   "group": "Spare tires and holders",
+   "msrp": 234.86,
+   "image": "acc-wheel-15"
+  },
+  {
+   "no": "122415",
+   "name": "Spare Tire Holder",
+   "fits": [
+    "14K",
+    "16K"
+   ],
+   "detail": "",
+   "group": "Spare tires and holders",
+   "msrp": 190.75,
+   "image": "acc-spare-tire"
+  },
+  {
+   "no": "150135",
+   "name": "Trinity Wheel & Tire",
+   "fits": [
+    "14K"
+   ],
+   "detail": "16\"",
+   "group": "Spare tires and holders",
+   "msrp": 296.24,
+   "image": "acc-wheel-16"
+  },
+  {
+   "no": "150138",
+   "name": "Trinity Wheel & Tire",
+   "fits": [
+    "16K"
+   ],
+   "detail": "16\"",
+   "group": "Spare tires and holders",
+   "msrp": 364.43,
+   "image": "acc-wheel-16"
+  },
+  {
+   "no": "106754",
+   "name": "Rock Guard Kit - gun metal gray",
+   "fits": [
+    "5K"
+   ],
+   "detail": "",
+   "group": "Rock guards and tire racks",
+   "msrp": 682.41,
+   "image": null
+  },
+  {
+   "no": "106755",
+   "name": "Rock Guard Kit - gun metal gray",
+   "fits": [
+    "7K",
+    "10K"
+   ],
+   "detail": "",
+   "group": "Rock guards and tire racks",
+   "msrp": 839.46,
+   "image": null
+  },
+  {
+   "no": "105144",
+   "name": "Tire Rack for Rock Guard - gun metal gray",
+   "fits": [
+    "5K"
+   ],
+   "detail": "",
+   "group": "Rock guards and tire racks",
+   "msrp": 802.48,
+   "image": null
+  },
+  {
+   "no": "106788",
+   "name": "Tire Rack for Rock Guard - gun metal gray",
+   "fits": [
+    "7K",
+    "10K"
+   ],
+   "detail": "",
+   "group": "Rock guards and tire racks",
+   "msrp": 863.94,
+   "image": null
+  },
+  {
+   "no": "187068",
+   "name": "Solar Panel for Dump Trailer",
+   "fits": [],
+   "detail": "",
+   "group": "Dump trailer add-ons",
+   "msrp": 144.3,
+   "image": null
+  },
+  {
+   "no": "182985",
+   "name": "Stake Pocket D-ring for Dump Trailers",
+   "fits": [
+    "14K",
+    "16K"
+   ],
+   "detail": "",
+   "group": "Dump trailer add-ons",
+   "msrp": 27.3,
+   "image": null
+  },
+  {
+   "no": "186817",
+   "name": "Box Mounted D-ring for Dump Trailers",
+   "fits": [],
+   "detail": "",
+   "group": "Dump trailer add-ons",
+   "msrp": 74.47,
+   "image": null
+  },
+  {
+   "no": "187094",
+   "name": "1-foot Dump Box Extension for Dump Trailer",
+   "fits": [
+    "14K"
+   ],
+   "detail": "",
+   "group": "Dump trailer add-ons",
+   "msrp": 1423.5,
+   "image": null
+  },
+  {
+   "no": "187105",
+   "name": "1-foot Dump Box Extension for Dump Trailer",
+   "fits": [
+    "16K"
+   ],
+   "detail": "",
+   "group": "Dump trailer add-ons",
+   "msrp": 1482.0,
+   "image": null
+  },
+  {
+   "no": "186847",
+   "name": "Dump Trailer Board Holder",
+   "fits": [],
+   "detail": "",
+   "group": "Dump trailer add-ons",
+   "msrp": 109.2,
+   "image": null
+  },
+  {
+   "no": "173848",
+   "name": "Winch Kit Loading Assist",
+   "fits": [],
+   "detail": "4,500 lb",
+   "group": "Tie-downs, winches, toolboxes and more",
+   "msrp": 671.83,
+   "image": null
+  },
+  {
+   "no": "183674",
+   "name": "Winch Kit Loading Assist",
+   "fits": [
+    "Goosenecks"
+   ],
+   "detail": "12,500 lb",
+   "group": "Tie-downs, winches, toolboxes and more",
+   "msrp": 1500.84,
+   "image": null
+  },
+  {
+   "no": "113824",
+   "name": "Solar Panel Kit",
+   "fits": [],
+   "detail": "",
+   "group": "Tie-downs, winches, toolboxes and more",
+   "msrp": 193.52,
+   "image": null
+  },
+  {
+   "no": "115051",
+   "name": "D-ring for L-track",
+   "fits": [],
+   "detail": "",
+   "group": "Tie-downs, winches, toolboxes and more",
+   "msrp": 12.26,
+   "image": "acc-ltrack-dring"
+  },
+  {
+   "no": "113986",
+   "name": "Swivel Tie Down",
+   "fits": [],
+   "detail": "",
+   "group": "Tie-downs, winches, toolboxes and more",
+   "msrp": 100.72,
+   "image": null
+  },
+  {
+   "no": "122666",
+   "name": "Wheel Ratchet Strap",
+   "fits": [],
+   "detail": "",
+   "group": "Tie-downs, winches, toolboxes and more",
+   "msrp": 56.98,
+   "image": null
+  },
+  {
+   "no": "186832",
+   "name": "Toolbox Extension - gun metal gray",
+   "fits": [],
+   "detail": "",
+   "group": "Tie-downs, winches, toolboxes and more",
+   "msrp": 642.03,
+   "image": "acc-toolbox-gn"
+  },
+  {
+   "no": "150191",
+   "name": "Toolbox Plate Only - Ramped Trailer",
+   "fits": [],
+   "detail": "",
+   "group": "Tie-downs, winches, toolboxes and more",
+   "msrp": 104.54,
+   "image": "acc-toolbox-ez"
+  },
+  {
+   "no": "125525",
+   "name": "Toolbox & Plate",
+   "fits": [
+    "14K",
+    "16K"
+   ],
+   "detail": "",
+   "group": "Tie-downs, winches, toolboxes and more",
+   "msrp": 530.13,
+   "image": "acc-toolbox-gn"
+  },
+  {
+   "no": "122519",
+   "name": "Stake Pockets (pair)",
+   "fits": [
+    "5K"
+   ],
+   "detail": "",
+   "group": "Tie-downs, winches, toolboxes and more",
+   "msrp": 48.14,
+   "image": "acc-stake-pocket"
+  },
+  {
+   "no": "127499",
+   "name": "Stake Pockets (pair)",
+   "fits": [
+    "7K",
+    "10K"
+   ],
+   "detail": "",
+   "group": "Tie-downs, winches, toolboxes and more",
+   "msrp": 147.2,
+   "image": "acc-stake-pocket"
+  }
+ ]
+}
