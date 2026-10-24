@@ -644,14 +644,14 @@
   .spec-preview img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover}
   .spec-preview b{display:block;padding:10px 14px;font-weight:700;color:var(--ink)}
   @media (hover:none){.spec-preview{display:none}}
-  /* Made in the USA badge, bottom left on every page (Matt, Oct 24): a brushed-aluminum plate, a weld bead round the
-     edge and a red rubber-stamp MADE IN USA, the way Josh asked on Oct 24 night. Still and straight; no white box behind it. */
-  .usa{position:fixed;left:14px;bottom:calc(var(--mbar-h) + 14px);z-index:57;display:block;width:150px;text-decoration:none;filter:drop-shadow(0 4px 7px rgba(0,0,0,.38));transition:transform .2s}
-  .usa:hover,.usa:focus-visible{transform:translateY(-2px)}
-  .usa svg{display:block;width:100%;height:auto}
+  /* Made in the USA stamp (Matt, Oct 24): a red rubber stamp, tilted, floating at the top right under the header.
+     Josh's call on Oct 24 night: just the stamp, no plate; top right so the compare tray keeps the bottom left. */
+  .usa{position:fixed;right:14px;top:calc(var(--hdr) + 10px);z-index:57;display:block;width:122px;text-decoration:none;transition:transform .2s}
+  .usa:hover,.usa:focus-visible{transform:scale(1.05)}
+  .usa svg{display:block;width:100%;height:auto;overflow:visible}
   .usa text{font-family:var(--display);font-weight:900}
   body.chat-open .usa{display:none}
-  @media (max-width:600px){.usa{left:8px;bottom:calc(var(--mbar-h) + 8px);width:108px}}
+  @media (max-width:600px){.usa{right:8px;top:calc(var(--hdr) + 6px);width:84px}}
   /* chat-or-voice chooser */
   .tz-panel [hidden]{display:none!important}
   .tz-head .tz-seg{display:flex;gap:2px;background:#24201b;border:1px solid #4a443c;border-radius:999px;padding:3px}

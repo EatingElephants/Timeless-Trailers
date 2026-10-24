@@ -1721,30 +1721,13 @@ function buildChrome() {
   </div><div class="fbot"><span>${DEMO ? footerDemoNote() : `© ${new Date().getFullYear()} ${esc(b.name)} · Site by <a href="https://albright-innovations.com" target="_blank" rel="noopener">${esc(CONFIG.site.builtBy)}</a>`}</span>${DEMO ? footerResetHTML() : ""}</div></div></footer>
   <div class="mbar"><a class="btn btn-line-light" href="/trailers/">On the Lot</a><a class="btn btn-gold" href="/?s=quote">Get a Quote</a></div>
   <a class="usa" href="/?s=why-timpte" aria-label="Made in the USA. Timpte trailers are built in Lincoln, Nebraska">
-    <svg viewBox="0 0 150 92" aria-hidden="true">
-      <defs>
-        <linearGradient id="usaAlu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4f5f6"/><stop offset=".35" stop-color="#cfd3d7"/><stop offset=".6" stop-color="#e8eaec"/><stop offset="1" stop-color="#b4b9bf"/></linearGradient>
-        <linearGradient id="usaHeat" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e0a93f"/><stop offset=".5" stop-color="#7f9bc2"/><stop offset="1" stop-color="#e0a93f"/></linearGradient>
-        <clipPath id="usaPlate"><rect x="6" y="6" width="138" height="80" rx="7"/></clipPath>
-        <filter id="usaBrush" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.015 0.8" numOctaves="2" seed="4" result="n"/><feColorMatrix in="n" type="saturate" values="0" result="g"/><feComponentTransfer in="g"><feFuncA type="linear" slope="0.5" intercept="0"/></feComponentTransfer></filter>
-        <filter id="usaGrunge" x="-5%" y="-8%" width="110%" height="116%"><feTurbulence type="fractalNoise" baseFrequency="0.3" numOctaves="3" seed="11" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  8 0 0 0 -2.6" result="m"/><feComposite in="SourceGraphic" in2="m" operator="in"/></filter>
-      </defs>
-      <rect x="6" y="6" width="138" height="80" rx="7" fill="url(#usaAlu)"/>
-      <g clip-path="url(#usaPlate)"><rect x="6" y="6" width="138" height="80" filter="url(#usaBrush)" opacity=".45"/>
-        <rect x="6" y="6" width="138" height="80" rx="7" fill="none" stroke="url(#usaHeat)" stroke-width="15" opacity=".45"/></g>
-      <rect x="9.5" y="9.5" width="131" height="73" rx="5" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1"/>
-      <g fill="none" stroke-linecap="round" stroke-dasharray="0.01 2.9">
-        <rect x="7.1" y="7.3" width="138" height="80" rx="7" stroke="#6a7178" stroke-width="7.6"/>
-        <rect x="6" y="6" width="138" height="80" rx="7" stroke="#c9cdd2" stroke-width="7.2"/>
-        <rect x="5.2" y="5.1" width="138" height="80" rx="7" stroke="#ffffff" stroke-width="2.4" opacity=".85"/>
+    <svg viewBox="0 0 112 76" aria-hidden="true">
+      <defs><filter id="usaGrunge" x="-6%" y="-8%" width="112%" height="116%"><feTurbulence type="fractalNoise" baseFrequency="0.3" numOctaves="3" seed="11" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  8 0 0 0 -2.6" result="m"/><feComposite in="SourceGraphic" in2="m" operator="in"/></filter></defs>
+      <g transform="rotate(-8 56 38)" filter="url(#usaGrunge)" fill="#c8202d">
+        <rect x="9" y="10.5" width="94" height="55" rx="6" fill="none" stroke="#c8202d" stroke-width="3.8"/>
+        <text x="56" y="34" text-anchor="middle" font-size="16.5" letter-spacing="1.3">MADE IN</text>
+        <text x="56" y="61" text-anchor="middle" font-size="33" letter-spacing="1.6">USA</text>
       </g>
-      <g transform="rotate(-6 75 44)" filter="url(#usaGrunge)" fill="#c8202d">
-        <rect x="28" y="15" width="94" height="55" rx="6" fill="none" stroke="#c8202d" stroke-width="3.8"/>
-        <text x="75" y="38.5" text-anchor="middle" font-size="16.5" letter-spacing="1.3">MADE IN</text>
-        <text x="75" y="65.5" text-anchor="middle" font-size="33" letter-spacing="1.6">USA</text>
-      </g>
-      <text x="75" y="80.5" text-anchor="middle" font-size="6.6" letter-spacing="1.1" fill="#fff" opacity=".8">LINCOLN, NEBRASKA</text>
-      <text x="75" y="80" text-anchor="middle" font-size="6.6" letter-spacing="1.1" fill="#3c4147">LINCOLN, NEBRASKA</text>
     </svg></a>
   <div class="cmp-tray" id="cmpTray" hidden></div>
   <div class="toasts" id="toasts" aria-live="polite"></div>
