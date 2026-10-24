@@ -630,7 +630,7 @@
   .tz-foot{font-size:.78rem;color:var(--text-3);padding:8px 16px calc(10px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);background:#fff}
   .tz-foot a{color:var(--gold)}
   /* spec-sheet list: a small picture always, a big one on hover (desktop) */
-  .specs-list li a{display:flex;align-items:center;gap:12px}
+  .specs-list li a{display:inline-flex;align-items:center;gap:12px;max-width:100%}
   .specs-list li a>span{display:block}
   .specs-list li a>span small{display:block}
   .spec-thumb{width:64px;height:44px;object-fit:cover;border-radius:6px;flex:none;background:var(--alu)}

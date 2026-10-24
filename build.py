@@ -58,7 +58,6 @@ SPECS = {
     "timpte-16khd-gooseneck.pdf": SHEETS / "Powerhouse Spec Sheets" / "Timpte_ET_16KHD_Gooseneck_SpecSheet.pdf",
     "timpte-14k-deck-over.pdf": SHEETS / "Powerhouse Spec Sheets" / "Timpte_ET_14K_DeckOver_SpecSheet.pdf",
     "timpte-16k-deck-over.pdf": SHEETS / "Powerhouse Spec Sheets" / "Timpte_ET_16K_DeckOver_SpecSheet.pdf",
-    "timpte-equipment-trailer-catalog-2026.pdf": SHEETS / "Timpte_Equipment_Trailer_Catalog_082526.pdf",
 }
 
 CAT_SLUG = {"tilt": "split-tilt", "deckover": "deck-over", "gooseneck": "gooseneck", "dump": "dump", "ezload": "ez-load"}
@@ -255,8 +254,8 @@ def body_simple(crumbs, eyebrow, h1, lede, extra=""):
 def body_resources():
     sheets = "".join(f'<li><a href="/specs/{m["spec"]}">{esc(m["model"])} spec sheet (PDF)</a></li>' for m in MODELS.values() if m.get("spec"))
     return body_simple([("Home", "/"), ("Owner resources", "/owner-resources/")], "Own · Keep it rolling", "Owner resources.",
-                       "The maintenance schedule, every Timpte spec sheet, the full catalog, and where to turn for parts, service and warranty.",
-                       f'<div class="panel"><h3>Spec sheets</h3><ul class="docs">{sheets}<li><a href="/specs/timpte-equipment-trailer-catalog-2026.pdf">Timpte Equipment Trailer catalog (PDF)</a></li></ul></div>')
+                       "The maintenance schedule, every Timpte spec sheet, and where to turn for parts, service and warranty.",
+                       f'<div class="panel"><h3>Spec sheets</h3><ul class="docs">{sheets}</ul></div>')
 
 
 def body_privacy():
@@ -300,7 +299,7 @@ def routes(demo):
     ]
     for path, title, eyebrow, h1, lede, desc in simple:
         R.append((path, f"{title} · {name}", desc, body_simple([("Home", "/"), (title, path)], eyebrow, h1, lede), [ld_crumbs([("Home", "/"), (title, path)])], True))
-    R.append(("/owner-resources/", f"Owner resources · {name}", f"Maintenance schedule, every Timpte spec sheet and the catalog, parts, service and warranty help from {name}.", body_resources(), [ld_crumbs([("Home", "/"), ("Owner resources", "/owner-resources/")])], True))
+    R.append(("/owner-resources/", f"Owner resources · {name}", f"Maintenance schedule, every Timpte spec sheet, parts, service and warranty help from {name}.", body_resources(), [ld_crumbs([("Home", "/"), ("Owner resources", "/owner-resources/")])], True))
     R.append(("/privacy/", f"Privacy · {name}", f"What the {name} website collects, who sees it, and what we do with it.", body_privacy(), [ld_crumbs([("Home", "/"), ("Privacy", "/privacy/")])], True))
     R.append(("/404.html", f"Page not found · {name}", "That page isn't here.", '<section><div class="wrap"><div class="empty" style="max-width:640px;margin:40px auto"><b>That page isn\'t here.</b> <a href="/trailers/">See what\'s on the lot</a>, or <a href="/">start at the front door</a>.</div></div></section>', [], False))
     if demo:
