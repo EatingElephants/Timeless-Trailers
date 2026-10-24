@@ -826,7 +826,7 @@ VIEWS.about = {
     ${exclHTML()}
     ${WHY}
     <section id="visit"><div class="wrap quote-grid"><div id="contact"><div class="eyebrow">Visit · Contact</div><h2 style="margin-top:10px">Come see the lot.</h2>
-      <p class="lede">Walk the trailers, sit in the tilt, check the welds. Call ahead and we'll have the unit you're after pulled up front.</p>${visitList()}</div>${quoteFormHTML(r.q.m)}</div></section>`;
+      <p class="lede">Call ahead and we'll have the unit in our staging area for a walk-around: check the welds, review the quality, and see what made in the USA looks like up close.</p>${visitList()}</div>${quoteFormHTML(r.q.m)}</div></section>`;
   }
 };
 
@@ -877,8 +877,8 @@ VIEWS.contact = {
   html(r) {
     const b = DATA.business;
     return `<div class="page-head"><div class="wrap"><div class="crumbs"><a href="/">Home</a> / Contact</div><div class="eyebrow">Visit · Call · Quote</div><h1 style="margin-top:10px">Come see the lot.</h1>
-      <p class="lede">Walk the trailers, sit in the tilt, check the welds. Call ahead and we'll have the unit you're after pulled up front. ${esc(b.hours)}.</p></div></div>
-    <section id="visit"><div class="wrap quote-grid"><div id="contact"><div class="eyebrow">Where and when</div><h2 style="margin-top:10px">${esc(b.name)}</h2>${visitList()}</div>${quoteFormHTML(r.q.m)}</div></section>`;
+      <p class="lede">Call ahead and we'll have the unit in our staging area for a walk-around: check the welds, review the quality, and see what made in the USA looks like up close.</p></div></div>
+    <section id="visit"><div class="wrap quote-grid"><div id="contact"><img src="${img("timeless-logo")}" alt="Timeless Trailers" style="width:min(300px,85%);height:auto;margin-bottom:6px">${visitList()}</div>${quoteFormHTML(r.q.m)}</div></section>`;
   }
 };
 
