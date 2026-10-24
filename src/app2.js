@@ -456,7 +456,7 @@ const FORMS = {
     const tk = createTicket({ name: e.name.value.trim(), phone: e.phone.value.trim(), unit: e.unit.value, service: e.service.value, notes: e.notes.value.trim(), date: e.date.value ? new Date(e.date.value + "T12:00").toISOString() : null });
     f.innerHTML = doneHTML(`Ticket ${tk.id} open.`, `We'll call ${esc(e.phone.value)} to confirm drop-off${e.date.value ? " around " + fmtDate(tk.date) : ""}. ${me() ? '<a href="/account/?s=a-tickets">Track it in My Account</a>.' : ""}`);
   },
-  async prequal(f) { if (!need(f, ["name", "phone"])) return; const r = await sendLead(f, "Financing pre-qualify", { price: money(fin.price), as: f.elements.as.value }); if (!r.ok) return; addLead({ name: f.elements.name.value.trim(), phone: f.elements.phone.value.trim(), interest: "Financing pre-qualify · " + money(fin.price), source: "Financing" }); f.innerHTML = doneHTML("You're in line.", "The team will call today with real rates for " + money(fin.price) + "."); },
+  async prequal(f) { if (!need(f, ["name", "phone"])) return; const r = await sendLead(f, "Financing pre-qualify", { price: money(fin.price), as: f.elements.as.value }); if (!r.ok) return; addLead({ name: f.elements.name.value.trim(), phone: f.elements.phone.value.trim(), interest: "Financing pre-qualify · " + money(fin.price), source: "Financing" }); f.innerHTML = doneHTML("Got it.", "You'll hear from us within 24 hours with real options for " + money(fin.price) + "."); },
   /* @demo */
   "admin-chat"(f) { const v = f.elements.q.value.trim(); if (!v) return; adminSay(v); },
   quoteb(f) {
@@ -638,6 +638,25 @@ document.addEventListener("input", e => {
   if (el.dataset.act === "parts-q") { partsUI.q = el.value; renderParts(); }
   if (el.dataset.fin) { fin[el.dataset.fin] = +el.value || 0; if (el.dataset.fin !== "apr") { fin.id = ""; const s = $("#fTr"); if (s) s.value = ""; } renderCalc(); }
 });
+/* big picture on hover for lists that carry data-preview (the spec-sheet list on Owner resources) */
+let previewBox = null;
+function showPreview(li, x, y) {
+  if (!previewBox) { previewBox = document.createElement("div"); previewBox.className = "spec-preview"; previewBox.setAttribute("aria-hidden", "true"); document.body.appendChild(previewBox); }
+  previewBox.innerHTML = `<img src="${li.dataset.preview}" alt=""><b>${esc(li.dataset.previewTitle || "")}</b>`;
+  const w = Math.min(520, innerWidth * 0.45), h = w * 0.62 + 44;
+  let left = x + 24, top = y - h / 2;
+  if (left + w > innerWidth - 12) left = x - w - 24;
+  if (left < 12) left = 12;
+  top = Math.max(12, Math.min(top, innerHeight - h - 12));
+  previewBox.style.left = left + "px"; previewBox.style.top = top + "px"; previewBox.style.width = w + "px";
+  previewBox.classList.add("on");
+}
+function hidePreview() { if (previewBox) previewBox.classList.remove("on"); }
+document.addEventListener("mouseover", e => { const li = e.target.closest("[data-preview]"); if (li && matchMedia("(hover: hover)").matches) showPreview(li, e.clientX, e.clientY); else if (!e.target.closest(".spec-preview")) hidePreview(); });
+document.addEventListener("mousemove", e => { const li = e.target.closest("[data-preview]"); if (li && previewBox && previewBox.classList.contains("on")) showPreview(li, e.clientX, e.clientY); });
+document.addEventListener("mouseleave", hidePreview, true);
+document.addEventListener("focusin", e => { const li = e.target.closest("[data-preview]"); if (li) { const r = li.getBoundingClientRect(); showPreview(li, r.right, r.top + r.height / 2); } else hidePreview(); });
+document.addEventListener("scroll", hidePreview, true);
 document.addEventListener("submit", e => { const f = e.target; const k = f.dataset.form; if (!k || !FORMS[k]) return; e.preventDefault(); FORMS[k](f); });
 document.addEventListener("keydown", e => {
   const lbd = $("#lightbox"); if (lbd && lbd.open) { if (e.key === "ArrowLeft") openLightbox(lbIndex - 1); if (e.key === "ArrowRight") openLightbox(lbIndex + 1); return; }

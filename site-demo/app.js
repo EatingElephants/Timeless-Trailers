@@ -905,11 +905,11 @@ VIEWS.financing = {
         <div class="full"><label>Term</label><div class="termset">${DATA.finance.terms.map(n => `<button type="button" class="chip" data-act="fin-term" data-n="${n}" aria-pressed="${fin.term === n}">${n} mo</button>`).join("")}</div></div>
       </div></div>
       <div style="display:grid;gap:18px"><div class="calc-out" id="calcOut" aria-live="polite"></div>
-        <form class="q" data-form="prequal" novalidate><h3 style="margin-bottom:6px">Pre-qualify</h3><p class="muted" style="margin:0 0 14px;font-size:.92rem">No effect on your credit. We call you with real options the same business day.</p><div class="fields">
+        <form class="q" data-form="prequal" novalidate><h3 style="margin-bottom:6px">Pre-qualify</h3><p class="muted" style="margin:0 0 14px;font-size:.92rem">No effect on your credit.</p><div class="fields">
           <div><label for="pqName">Name</label><input id="pqName" name="name" required value="${u && u.role === "customer" ? esc(u.name) : ""}"></div>
           <div><label for="pqPhone">Phone</label><input id="pqPhone" name="phone" type="tel" required value="${u && u.role === "customer" ? esc(u.phone) : ""}"></div>
           <div class="full"><label for="pqBiz">Buying as</label><select id="pqBiz" name="as"><option>An individual</option><option>A business</option></select></div></div>
-          <div class="form-foot"><p>Matt or the team calls with real options the same day.</p><button class="btn btn-gold" type="submit">Start pre-qualifying</button></div></form></div>
+          <div class="form-foot"><p></p><button class="btn btn-gold" type="submit">Start pre-qualifying</button></div></form></div>
     </div></section>`;
   },
   mount() { renderCalc(); }
@@ -1009,7 +1009,7 @@ VIEWS.resources = {
       <div class="panel"><h3>Maintenance schedule</h3><table class="ttable"><thead><tr><th>When</th><th>What to check</th></tr></thead><tbody>${DATA.maintenance.map(([a, c]) => `<tr><td><b>${a}</b></td><td>${c}</td></tr>`).join("")}</tbody></table>
         <h4 style="margin:22px 0 6px">Warranty</h4><p style="margin:0;color:var(--text-2);font-size:.95rem">Timpte backs every trailer with a 3-year warranty. We handle the claim and the repair here in Waxhaw. Call ${b.phone} with your serial number, or <a href="/service/">book service</a>.</p>
         <h4 style="margin:22px 0 6px">Parts</h4><p style="margin:0;color:var(--text-2);font-size:.95rem">Timpte parts are ordered through us and picked up in Waxhaw. <a href="/parts/">Look up a part number</a>, or ask ${A}.</p></div>
-      <div class="panel"><h3>Spec sheets</h3><ul class="docs">${Object.values(MODELS).filter(m => m.spec).map(m => `<li><a href="/specs/${m.spec}" target="_blank" rel="noopener">${esc(m.model)}<small>PDF · Timpte 2026 spec sheet</small></a></li>`).join("")}
+      <div class="panel"><h3>Spec sheets</h3><p class="muted" style="margin:-6px 0 12px;font-size:.9rem">Not sure which is which? Hover over a name to see the trailer.</p><ul class="docs specs-list">${Object.values(MODELS).filter(m => m.spec).map(m => `<li data-preview="${img(m.gallery && m.gallery[0] || m.img)}" data-preview-title="${esc(m.model)}"><a href="/specs/${m.spec}" target="_blank" rel="noopener"><img class="spec-thumb" src="${img(m.img)}" alt="" loading="lazy"><span>${esc(m.model)}<small>PDF · Timpte 2026 spec sheet</small></span></a></li>`).join("")}
         <li><a href="/specs/timpte-equipment-trailer-catalog-2026.pdf" target="_blank" rel="noopener">Timpte Equipment Trailer catalog<small>PDF · the whole 2026 lineup</small></a></li></ul></div>
     </div></section>`;
   }
@@ -1528,7 +1528,7 @@ const FORMS = {
     const tk = createTicket({ name: e.name.value.trim(), phone: e.phone.value.trim(), unit: e.unit.value, service: e.service.value, notes: e.notes.value.trim(), date: e.date.value ? new Date(e.date.value + "T12:00").toISOString() : null });
     f.innerHTML = doneHTML(`Ticket ${tk.id} open.`, `We'll call ${esc(e.phone.value)} to confirm drop-off${e.date.value ? " around " + fmtDate(tk.date) : ""}. ${me() ? '<a href="/account/?s=a-tickets">Track it in My Account</a>.' : ""}`);
   },
-  async prequal(f) { if (!need(f, ["name", "phone"])) return; const r = await sendLead(f, "Financing pre-qualify", { price: money(fin.price), as: f.elements.as.value }); if (!r.ok) return; addLead({ name: f.elements.name.value.trim(), phone: f.elements.phone.value.trim(), interest: "Financing pre-qualify · " + money(fin.price), source: "Financing" }); f.innerHTML = doneHTML("You're in line.", "The team will call today with real rates for " + money(fin.price) + "."); },
+  async prequal(f) { if (!need(f, ["name", "phone"])) return; const r = await sendLead(f, "Financing pre-qualify", { price: money(fin.price), as: f.elements.as.value }); if (!r.ok) return; addLead({ name: f.elements.name.value.trim(), phone: f.elements.phone.value.trim(), interest: "Financing pre-qualify · " + money(fin.price), source: "Financing" }); f.innerHTML = doneHTML("Got it.", "You'll hear from us within 24 hours with real options for " + money(fin.price) + "."); },
   /* @demo */
   "admin-chat"(f) { const v = f.elements.q.value.trim(); if (!v) return; adminSay(v); },
   quoteb(f) {
@@ -1710,6 +1710,25 @@ document.addEventListener("input", e => {
   if (el.dataset.act === "parts-q") { partsUI.q = el.value; renderParts(); }
   if (el.dataset.fin) { fin[el.dataset.fin] = +el.value || 0; if (el.dataset.fin !== "apr") { fin.id = ""; const s = $("#fTr"); if (s) s.value = ""; } renderCalc(); }
 });
+/* big picture on hover for lists that carry data-preview (the spec-sheet list on Owner resources) */
+let previewBox = null;
+function showPreview(li, x, y) {
+  if (!previewBox) { previewBox = document.createElement("div"); previewBox.className = "spec-preview"; previewBox.setAttribute("aria-hidden", "true"); document.body.appendChild(previewBox); }
+  previewBox.innerHTML = `<img src="${li.dataset.preview}" alt=""><b>${esc(li.dataset.previewTitle || "")}</b>`;
+  const w = Math.min(520, innerWidth * 0.45), h = w * 0.62 + 44;
+  let left = x + 24, top = y - h / 2;
+  if (left + w > innerWidth - 12) left = x - w - 24;
+  if (left < 12) left = 12;
+  top = Math.max(12, Math.min(top, innerHeight - h - 12));
+  previewBox.style.left = left + "px"; previewBox.style.top = top + "px"; previewBox.style.width = w + "px";
+  previewBox.classList.add("on");
+}
+function hidePreview() { if (previewBox) previewBox.classList.remove("on"); }
+document.addEventListener("mouseover", e => { const li = e.target.closest("[data-preview]"); if (li && matchMedia("(hover: hover)").matches) showPreview(li, e.clientX, e.clientY); else if (!e.target.closest(".spec-preview")) hidePreview(); });
+document.addEventListener("mousemove", e => { const li = e.target.closest("[data-preview]"); if (li && previewBox && previewBox.classList.contains("on")) showPreview(li, e.clientX, e.clientY); });
+document.addEventListener("mouseleave", hidePreview, true);
+document.addEventListener("focusin", e => { const li = e.target.closest("[data-preview]"); if (li) { const r = li.getBoundingClientRect(); showPreview(li, r.right, r.top + r.height / 2); } else hidePreview(); });
+document.addEventListener("scroll", hidePreview, true);
 document.addEventListener("submit", e => { const f = e.target; const k = f.dataset.form; if (!k || !FORMS[k]) return; e.preventDefault(); FORMS[k](f); });
 document.addEventListener("keydown", e => {
   const lbd = $("#lightbox"); if (lbd && lbd.open) { if (e.key === "ArrowLeft") openLightbox(lbIndex - 1); if (e.key === "ArrowRight") openLightbox(lbIndex + 1); return; }

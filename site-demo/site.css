@@ -629,6 +629,16 @@
   .tz-form .btn{padding:10px 14px}
   .tz-foot{font-size:.78rem;color:var(--text-3);padding:8px 16px calc(10px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);background:#fff}
   .tz-foot a{color:var(--gold)}
+  /* spec-sheet list: a small picture always, a big one on hover (desktop) */
+  .specs-list li a{display:flex;align-items:center;gap:12px}
+  .specs-list li a>span{display:block}
+  .specs-list li a>span small{display:block}
+  .spec-thumb{width:64px;height:44px;object-fit:cover;border-radius:6px;flex:none;background:var(--alu)}
+  .spec-preview{position:fixed;z-index:70;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.35);pointer-events:none;opacity:0;transform:scale(.97);transition:opacity .15s,transform .15s}
+  .spec-preview.on{opacity:1;transform:none}
+  .spec-preview img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover}
+  .spec-preview b{display:block;padding:10px 14px;font-weight:700;color:var(--ink)}
+  @media (hover:none){.spec-preview{display:none}}
   /* Made in the USA sticker, bottom left on every page (Matt, Oct 24) */
   .usa{position:fixed;left:14px;bottom:calc(var(--mbar-h) + 14px);z-index:57;display:flex;align-items:center;gap:10px;background:#fff;color:var(--ink);border:3px solid #fff;border-radius:12px;padding:6px 12px 6px 6px;text-decoration:none;box-shadow:0 10px 28px rgba(0,0,0,.3);transform:rotate(-2deg);transition:transform .2s}
   .usa:hover,.usa:focus-visible{transform:rotate(0) translateY(-2px)}

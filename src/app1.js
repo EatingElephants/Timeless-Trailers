@@ -717,11 +717,11 @@ VIEWS.financing = {
         <div class="full"><label>Term</label><div class="termset">${DATA.finance.terms.map(n => `<button type="button" class="chip" data-act="fin-term" data-n="${n}" aria-pressed="${fin.term === n}">${n} mo</button>`).join("")}</div></div>
       </div></div>
       <div style="display:grid;gap:18px"><div class="calc-out" id="calcOut" aria-live="polite"></div>
-        <form class="q" data-form="prequal" novalidate><h3 style="margin-bottom:6px">Pre-qualify</h3><p class="muted" style="margin:0 0 14px;font-size:.92rem">No effect on your credit. We call you with real options the same business day.</p><div class="fields">
+        <form class="q" data-form="prequal" novalidate><h3 style="margin-bottom:6px">Pre-qualify</h3><p class="muted" style="margin:0 0 14px;font-size:.92rem">No effect on your credit.</p><div class="fields">
           <div><label for="pqName">Name</label><input id="pqName" name="name" required value="${u && u.role === "customer" ? esc(u.name) : ""}"></div>
           <div><label for="pqPhone">Phone</label><input id="pqPhone" name="phone" type="tel" required value="${u && u.role === "customer" ? esc(u.phone) : ""}"></div>
           <div class="full"><label for="pqBiz">Buying as</label><select id="pqBiz" name="as"><option>An individual</option><option>A business</option></select></div></div>
-          <div class="form-foot"><p>Matt or the team calls with real options the same day.</p><button class="btn btn-gold" type="submit">Start pre-qualifying</button></div></form></div>
+          <div class="form-foot"><p></p><button class="btn btn-gold" type="submit">Start pre-qualifying</button></div></form></div>
     </div></section>`;
   },
   mount() { renderCalc(); }
@@ -821,7 +821,7 @@ VIEWS.resources = {
       <div class="panel"><h3>Maintenance schedule</h3><table class="ttable"><thead><tr><th>When</th><th>What to check</th></tr></thead><tbody>${DATA.maintenance.map(([a, c]) => `<tr><td><b>${a}</b></td><td>${c}</td></tr>`).join("")}</tbody></table>
         <h4 style="margin:22px 0 6px">Warranty</h4><p style="margin:0;color:var(--text-2);font-size:.95rem">Timpte backs every trailer with a 3-year warranty. We handle the claim and the repair here in Waxhaw. Call ${b.phone} with your serial number, or <a href="/service/">book service</a>.</p>
         <h4 style="margin:22px 0 6px">Parts</h4><p style="margin:0;color:var(--text-2);font-size:.95rem">Timpte parts are ordered through us and picked up in Waxhaw. <a href="/parts/">Look up a part number</a>, or ask ${A}.</p></div>
-      <div class="panel"><h3>Spec sheets</h3><ul class="docs">${Object.values(MODELS).filter(m => m.spec).map(m => `<li><a href="/specs/${m.spec}" target="_blank" rel="noopener">${esc(m.model)}<small>PDF · Timpte 2026 spec sheet</small></a></li>`).join("")}
+      <div class="panel"><h3>Spec sheets</h3><p class="muted" style="margin:-6px 0 12px;font-size:.9rem">Not sure which is which? Hover over a name to see the trailer.</p><ul class="docs specs-list">${Object.values(MODELS).filter(m => m.spec).map(m => `<li data-preview="${img(m.gallery && m.gallery[0] || m.img)}" data-preview-title="${esc(m.model)}"><a href="/specs/${m.spec}" target="_blank" rel="noopener"><img class="spec-thumb" src="${img(m.img)}" alt="" loading="lazy"><span>${esc(m.model)}<small>PDF · Timpte 2026 spec sheet</small></span></a></li>`).join("")}
         <li><a href="/specs/timpte-equipment-trailer-catalog-2026.pdf" target="_blank" rel="noopener">Timpte Equipment Trailer catalog<small>PDF · the whole 2026 lineup</small></a></li></ul></div>
     </div></section>`;
   }
