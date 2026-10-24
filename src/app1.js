@@ -310,9 +310,9 @@ function visitList() {
 }
 const WHY = `<div class="why"><div class="wrap why-grid">
   <div class="why-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 3 7v10l9 5 9-5V7z"/><path d="m3 7 9 5 9-5M12 12v10"/></svg><b>All-aluminum</b><p>No rust, less weight, more payload. Built to outlast the truck that pulls it.</p></div>
-  <div class="why-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><b>3-year warranty</b><p>Manufacturer-backed coverage, with a local dealer to handle it.</p></div>
+  <div class="why-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><b>3-year warranty</b><p>Manufacturer-backed coverage, with your Customer Service Center (CSC) to handle it.</p></div>
   <div class="why-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg><b>Financing</b><p>Payment options through the manufacturer's programs. Ask when you quote.</p></div>
-  <div class="why-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><b>Timpte-exclusive</b><p>The only dealer in the U.S. that sells Timpte equipment trailers exclusively. Real people, same-day answers.</p></div></div></div>`;
+  <div class="why-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><b>Timpte-exclusive</b><p>The only Customer Service Center (CSC) in the U.S. that sells Timpte equipment trailers exclusively. Real people, same-day answers.</p></div></div></div>`;
 
 /* ---------------- views ---------------- */
 let route = { name: "home", arg: null, q: {} };
@@ -320,7 +320,7 @@ const inv = { type: "all", sort: "featured", q: "" };
 const VIEWS = {};
 
 VIEWS.home = {
-  title: "Timeless Trailers · The only dealer in the U.S. that sells Timpte equipment trailers exclusively · Waxhaw, NC",
+  title: CONFIG.site.title,
   html() {
     const lot = onLot();
     const groups = {};
@@ -329,9 +329,9 @@ VIEWS.home = {
     const tryChips = ["Bobcat T66 and a 2022 F-250", "Car hauler for a '67 Mustang", "Two UTVs, Silverado 1500", "What's on the lot?"];
     return `
 <section class="hero hero-full"><video class="hero-bg" autoplay muted loop playsinline preload="${SMALL ? "metadata" : "auto"}" poster="/video/hero-full.webp" aria-hidden="true"><source src="/video/${SMALL ? "hero-mobile" : "hero-full"}.mp4" type="video/mp4"></video><div class="hero-shade"></div><div class="wrap hero-inner">
-  <div class="eyebrow">America's only Timpte-exclusive dealer · Waxhaw, NC</div>
+  <div class="eyebrow">${esc(CONFIG.wording.exclusiveShort)}</div>
   <h1 style="margin-top:16px">Built once. <span>Lasts forever.</span></h1>
-  <p class="lede">All-aluminum Timpte trailers for contractors, haulers and weekend toys, from the only dealer in the U.S. that sells Timpte exclusively. Tell us what you haul and we'll match the trailer.</p>
+  <p class="lede">All-aluminum Timpte trailers for contractors, haulers and weekend toys, from the only Customer Service Center (CSC) in the U.S. that sells Timpte exclusively. Tell us what you haul and we'll match the trailer.</p>
   <form class="hero-ask" data-form="hero-ask"><img class="av av-img" src="${img("andy-face")}" alt="" width="40" height="40"><label for="heroAsk" class="sr">Tell ${A} what you haul</label><input id="heroAsk" name="q" placeholder="Tell ${A} what you haul…" autocomplete="off"><button class="btn btn-gold" type="submit" aria-label="Send to ${A}">${ICON.send}<span>Ask</span></button></form>
   <div class="hero-try"><span>Try:</span>${tryChips.map(c => `<button type="button" data-act="say" data-say="${esc(c)}">${esc(c)}</button>`).join("")}</div>
   <div class="hero-ctas"><a class="btn btn-dark" href="/trailers/">See what's on the lot</a><a class="btn btn-line" href="/finder/">Find my trailer</a></div>
@@ -344,7 +344,7 @@ ${exclHTML()}
   <div class="stat"><b data-count="${DATA.business.modelsCarried}">${DATA.business.modelsCarried}</b><span>Timpte models available to order</span></div>
   <a class="stat" href="/trailers/"><b data-count="${lot.length}">${lot.length}</b><span>Units on the lot today</span></a>
   <button class="stat" data-act="tessa-open"><b>24/7<i class="live-dot"></i></b><span>${A}, our trailer advisor</span><em>Ask now →</em></button>
-  <a class="stat" href="/about/"><b>Only</b><span>America's only Timpte-exclusive dealer</span></a>
+  <a class="stat" href="/about/"><b>Only</b><span>America's only Timpte-exclusive CSC</span></a>
 </div></div>
 
 ${DEMO ? tourSection() : ""}
@@ -403,9 +403,8 @@ function exclHTML(cls = "") {
   return `<section class="excl ${cls}" id="exclusive"><div class="wrap excl-grid">
   <div class="excl-logo rv"><img src="${img("timpte-et-logo")}" alt="Timpte Equipment Trailers" loading="lazy"><span>Timpte-exclusive</span></div>
   <div class="rv rv-d1"><div class="eyebrow">One of a kind</div>
-    <h2 style="margin-top:10px">The only dealer in the U.S. that sells Timpte equipment trailers <em>exclusively</em>.</h2>
-    <p class="lede">Timeless Trailers sells Timpte and nothing else. No other dealer in the country has made that commitment. It means every trailer on our lot is aluminum, built without structural welds, and backed by a dealer who knows the whole line inside and out.</p>
-    <span class="pin">${ICON.pinFill}Waxhaw, North Carolina · serving the Carolinas</span>
+    <h2 style="margin-top:10px">The only Customer Service Center (CSC) in the U.S. that sells Timpte equipment trailers <em>exclusively</em>.</h2>
+    <p class="lede">Timeless Trailers sells Timpte and nothing else. No other Customer Service Center in the country has made that commitment. It means every trailer on our lot is aluminum, built without structural welds, and backed by a CSC that knows the whole line inside and out.</p>
   </div></div></section>`;
 }
 
@@ -742,8 +741,8 @@ function renderCalc() {
 VIEWS.about = {
   title: "About · Timeless Trailers",
   html(r) {
-    return `<div class="page-head"><div class="wrap"><div class="crumbs"><a href="/">Home</a> / About</div><div class="eyebrow">Company</div><h1 style="margin-top:10px">A trailer dealer that picks up the phone.</h1>
-      <p class="lede">Timeless Trailers is the only dealer in the U.S. that sells Timpte equipment trailers exclusively. We're based in Waxhaw, serving contractors, landscapers, farmers and weekend haulers across the Charlotte area. We sell one brand because we believe in how it's built: all aluminum, no rust, more payload for the same tow.</p></div></div>
+    return `<div class="page-head"><div class="wrap"><div class="crumbs"><a href="/">Home</a> / About</div><div class="eyebrow">Company</div><h1 style="margin-top:10px">A Customer Service Center that picks up the phone.</h1>
+      <p class="lede">Timeless Trailers is the only Customer Service Center (CSC) in the U.S. that sells Timpte equipment trailers exclusively. We're based in Waxhaw, serving contractors, landscapers, farmers and weekend haulers across the Charlotte area. We sell one brand because we believe in how it's built: all aluminum, no rust, more payload for the same tow.</p></div></div>
     <section style="padding-top:34px"><div class="wrap grid2">
       <div class="panel"><h3>How we sell</h3><ul class="flist" style="grid-template-columns:1fr">
         <li>${tick}We start with the load and the truck, not the biggest trailer on the lot.</li>

@@ -193,8 +193,8 @@ def spec_table(t):
 def body_home():
     lot = [u for u in INVENTORY if u.get("status") == "lot"]
     cats = "".join(f'<a class="cat" href="/trailers/{CAT_SLUG[k]}/"><div class="ph"><img src="/img/tile-{k}.webp" alt="" loading="lazy"></div><div class="cb"><b>{CAT_TITLE[k]}</b><p>{esc(CAT_BLURB[k])}</p></div></a>' for k in CAT_SLUG)
-    return (f'<section class="hero hero-full" style="min-height:0"><div class="wrap hero-inner"><div class="eyebrow">{esc(CONFIG["wording"]["exclusiveShort"])} · {esc(BIZ["city"])}, {esc(BIZ["state"])}</div>'
-            f'<h1 style="margin-top:16px">Built once. <span>Lasts forever.</span></h1><p class="lede">All-aluminum Timpte trailers for contractors, haulers and weekend toys, from the only dealer in the U.S. that sells Timpte exclusively. Tell us what you haul and we\'ll match the trailer.</p>'
+    return (f'<section class="hero hero-full" style="min-height:0"><div class="wrap hero-inner"><div class="eyebrow">{esc(CONFIG["wording"]["exclusiveShort"])}</div>'
+            f'<h1 style="margin-top:16px">Built once. <span>Lasts forever.</span></h1><p class="lede">All-aluminum Timpte trailers for contractors, haulers and weekend toys, from the only Customer Service Center (CSC) in the U.S. that sells Timpte exclusively. Tell us what you haul and we\'ll match the trailer.</p>'
             f'<div class="hero-ctas"><a class="btn btn-dark" href="/trailers/">See what\'s on the lot</a><a class="btn btn-line" href="/finder/">Find my trailer</a></div></div></section>'
             f'<section id="shop"><div class="wrap"><div class="sec-head"><div><div class="eyebrow">Shop by category</div><h2 style="margin-top:10px">Start with what you haul.</h2></div></div><div class="cat-grid">{cats}</div></div></section>'
             f'<section class="lot"><div class="wrap"><div class="sec-head"><div><div class="eyebrow">On the lot now</div><h2 style="margin-top:10px">{len(lot)} trailers ready to hitch up in {esc(BIZ["city"])}.</h2></div></div><div class="tgrid">{"".join(card(u) for u in lot[:6])}</div></div></section>'
@@ -295,7 +295,7 @@ def routes(demo):
         ("/parts/", "Parts", "Own · Parts counter", "Parts.", "Timpte parts by part number, ordered through us and picked up in Waxhaw.", f"Timpte equipment trailer parts by part number. Order through {name} and pick up in {city}."),
         ("/service/", "Service", "Own · Service bay", "Service.", "Inspections, bearings, brakes, wiring and warranty work, done here in Waxhaw.", f"Trailer service in {city}: inspections, bearings, brakes, wiring and Timpte warranty work at {name}."),
         ("/financing/", "Financing", "Own · Financing", "Financing.", "Payment options through the manufacturer's programs and local lenders.", f"Trailer financing and a payment calculator from {name}, {city}."),
-        ("/about/", "About", "Company", "A trailer dealer that picks up the phone.", excl, f"{excl} Based in {city}. {name}."),
+        ("/about/", "About", "Company", "A Customer Service Center that picks up the phone.", excl, f"{excl} Based in {city}. {name}."),
         ("/contact/", "Contact and visit", "Visit · Call · Quote", "Come see the lot.", f"{esc(BIZ['address'])} · {esc(BIZ['phone'])} · {esc(BIZ['hours'])}", f"Visit {name} at {BIZ['address']}, call {BIZ['phone']}, or ask for a quote. {BIZ['hours']}."),
     ]
     for path, title, eyebrow, h1, lede, desc in simple:

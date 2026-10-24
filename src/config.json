@@ -5,9 +5,9 @@
     "tagline": "Built once. Lasts forever.",
     "url": "https://timeless-trailers.jsalbrig-studio.workers.dev",
     "indexable": false,
-    "title": "Timeless Trailers · The only dealer in the U.S. that sells Timpte equipment trailers exclusively · Waxhaw, NC",
-    "description": "The only dealer in the U.S. that sells Timpte equipment trailers exclusively. Aluminum split tilt, deck over, gooseneck, dump and EZ Load trailers in Waxhaw, NC, with real specs, photos and video for every model.",
-    "ogTitle": "Timeless Trailers · America's only Timpte-exclusive dealer",
+    "title": "Timeless Trailers · The only Customer Service Center (CSC) in the U.S. that sells Timpte equipment trailers exclusively · Waxhaw, NC",
+    "description": "The only Customer Service Center (CSC) in the U.S. that sells Timpte equipment trailers exclusively. Aluminum split tilt, deck over, gooseneck, dump and EZ Load trailers in Waxhaw, NC, with real specs, photos and video for every model.",
+    "ogTitle": "Timeless Trailers · America's only Timpte-exclusive Customer Service Center",
     "ogDescription": "Timpte aluminum equipment trailers in Waxhaw, NC. Real specs, photos and video for every model.",
     "ogImage": "/video/hero-full.webp",
     "builtBy": "Albright Agency"
@@ -64,10 +64,11 @@
     "cloudflareToken": ""
   },
   "wording": {
-    "exclusive": "The only dealer in the U.S. that sells Timpte equipment trailers exclusively.",
-    "exclusiveShort": "America's only Timpte-exclusive dealer",
+    "exclusive": "The only Customer Service Center (CSC) in the U.S. that sells Timpte equipment trailers exclusively.",
+    "exclusiveShort": "America's only Timpte-exclusive Customer Service Center",
     "andy": "Andy matches the trailer to your load and truck, then Matt sends your quote the same business day.",
-    "owner": "Matt"
+    "owner": "Matt",
+    "csc": "Customer Service Center (CSC)"
   },
   "team": [
     {

@@ -659,7 +659,7 @@ function buildChrome() {
   </div></header>`;
   $("#chromeBottom").innerHTML = `
   <footer><div class="wrap"><div class="fgrid">
-    <div><img src="${img("timeless-logo")}" alt="Timeless Trailers"><p>The only dealer in the U.S. that sells Timpte equipment trailers exclusively · ${esc(b.address)} · ${b.phone} · ${b.hours}</p><a class="tbadge" href="${b.timpte}" target="_blank" rel="noopener"><img src="${img("timpte-et-logo")}" alt="Timpte Equipment Trailers" loading="lazy"><span>Timpte-exclusive dealer</span></a></div>
+    <div><img src="${img("timeless-logo")}" alt="Timeless Trailers"><p>${esc(CONFIG.wording.exclusive)} · ${esc(b.address)} · ${b.phone} · ${b.hours}</p><a class="tbadge" href="${b.timpte}" target="_blank" rel="noopener"><img src="${img("timpte-et-logo")}" alt="Timpte Equipment Trailers" loading="lazy"><span>Timpte-exclusive CSC</span></a></div>
     <div><h4>Shop</h4><a href="/trailers/">On the lot</a><a href="/trailers/?s=lineup">Lineup</a><a href="/finder/">Trailer Finder</a><a href="/compare/">Compare</a></div>
     <div><h4>Own</h4><a href="/parts/">Parts</a><a href="/service/">Service</a><a href="/owner-resources/">Owner resources</a><a href="/financing/">Financing</a></div>
     <div><h4>Company</h4><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/owner-resources/">Owner resources</a><a href="/privacy/">Privacy</a>${DEMO ? footerDemoHTML() : ""}</div>
