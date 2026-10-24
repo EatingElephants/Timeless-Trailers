@@ -665,6 +665,10 @@ function buildChrome() {
     <div><h4>Company</h4><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/owner-resources/">Owner resources</a><a href="/privacy/">Privacy</a>${DEMO ? footerDemoHTML() : ""}</div>
   </div><div class="fbot"><span>${DEMO ? footerDemoNote() : `© ${new Date().getFullYear()} ${esc(b.name)} · Site by <a href="https://albright-innovations.com" target="_blank" rel="noopener">${esc(CONFIG.site.builtBy)}</a>`}</span>${DEMO ? footerResetHTML() : ""}</div></div></footer>
   <div class="mbar"><a class="btn btn-line-light" href="/trailers/">On the lot</a><a class="btn btn-gold" href="/?s=quote">Get a quote</a></div>
+  <a class="usa" href="/?s=why-timpte" aria-label="Made in the USA. Timpte trailers are built in Lincoln, Nebraska">
+    <svg class="flag" viewBox="0 0 60 40" aria-hidden="true"><defs><filter id="usaWave" x="-10%" y="-20%" width="120%" height="140%"><feTurbulence type="fractalNoise" baseFrequency="0.03 0.09" numOctaves="2" seed="3" result="t"><animate attributeName="baseFrequency" dur="6s" values="0.03 0.09;0.045 0.11;0.03 0.09" repeatCount="indefinite"/></feTurbulence><feDisplacementMap in="SourceGraphic" in2="t" scale="4" xChannelSelector="R" yChannelSelector="G"/></filter></defs>
+      <g filter="url(#usaWave)">${Array.from({ length: 13 }, (_, i) => `<rect x="0" y="${(i * 40 / 13).toFixed(2)}" width="60" height="${(40 / 13 + 0.2).toFixed(2)}" fill="${i % 2 ? "#ffffff" : "#b22234"}"/>`).join("")}<rect x="0" y="0" width="24" height="21.6" fill="#3c3b6e"/>${[...Array(4)].map((_, r) => [...Array(5)].map((_, c) => `<circle cx="${(3 + c * 4.5).toFixed(1)}" cy="${(3 + r * 5).toFixed(1)}" r="1" fill="#fff"/>`).join("")).join("")}</g></svg>
+    <span><b>Made in the USA</b><small>Built in Lincoln, Nebraska</small></span></a>
   <div class="cmp-tray" id="cmpTray" hidden></div>
   <div class="toasts" id="toasts" aria-live="polite"></div>
   <button class="tz-fab" id="tzFab" data-act="tessa-open" aria-expanded="false" aria-controls="tzPanel" aria-label="Ask ${A}, our trailer advisor"><span class="bubble"><small>Trailer advisor</small>Ask ${A}</span><span class="andy"><img class="f1" src="${img("andy-1")}" alt="" width="160" height="160"><img class="f2" src="${img("andy-2")}" alt="" width="160" height="160"><img class="f3" src="${img("andy-3")}" alt="" width="160" height="160"></span></button>
@@ -689,4 +693,4 @@ function buildChrome() {
     <div class="tz-foot" id="tzFoot" hidden></div>
   </aside>`;
 }
-document.addEventListener("DOMContentLoaded", () => { buildChrome(); setMbar(); render(); });
+document.addEventListener("DOMContentLoaded", () => { buildChrome(); setMbar(); render(); if (matchMedia("(prefers-reduced-motion: reduce)").matches) $$(".usa animate").forEach(a => a.remove()); });

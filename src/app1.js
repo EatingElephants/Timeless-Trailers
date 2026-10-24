@@ -366,7 +366,7 @@ ${DEMO ? tourSection() : ""}
 
 ${meetHTML()}
 
-<section class="why-timpte" id="why-timpte"><div class="wrap why-grid2"><div><div class="eyebrow">Why Timpte</div><h2 style="margin-top:10px">Built in Nebraska. Built without structural welds.</h2><p class="lede">Timpte builds every equipment trailer from aluminum with rubber torsion suspension and no structural welds, so there\u2019s nothing to rust and nothing to crack. Two lines: <b>Powerhouse</b> for equipment, <b>Motorsports</b> for cars, UTVs and toys.</p><div class="brandrow"><img src="${img("timpte-powerhouse-logo")}" alt="Timpte Powerhouse" loading="lazy"><img src="${img("timpte-motorsports-logo")}" alt="Timpte Motorsports" loading="lazy"></div><p class="note">Specs on this site come from Timpte\u2019s 2026 spec sheets. Every model page has the sheet to download.</p></div>${videoHTML("torsion-axle")}</div></section>
+<section class="why-timpte" id="why-timpte"><div class="wrap why-grid2"><div><div class="eyebrow">Why Timpte</div><h2 style="margin-top:10px">Built in Lincoln, Nebraska. Made in the USA.</h2><p class="lede">Every Timpte equipment trailer is built in Lincoln, Nebraska, from American-made parts: an aluminum frame and deck, rubber torsion suspension, and no structural welds, so there's nothing to rust and nothing to crack. Made in the USA is one of the main reasons Matt chose to sell Timpte and nothing else. Two lines: <b>Powerhouse</b> for equipment, <b>Motorsports</b> for cars, UTVs and toys.</p><div class="brandrow"><img src="${img("timpte-powerhouse-logo")}" alt="Timpte Powerhouse" loading="lazy"><img src="${img("timpte-motorsports-logo")}" alt="Timpte Motorsports" loading="lazy"></div></div>${videoHTML("torsion-axle")}</div></section>
 
 <section class="matcher" id="match"><div class="wrap match-grid"><div>
   <div class="eyebrow" style="color:var(--gold-2)">Find your trailer</div><h2 style="margin-top:10px">What are you hauling?</h2>
@@ -421,7 +421,6 @@ function meetHTML() {
     <li>${tick}<span><b>Owners.</b> Parts, service and warranty questions.</span></li>
   </ul>
   <div class="ctas"><button class="btn btn-gold" data-act="tessa-open">Start a conversation</button><a class="btn btn-line-light" href="/finder/">Use the Trailer Finder</a></div>
-  <p class="note" style="color:#8f897f">Matt confirms every price, hold and order personally.</p>
 </div>
 <div class="democ" aria-hidden="true"><div class="dh"><img class="av av-img" src="${img("andy-face")}" alt="" width="40" height="40"><div><b>${A}</b><small>Timeless trailer advisor · online</small></div></div>
   <div class="dlog" id="demoLog"></div><div class="dinput"><span class="typed" id="demoTyped"></span><span class="cur"></span></div></div>

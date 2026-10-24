@@ -7,6 +7,7 @@ A clickable mock-up for Matt Lyons's Timpte dealership in Waxhaw, NC, built by A
 Timpte's leadership liked the site, Andy and the dealer back end. Phase one is the customer site on Matt's own domain. The agreed plan is in the repo's history as `Timeless Trailers: public site live by Sunday`; the short version:
 
 - **Done Thursday:** real page addresses (one folder per page, sitemap, 404, structured data), dealer data in plain files (`src/config.json`, `models.json`, `inventory.json`, `parts.json`), prices switched on, the Parts page on Timpte's full catalog (324 parts), Owner resources, Contact and Privacy pages, sample manuals and warranty form removed, `worker.js` lead endpoint and the forms wired to it (answers "call us" until the domain is in), a phone-size hero video, all 19 Timpte models with numbers from the 2026 sheets (the nine new ones reuse their family's photos until Timpte or Matt supplies model-specific shots).
+- **To refine:** the logo on Andy's cap sits a little off the centre of the cap in some poses (`tools/cap_logo.py` holds the position and tilt per drawing).
 - **Friday:** domain into Cloudflare, Email Routing on, lead email switched on in `wrangler.jsonc`; analytics token; Matt's answers folded in.
 - **Saturday:** Matt's real inventory and list prices into `inventory.json`, device testing, domain attached to the Worker.
 - **Sunday:** `config.json` → `"indexable": true`, final push, submit the sitemap in Google Search Console, one real test lead.

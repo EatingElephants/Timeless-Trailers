@@ -554,7 +554,7 @@ ${DEMO ? tourSection() : ""}
 
 ${meetHTML()}
 
-<section class="why-timpte" id="why-timpte"><div class="wrap why-grid2"><div><div class="eyebrow">Why Timpte</div><h2 style="margin-top:10px">Built in Nebraska. Built without structural welds.</h2><p class="lede">Timpte builds every equipment trailer from aluminum with rubber torsion suspension and no structural welds, so there\u2019s nothing to rust and nothing to crack. Two lines: <b>Powerhouse</b> for equipment, <b>Motorsports</b> for cars, UTVs and toys.</p><div class="brandrow"><img src="${img("timpte-powerhouse-logo")}" alt="Timpte Powerhouse" loading="lazy"><img src="${img("timpte-motorsports-logo")}" alt="Timpte Motorsports" loading="lazy"></div><p class="note">Specs on this site come from Timpte\u2019s 2026 spec sheets. Every model page has the sheet to download.</p></div>${videoHTML("torsion-axle")}</div></section>
+<section class="why-timpte" id="why-timpte"><div class="wrap why-grid2"><div><div class="eyebrow">Why Timpte</div><h2 style="margin-top:10px">Built in Lincoln, Nebraska. Made in the USA.</h2><p class="lede">Every Timpte equipment trailer is built in Lincoln, Nebraska, from American-made parts: an aluminum frame and deck, rubber torsion suspension, and no structural welds, so there's nothing to rust and nothing to crack. Made in the USA is one of the main reasons Matt chose to sell Timpte and nothing else. Two lines: <b>Powerhouse</b> for equipment, <b>Motorsports</b> for cars, UTVs and toys.</p><div class="brandrow"><img src="${img("timpte-powerhouse-logo")}" alt="Timpte Powerhouse" loading="lazy"><img src="${img("timpte-motorsports-logo")}" alt="Timpte Motorsports" loading="lazy"></div></div>${videoHTML("torsion-axle")}</div></section>
 
 <section class="matcher" id="match"><div class="wrap match-grid"><div>
   <div class="eyebrow" style="color:var(--gold-2)">Find your trailer</div><h2 style="margin-top:10px">What are you hauling?</h2>
@@ -609,7 +609,6 @@ function meetHTML() {
     <li>${tick}<span><b>Owners.</b> Parts, service and warranty questions.</span></li>
   </ul>
   <div class="ctas"><button class="btn btn-gold" data-act="tessa-open">Start a conversation</button><a class="btn btn-line-light" href="/finder/">Use the Trailer Finder</a></div>
-  <p class="note" style="color:#8f897f">Matt confirms every price, hold and order personally.</p>
 </div>
 <div class="democ" aria-hidden="true"><div class="dh"><img class="av av-img" src="${img("andy-face")}" alt="" width="40" height="40"><div><b>${A}</b><small>Timeless trailer advisor · online</small></div></div>
   <div class="dlog" id="demoLog"></div><div class="dinput"><span class="typed" id="demoTyped"></span><span class="cur"></span></div></div>
@@ -1738,6 +1737,10 @@ function buildChrome() {
     <div><h4>Company</h4><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/owner-resources/">Owner resources</a><a href="/privacy/">Privacy</a>${DEMO ? footerDemoHTML() : ""}</div>
   </div><div class="fbot"><span>${DEMO ? footerDemoNote() : `© ${new Date().getFullYear()} ${esc(b.name)} · Site by <a href="https://albright-innovations.com" target="_blank" rel="noopener">${esc(CONFIG.site.builtBy)}</a>`}</span>${DEMO ? footerResetHTML() : ""}</div></div></footer>
   <div class="mbar"><a class="btn btn-line-light" href="/trailers/">On the lot</a><a class="btn btn-gold" href="/?s=quote">Get a quote</a></div>
+  <a class="usa" href="/?s=why-timpte" aria-label="Made in the USA. Timpte trailers are built in Lincoln, Nebraska">
+    <svg class="flag" viewBox="0 0 60 40" aria-hidden="true"><defs><filter id="usaWave" x="-10%" y="-20%" width="120%" height="140%"><feTurbulence type="fractalNoise" baseFrequency="0.03 0.09" numOctaves="2" seed="3" result="t"><animate attributeName="baseFrequency" dur="6s" values="0.03 0.09;0.045 0.11;0.03 0.09" repeatCount="indefinite"/></feTurbulence><feDisplacementMap in="SourceGraphic" in2="t" scale="4" xChannelSelector="R" yChannelSelector="G"/></filter></defs>
+      <g filter="url(#usaWave)">${Array.from({ length: 13 }, (_, i) => `<rect x="0" y="${(i * 40 / 13).toFixed(2)}" width="60" height="${(40 / 13 + 0.2).toFixed(2)}" fill="${i % 2 ? "#ffffff" : "#b22234"}"/>`).join("")}<rect x="0" y="0" width="24" height="21.6" fill="#3c3b6e"/>${[...Array(4)].map((_, r) => [...Array(5)].map((_, c) => `<circle cx="${(3 + c * 4.5).toFixed(1)}" cy="${(3 + r * 5).toFixed(1)}" r="1" fill="#fff"/>`).join("")).join("")}</g></svg>
+    <span><b>Made in the USA</b><small>Built in Lincoln, Nebraska</small></span></a>
   <div class="cmp-tray" id="cmpTray" hidden></div>
   <div class="toasts" id="toasts" aria-live="polite"></div>
   <button class="tz-fab" id="tzFab" data-act="tessa-open" aria-expanded="false" aria-controls="tzPanel" aria-label="Ask ${A}, our trailer advisor"><span class="bubble"><small>Trailer advisor</small>Ask ${A}</span><span class="andy"><img class="f1" src="${img("andy-1")}" alt="" width="160" height="160"><img class="f2" src="${img("andy-2")}" alt="" width="160" height="160"><img class="f3" src="${img("andy-3")}" alt="" width="160" height="160"></span></button>
@@ -1762,5 +1765,5 @@ function buildChrome() {
     <div class="tz-foot" id="tzFoot" hidden></div>
   </aside>`;
 }
-document.addEventListener("DOMContentLoaded", () => { buildChrome(); setMbar(); render(); });
+document.addEventListener("DOMContentLoaded", () => { buildChrome(); setMbar(); render(); if (matchMedia("(prefers-reduced-motion: reduce)").matches) $$(".usa animate").forEach(a => a.remove()); });
 
